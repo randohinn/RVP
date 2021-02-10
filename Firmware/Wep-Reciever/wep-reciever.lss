@@ -1,0 +1,3171 @@
+
+wep-reciever.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00001074  00001108  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00001074  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          0000000c  00800100  00800100  00001108  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00001108  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00001138  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000c8  00000000  00000000  00001178  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00002cef  00000000  00000000  00001240  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00001232  00000000  00000000  00003f2f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000f80  00000000  00000000  00005161  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000570  00000000  00000000  000060e4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000086e  00000000  00000000  00006654  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00001e1f  00000000  00000000  00006ec2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000000d0  00000000  00000000  00008ce1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+       0:	0c 94 56 00 	jmp	0xac	; 0xac <__ctors_end>
+       4:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+       8:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+       c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      10:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      14:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      18:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      1c:	0c 94 3a 05 	jmp	0xa74	; 0xa74 <__vector_7>
+      20:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      24:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      28:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      2c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      30:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      34:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      38:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      3c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      40:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      44:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      48:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      4c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      50:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      54:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      58:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      5c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      60:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      64:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      68:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      6c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      70:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      74:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      78:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      7c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      80:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      84:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      88:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      8c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      90:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      94:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      98:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      9c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      a0:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      a4:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+      a8:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+
+000000ac <__ctors_end>:
+      ac:	11 24       	eor	r1, r1
+      ae:	1f be       	out	0x3f, r1	; 63
+      b0:	cf ef       	ldi	r28, 0xFF	; 255
+      b2:	da e0       	ldi	r29, 0x0A	; 10
+      b4:	de bf       	out	0x3e, r29	; 62
+      b6:	cd bf       	out	0x3d, r28	; 61
+
+000000b8 <__do_clear_bss>:
+      b8:	21 e0       	ldi	r18, 0x01	; 1
+      ba:	a0 e0       	ldi	r26, 0x00	; 0
+      bc:	b1 e0       	ldi	r27, 0x01	; 1
+      be:	01 c0       	rjmp	.+2      	; 0xc2 <.do_clear_bss_start>
+
+000000c0 <.do_clear_bss_loop>:
+      c0:	1d 92       	st	X+, r1
+
+000000c2 <.do_clear_bss_start>:
+      c2:	ac 30       	cpi	r26, 0x0C	; 12
+      c4:	b2 07       	cpc	r27, r18
+      c6:	e1 f7       	brne	.-8      	; 0xc0 <.do_clear_bss_loop>
+      c8:	0e 94 e5 06 	call	0xdca	; 0xdca <main>
+      cc:	0c 94 38 08 	jmp	0x1070	; 0x1070 <_exit>
+
+000000d0 <__bad_interrupt>:
+      d0:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000d4 <batmon_init>:
+#include <include/batmon.h>
+#include <include/i2c.h>
+#include <avr/io.h>
+#include <util/delay.h>
+
+uint8_t batmon_init() {
+      d4:	ef 92       	push	r14
+      d6:	ff 92       	push	r15
+      d8:	0f 93       	push	r16
+      da:	cf 93       	push	r28
+      dc:	df 93       	push	r29
+      de:	00 d0       	rcall	.+0      	; 0xe0 <batmon_init+0xc>
+      e0:	cd b7       	in	r28, 0x3d	; 61
+      e2:	de b7       	in	r29, 0x3e	; 62
+	DDRD &= ~(1 << DDD0);
+      e4:	50 98       	cbi	0x0a, 0	; 10
+	DDRD &= ~(1 << DDD1);
+      e6:	51 98       	cbi	0x0a, 1	; 10
+
+	i2c_init(20000L);
+      e8:	60 e2       	ldi	r22, 0x20	; 32
+      ea:	7e e4       	ldi	r23, 0x4E	; 78
+      ec:	80 e0       	ldi	r24, 0x00	; 0
+      ee:	90 e0       	ldi	r25, 0x00	; 0
+      f0:	0e 94 00 04 	call	0x800	; 0x800 <i2c_init>
+
+	uint8_t subCommandMSB = (BQ27441_CONTROL_DEVICE_TYPE >> 8);
+	uint8_t subCommandLSB = (BQ27441_CONTROL_DEVICE_TYPE & 0x00FF);
+	uint8_t command[2] = {subCommandLSB, subCommandMSB};
+	uint8_t data[2] = {0, 0};
+      f4:	19 82       	std	Y+1, r1	; 0x01
+      f6:	1a 82       	std	Y+2, r1	; 0x02
+	
+	uint8_t status = i2c_start(0xAA);
+      f8:	8a ea       	ldi	r24, 0xAA	; 170
+      fa:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+	if(!status) {
+      fe:	88 23       	and	r24, r24
+     100:	49 f0       	breq	.+18     	; 0x114 <batmon_init+0x40>
+		uint16_t devt = ((uint16_t)data[1] << 8) | data[0];
+		if(devt == 0x0421) {
+			return 1;
+		} 
+	} 
+	return 0;
+     102:	80 e0       	ldi	r24, 0x00	; 0
+}
+     104:	0f 90       	pop	r0
+     106:	0f 90       	pop	r0
+     108:	df 91       	pop	r29
+     10a:	cf 91       	pop	r28
+     10c:	0f 91       	pop	r16
+     10e:	ff 90       	pop	r15
+     110:	ef 90       	pop	r14
+     112:	08 95       	ret
+	uint8_t command[2] = {subCommandLSB, subCommandMSB};
+	uint8_t data[2] = {0, 0};
+	
+	uint8_t status = i2c_start(0xAA);
+	if(!status) {
+		i2c_write(0x00);
+     114:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+		i2c_write(command[0]);
+     118:	81 e0       	ldi	r24, 0x01	; 1
+     11a:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+		i2c_write(command[1]);
+     11e:	80 e0       	ldi	r24, 0x00	; 0
+     120:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+		i2c_stop();
+     124:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+
+		i2c_read_multiple(0xAA,0xAB,0x00,2,0,data);
+     128:	ce 01       	movw	r24, r28
+     12a:	01 96       	adiw	r24, 0x01	; 1
+     12c:	7c 01       	movw	r14, r24
+     12e:	00 e0       	ldi	r16, 0x00	; 0
+     130:	22 e0       	ldi	r18, 0x02	; 2
+     132:	40 e0       	ldi	r20, 0x00	; 0
+     134:	6b ea       	ldi	r22, 0xAB	; 171
+     136:	8a ea       	ldi	r24, 0xAA	; 170
+     138:	0e 94 70 04 	call	0x8e0	; 0x8e0 <i2c_read_multiple>
+
+		uint16_t devt = ((uint16_t)data[1] << 8) | data[0];
+		if(devt == 0x0421) {
+			return 1;
+     13c:	81 e0       	ldi	r24, 0x01	; 1
+     13e:	29 81       	ldd	r18, Y+1	; 0x01
+     140:	3a 81       	ldd	r19, Y+2	; 0x02
+     142:	21 32       	cpi	r18, 0x21	; 33
+     144:	34 40       	sbci	r19, 0x04	; 4
+     146:	e9 f6       	brne	.-70     	; 0x102 <batmon_init+0x2e>
+		} 
+	} 
+	return 0;
+}
+     148:	0f 90       	pop	r0
+     14a:	0f 90       	pop	r0
+     14c:	df 91       	pop	r29
+     14e:	cf 91       	pop	r28
+     150:	0f 91       	pop	r16
+     152:	ff 90       	pop	r15
+     154:	ef 90       	pop	r14
+     156:	08 95       	ret
+
+00000158 <batmon_config>:
+
+uint8_t batmon_config(uint16_t dcap) {
+     158:	df 92       	push	r13
+     15a:	ef 92       	push	r14
+     15c:	ff 92       	push	r15
+     15e:	0f 93       	push	r16
+     160:	1f 93       	push	r17
+     162:	cf 93       	push	r28
+     164:	df 93       	push	r29
+     166:	00 d0       	rcall	.+0      	; 0x168 <batmon_config+0x10>
+     168:	cd b7       	in	r28, 0x3d	; 61
+     16a:	de b7       	in	r29, 0x3e	; 62
+     16c:	18 2f       	mov	r17, r24
+     16e:	d9 2e       	mov	r13, r25
+	uint8_t status = i2c_start(0xAA);
+     170:	8a ea       	ldi	r24, 0xAA	; 170
+     172:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+	if(!status) {
+     176:	88 23       	and	r24, r24
+     178:	59 f0       	breq	.+22     	; 0x190 <batmon_config+0x38>
+
+            }
+		}
+	}
+	return 1;
+}
+     17a:	81 e0       	ldi	r24, 0x01	; 1
+     17c:	0f 90       	pop	r0
+     17e:	0f 90       	pop	r0
+     180:	df 91       	pop	r29
+     182:	cf 91       	pop	r28
+     184:	1f 91       	pop	r17
+     186:	0f 91       	pop	r16
+     188:	ff 90       	pop	r15
+     18a:	ef 90       	pop	r14
+     18c:	df 90       	pop	r13
+     18e:	08 95       	ret
+}
+
+uint8_t batmon_config(uint16_t dcap) {
+	uint8_t status = i2c_start(0xAA);
+	if(!status) {
+		i2c_write(0x00);
+     190:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+		i2c_write(BQ27441_UNSEAL_KEY& 0x00FF);
+     194:	80 e0       	ldi	r24, 0x00	; 0
+     196:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+		i2c_write(BQ27441_UNSEAL_KEY >> 0x00FF);
+     19a:	80 e0       	ldi	r24, 0x00	; 0
+     19c:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+		i2c_write(0x00);
+     1a0:	80 e0       	ldi	r24, 0x00	; 0
+     1a2:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+		i2c_write(BQ27441_UNSEAL_KEY& 0x00FF);
+     1a6:	80 e0       	ldi	r24, 0x00	; 0
+     1a8:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+		i2c_write(BQ27441_UNSEAL_KEY >> 0x00FF);
+     1ac:	80 e0       	ldi	r24, 0x00	; 0
+     1ae:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+		i2c_stop();
+     1b2:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+		uint8_t stat = i2c_start(0xAA);
+     1b6:	8a ea       	ldi	r24, 0xAA	; 170
+     1b8:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+		if(!stat) {
+     1bc:	81 11       	cpse	r24, r1
+     1be:	dd cf       	rjmp	.-70     	; 0x17a <batmon_config+0x22>
+			i2c_write(0x00);
+     1c0:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+			i2c_write(0x13);
+     1c4:	83 e1       	ldi	r24, 0x13	; 19
+     1c6:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+			i2c_write(0x00);
+     1ca:	80 e0       	ldi	r24, 0x00	; 0
+     1cc:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+            i2c_stop();
+     1d0:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+
+            uint8_t data[2] = {0, 0};
+     1d4:	19 82       	std	Y+1, r1	; 0x01
+     1d6:	1a 82       	std	Y+2, r1	; 0x02
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+     1d8:	2f ef       	ldi	r18, 0xFF	; 255
+     1da:	83 ed       	ldi	r24, 0xD3	; 211
+     1dc:	90 e3       	ldi	r25, 0x30	; 48
+     1de:	21 50       	subi	r18, 0x01	; 1
+     1e0:	80 40       	sbci	r24, 0x00	; 0
+     1e2:	90 40       	sbci	r25, 0x00	; 0
+     1e4:	e1 f7       	brne	.-8      	; 0x1de <batmon_config+0x86>
+     1e6:	00 c0       	rjmp	.+0      	; 0x1e8 <batmon_config+0x90>
+     1e8:	00 00       	nop
+            _delay_ms(1000);
+
+            i2c_read_multiple(0xAA,0xAB,0x06,2,0,data);
+     1ea:	ce 01       	movw	r24, r28
+     1ec:	01 96       	adiw	r24, 0x01	; 1
+     1ee:	7c 01       	movw	r14, r24
+     1f0:	00 e0       	ldi	r16, 0x00	; 0
+     1f2:	22 e0       	ldi	r18, 0x02	; 2
+     1f4:	46 e0       	ldi	r20, 0x06	; 6
+     1f6:	6b ea       	ldi	r22, 0xAB	; 171
+     1f8:	8a ea       	ldi	r24, 0xAA	; 170
+     1fa:	0e 94 70 04 	call	0x8e0	; 0x8e0 <i2c_read_multiple>
+            if(data[0] & (1 << 4)) {
+     1fe:	89 81       	ldd	r24, Y+1	; 0x01
+     200:	84 ff       	sbrs	r24, 4
+     202:	bb cf       	rjmp	.-138    	; 0x17a <batmon_config+0x22>
+                i2c_start(0xAA);
+     204:	8a ea       	ldi	r24, 0xAA	; 170
+     206:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+                i2c_write(0x61);
+     20a:	81 e6       	ldi	r24, 0x61	; 97
+     20c:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                i2c_write(0x00);
+     210:	80 e0       	ldi	r24, 0x00	; 0
+     212:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                i2c_stop();
+     216:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+
+                i2c_start(0xAA);
+     21a:	8a ea       	ldi	r24, 0xAA	; 170
+     21c:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+
+                i2c_write(0x3E);
+     220:	8e e3       	ldi	r24, 0x3E	; 62
+     222:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                i2c_write(0x52);
+     226:	82 e5       	ldi	r24, 0x52	; 82
+     228:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                                i2c_stop();
+     22c:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+
+                i2c_start(0xAA);
+     230:	8a ea       	ldi	r24, 0xAA	; 170
+     232:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+                i2c_write(0x3F);
+     236:	8f e3       	ldi	r24, 0x3F	; 63
+     238:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                i2c_write(0x00);
+     23c:	80 e0       	ldi	r24, 0x00	; 0
+     23e:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                                i2c_stop();
+     242:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+
+                uint8_t cs = i2c_read_single(0xAA,0xAB,0x60,0);
+     246:	20 e0       	ldi	r18, 0x00	; 0
+     248:	40 e6       	ldi	r20, 0x60	; 96
+     24a:	6b ea       	ldi	r22, 0xAB	; 171
+     24c:	8a ea       	ldi	r24, 0xAA	; 170
+     24e:	0e 94 e0 04 	call	0x9c0	; 0x9c0 <i2c_read_single>
+     252:	08 2f       	mov	r16, r24
+
+                if(data[1] == 0xAC) {
+     254:	8a 81       	ldd	r24, Y+2	; 0x02
+     256:	8c 3a       	cpi	r24, 0xAC	; 172
+     258:	09 f0       	breq	.+2      	; 0x25c <batmon_config+0x104>
+     25a:	8f cf       	rjmp	.-226    	; 0x17a <batmon_config+0x22>
+                    data[0] = i2c_read_single(0xAA,0xAB,0x4A,0);
+     25c:	20 e0       	ldi	r18, 0x00	; 0
+     25e:	4a e4       	ldi	r20, 0x4A	; 74
+     260:	6b ea       	ldi	r22, 0xAB	; 171
+     262:	8a ea       	ldi	r24, 0xAA	; 170
+     264:	0e 94 e0 04 	call	0x9c0	; 0x9c0 <i2c_read_single>
+     268:	89 83       	std	Y+1, r24	; 0x01
+                    data[1] = i2c_read_single(0xAA,0xAB,0x4B,0);  
+     26a:	20 e0       	ldi	r18, 0x00	; 0
+     26c:	4b e4       	ldi	r20, 0x4B	; 75
+     26e:	6b ea       	ldi	r22, 0xAB	; 171
+     270:	8a ea       	ldi	r24, 0xAA	; 170
+     272:	0e 94 e0 04 	call	0x9c0	; 0x9c0 <i2c_read_single>
+     276:	8a 83       	std	Y+2, r24	; 0x02
+                    i2c_start(0xAA);
+     278:	8a ea       	ldi	r24, 0xAA	; 170
+     27a:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+                    i2c_write(0x4a);
+     27e:	8a e4       	ldi	r24, 0x4A	; 74
+     280:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_write((dcap & 0xFF00)>>8);
+     284:	8d 2d       	mov	r24, r13
+     286:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_stop();
+     28a:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+                    i2c_start(0xAA);
+     28e:	8a ea       	ldi	r24, 0xAA	; 170
+     290:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+                    i2c_write(0x4b);
+     294:	8b e4       	ldi	r24, 0x4B	; 75
+     296:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_write(dcap & 0x00FF);
+     29a:	81 2f       	mov	r24, r17
+     29c:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_stop();
+     2a0:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+
+                    uint8_t temp = (255 - cs - data[0] - data[1]) % 256;
+                    uint8_t newcs = 255- ((temp+((dcap & 0xFF00)>>8)+(dcap & 0x00FF)) % 256);
+     2a4:	8f ef       	ldi	r24, 0xFF	; 255
+     2a6:	90 e0       	ldi	r25, 0x00	; 0
+     2a8:	80 1b       	sub	r24, r16
+     2aa:	91 09       	sbc	r25, r1
+     2ac:	29 81       	ldd	r18, Y+1	; 0x01
+     2ae:	82 1b       	sub	r24, r18
+     2b0:	91 09       	sbc	r25, r1
+     2b2:	2a 81       	ldd	r18, Y+2	; 0x02
+     2b4:	82 1b       	sub	r24, r18
+     2b6:	91 09       	sbc	r25, r1
+     2b8:	90 78       	andi	r25, 0x80	; 128
+     2ba:	97 fd       	sbrc	r25, 7
+     2bc:	2b c0       	rjmp	.+86     	; 0x314 <batmon_config+0x1bc>
+     2be:	1d 0d       	add	r17, r13
+     2c0:	18 0f       	add	r17, r24
+     2c2:	10 95       	com	r17
+                    i2c_start(0xAA);
+     2c4:	8a ea       	ldi	r24, 0xAA	; 170
+     2c6:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+                    i2c_write(0x60);
+     2ca:	80 e6       	ldi	r24, 0x60	; 96
+     2cc:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_write(newcs);
+     2d0:	81 2f       	mov	r24, r17
+     2d2:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_stop();
+     2d6:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+                    i2c_start(0xAA);
+     2da:	8a ea       	ldi	r24, 0xAA	; 170
+     2dc:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+                    i2c_write(0x00);
+     2e0:	80 e0       	ldi	r24, 0x00	; 0
+     2e2:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_write(0x42);
+     2e6:	82 e4       	ldi	r24, 0x42	; 66
+     2e8:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_write(0x00);
+     2ec:	80 e0       	ldi	r24, 0x00	; 0
+     2ee:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_stop();
+     2f2:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+                    i2c_start(0xAA);
+     2f6:	8a ea       	ldi	r24, 0xAA	; 170
+     2f8:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+                    i2c_write(0x00);
+     2fc:	80 e0       	ldi	r24, 0x00	; 0
+     2fe:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_write(0x20);
+     302:	80 e2       	ldi	r24, 0x20	; 32
+     304:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_write(0x00);
+     308:	80 e0       	ldi	r24, 0x00	; 0
+     30a:	0e 94 4b 04 	call	0x896	; 0x896 <i2c_write>
+                    i2c_stop();
+     30e:	0e 94 19 04 	call	0x832	; 0x832 <i2c_stop>
+     312:	33 cf       	rjmp	.-410    	; 0x17a <batmon_config+0x22>
+                    i2c_write(0x4b);
+                    i2c_write(dcap & 0x00FF);
+                    i2c_stop();
+
+                    uint8_t temp = (255 - cs - data[0] - data[1]) % 256;
+                    uint8_t newcs = 255- ((temp+((dcap & 0xFF00)>>8)+(dcap & 0x00FF)) % 256);
+     314:	01 97       	sbiw	r24, 0x01	; 1
+     316:	9f 6f       	ori	r25, 0xFF	; 255
+     318:	01 96       	adiw	r24, 0x01	; 1
+     31a:	d1 cf       	rjmp	.-94     	; 0x2be <batmon_config+0x166>
+
+0000031c <batmon_soc>:
+	}
+	return 1;
+}
+
+uint8_t batmon_soc() {
+    return i2c_read_single(0xAA,0xAB,0x1C,0);
+     31c:	20 e0       	ldi	r18, 0x00	; 0
+     31e:	4c e1       	ldi	r20, 0x1C	; 28
+     320:	6b ea       	ldi	r22, 0xAB	; 171
+     322:	8a ea       	ldi	r24, 0xAA	; 170
+     324:	0c 94 e0 04 	jmp	0x9c0	; 0x9c0 <i2c_read_single>
+
+00000328 <EINK_toggle_reset>:
+#include <math.h>
+#include <avr/pgmspace.h>
+#include <stdint.h>
+#include <stdlib.h>
+void EINK_toggle_reset() {
+	PORTD &= ~(1 << PD5);
+     328:	5d 98       	cbi	0x0b, 5	; 11
+     32a:	8f e3       	ldi	r24, 0x3F	; 63
+     32c:	9c e9       	ldi	r25, 0x9C	; 156
+     32e:	01 97       	sbiw	r24, 0x01	; 1
+     330:	f1 f7       	brne	.-4      	; 0x32e <EINK_toggle_reset+0x6>
+     332:	00 c0       	rjmp	.+0      	; 0x334 <EINK_toggle_reset+0xc>
+     334:	00 00       	nop
+	_delay_ms(10);
+	PORTD |= (1 << PD5);
+     336:	5d 9a       	sbi	0x0b, 5	; 11
+     338:	08 95       	ret
+
+0000033a <EINK_set_data>:
+}
+
+void EINK_set_data() {
+	PORTD |= (1 << PD4);
+     33a:	5c 9a       	sbi	0x0b, 4	; 11
+     33c:	08 95       	ret
+
+0000033e <EINK_set_command>:
+}
+
+void EINK_set_command() {
+	PORTD &= ~(1 << PD4);
+     33e:	5c 98       	cbi	0x0b, 4	; 11
+     340:	08 95       	ret
+
+00000342 <EINK_send_command>:
+}
+
+void EINK_send_command(unsigned char command) {
+     342:	cf 93       	push	r28
+     344:	c8 2f       	mov	r28, r24
+void EINK_set_data() {
+	PORTD |= (1 << PD4);
+}
+
+void EINK_set_command() {
+	PORTD &= ~(1 << PD4);
+     346:	5c 98       	cbi	0x0b, 4	; 11
+}
+
+void EINK_send_command(unsigned char command) {
+	EINK_set_command();
+	SPI_unset_EINK_cs();
+     348:	0e 94 dc 06 	call	0xdb8	; 0xdb8 <SPI_unset_EINK_cs>
+	SPI_send(command);
+     34c:	8c 2f       	mov	r24, r28
+     34e:	0e 94 e0 06 	call	0xdc0	; 0xdc0 <SPI_send>
+	SPI_set_EINK_cs();
+}
+     352:	cf 91       	pop	r28
+
+void EINK_send_command(unsigned char command) {
+	EINK_set_command();
+	SPI_unset_EINK_cs();
+	SPI_send(command);
+	SPI_set_EINK_cs();
+     354:	0c 94 de 06 	jmp	0xdbc	; 0xdbc <SPI_set_EINK_cs>
+
+00000358 <EINK_send_data>:
+}
+
+void EINK_send_data(unsigned char data) {
+     358:	cf 93       	push	r28
+     35a:	c8 2f       	mov	r28, r24
+	_delay_ms(10);
+	PORTD |= (1 << PD5);
+}
+
+void EINK_set_data() {
+	PORTD |= (1 << PD4);
+     35c:	5c 9a       	sbi	0x0b, 4	; 11
+	SPI_set_EINK_cs();
+}
+
+void EINK_send_data(unsigned char data) {
+	EINK_set_data();
+	SPI_unset_EINK_cs();
+     35e:	0e 94 dc 06 	call	0xdb8	; 0xdb8 <SPI_unset_EINK_cs>
+	SPI_send(data);
+     362:	8c 2f       	mov	r24, r28
+     364:	0e 94 e0 06 	call	0xdc0	; 0xdc0 <SPI_send>
+	SPI_set_EINK_cs();
+}
+     368:	cf 91       	pop	r28
+
+void EINK_send_data(unsigned char data) {
+	EINK_set_data();
+	SPI_unset_EINK_cs();
+	SPI_send(data);
+	SPI_set_EINK_cs();
+     36a:	0c 94 de 06 	jmp	0xdbc	; 0xdbc <SPI_set_EINK_cs>
+
+0000036e <EINK_clear_frame>:
+}
+
+void EINK_clear_frame() {
+     36e:	cf 93       	push	r28
+     370:	df 93       	push	r29
+	EINK_send_command(DATA_START_TRANSMISSION_1);
+     372:	80 e1       	ldi	r24, 0x10	; 16
+     374:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+     378:	8f e3       	ldi	r24, 0x3F	; 63
+     37a:	9f e1       	ldi	r25, 0x1F	; 31
+     37c:	01 97       	sbiw	r24, 0x01	; 1
+     37e:	f1 f7       	brne	.-4      	; 0x37c <EINK_clear_frame+0xe>
+     380:	00 c0       	rjmp	.+0      	; 0x382 <EINK_clear_frame+0x14>
+     382:	00 00       	nop
+     384:	c8 ec       	ldi	r28, 0xC8	; 200
+     386:	d0 e0       	ldi	r29, 0x00	; 0
+		        _delay_ms(2);
+
+	for(int i = 0; i < WIDTH * HEIGHT / 8; i++) {
+        EINK_send_data(0xFF);  
+     388:	8f ef       	ldi	r24, 0xFF	; 255
+     38a:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+     38e:	21 97       	sbiw	r28, 0x01	; 1
+
+void EINK_clear_frame() {
+	EINK_send_command(DATA_START_TRANSMISSION_1);
+		        _delay_ms(2);
+
+	for(int i = 0; i < WIDTH * HEIGHT / 8; i++) {
+     390:	d9 f7       	brne	.-10     	; 0x388 <EINK_clear_frame+0x1a>
+     392:	8f e3       	ldi	r24, 0x3F	; 63
+     394:	9f e1       	ldi	r25, 0x1F	; 31
+     396:	01 97       	sbiw	r24, 0x01	; 1
+     398:	f1 f7       	brne	.-4      	; 0x396 <EINK_clear_frame+0x28>
+     39a:	00 c0       	rjmp	.+0      	; 0x39c <EINK_clear_frame+0x2e>
+     39c:	00 00       	nop
+        EINK_send_data(0xFF);  
+    } 
+	        _delay_ms(2);
+
+	EINK_send_command(DATA_START_TRANSMISSION_2);
+     39e:	83 e1       	ldi	r24, 0x13	; 19
+     3a0:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+     3a4:	8f e3       	ldi	r24, 0x3F	; 63
+     3a6:	9f e1       	ldi	r25, 0x1F	; 31
+     3a8:	01 97       	sbiw	r24, 0x01	; 1
+     3aa:	f1 f7       	brne	.-4      	; 0x3a8 <EINK_clear_frame+0x3a>
+     3ac:	00 c0       	rjmp	.+0      	; 0x3ae <EINK_clear_frame+0x40>
+     3ae:	00 00       	nop
+     3b0:	c8 ec       	ldi	r28, 0xC8	; 200
+     3b2:	d0 e0       	ldi	r29, 0x00	; 0
+		        _delay_ms(2);
+
+	for(int i = 0; i < WIDTH * HEIGHT / 8; i++) {
+        EINK_send_data(0xFF);  
+     3b4:	8f ef       	ldi	r24, 0xFF	; 255
+     3b6:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+     3ba:	21 97       	sbiw	r28, 0x01	; 1
+	        _delay_ms(2);
+
+	EINK_send_command(DATA_START_TRANSMISSION_2);
+		        _delay_ms(2);
+
+	for(int i = 0; i < WIDTH * HEIGHT / 8; i++) {
+     3bc:	d9 f7       	brne	.-10     	; 0x3b4 <EINK_clear_frame+0x46>
+     3be:	8f e3       	ldi	r24, 0x3F	; 63
+     3c0:	9f e1       	ldi	r25, 0x1F	; 31
+     3c2:	01 97       	sbiw	r24, 0x01	; 1
+     3c4:	f1 f7       	brne	.-4      	; 0x3c2 <EINK_clear_frame+0x54>
+     3c6:	00 c0       	rjmp	.+0      	; 0x3c8 <EINK_clear_frame+0x5a>
+     3c8:	00 00       	nop
+        EINK_send_data(0xFF);  
+    }  
+		        _delay_ms(2);
+
+}
+     3ca:	df 91       	pop	r29
+     3cc:	cf 91       	pop	r28
+     3ce:	08 95       	ret
+
+000003d0 <EINK_init>:
+
+void EINK_init() {
+	
+	epdwidth = WIDTH;
+     3d0:	88 e2       	ldi	r24, 0x28	; 40
+     3d2:	80 93 01 01 	sts	0x0101, r24	; 0x800101 <epdwidth>
+	
+	//RESET PIN
+	DDRD |= (1 << DDD5);
+     3d6:	55 9a       	sbi	0x0a, 5	; 10
+	PORTD |= (1 << PD5);
+     3d8:	5d 9a       	sbi	0x0b, 5	; 11
+	
+	
+	// Data/Command pin
+	DDRD |= (1 << DDD4);
+     3da:	54 9a       	sbi	0x0a, 4	; 10
+	
+	EINK_send_command(BOOSTER_SOFT_START);
+     3dc:	86 e0       	ldi	r24, 0x06	; 6
+     3de:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+	EINK_send_data(0x17);
+     3e2:	87 e1       	ldi	r24, 0x17	; 23
+     3e4:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(0x17);
+     3e8:	87 e1       	ldi	r24, 0x17	; 23
+     3ea:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(0x17);
+     3ee:	87 e1       	ldi	r24, 0x17	; 23
+     3f0:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_command(POWER_ON);
+     3f4:	84 e0       	ldi	r24, 0x04	; 4
+     3f6:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+     3fa:	2f ef       	ldi	r18, 0xFF	; 255
+     3fc:	87 ea       	ldi	r24, 0xA7	; 167
+     3fe:	91 e6       	ldi	r25, 0x61	; 97
+     400:	21 50       	subi	r18, 0x01	; 1
+     402:	80 40       	sbci	r24, 0x00	; 0
+     404:	90 40       	sbci	r25, 0x00	; 0
+     406:	e1 f7       	brne	.-8      	; 0x400 <__EEPROM_REGION_LENGTH__>
+     408:	00 c0       	rjmp	.+0      	; 0x40a <__EEPROM_REGION_LENGTH__+0xa>
+     40a:	00 00       	nop
+	_delay_ms(2000);
+	EINK_send_command(PANEL_SETTING);
+     40c:	80 e0       	ldi	r24, 0x00	; 0
+     40e:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+	EINK_send_data(0x8F);
+     412:	8f e8       	ldi	r24, 0x8F	; 143
+     414:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(0x8F);
+     418:	8f e8       	ldi	r24, 0x8F	; 143
+     41a:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_command(VCOM_AND_DATA_INTERVAL_SETTING);
+     41e:	80 e5       	ldi	r24, 0x50	; 80
+     420:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+	EINK_send_data(0x37);
+     424:	87 e3       	ldi	r24, 0x37	; 55
+     426:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_command(RESOLUTION_SETTING);
+     42a:	81 e6       	ldi	r24, 0x61	; 97
+     42c:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+	EINK_send_data(0x68);
+     430:	88 e6       	ldi	r24, 0x68	; 104
+     432:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(0x00);
+     436:	80 e0       	ldi	r24, 0x00	; 0
+     438:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(0xD4);
+     43c:	84 ed       	ldi	r24, 0xD4	; 212
+     43e:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+     442:	2f ef       	ldi	r18, 0xFF	; 255
+     444:	87 ea       	ldi	r24, 0xA7	; 167
+     446:	91 e6       	ldi	r25, 0x61	; 97
+     448:	21 50       	subi	r18, 0x01	; 1
+     44a:	80 40       	sbci	r24, 0x00	; 0
+     44c:	90 40       	sbci	r25, 0x00	; 0
+     44e:	e1 f7       	brne	.-8      	; 0x448 <__EEPROM_REGION_LENGTH__+0x48>
+     450:	00 c0       	rjmp	.+0      	; 0x452 <__EEPROM_REGION_LENGTH__+0x52>
+     452:	00 00       	nop
+     454:	08 95       	ret
+
+00000456 <EINK_display_frame>:
+	_delay_ms(2000);
+	//EINK_send_command(DISPLAY_REFRESH);
+	//_delay_ms(2000);
+}
+
+void EINK_display_frame(unsigned char* frame_buffer_black, unsigned char* frame_buffer_red) {
+     456:	ef 92       	push	r14
+     458:	ff 92       	push	r15
+     45a:	0f 93       	push	r16
+     45c:	1f 93       	push	r17
+     45e:	cf 93       	push	r28
+     460:	df 93       	push	r29
+     462:	7c 01       	movw	r14, r24
+     464:	8b 01       	movw	r16, r22
+	if (frame_buffer_black != NULL) {
+     466:	89 2b       	or	r24, r25
+     468:	f1 f0       	breq	.+60     	; 0x4a6 <EINK_display_frame+0x50>
+        EINK_send_command(DATA_START_TRANSMISSION_1);
+     46a:	80 e1       	ldi	r24, 0x10	; 16
+     46c:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+     470:	ef e3       	ldi	r30, 0x3F	; 63
+     472:	ff e1       	ldi	r31, 0x1F	; 31
+     474:	31 97       	sbiw	r30, 0x01	; 1
+     476:	f1 f7       	brne	.-4      	; 0x474 <EINK_display_frame+0x1e>
+     478:	00 c0       	rjmp	.+0      	; 0x47a <EINK_display_frame+0x24>
+     47a:	00 00       	nop
+		        _delay_ms(2);
+
+        for (int i = 0; i <  epdwidth*HEIGHT/8; i++) {
+     47c:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <epdwidth>
+     480:	88 23       	and	r24, r24
+     482:	89 f0       	breq	.+34     	; 0x4a6 <EINK_display_frame+0x50>
+     484:	c0 e0       	ldi	r28, 0x00	; 0
+     486:	d0 e0       	ldi	r29, 0x00	; 0
+            EINK_send_data(frame_buffer_black[i]);
+     488:	f7 01       	movw	r30, r14
+     48a:	81 91       	ld	r24, Z+
+     48c:	7f 01       	movw	r14, r30
+     48e:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+void EINK_display_frame(unsigned char* frame_buffer_black, unsigned char* frame_buffer_red) {
+	if (frame_buffer_black != NULL) {
+        EINK_send_command(DATA_START_TRANSMISSION_1);
+		        _delay_ms(2);
+
+        for (int i = 0; i <  epdwidth*HEIGHT/8; i++) {
+     492:	21 96       	adiw	r28, 0x01	; 1
+     494:	20 91 01 01 	lds	r18, 0x0101	; 0x800101 <epdwidth>
+     498:	f5 e0       	ldi	r31, 0x05	; 5
+     49a:	2f 9f       	mul	r18, r31
+     49c:	90 01       	movw	r18, r0
+     49e:	11 24       	eor	r1, r1
+     4a0:	c2 17       	cp	r28, r18
+     4a2:	d3 07       	cpc	r29, r19
+     4a4:	8c f3       	brlt	.-30     	; 0x488 <EINK_display_frame+0x32>
+     4a6:	8f e3       	ldi	r24, 0x3F	; 63
+     4a8:	9f e1       	ldi	r25, 0x1F	; 31
+     4aa:	01 97       	sbiw	r24, 0x01	; 1
+     4ac:	f1 f7       	brne	.-4      	; 0x4aa <EINK_display_frame+0x54>
+     4ae:	00 c0       	rjmp	.+0      	; 0x4b0 <EINK_display_frame+0x5a>
+     4b0:	00 00       	nop
+            EINK_send_data(frame_buffer_black[i]);
+        }
+    }
+	        _delay_ms(2);
+
+    if (frame_buffer_red != NULL) {
+     4b2:	01 15       	cp	r16, r1
+     4b4:	11 05       	cpc	r17, r1
+     4b6:	21 f1       	breq	.+72     	; 0x500 <EINK_display_frame+0xaa>
+        EINK_send_command(DATA_START_TRANSMISSION_2);
+     4b8:	83 e1       	ldi	r24, 0x13	; 19
+     4ba:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+     4be:	8f e3       	ldi	r24, 0x3F	; 63
+     4c0:	9f e1       	ldi	r25, 0x1F	; 31
+     4c2:	01 97       	sbiw	r24, 0x01	; 1
+     4c4:	f1 f7       	brne	.-4      	; 0x4c2 <EINK_display_frame+0x6c>
+     4c6:	00 c0       	rjmp	.+0      	; 0x4c8 <EINK_display_frame+0x72>
+     4c8:	00 00       	nop
+		        _delay_ms(2);
+
+        for (int i = 0; i < epdwidth*HEIGHT/8; i++) {
+     4ca:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <epdwidth>
+     4ce:	88 23       	and	r24, r24
+     4d0:	89 f0       	breq	.+34     	; 0x4f4 <EINK_display_frame+0x9e>
+     4d2:	c0 e0       	ldi	r28, 0x00	; 0
+     4d4:	d0 e0       	ldi	r29, 0x00	; 0
+            EINK_send_data(frame_buffer_red[i]);
+     4d6:	f8 01       	movw	r30, r16
+     4d8:	81 91       	ld	r24, Z+
+     4da:	8f 01       	movw	r16, r30
+     4dc:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+
+    if (frame_buffer_red != NULL) {
+        EINK_send_command(DATA_START_TRANSMISSION_2);
+		        _delay_ms(2);
+
+        for (int i = 0; i < epdwidth*HEIGHT/8; i++) {
+     4e0:	21 96       	adiw	r28, 0x01	; 1
+     4e2:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <epdwidth>
+     4e6:	f5 e0       	ldi	r31, 0x05	; 5
+     4e8:	8f 9f       	mul	r24, r31
+     4ea:	c0 01       	movw	r24, r0
+     4ec:	11 24       	eor	r1, r1
+     4ee:	c8 17       	cp	r28, r24
+     4f0:	d9 07       	cpc	r29, r25
+     4f2:	8c f3       	brlt	.-30     	; 0x4d6 <EINK_display_frame+0x80>
+     4f4:	ef e3       	ldi	r30, 0x3F	; 63
+     4f6:	ff e1       	ldi	r31, 0x1F	; 31
+     4f8:	31 97       	sbiw	r30, 0x01	; 1
+     4fa:	f1 f7       	brne	.-4      	; 0x4f8 <EINK_display_frame+0xa2>
+     4fc:	00 c0       	rjmp	.+0      	; 0x4fe <EINK_display_frame+0xa8>
+     4fe:	00 00       	nop
+            EINK_send_data(frame_buffer_red[i]);
+        }
+		        _delay_ms(2);
+
+    }
+}
+     500:	df 91       	pop	r29
+     502:	cf 91       	pop	r28
+     504:	1f 91       	pop	r17
+     506:	0f 91       	pop	r16
+     508:	ff 90       	pop	r15
+     50a:	ef 90       	pop	r14
+     50c:	08 95       	ret
+
+0000050e <EINK_draw_absolute_pixel>:
+
+void EINK_draw_absolute_pixel(unsigned char* image, int x, int y, int colored) {
+	if (x < 0 || x >= epdwidth || y < 0 || y >= HEIGHT) { // Partialite jaoks vaja partiali suurust! Muidu overflow
+     50e:	77 fd       	sbrc	r23, 7
+     510:	29 c0       	rjmp	.+82     	; 0x564 <EINK_draw_absolute_pixel+0x56>
+     512:	e0 91 01 01 	lds	r30, 0x0101	; 0x800101 <epdwidth>
+     516:	f0 e0       	ldi	r31, 0x00	; 0
+     518:	6e 17       	cp	r22, r30
+     51a:	7f 07       	cpc	r23, r31
+     51c:	1c f5       	brge	.+70     	; 0x564 <EINK_draw_absolute_pixel+0x56>
+     51e:	48 32       	cpi	r20, 0x28	; 40
+     520:	51 05       	cpc	r21, r1
+     522:	00 f5       	brcc	.+64     	; 0x564 <EINK_draw_absolute_pixel+0x56>
+            image[(x + y * epdwidth) / 8] |= 0x80 >> (x % 8);
+        } else {
+            image[(x + y * epdwidth) / 8 ] &= ~(0x80 >> (x % 8));
+        }
+    } else {
+        if (colored) {
+     524:	23 2b       	or	r18, r19
+     526:	f9 f4       	brne	.+62     	; 0x566 <EINK_draw_absolute_pixel+0x58>
+            image[(x + y * epdwidth) / 8]  &= ~(0x80 >> (x % 8));
+        } else {
+            image[(x + y * epdwidth) / 8 ] |= 0x80 >> (x % 8);
+     528:	e4 9f       	mul	r30, r20
+     52a:	90 01       	movw	r18, r0
+     52c:	e5 9f       	mul	r30, r21
+     52e:	30 0d       	add	r19, r0
+     530:	f4 9f       	mul	r31, r20
+     532:	30 0d       	add	r19, r0
+     534:	11 24       	eor	r1, r1
+     536:	f9 01       	movw	r30, r18
+     538:	e6 0f       	add	r30, r22
+     53a:	f7 1f       	adc	r31, r23
+     53c:	f5 95       	asr	r31
+     53e:	e7 95       	ror	r30
+     540:	f5 95       	asr	r31
+     542:	e7 95       	ror	r30
+     544:	f5 95       	asr	r31
+     546:	e7 95       	ror	r30
+     548:	e8 0f       	add	r30, r24
+     54a:	f9 1f       	adc	r31, r25
+     54c:	67 70       	andi	r22, 0x07	; 7
+     54e:	77 27       	eor	r23, r23
+     550:	80 e8       	ldi	r24, 0x80	; 128
+     552:	90 e0       	ldi	r25, 0x00	; 0
+     554:	02 c0       	rjmp	.+4      	; 0x55a <EINK_draw_absolute_pixel+0x4c>
+     556:	95 95       	asr	r25
+     558:	87 95       	ror	r24
+     55a:	6a 95       	dec	r22
+     55c:	e2 f7       	brpl	.-8      	; 0x556 <EINK_draw_absolute_pixel+0x48>
+     55e:	90 81       	ld	r25, Z
+     560:	89 2b       	or	r24, r25
+     562:	80 83       	st	Z, r24
+     564:	08 95       	ret
+        } else {
+            image[(x + y * epdwidth) / 8 ] &= ~(0x80 >> (x % 8));
+        }
+    } else {
+        if (colored) {
+            image[(x + y * epdwidth) / 8]  &= ~(0x80 >> (x % 8));
+     566:	e4 9f       	mul	r30, r20
+     568:	90 01       	movw	r18, r0
+     56a:	e5 9f       	mul	r30, r21
+     56c:	30 0d       	add	r19, r0
+     56e:	f4 9f       	mul	r31, r20
+     570:	30 0d       	add	r19, r0
+     572:	11 24       	eor	r1, r1
+     574:	f9 01       	movw	r30, r18
+     576:	e6 0f       	add	r30, r22
+     578:	f7 1f       	adc	r31, r23
+     57a:	f5 95       	asr	r31
+     57c:	e7 95       	ror	r30
+     57e:	f5 95       	asr	r31
+     580:	e7 95       	ror	r30
+     582:	f5 95       	asr	r31
+     584:	e7 95       	ror	r30
+     586:	e8 0f       	add	r30, r24
+     588:	f9 1f       	adc	r31, r25
+     58a:	67 70       	andi	r22, 0x07	; 7
+     58c:	77 27       	eor	r23, r23
+     58e:	80 e8       	ldi	r24, 0x80	; 128
+     590:	90 e0       	ldi	r25, 0x00	; 0
+     592:	02 c0       	rjmp	.+4      	; 0x598 <EINK_draw_absolute_pixel+0x8a>
+     594:	95 95       	asr	r25
+     596:	87 95       	ror	r24
+     598:	6a 95       	dec	r22
+     59a:	e2 f7       	brpl	.-8      	; 0x594 <EINK_draw_absolute_pixel+0x86>
+     59c:	80 95       	com	r24
+     59e:	90 81       	ld	r25, Z
+     5a0:	89 23       	and	r24, r25
+     5a2:	80 83       	st	Z, r24
+     5a4:	08 95       	ret
+
+000005a6 <EINK_set_partial_black>:
+            image[(x + y * epdwidth) / 8 ] |= 0x80 >> (x % 8);
+        }
+    }
+}
+
+void EINK_set_partial_black(unsigned char* buffer, int x, int y, int w, int l) {
+     5a6:	9f 92       	push	r9
+     5a8:	af 92       	push	r10
+     5aa:	bf 92       	push	r11
+     5ac:	cf 92       	push	r12
+     5ae:	df 92       	push	r13
+     5b0:	ef 92       	push	r14
+     5b2:	ff 92       	push	r15
+     5b4:	0f 93       	push	r16
+     5b6:	1f 93       	push	r17
+     5b8:	cf 93       	push	r28
+     5ba:	df 93       	push	r29
+     5bc:	ec 01       	movw	r28, r24
+     5be:	f6 2e       	mov	r15, r22
+     5c0:	5a 01       	movw	r10, r20
+     5c2:	e2 2e       	mov	r14, r18
+     5c4:	93 2e       	mov	r9, r19
+     5c6:	68 01       	movw	r12, r16
+	EINK_send_command(PARTIAL_IN);
+     5c8:	81 e9       	ldi	r24, 0x91	; 145
+     5ca:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+	EINK_send_command(PARTIAL_WINDOW);
+     5ce:	80 e9       	ldi	r24, 0x90	; 144
+     5d0:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+
+	EINK_send_data( x & 0xf8); // X on 8 kordne
+     5d4:	1f 2d       	mov	r17, r15
+     5d6:	18 7f       	andi	r17, 0xF8	; 248
+     5d8:	81 2f       	mov	r24, r17
+     5da:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(((x&0xf8) + w - 1) | 0x07);
+     5de:	8f ef       	ldi	r24, 0xFF	; 255
+     5e0:	8e 0d       	add	r24, r14
+     5e2:	81 0f       	add	r24, r17
+     5e4:	87 60       	ori	r24, 0x07	; 7
+     5e6:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+
+	EINK_send_data(y >> 8);
+     5ea:	8b 2d       	mov	r24, r11
+     5ec:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(y & 0xff);
+     5f0:	8a 2d       	mov	r24, r10
+     5f2:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data((y + l -1) >> 8);
+     5f6:	c5 01       	movw	r24, r10
+     5f8:	8c 0d       	add	r24, r12
+     5fa:	9d 1d       	adc	r25, r13
+     5fc:	01 97       	sbiw	r24, 0x01	; 1
+     5fe:	89 2f       	mov	r24, r25
+     600:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data((y + l - 1) & 0xff);
+     604:	8f ef       	ldi	r24, 0xFF	; 255
+     606:	8c 0d       	add	r24, r12
+     608:	8a 0d       	add	r24, r10
+     60a:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(0x01);
+     60e:	81 e0       	ldi	r24, 0x01	; 1
+     610:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+     614:	8f e3       	ldi	r24, 0x3F	; 63
+     616:	9f e1       	ldi	r25, 0x1F	; 31
+     618:	01 97       	sbiw	r24, 0x01	; 1
+     61a:	f1 f7       	brne	.-4      	; 0x618 <EINK_set_partial_black+0x72>
+     61c:	00 c0       	rjmp	.+0      	; 0x61e <EINK_set_partial_black+0x78>
+     61e:	00 00       	nop
+	_delay_ms(2);
+	EINK_send_command(DATA_START_TRANSMISSION_1);
+     620:	80 e1       	ldi	r24, 0x10	; 16
+     622:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+	if (buffer != NULL) {
+        for(int i = 0; i < w  / 8 * l; i++) {
+     626:	8e 2d       	mov	r24, r14
+     628:	99 2d       	mov	r25, r9
+	EINK_send_data((y + l -1) >> 8);
+	EINK_send_data((y + l - 1) & 0xff);
+	EINK_send_data(0x01);
+	_delay_ms(2);
+	EINK_send_command(DATA_START_TRANSMISSION_1);
+	if (buffer != NULL) {
+     62a:	20 97       	sbiw	r28, 0x00	; 0
+     62c:	91 f1       	breq	.+100    	; 0x692 <EINK_set_partial_black+0xec>
+        for(int i = 0; i < w  / 8 * l; i++) {
+     62e:	97 fd       	sbrc	r25, 7
+     630:	2e c0       	rjmp	.+92     	; 0x68e <EINK_set_partial_black+0xe8>
+     632:	9c 01       	movw	r18, r24
+     634:	35 95       	asr	r19
+     636:	27 95       	ror	r18
+     638:	35 95       	asr	r19
+     63a:	27 95       	ror	r18
+     63c:	35 95       	asr	r19
+     63e:	27 95       	ror	r18
+     640:	2c 9d       	mul	r18, r12
+     642:	c0 01       	movw	r24, r0
+     644:	2d 9d       	mul	r18, r13
+     646:	90 0d       	add	r25, r0
+     648:	3c 9d       	mul	r19, r12
+     64a:	90 0d       	add	r25, r0
+     64c:	11 24       	eor	r1, r1
+     64e:	18 16       	cp	r1, r24
+     650:	19 06       	cpc	r1, r25
+     652:	4c f4       	brge	.+18     	; 0x666 <EINK_set_partial_black+0xc0>
+     654:	8e 01       	movw	r16, r28
+     656:	08 0f       	add	r16, r24
+     658:	19 1f       	adc	r17, r25
+            EINK_send_data(buffer[i]);  
+     65a:	89 91       	ld	r24, Y+
+     65c:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data((y + l - 1) & 0xff);
+	EINK_send_data(0x01);
+	_delay_ms(2);
+	EINK_send_command(DATA_START_TRANSMISSION_1);
+	if (buffer != NULL) {
+        for(int i = 0; i < w  / 8 * l; i++) {
+     660:	0c 17       	cp	r16, r28
+     662:	1d 07       	cpc	r17, r29
+     664:	d1 f7       	brne	.-12     	; 0x65a <EINK_set_partial_black+0xb4>
+     666:	8f e3       	ldi	r24, 0x3F	; 63
+     668:	9f e1       	ldi	r25, 0x1F	; 31
+     66a:	01 97       	sbiw	r24, 0x01	; 1
+     66c:	f1 f7       	brne	.-4      	; 0x66a <EINK_set_partial_black+0xc4>
+     66e:	00 c0       	rjmp	.+0      	; 0x670 <EINK_set_partial_black+0xca>
+     670:	00 00       	nop
+        for(int i = 0; i < w  / 8 * l; i++) {
+            EINK_send_data(0x00);  
+        }  
+    }
+    _delay_ms(2);
+	EINK_send_command(PARTIAL_OUT);  
+     672:	82 e9       	ldi	r24, 0x92	; 146
+}
+     674:	df 91       	pop	r29
+     676:	cf 91       	pop	r28
+     678:	1f 91       	pop	r17
+     67a:	0f 91       	pop	r16
+     67c:	ff 90       	pop	r15
+     67e:	ef 90       	pop	r14
+     680:	df 90       	pop	r13
+     682:	cf 90       	pop	r12
+     684:	bf 90       	pop	r11
+     686:	af 90       	pop	r10
+     688:	9f 90       	pop	r9
+        for(int i = 0; i < w  / 8 * l; i++) {
+            EINK_send_data(0x00);  
+        }  
+    }
+    _delay_ms(2);
+	EINK_send_command(PARTIAL_OUT);  
+     68a:	0c 94 a1 01 	jmp	0x342	; 0x342 <EINK_send_command>
+	EINK_send_data((y + l - 1) & 0xff);
+	EINK_send_data(0x01);
+	_delay_ms(2);
+	EINK_send_command(DATA_START_TRANSMISSION_1);
+	if (buffer != NULL) {
+        for(int i = 0; i < w  / 8 * l; i++) {
+     68e:	07 96       	adiw	r24, 0x07	; 7
+     690:	d0 cf       	rjmp	.-96     	; 0x632 <EINK_set_partial_black+0x8c>
+            EINK_send_data(buffer[i]);  
+        }  
+    } else {
+        for(int i = 0; i < w  / 8 * l; i++) {
+     692:	97 fd       	sbrc	r25, 7
+     694:	1a c0       	rjmp	.+52     	; 0x6ca <EINK_set_partial_black+0x124>
+     696:	95 95       	asr	r25
+     698:	87 95       	ror	r24
+     69a:	95 95       	asr	r25
+     69c:	87 95       	ror	r24
+     69e:	95 95       	asr	r25
+     6a0:	87 95       	ror	r24
+     6a2:	8c 9d       	mul	r24, r12
+     6a4:	80 01       	movw	r16, r0
+     6a6:	8d 9d       	mul	r24, r13
+     6a8:	10 0d       	add	r17, r0
+     6aa:	9c 9d       	mul	r25, r12
+     6ac:	10 0d       	add	r17, r0
+     6ae:	11 24       	eor	r1, r1
+     6b0:	10 16       	cp	r1, r16
+     6b2:	11 06       	cpc	r1, r17
+     6b4:	c4 f6       	brge	.-80     	; 0x666 <EINK_set_partial_black+0xc0>
+     6b6:	c0 e0       	ldi	r28, 0x00	; 0
+     6b8:	d0 e0       	ldi	r29, 0x00	; 0
+            EINK_send_data(0x00);  
+     6ba:	80 e0       	ldi	r24, 0x00	; 0
+     6bc:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	if (buffer != NULL) {
+        for(int i = 0; i < w  / 8 * l; i++) {
+            EINK_send_data(buffer[i]);  
+        }  
+    } else {
+        for(int i = 0; i < w  / 8 * l; i++) {
+     6c0:	21 96       	adiw	r28, 0x01	; 1
+     6c2:	c0 17       	cp	r28, r16
+     6c4:	d1 07       	cpc	r29, r17
+     6c6:	c9 f7       	brne	.-14     	; 0x6ba <EINK_set_partial_black+0x114>
+     6c8:	ce cf       	rjmp	.-100    	; 0x666 <EINK_set_partial_black+0xc0>
+     6ca:	07 96       	adiw	r24, 0x07	; 7
+     6cc:	e4 cf       	rjmp	.-56     	; 0x696 <EINK_set_partial_black+0xf0>
+
+000006ce <EINK_set_partial_red>:
+    }
+    _delay_ms(2);
+	EINK_send_command(PARTIAL_OUT);  
+}
+
+void EINK_set_partial_red(unsigned char* buffer, int x, int y, int w, int l) {
+     6ce:	9f 92       	push	r9
+     6d0:	af 92       	push	r10
+     6d2:	bf 92       	push	r11
+     6d4:	cf 92       	push	r12
+     6d6:	df 92       	push	r13
+     6d8:	ef 92       	push	r14
+     6da:	ff 92       	push	r15
+     6dc:	0f 93       	push	r16
+     6de:	1f 93       	push	r17
+     6e0:	cf 93       	push	r28
+     6e2:	df 93       	push	r29
+     6e4:	ec 01       	movw	r28, r24
+     6e6:	f6 2e       	mov	r15, r22
+     6e8:	5a 01       	movw	r10, r20
+     6ea:	e2 2e       	mov	r14, r18
+     6ec:	93 2e       	mov	r9, r19
+     6ee:	68 01       	movw	r12, r16
+	EINK_send_command(PARTIAL_IN);
+     6f0:	81 e9       	ldi	r24, 0x91	; 145
+     6f2:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+	EINK_send_command(PARTIAL_WINDOW);
+     6f6:	80 e9       	ldi	r24, 0x90	; 144
+     6f8:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+
+	EINK_send_data( x & 0xf8); // X on 8 kordne
+     6fc:	1f 2d       	mov	r17, r15
+     6fe:	18 7f       	andi	r17, 0xF8	; 248
+     700:	81 2f       	mov	r24, r17
+     702:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(((x&0xf8) + w - 1) | 0x07);
+     706:	8f ef       	ldi	r24, 0xFF	; 255
+     708:	8e 0d       	add	r24, r14
+     70a:	81 0f       	add	r24, r17
+     70c:	87 60       	ori	r24, 0x07	; 7
+     70e:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+
+	EINK_send_data(y >> 8);
+     712:	8b 2d       	mov	r24, r11
+     714:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(y & 0xff);
+     718:	8a 2d       	mov	r24, r10
+     71a:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data((y + l -1) >> 8);
+     71e:	c5 01       	movw	r24, r10
+     720:	8c 0d       	add	r24, r12
+     722:	9d 1d       	adc	r25, r13
+     724:	01 97       	sbiw	r24, 0x01	; 1
+     726:	89 2f       	mov	r24, r25
+     728:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data((y + l - 1) & 0xff);
+     72c:	8f ef       	ldi	r24, 0xFF	; 255
+     72e:	8c 0d       	add	r24, r12
+     730:	8a 0d       	add	r24, r10
+     732:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data(0x01);
+     736:	81 e0       	ldi	r24, 0x01	; 1
+     738:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+     73c:	8f e3       	ldi	r24, 0x3F	; 63
+     73e:	9f e1       	ldi	r25, 0x1F	; 31
+     740:	01 97       	sbiw	r24, 0x01	; 1
+     742:	f1 f7       	brne	.-4      	; 0x740 <EINK_set_partial_red+0x72>
+     744:	00 c0       	rjmp	.+0      	; 0x746 <EINK_set_partial_red+0x78>
+     746:	00 00       	nop
+	_delay_ms(2);
+	EINK_send_command(DATA_START_TRANSMISSION_2);
+     748:	83 e1       	ldi	r24, 0x13	; 19
+     74a:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+	if (buffer != NULL) {
+        for(int i = 0; i < w  / 8 * l; i++) {
+     74e:	8e 2d       	mov	r24, r14
+     750:	99 2d       	mov	r25, r9
+	EINK_send_data((y + l -1) >> 8);
+	EINK_send_data((y + l - 1) & 0xff);
+	EINK_send_data(0x01);
+	_delay_ms(2);
+	EINK_send_command(DATA_START_TRANSMISSION_2);
+	if (buffer != NULL) {
+     752:	20 97       	sbiw	r28, 0x00	; 0
+     754:	91 f1       	breq	.+100    	; 0x7ba <EINK_set_partial_red+0xec>
+        for(int i = 0; i < w  / 8 * l; i++) {
+     756:	97 fd       	sbrc	r25, 7
+     758:	2e c0       	rjmp	.+92     	; 0x7b6 <EINK_set_partial_red+0xe8>
+     75a:	9c 01       	movw	r18, r24
+     75c:	35 95       	asr	r19
+     75e:	27 95       	ror	r18
+     760:	35 95       	asr	r19
+     762:	27 95       	ror	r18
+     764:	35 95       	asr	r19
+     766:	27 95       	ror	r18
+     768:	2c 9d       	mul	r18, r12
+     76a:	c0 01       	movw	r24, r0
+     76c:	2d 9d       	mul	r18, r13
+     76e:	90 0d       	add	r25, r0
+     770:	3c 9d       	mul	r19, r12
+     772:	90 0d       	add	r25, r0
+     774:	11 24       	eor	r1, r1
+     776:	18 16       	cp	r1, r24
+     778:	19 06       	cpc	r1, r25
+     77a:	4c f4       	brge	.+18     	; 0x78e <EINK_set_partial_red+0xc0>
+     77c:	8e 01       	movw	r16, r28
+     77e:	08 0f       	add	r16, r24
+     780:	19 1f       	adc	r17, r25
+            EINK_send_data(buffer[i]);  
+     782:	89 91       	ld	r24, Y+
+     784:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	EINK_send_data((y + l - 1) & 0xff);
+	EINK_send_data(0x01);
+	_delay_ms(2);
+	EINK_send_command(DATA_START_TRANSMISSION_2);
+	if (buffer != NULL) {
+        for(int i = 0; i < w  / 8 * l; i++) {
+     788:	0c 17       	cp	r16, r28
+     78a:	1d 07       	cpc	r17, r29
+     78c:	d1 f7       	brne	.-12     	; 0x782 <EINK_set_partial_red+0xb4>
+     78e:	8f e3       	ldi	r24, 0x3F	; 63
+     790:	9f e1       	ldi	r25, 0x1F	; 31
+     792:	01 97       	sbiw	r24, 0x01	; 1
+     794:	f1 f7       	brne	.-4      	; 0x792 <EINK_set_partial_red+0xc4>
+     796:	00 c0       	rjmp	.+0      	; 0x798 <EINK_set_partial_red+0xca>
+     798:	00 00       	nop
+        for(int i = 0; i < w  / 8 * l; i++) {
+            EINK_send_data(0x00);  
+        }  
+    }
+    _delay_ms(2);
+	EINK_send_command(PARTIAL_OUT);  
+     79a:	82 e9       	ldi	r24, 0x92	; 146
+}
+     79c:	df 91       	pop	r29
+     79e:	cf 91       	pop	r28
+     7a0:	1f 91       	pop	r17
+     7a2:	0f 91       	pop	r16
+     7a4:	ff 90       	pop	r15
+     7a6:	ef 90       	pop	r14
+     7a8:	df 90       	pop	r13
+     7aa:	cf 90       	pop	r12
+     7ac:	bf 90       	pop	r11
+     7ae:	af 90       	pop	r10
+     7b0:	9f 90       	pop	r9
+        for(int i = 0; i < w  / 8 * l; i++) {
+            EINK_send_data(0x00);  
+        }  
+    }
+    _delay_ms(2);
+	EINK_send_command(PARTIAL_OUT);  
+     7b2:	0c 94 a1 01 	jmp	0x342	; 0x342 <EINK_send_command>
+	EINK_send_data((y + l - 1) & 0xff);
+	EINK_send_data(0x01);
+	_delay_ms(2);
+	EINK_send_command(DATA_START_TRANSMISSION_2);
+	if (buffer != NULL) {
+        for(int i = 0; i < w  / 8 * l; i++) {
+     7b6:	07 96       	adiw	r24, 0x07	; 7
+     7b8:	d0 cf       	rjmp	.-96     	; 0x75a <EINK_set_partial_red+0x8c>
+            EINK_send_data(buffer[i]);  
+        }  
+    } else {
+        for(int i = 0; i < w  / 8 * l; i++) {
+     7ba:	97 fd       	sbrc	r25, 7
+     7bc:	1a c0       	rjmp	.+52     	; 0x7f2 <EINK_set_partial_red+0x124>
+     7be:	95 95       	asr	r25
+     7c0:	87 95       	ror	r24
+     7c2:	95 95       	asr	r25
+     7c4:	87 95       	ror	r24
+     7c6:	95 95       	asr	r25
+     7c8:	87 95       	ror	r24
+     7ca:	8c 9d       	mul	r24, r12
+     7cc:	80 01       	movw	r16, r0
+     7ce:	8d 9d       	mul	r24, r13
+     7d0:	10 0d       	add	r17, r0
+     7d2:	9c 9d       	mul	r25, r12
+     7d4:	10 0d       	add	r17, r0
+     7d6:	11 24       	eor	r1, r1
+     7d8:	10 16       	cp	r1, r16
+     7da:	11 06       	cpc	r1, r17
+     7dc:	c4 f6       	brge	.-80     	; 0x78e <EINK_set_partial_red+0xc0>
+     7de:	c0 e0       	ldi	r28, 0x00	; 0
+     7e0:	d0 e0       	ldi	r29, 0x00	; 0
+            EINK_send_data(0x00);  
+     7e2:	80 e0       	ldi	r24, 0x00	; 0
+     7e4:	0e 94 ac 01 	call	0x358	; 0x358 <EINK_send_data>
+	if (buffer != NULL) {
+        for(int i = 0; i < w  / 8 * l; i++) {
+            EINK_send_data(buffer[i]);  
+        }  
+    } else {
+        for(int i = 0; i < w  / 8 * l; i++) {
+     7e8:	21 96       	adiw	r28, 0x01	; 1
+     7ea:	c0 17       	cp	r28, r16
+     7ec:	d1 07       	cpc	r29, r17
+     7ee:	c9 f7       	brne	.-14     	; 0x7e2 <EINK_set_partial_red+0x114>
+     7f0:	ce cf       	rjmp	.-100    	; 0x78e <EINK_set_partial_red+0xc0>
+     7f2:	07 96       	adiw	r24, 0x07	; 7
+     7f4:	e4 cf       	rjmp	.-56     	; 0x7be <EINK_set_partial_red+0xf0>
+
+000007f6 <_wait_transmission_complete>:
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     7f6:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     7fa:	87 ff       	sbrs	r24, 7
+     7fc:	fc cf       	rjmp	.-8      	; 0x7f6 <_wait_transmission_complete>
+}
+     7fe:	08 95       	ret
+
+00000800 <i2c_init>:
+
+// Käivitame I2C
+void i2c_init(unsigned long clk_hz) {
+     800:	9b 01       	movw	r18, r22
+     802:	ac 01       	movw	r20, r24
+	TWSR = 0;
+     804:	10 92 b9 00 	sts	0x00B9, r1	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+	TWBR = ((F_CPU/clk_hz)-16)/2;
+     808:	60 e0       	ldi	r22, 0x00	; 0
+     80a:	74 e2       	ldi	r23, 0x24	; 36
+     80c:	84 ef       	ldi	r24, 0xF4	; 244
+     80e:	90 e0       	ldi	r25, 0x00	; 0
+     810:	0e 94 02 08 	call	0x1004	; 0x1004 <__udivmodsi4>
+     814:	da 01       	movw	r26, r20
+     816:	c9 01       	movw	r24, r18
+     818:	40 97       	sbiw	r24, 0x10	; 16
+     81a:	a1 09       	sbc	r26, r1
+     81c:	b1 09       	sbc	r27, r1
+     81e:	b6 95       	lsr	r27
+     820:	a7 95       	ror	r26
+     822:	97 95       	ror	r25
+     824:	87 95       	ror	r24
+     826:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <__TEXT_REGION_LENGTH__+0x7f80b8>
+	TWCR = (1<<TWEN);
+     82a:	84 e0       	ldi	r24, 0x04	; 4
+     82c:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     830:	08 95       	ret
+
+00000832 <i2c_stop>:
+}
+
+// Tõstatame STOP ja ootame siini vabastamist
+void i2c_stop() {
+	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+     832:	84 e9       	ldi	r24, 0x94	; 148
+     834:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while(TWCR & (1<<TWSTO));
+     838:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     83c:	84 fd       	sbrc	r24, 4
+     83e:	fc cf       	rjmp	.-8      	; 0x838 <i2c_stop+0x6>
+}
+     840:	08 95       	ret
+
+00000842 <i2c_start>:
+// Algatame TWI operatsiooni ja kirjutame seadme aadressi siinile
+uint8_t i2c_start(uint8_t address) {
+	uint8_t status;
+	
+	// Saadame TWI stardi ja ootame selle toimumist.
+	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+     842:	94 ea       	ldi	r25, 0xA4	; 164
+     844:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     848:	90 91 bc 00 	lds	r25, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     84c:	97 ff       	sbrs	r25, 7
+     84e:	fc cf       	rjmp	.-8      	; 0x848 <i2c_start+0x6>
+	// Saadame TWI stardi ja ootame selle toimumist.
+	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+	_wait_transmission_complete();
+	
+	// Loeme TWI staatusest vajaminevad bitid.
+	status = TW_STATUS & 0xF8;
+     850:	90 91 b9 00 	lds	r25, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+     854:	98 7f       	andi	r25, 0xF8	; 248
+	// Kui staatuse kood ei ole START või REP_START
+	if((status != TW_START) && (status != TW_REP_START)) {
+     856:	98 30       	cpi	r25, 0x08	; 8
+     858:	21 f0       	breq	.+8      	; 0x862 <i2c_start+0x20>
+     85a:	90 31       	cpi	r25, 0x10	; 16
+     85c:	11 f0       	breq	.+4      	; 0x862 <i2c_start+0x20>
+     85e:	89 2f       	mov	r24, r25
+     860:	08 95       	ret
+		return status; // Varajane return
+	}
+	
+	// Kirjutame seadme aadressi siini ja ootame 
+	TWDR = address;
+     862:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+	TWCR = (1<<TWINT) | (1<<TWEN);
+     866:	84 e8       	ldi	r24, 0x84	; 132
+     868:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     86c:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     870:	87 ff       	sbrs	r24, 7
+     872:	fc cf       	rjmp	.-8      	; 0x86c <i2c_start+0x2a>
+	TWDR = address;
+	TWCR = (1<<TWINT) | (1<<TWEN);
+	_wait_transmission_complete();
+	
+	// Loeme TWI staatusest vajaminevad bitid.
+	status = TW_STATUS & 0xF8;
+     874:	80 91 b9 00 	lds	r24, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+     878:	88 7f       	andi	r24, 0xF8	; 248
+	// Kui staatus ei ole seadmelt tagasi tulnud ACK
+	if((status != TW_MT_SLA_ACK) && (status != TW_MR_SLA_ACK)) {
+     87a:	88 31       	cpi	r24, 0x18	; 24
+     87c:	51 f0       	breq	.+20     	; 0x892 <i2c_start+0x50>
+     87e:	80 34       	cpi	r24, 0x40	; 64
+     880:	41 f0       	breq	.+16     	; 0x892 <i2c_start+0x50>
+	TWCR = (1<<TWEN);
+}
+
+// Tõstatame STOP ja ootame siini vabastamist
+void i2c_stop() {
+	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+     882:	94 e9       	ldi	r25, 0x94	; 148
+     884:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while(TWCR & (1<<TWSTO));
+     888:	90 91 bc 00 	lds	r25, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     88c:	94 fd       	sbrc	r25, 4
+     88e:	fc cf       	rjmp	.-8      	; 0x888 <i2c_start+0x46>
+     890:	08 95       	ret
+	if((status != TW_MT_SLA_ACK) && (status != TW_MR_SLA_ACK)) {
+		i2c_stop();
+		return status; // Varajane return
+	}
+	
+	return 0; // Probleeme pole return
+     892:	80 e0       	ldi	r24, 0x00	; 0
+
+}
+     894:	08 95       	ret
+
+00000896 <i2c_write>:
+// Kirjutame siinile andmeid
+uint8_t i2c_write(uint8_t data) {
+	uint8_t status;
+	
+	// Kirjutame andmed siinile ja ootame operatsiooni lõppu
+	TWDR = data;
+     896:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+	TWCR = (1 << TWINT) | (1 << TWEN);
+     89a:	84 e8       	ldi	r24, 0x84	; 132
+     89c:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     8a0:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     8a4:	87 ff       	sbrs	r24, 7
+     8a6:	fc cf       	rjmp	.-8      	; 0x8a0 <i2c_write+0xa>
+	TWDR = data;
+	TWCR = (1 << TWINT) | (1 << TWEN);
+	_wait_transmission_complete();
+	
+	// Loeme TWI staatusest vajaminevad bitid.
+	status = TW_STATUS & 0xF8;
+     8a8:	80 91 b9 00 	lds	r24, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+     8ac:	88 7f       	andi	r24, 0xF8	; 248
+	// Kui seade ei tagastanud ACK
+	if(status != TW_MT_DATA_ACK) {
+     8ae:	88 32       	cpi	r24, 0x28	; 40
+     8b0:	09 f0       	breq	.+2      	; 0x8b4 <i2c_write+0x1e>
+		return status; // Varajane return
+	}
+	
+	return 0; // Probleeme pole return
+}
+     8b2:	08 95       	ret
+	// Kui seade ei tagastanud ACK
+	if(status != TW_MT_DATA_ACK) {
+		return status; // Varajane return
+	}
+	
+	return 0; // Probleeme pole return
+     8b4:	80 e0       	ldi	r24, 0x00	; 0
+}
+     8b6:	08 95       	ret
+
+000008b8 <i2c_read_nack>:
+
+// Loeme ilma mikrokontrolleripoolset ACK'i tagastamata - tüüpiliselt viimase (või ainsa ühekordse) baidi lugemiseks
+uint8_t i2c_read_nack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN);
+     8b8:	84 e8       	ldi	r24, 0x84	; 132
+     8ba:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     8be:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     8c2:	87 ff       	sbrs	r24, 7
+     8c4:	fc cf       	rjmp	.-8      	; 0x8be <i2c_read_nack+0x6>
+uint8_t i2c_read_nack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN);
+	_wait_transmission_complete();
+	
+	return TWDR;
+     8c6:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+}
+     8ca:	08 95       	ret
+
+000008cc <i2c_read_ack>:
+
+// Loeme ilma mikrokontrolleripoolset ACK'i tagastades - tüüpiliselt annab seadmele märku, et prosele võib saata veel baite
+uint8_t i2c_read_ack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN) | (1 << TWEA);
+     8cc:	84 ec       	ldi	r24, 0xC4	; 196
+     8ce:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     8d2:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     8d6:	87 ff       	sbrs	r24, 7
+     8d8:	fc cf       	rjmp	.-8      	; 0x8d2 <i2c_read_ack+0x6>
+uint8_t i2c_read_ack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN) | (1 << TWEA);
+	_wait_transmission_complete();
+	
+	return TWDR;
+     8da:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+}
+     8de:	08 95       	ret
+
+000008e0 <i2c_read_multiple>:
+
+// Loeb siinilt andmeid seadme mingist registrist n_bytes jagu ja kirjutab result'i. ACK jälgib spec'i, kus viimast baiti ei ACK'ita, repstart määrab, kas vahepeal tekitatakse stop või mitte. 
+void i2c_read_multiple(uint8_t write_address, uint8_t read_address, uint8_t register_address, uint8_t n_bytes, uint8_t repstart, uint8_t * result) {	
+     8e0:	ef 92       	push	r14
+     8e2:	ff 92       	push	r15
+     8e4:	0f 93       	push	r16
+     8e6:	1f 93       	push	r17
+     8e8:	cf 93       	push	r28
+     8ea:	df 93       	push	r29
+     8ec:	16 2f       	mov	r17, r22
+     8ee:	d4 2f       	mov	r29, r20
+     8f0:	c2 2f       	mov	r28, r18
+	uint8_t status = i2c_start(write_address);
+     8f2:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+	if(!status) {
+     8f6:	81 11       	cpse	r24, r1
+     8f8:	17 c0       	rjmp	.+46     	; 0x928 <i2c_read_multiple+0x48>
+// Kirjutame siinile andmeid
+uint8_t i2c_write(uint8_t data) {
+	uint8_t status;
+	
+	// Kirjutame andmed siinile ja ootame operatsiooni lõppu
+	TWDR = data;
+     8fa:	d0 93 bb 00 	sts	0x00BB, r29	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+	TWCR = (1 << TWINT) | (1 << TWEN);
+     8fe:	84 e8       	ldi	r24, 0x84	; 132
+     900:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     904:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     908:	87 ff       	sbrs	r24, 7
+     90a:	fc cf       	rjmp	.-8      	; 0x904 <i2c_read_multiple+0x24>
+	TWDR = data;
+	TWCR = (1 << TWINT) | (1 << TWEN);
+	_wait_transmission_complete();
+	
+	// Loeme TWI staatusest vajaminevad bitid.
+	status = TW_STATUS & 0xF8;
+     90c:	80 91 b9 00 	lds	r24, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+     910:	88 7f       	andi	r24, 0xF8	; 248
+	// Kui seade ei tagastanud ACK
+	if(status != TW_MT_DATA_ACK) {
+     912:	88 32       	cpi	r24, 0x28	; 40
+     914:	b9 f0       	breq	.+46     	; 0x944 <i2c_read_multiple+0x64>
+// Loeb siinilt andmeid seadme mingist registrist n_bytes jagu ja kirjutab result'i. ACK jälgib spec'i, kus viimast baiti ei ACK'ita, repstart määrab, kas vahepeal tekitatakse stop või mitte. 
+void i2c_read_multiple(uint8_t write_address, uint8_t read_address, uint8_t register_address, uint8_t n_bytes, uint8_t repstart, uint8_t * result) {	
+	uint8_t status = i2c_start(write_address);
+	if(!status) {
+		status = i2c_write(register_address);
+		if(!status) {
+     916:	88 23       	and	r24, r24
+     918:	a9 f0       	breq	.+42     	; 0x944 <i2c_read_multiple+0x64>
+			i2c_stop();
+		}	
+	} else {
+		i2c_stop();
+	}
+}
+     91a:	df 91       	pop	r29
+     91c:	cf 91       	pop	r28
+     91e:	1f 91       	pop	r17
+     920:	0f 91       	pop	r16
+     922:	ff 90       	pop	r15
+     924:	ef 90       	pop	r14
+     926:	08 95       	ret
+	TWCR = (1<<TWEN);
+}
+
+// Tõstatame STOP ja ootame siini vabastamist
+void i2c_stop() {
+	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+     928:	84 e9       	ldi	r24, 0x94	; 148
+     92a:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while(TWCR & (1<<TWSTO));
+     92e:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     932:	84 fd       	sbrc	r24, 4
+     934:	fc cf       	rjmp	.-8      	; 0x92e <i2c_read_multiple+0x4e>
+			i2c_stop();
+		}	
+	} else {
+		i2c_stop();
+	}
+}
+     936:	df 91       	pop	r29
+     938:	cf 91       	pop	r28
+     93a:	1f 91       	pop	r17
+     93c:	0f 91       	pop	r16
+     93e:	ff 90       	pop	r15
+     940:	ef 90       	pop	r14
+     942:	08 95       	ret
+void i2c_read_multiple(uint8_t write_address, uint8_t read_address, uint8_t register_address, uint8_t n_bytes, uint8_t repstart, uint8_t * result) {	
+	uint8_t status = i2c_start(write_address);
+	if(!status) {
+		status = i2c_write(register_address);
+		if(!status) {
+			if(!repstart) {
+     944:	00 23       	and	r16, r16
+     946:	a1 f1       	breq	.+104    	; 0x9b0 <i2c_read_multiple+0xd0>
+				i2c_stop();
+			}
+			status = i2c_start(read_address);
+     948:	81 2f       	mov	r24, r17
+     94a:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+			for(uint8_t i = 0; i < n_bytes; i++) {
+     94e:	cc 23       	and	r28, r28
+     950:	d1 f0       	breq	.+52     	; 0x986 <i2c_read_multiple+0xa6>
+     952:	4c 2f       	mov	r20, r28
+     954:	50 e0       	ldi	r21, 0x00	; 0
+     956:	41 50       	subi	r20, 0x01	; 1
+     958:	51 09       	sbc	r21, r1
+     95a:	f7 01       	movw	r30, r14
+     95c:	20 e0       	ldi	r18, 0x00	; 0
+     95e:	30 e0       	ldi	r19, 0x00	; 0
+}
+
+// Loeme ilma mikrokontrolleripoolset ACK'i tagastades - tüüpiliselt annab seadmele märku, et prosele võib saata veel baite
+uint8_t i2c_read_ack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN) | (1 << TWEA);
+     960:	94 ec       	ldi	r25, 0xC4	; 196
+}
+
+// Loeme ilma mikrokontrolleripoolset ACK'i tagastamata - tüüpiliselt viimase (või ainsa ühekordse) baidi lugemiseks
+uint8_t i2c_read_nack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN);
+     962:	64 e8       	ldi	r22, 0x84	; 132
+			if(!repstart) {
+				i2c_stop();
+			}
+			status = i2c_start(read_address);
+			for(uint8_t i = 0; i < n_bytes; i++) {
+				if(i == n_bytes-1) {
+     964:	24 17       	cp	r18, r20
+     966:	35 07       	cpc	r19, r21
+     968:	e1 f0       	breq	.+56     	; 0x9a2 <i2c_read_multiple+0xc2>
+}
+
+// Loeme ilma mikrokontrolleripoolset ACK'i tagastades - tüüpiliselt annab seadmele märku, et prosele võib saata veel baite
+uint8_t i2c_read_ack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN) | (1 << TWEA);
+     96a:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     96e:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     972:	87 ff       	sbrs	r24, 7
+     974:	fc cf       	rjmp	.-8      	; 0x96e <i2c_read_multiple+0x8e>
+uint8_t i2c_read_ack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN) | (1 << TWEA);
+	_wait_transmission_complete();
+	
+	return TWDR;
+     976:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+			status = i2c_start(read_address);
+			for(uint8_t i = 0; i < n_bytes; i++) {
+				if(i == n_bytes-1) {
+					result[i] = i2c_read_nack();
+				} else {
+					result[i] = i2c_read_ack();
+     97a:	80 83       	st	Z, r24
+     97c:	2f 5f       	subi	r18, 0xFF	; 255
+     97e:	3f 4f       	sbci	r19, 0xFF	; 255
+     980:	31 96       	adiw	r30, 0x01	; 1
+		if(!status) {
+			if(!repstart) {
+				i2c_stop();
+			}
+			status = i2c_start(read_address);
+			for(uint8_t i = 0; i < n_bytes; i++) {
+     982:	2c 17       	cp	r18, r28
+     984:	78 f3       	brcs	.-34     	; 0x964 <i2c_read_multiple+0x84>
+	TWCR = (1<<TWEN);
+}
+
+// Tõstatame STOP ja ootame siini vabastamist
+void i2c_stop() {
+	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+     986:	84 e9       	ldi	r24, 0x94	; 148
+     988:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while(TWCR & (1<<TWSTO));
+     98c:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     990:	84 fd       	sbrc	r24, 4
+     992:	fc cf       	rjmp	.-8      	; 0x98c <i2c_read_multiple+0xac>
+			i2c_stop();
+		}	
+	} else {
+		i2c_stop();
+	}
+}
+     994:	df 91       	pop	r29
+     996:	cf 91       	pop	r28
+     998:	1f 91       	pop	r17
+     99a:	0f 91       	pop	r16
+     99c:	ff 90       	pop	r15
+     99e:	ef 90       	pop	r14
+     9a0:	08 95       	ret
+}
+
+// Loeme ilma mikrokontrolleripoolset ACK'i tagastamata - tüüpiliselt viimase (või ainsa ühekordse) baidi lugemiseks
+uint8_t i2c_read_nack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN);
+     9a2:	60 93 bc 00 	sts	0x00BC, r22	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     9a6:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     9aa:	87 ff       	sbrs	r24, 7
+     9ac:	fc cf       	rjmp	.-8      	; 0x9a6 <i2c_read_multiple+0xc6>
+     9ae:	e3 cf       	rjmp	.-58     	; 0x976 <i2c_read_multiple+0x96>
+	TWCR = (1<<TWEN);
+}
+
+// Tõstatame STOP ja ootame siini vabastamist
+void i2c_stop() {
+	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+     9b0:	84 e9       	ldi	r24, 0x94	; 148
+     9b2:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while(TWCR & (1<<TWSTO));
+     9b6:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     9ba:	84 fd       	sbrc	r24, 4
+     9bc:	fc cf       	rjmp	.-8      	; 0x9b6 <i2c_read_multiple+0xd6>
+     9be:	c4 cf       	rjmp	.-120    	; 0x948 <i2c_read_multiple+0x68>
+
+000009c0 <i2c_read_single>:
+		i2c_stop();
+	}
+}
+
+// Loeme siinile üksiku baidi andmeid seadme mingist registrist. Ack parameetriga saab seadistada, kas ack tekitatakse või mitte. 
+uint8_t i2c_read_single(uint8_t write_address, uint8_t read_address, uint8_t register_address, uint8_t ack) {
+     9c0:	1f 93       	push	r17
+     9c2:	cf 93       	push	r28
+     9c4:	df 93       	push	r29
+     9c6:	d6 2f       	mov	r29, r22
+     9c8:	c4 2f       	mov	r28, r20
+     9ca:	12 2f       	mov	r17, r18
+	uint8_t status = i2c_start(write_address);
+     9cc:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+	if(!status) {
+     9d0:	81 11       	cpse	r24, r1
+     9d2:	1b c0       	rjmp	.+54     	; 0xa0a <__DATA_REGION_LENGTH__+0xa>
+// Kirjutame siinile andmeid
+uint8_t i2c_write(uint8_t data) {
+	uint8_t status;
+	
+	// Kirjutame andmed siinile ja ootame operatsiooni lõppu
+	TWDR = data;
+     9d4:	c0 93 bb 00 	sts	0x00BB, r28	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+	TWCR = (1 << TWINT) | (1 << TWEN);
+     9d8:	84 e8       	ldi	r24, 0x84	; 132
+     9da:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     9de:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     9e2:	87 ff       	sbrs	r24, 7
+     9e4:	fc cf       	rjmp	.-8      	; 0x9de <i2c_read_single+0x1e>
+	TWDR = data;
+	TWCR = (1 << TWINT) | (1 << TWEN);
+	_wait_transmission_complete();
+	
+	// Loeme TWI staatusest vajaminevad bitid.
+	status = TW_STATUS & 0xF8;
+     9e6:	80 91 b9 00 	lds	r24, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+     9ea:	88 7f       	andi	r24, 0xF8	; 248
+	// Kui seade ei tagastanud ACK
+	if(status != TW_MT_DATA_ACK) {
+     9ec:	88 32       	cpi	r24, 0x28	; 40
+     9ee:	c1 f0       	breq	.+48     	; 0xa20 <__DATA_REGION_LENGTH__+0x20>
+// Loeme siinile üksiku baidi andmeid seadme mingist registrist. Ack parameetriga saab seadistada, kas ack tekitatakse või mitte. 
+uint8_t i2c_read_single(uint8_t write_address, uint8_t read_address, uint8_t register_address, uint8_t ack) {
+	uint8_t status = i2c_start(write_address);
+	if(!status) {
+		status = i2c_write(register_address);
+		if(! status) {
+     9f0:	88 23       	and	r24, r24
+     9f2:	b1 f0       	breq	.+44     	; 0xa20 <__DATA_REGION_LENGTH__+0x20>
+	TWCR = (1<<TWEN);
+}
+
+// Tõstatame STOP ja ootame siini vabastamist
+void i2c_stop() {
+	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+     9f4:	94 e9       	ldi	r25, 0x94	; 148
+     9f6:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while(TWCR & (1<<TWSTO));
+     9fa:	90 91 bc 00 	lds	r25, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     9fe:	94 fd       	sbrc	r25, 4
+     a00:	fc cf       	rjmp	.-8      	; 0x9fa <i2c_read_single+0x3a>
+		
+	} else {
+		i2c_stop();
+	}
+	return status;
+}
+     a02:	df 91       	pop	r29
+     a04:	cf 91       	pop	r28
+     a06:	1f 91       	pop	r17
+     a08:	08 95       	ret
+	TWCR = (1<<TWEN);
+}
+
+// Tõstatame STOP ja ootame siini vabastamist
+void i2c_stop() {
+	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+     a0a:	94 e9       	ldi	r25, 0x94	; 148
+     a0c:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while(TWCR & (1<<TWSTO));
+     a10:	90 91 bc 00 	lds	r25, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     a14:	94 fd       	sbrc	r25, 4
+     a16:	fc cf       	rjmp	.-8      	; 0xa10 <__DATA_REGION_LENGTH__+0x10>
+		
+	} else {
+		i2c_stop();
+	}
+	return status;
+}
+     a18:	df 91       	pop	r29
+     a1a:	cf 91       	pop	r28
+     a1c:	1f 91       	pop	r17
+     a1e:	08 95       	ret
+	TWCR = (1<<TWEN);
+}
+
+// Tõstatame STOP ja ootame siini vabastamist
+void i2c_stop() {
+	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+     a20:	84 e9       	ldi	r24, 0x94	; 148
+     a22:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while(TWCR & (1<<TWSTO));
+     a26:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     a2a:	84 fd       	sbrc	r24, 4
+     a2c:	fc cf       	rjmp	.-8      	; 0xa26 <__DATA_REGION_LENGTH__+0x26>
+	if(!status) {
+		status = i2c_write(register_address);
+		if(! status) {
+			i2c_stop();
+			
+			status = i2c_start(read_address);
+     a2e:	8d 2f       	mov	r24, r29
+     a30:	0e 94 21 04 	call	0x842	; 0x842 <i2c_start>
+			if(!status) {
+     a34:	81 11       	cpse	r24, r1
+     a36:	e5 cf       	rjmp	.-54     	; 0xa02 <__DATA_REGION_LENGTH__+0x2>
+				uint8_t reading;
+				if(ack) {
+     a38:	11 23       	and	r17, r17
+     a3a:	a1 f0       	breq	.+40     	; 0xa64 <__DATA_REGION_LENGTH__+0x64>
+}
+
+// Loeme ilma mikrokontrolleripoolset ACK'i tagastades - tüüpiliselt annab seadmele märku, et prosele võib saata veel baite
+uint8_t i2c_read_ack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN) | (1 << TWEA);
+     a3c:	84 ec       	ldi	r24, 0xC4	; 196
+     a3e:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     a42:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     a46:	87 ff       	sbrs	r24, 7
+     a48:	fc cf       	rjmp	.-8      	; 0xa42 <__DATA_REGION_LENGTH__+0x42>
+uint8_t i2c_read_nack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN);
+	_wait_transmission_complete();
+	
+	return TWDR;
+     a4a:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+	TWCR = (1<<TWEN);
+}
+
+// Tõstatame STOP ja ootame siini vabastamist
+void i2c_stop() {
+	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+     a4e:	94 e9       	ldi	r25, 0x94	; 148
+     a50:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while(TWCR & (1<<TWSTO));
+     a54:	90 91 bc 00 	lds	r25, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     a58:	94 fd       	sbrc	r25, 4
+     a5a:	fc cf       	rjmp	.-8      	; 0xa54 <__DATA_REGION_LENGTH__+0x54>
+		
+	} else {
+		i2c_stop();
+	}
+	return status;
+}
+     a5c:	df 91       	pop	r29
+     a5e:	cf 91       	pop	r28
+     a60:	1f 91       	pop	r17
+     a62:	08 95       	ret
+}
+
+// Loeme ilma mikrokontrolleripoolset ACK'i tagastamata - tüüpiliselt viimase (või ainsa ühekordse) baidi lugemiseks
+uint8_t i2c_read_nack() {
+	
+	TWCR = (1<<TWINT)|(1<<TWEN);
+     a64:	84 e8       	ldi	r24, 0x84	; 132
+     a66:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+#include <include/i2c.h>
+
+// Ootame kuni siinil on suhtlus toimunud
+void _wait_transmission_complete() {
+	while (!(TWCR & (1<<TWINT)));
+     a6a:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+     a6e:	87 ff       	sbrs	r24, 7
+     a70:	fc cf       	rjmp	.-8      	; 0xa6a <__DATA_REGION_LENGTH__+0x6a>
+     a72:	eb cf       	rjmp	.-42     	; 0xa4a <__DATA_REGION_LENGTH__+0x4a>
+
+00000a74 <__vector_7>:
+#include <include/batmon.h>
+
+volatile uint8_t data[10];
+volatile uint8_t data_available = 0;
+
+ISR(INT6_vect) {
+     a74:	1f 92       	push	r1
+     a76:	0f 92       	push	r0
+     a78:	0f b6       	in	r0, 0x3f	; 63
+     a7a:	0f 92       	push	r0
+     a7c:	11 24       	eor	r1, r1
+     a7e:	2f 93       	push	r18
+     a80:	3f 93       	push	r19
+     a82:	4f 93       	push	r20
+     a84:	5f 93       	push	r21
+     a86:	6f 93       	push	r22
+     a88:	7f 93       	push	r23
+     a8a:	8f 93       	push	r24
+     a8c:	9f 93       	push	r25
+     a8e:	af 93       	push	r26
+     a90:	bf 93       	push	r27
+     a92:	ef 93       	push	r30
+     a94:	ff 93       	push	r31
+	if(data_available == 0) {
+     a96:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+     a9a:	81 11       	cpse	r24, r1
+     a9c:	09 c0       	rjmp	.+18     	; 0xab0 <__vector_7+0x3c>
+		nrf24l01_read_register(R_RX_PAYLOAD,data,10);
+     a9e:	4a e0       	ldi	r20, 0x0A	; 10
+     aa0:	62 e0       	ldi	r22, 0x02	; 2
+     aa2:	71 e0       	ldi	r23, 0x01	; 1
+     aa4:	81 e6       	ldi	r24, 0x61	; 97
+     aa6:	0e 94 96 06 	call	0xd2c	; 0xd2c <nrf24l01_read_register>
+		data_available = 1;
+     aaa:	81 e0       	ldi	r24, 0x01	; 1
+     aac:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
+	}
+}
+     ab0:	ff 91       	pop	r31
+     ab2:	ef 91       	pop	r30
+     ab4:	bf 91       	pop	r27
+     ab6:	af 91       	pop	r26
+     ab8:	9f 91       	pop	r25
+     aba:	8f 91       	pop	r24
+     abc:	7f 91       	pop	r23
+     abe:	6f 91       	pop	r22
+     ac0:	5f 91       	pop	r21
+     ac2:	4f 91       	pop	r20
+     ac4:	3f 91       	pop	r19
+     ac6:	2f 91       	pop	r18
+     ac8:	0f 90       	pop	r0
+     aca:	0f be       	out	0x3f, r0	; 63
+     acc:	0f 90       	pop	r0
+     ace:	1f 90       	pop	r1
+     ad0:	18 95       	reti
+
+00000ad2 <clean_buffer>:
+
+void clean_buffer(uint8_t* buffer) {
+     ad2:	af 92       	push	r10
+     ad4:	bf 92       	push	r11
+     ad6:	cf 92       	push	r12
+     ad8:	df 92       	push	r13
+     ada:	ef 92       	push	r14
+     adc:	ff 92       	push	r15
+     ade:	0f 93       	push	r16
+     ae0:	1f 93       	push	r17
+     ae2:	cf 93       	push	r28
+     ae4:	df 93       	push	r29
+     ae6:	7c 01       	movw	r14, r24
+	for(uint8_t x = 0; x < epdwidth; x++) {
+     ae8:	20 91 01 01 	lds	r18, 0x0101	; 0x800101 <epdwidth>
+     aec:	22 23       	and	r18, r18
+     aee:	a9 f0       	breq	.+42     	; 0xb1a <__stack+0x1b>
+     af0:	d1 2c       	mov	r13, r1
+     af2:	0d 2d       	mov	r16, r13
+     af4:	10 e0       	ldi	r17, 0x00	; 0
+     af6:	c0 e0       	ldi	r28, 0x00	; 0
+     af8:	d0 e0       	ldi	r29, 0x00	; 0
+		for (uint8_t y = 0; y < HEIGHT; y++) {
+			EINK_draw_absolute_pixel(buffer,x,y,0);
+     afa:	20 e0       	ldi	r18, 0x00	; 0
+     afc:	30 e0       	ldi	r19, 0x00	; 0
+     afe:	ae 01       	movw	r20, r28
+     b00:	b8 01       	movw	r22, r16
+     b02:	c7 01       	movw	r24, r14
+     b04:	0e 94 87 02 	call	0x50e	; 0x50e <EINK_draw_absolute_pixel>
+     b08:	21 96       	adiw	r28, 0x01	; 1
+	}
+}
+
+void clean_buffer(uint8_t* buffer) {
+	for(uint8_t x = 0; x < epdwidth; x++) {
+		for (uint8_t y = 0; y < HEIGHT; y++) {
+     b0a:	c8 32       	cpi	r28, 0x28	; 40
+     b0c:	d1 05       	cpc	r29, r1
+     b0e:	a9 f7       	brne	.-22     	; 0xafa <clean_buffer+0x28>
+		data_available = 1;
+	}
+}
+
+void clean_buffer(uint8_t* buffer) {
+	for(uint8_t x = 0; x < epdwidth; x++) {
+     b10:	d3 94       	inc	r13
+     b12:	20 91 01 01 	lds	r18, 0x0101	; 0x800101 <epdwidth>
+     b16:	d2 16       	cp	r13, r18
+     b18:	60 f3       	brcs	.-40     	; 0xaf2 <clean_buffer+0x20>
+		for (uint8_t y = 0; y < HEIGHT; y++) {
+			EINK_draw_absolute_pixel(buffer,x,y,0);
+		}
+	}
+	for(int i = 0; i < 122/epdwidth; i++) {
+     b1a:	30 e0       	ldi	r19, 0x00	; 0
+     b1c:	8a e7       	ldi	r24, 0x7A	; 122
+     b1e:	90 e0       	ldi	r25, 0x00	; 0
+     b20:	b9 01       	movw	r22, r18
+     b22:	0e 94 ee 07 	call	0xfdc	; 0xfdc <__divmodhi4>
+     b26:	67 2b       	or	r22, r23
+     b28:	b9 f1       	breq	.+110    	; 0xb98 <__stack+0x99>
+     b2a:	c1 2c       	mov	r12, r1
+     b2c:	d1 2c       	mov	r13, r1
+     b2e:	8a e7       	ldi	r24, 0x7A	; 122
+     b30:	a8 2e       	mov	r10, r24
+     b32:	b1 2c       	mov	r11, r1
+     b34:	c0 e0       	ldi	r28, 0x00	; 0
+     b36:	d0 e0       	ldi	r29, 0x00	; 0
+     b38:	03 c0       	rjmp	.+6      	; 0xb40 <__stack+0x41>
+     b3a:	20 91 01 01 	lds	r18, 0x0101	; 0x800101 <epdwidth>
+     b3e:	30 e0       	ldi	r19, 0x00	; 0
+		for(int j = 0; j < 250/HEIGHT; j++) {
+			EINK_set_partial_red(buffer, i*epdwidth,j*HEIGHT, epdwidth,HEIGHT);
+     b40:	2c 9d       	mul	r18, r12
+     b42:	b0 01       	movw	r22, r0
+     b44:	2d 9d       	mul	r18, r13
+     b46:	70 0d       	add	r23, r0
+     b48:	3c 9d       	mul	r19, r12
+     b4a:	70 0d       	add	r23, r0
+     b4c:	11 24       	eor	r1, r1
+     b4e:	08 e2       	ldi	r16, 0x28	; 40
+     b50:	10 e0       	ldi	r17, 0x00	; 0
+     b52:	ae 01       	movw	r20, r28
+     b54:	c7 01       	movw	r24, r14
+     b56:	0e 94 67 03 	call	0x6ce	; 0x6ce <EINK_set_partial_red>
+			EINK_set_partial_black(buffer, i*epdwidth,j*HEIGHT, epdwidth,HEIGHT);
+     b5a:	20 91 01 01 	lds	r18, 0x0101	; 0x800101 <epdwidth>
+     b5e:	30 e0       	ldi	r19, 0x00	; 0
+     b60:	2c 9d       	mul	r18, r12
+     b62:	b0 01       	movw	r22, r0
+     b64:	2d 9d       	mul	r18, r13
+     b66:	70 0d       	add	r23, r0
+     b68:	3c 9d       	mul	r19, r12
+     b6a:	70 0d       	add	r23, r0
+     b6c:	11 24       	eor	r1, r1
+     b6e:	ae 01       	movw	r20, r28
+     b70:	c7 01       	movw	r24, r14
+     b72:	0e 94 d3 02 	call	0x5a6	; 0x5a6 <EINK_set_partial_black>
+     b76:	a8 96       	adiw	r28, 0x28	; 40
+		for (uint8_t y = 0; y < HEIGHT; y++) {
+			EINK_draw_absolute_pixel(buffer,x,y,0);
+		}
+	}
+	for(int i = 0; i < 122/epdwidth; i++) {
+		for(int j = 0; j < 250/HEIGHT; j++) {
+     b78:	c0 3f       	cpi	r28, 0xF0	; 240
+     b7a:	d1 05       	cpc	r29, r1
+     b7c:	f1 f6       	brne	.-68     	; 0xb3a <__stack+0x3b>
+	for(uint8_t x = 0; x < epdwidth; x++) {
+		for (uint8_t y = 0; y < HEIGHT; y++) {
+			EINK_draw_absolute_pixel(buffer,x,y,0);
+		}
+	}
+	for(int i = 0; i < 122/epdwidth; i++) {
+     b7e:	8f ef       	ldi	r24, 0xFF	; 255
+     b80:	c8 1a       	sub	r12, r24
+     b82:	d8 0a       	sbc	r13, r24
+     b84:	20 91 01 01 	lds	r18, 0x0101	; 0x800101 <epdwidth>
+     b88:	30 e0       	ldi	r19, 0x00	; 0
+     b8a:	c5 01       	movw	r24, r10
+     b8c:	b9 01       	movw	r22, r18
+     b8e:	0e 94 ee 07 	call	0xfdc	; 0xfdc <__divmodhi4>
+     b92:	c6 16       	cp	r12, r22
+     b94:	d7 06       	cpc	r13, r23
+     b96:	74 f2       	brlt	.-100    	; 0xb34 <__stack+0x35>
+		for(int j = 0; j < 250/HEIGHT; j++) {
+			EINK_set_partial_red(buffer, i*epdwidth,j*HEIGHT, epdwidth,HEIGHT);
+			EINK_set_partial_black(buffer, i*epdwidth,j*HEIGHT, epdwidth,HEIGHT);
+		}
+	}
+}
+     b98:	df 91       	pop	r29
+     b9a:	cf 91       	pop	r28
+     b9c:	1f 91       	pop	r17
+     b9e:	0f 91       	pop	r16
+     ba0:	ff 90       	pop	r15
+     ba2:	ef 90       	pop	r14
+     ba4:	df 90       	pop	r13
+     ba6:	cf 90       	pop	r12
+     ba8:	bf 90       	pop	r11
+     baa:	af 90       	pop	r10
+     bac:	08 95       	ret
+
+00000bae <nrf24l01_write_register>:
+#include <include/nrf24l01.h>
+#include <include/spi.h>
+#define F_CPU 16000000UL
+#include <util/delay.h>
+
+void nrf24l01_write_register(uint8_t reg, uint8_t* data, uint8_t bytecount) {
+     bae:	ff 92       	push	r15
+     bb0:	0f 93       	push	r16
+     bb2:	1f 93       	push	r17
+     bb4:	cf 93       	push	r28
+     bb6:	df 93       	push	r29
+     bb8:	c8 2f       	mov	r28, r24
+     bba:	f6 2e       	mov	r15, r22
+     bbc:	07 2f       	mov	r16, r23
+     bbe:	14 2f       	mov	r17, r20
+	reg =  NRF_WRITE | reg;
+	SPI_unset_RF_cs();
+     bc0:	0e 94 d8 06 	call	0xdb0	; 0xdb0 <SPI_unset_RF_cs>
+	SPI_send(reg);
+     bc4:	8c 2f       	mov	r24, r28
+     bc6:	80 62       	ori	r24, 0x20	; 32
+     bc8:	0e 94 e0 06 	call	0xdc0	; 0xdc0 <SPI_send>
+	for(int i = 0; i < bytecount; i++) {
+     bcc:	11 23       	and	r17, r17
+     bce:	61 f0       	breq	.+24     	; 0xbe8 <nrf24l01_write_register+0x3a>
+     bd0:	cf 2d       	mov	r28, r15
+     bd2:	d0 2f       	mov	r29, r16
+     bd4:	ce 01       	movw	r24, r28
+     bd6:	81 0f       	add	r24, r17
+     bd8:	91 1d       	adc	r25, r1
+     bda:	8c 01       	movw	r16, r24
+		SPI_send(data[i]);
+     bdc:	89 91       	ld	r24, Y+
+     bde:	0e 94 e0 06 	call	0xdc0	; 0xdc0 <SPI_send>
+
+void nrf24l01_write_register(uint8_t reg, uint8_t* data, uint8_t bytecount) {
+	reg =  NRF_WRITE | reg;
+	SPI_unset_RF_cs();
+	SPI_send(reg);
+	for(int i = 0; i < bytecount; i++) {
+     be2:	c0 17       	cp	r28, r16
+     be4:	d1 07       	cpc	r29, r17
+     be6:	d1 f7       	brne	.-12     	; 0xbdc <nrf24l01_write_register+0x2e>
+		SPI_send(data[i]);
+	}
+	SPI_set_RF_cs();
+}
+     be8:	df 91       	pop	r29
+     bea:	cf 91       	pop	r28
+     bec:	1f 91       	pop	r17
+     bee:	0f 91       	pop	r16
+     bf0:	ff 90       	pop	r15
+	SPI_unset_RF_cs();
+	SPI_send(reg);
+	for(int i = 0; i < bytecount; i++) {
+		SPI_send(data[i]);
+	}
+	SPI_set_RF_cs();
+     bf2:	0c 94 da 06 	jmp	0xdb4	; 0xdb4 <SPI_set_RF_cs>
+
+00000bf6 <nrf24l01_init>:
+}
+
+void nrf24l01_init(uint8_t address_width, uint8_t* address, uint8_t channel, uint8_t payload_width, uint8_t mode) {
+     bf6:	bf 92       	push	r11
+     bf8:	cf 92       	push	r12
+     bfa:	df 92       	push	r13
+     bfc:	ef 92       	push	r14
+     bfe:	ff 92       	push	r15
+     c00:	0f 93       	push	r16
+     c02:	1f 93       	push	r17
+     c04:	cf 93       	push	r28
+     c06:	df 93       	push	r29
+     c08:	1f 92       	push	r1
+     c0a:	cd b7       	in	r28, 0x3d	; 61
+     c0c:	de b7       	in	r29, 0x3e	; 62
+     c0e:	18 2f       	mov	r17, r24
+     c10:	7b 01       	movw	r14, r22
+     c12:	b4 2e       	mov	r11, r20
+     c14:	c2 2e       	mov	r12, r18
+
+	DDRC |= (1 << DDC7);
+     c16:	3f 9a       	sbi	0x07, 7	; 7
+	PORTC &= ~(1 << PC7);
+     c18:	47 98       	cbi	0x08, 7	; 8
+	
+	uint8_t config_values[1];
+	
+	//Enable Auto-ACK
+	config_values[0] = 0x01;
+     c1a:	dd 24       	eor	r13, r13
+     c1c:	d3 94       	inc	r13
+     c1e:	d9 82       	std	Y+1, r13	; 0x01
+	nrf24l01_write_register(EN_AA, config_values, 1);
+     c20:	41 e0       	ldi	r20, 0x01	; 1
+     c22:	be 01       	movw	r22, r28
+     c24:	6f 5f       	subi	r22, 0xFF	; 255
+     c26:	7f 4f       	sbci	r23, 0xFF	; 255
+     c28:	81 e0       	ldi	r24, 0x01	; 1
+     c2a:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+	
+	//Setup automatic retries 750uS delay, up to 15 times
+	config_values[0] = 0x2F;
+     c2e:	8f e2       	ldi	r24, 0x2F	; 47
+     c30:	89 83       	std	Y+1, r24	; 0x01
+	nrf24l01_write_register(SETUP_RETR, config_values, 1);
+     c32:	41 e0       	ldi	r20, 0x01	; 1
+     c34:	be 01       	movw	r22, r28
+     c36:	6f 5f       	subi	r22, 0xFF	; 255
+     c38:	7f 4f       	sbci	r23, 0xFF	; 255
+     c3a:	84 e0       	ldi	r24, 0x04	; 4
+     c3c:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+	
+	//Enable data pipe 0 for recieve communications
+	config_values[0] = 0x01;
+     c40:	d9 82       	std	Y+1, r13	; 0x01
+	nrf24l01_write_register(EN_RXADDR, config_values, 1);
+     c42:	41 e0       	ldi	r20, 0x01	; 1
+     c44:	be 01       	movw	r22, r28
+     c46:	6f 5f       	subi	r22, 0xFF	; 255
+     c48:	7f 4f       	sbci	r23, 0xFF	; 255
+     c4a:	82 e0       	ldi	r24, 0x02	; 2
+     c4c:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+	
+	//Set address length as 5 bytes
+	config_values[0] = address_width;
+     c50:	19 83       	std	Y+1, r17	; 0x01
+	nrf24l01_write_register(SETUP_AW, config_values,1);
+     c52:	41 e0       	ldi	r20, 0x01	; 1
+     c54:	be 01       	movw	r22, r28
+     c56:	6f 5f       	subi	r22, 0xFF	; 255
+     c58:	7f 4f       	sbci	r23, 0xFF	; 255
+     c5a:	83 e0       	ldi	r24, 0x03	; 3
+     c5c:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+	
+	//Setup a radio channel
+	config_values[0] = channel;
+     c60:	b9 82       	std	Y+1, r11	; 0x01
+	nrf24l01_write_register(RF_CH, config_values,1);
+     c62:	41 e0       	ldi	r20, 0x01	; 1
+     c64:	be 01       	movw	r22, r28
+     c66:	6f 5f       	subi	r22, 0xFF	; 255
+     c68:	7f 4f       	sbci	r23, 0xFF	; 255
+     c6a:	85 e0       	ldi	r24, 0x05	; 5
+     c6c:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+
+	//Setup in -0dB long range mode
+	config_values[0] = 0x07;
+     c70:	87 e0       	ldi	r24, 0x07	; 7
+     c72:	89 83       	std	Y+1, r24	; 0x01
+	nrf24l01_write_register(RF_SETUP, config_values,1);
+     c74:	41 e0       	ldi	r20, 0x01	; 1
+     c76:	be 01       	movw	r22, r28
+     c78:	6f 5f       	subi	r22, 0xFF	; 255
+     c7a:	7f 4f       	sbci	r23, 0xFF	; 255
+     c7c:	86 e0       	ldi	r24, 0x06	; 6
+     c7e:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+	
+	//Setup addresses for recieve pipe 0 and tx
+	nrf24l01_write_register(RX_ADDR_P0,address,address_width);
+     c82:	41 2f       	mov	r20, r17
+     c84:	b7 01       	movw	r22, r14
+     c86:	8a e0       	ldi	r24, 0x0A	; 10
+     c88:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+	nrf24l01_write_register(TX_ADDR,address,address_width);
+     c8c:	41 2f       	mov	r20, r17
+     c8e:	b7 01       	movw	r22, r14
+     c90:	80 e1       	ldi	r24, 0x10	; 16
+     c92:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+	
+	//Setup payload width (bytes/package)
+	config_values[0] = payload_width;
+     c96:	c9 82       	std	Y+1, r12	; 0x01
+	nrf24l01_write_register(RX_PW_P0,config_values,1);
+     c98:	41 e0       	ldi	r20, 0x01	; 1
+     c9a:	be 01       	movw	r22, r28
+     c9c:	6f 5f       	subi	r22, 0xFF	; 255
+     c9e:	7f 4f       	sbci	r23, 0xFF	; 255
+     ca0:	81 e1       	ldi	r24, 0x11	; 17
+     ca2:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+	
+	//Bootup and config
+	config_values[0] = (1 << PWR_UP) | (1 << CRCO) | (1 << EN_CRC) | (1 << MASK_MAX_RT);
+	
+	if(mode == 0) {
+     ca6:	00 23       	and	r16, r16
+     ca8:	a9 f0       	breq	.+42     	; 0xcd4 <nrf24l01_init+0xde>
+		config_values[0] |=  (1 << MASK_TX_DS) | (1 << MASK_RX_DR);
+	} else {
+		config_values[0] |= (1 << PRIM_RX) | (1 << MASK_TX_DS);
+     caa:	8f e3       	ldi	r24, 0x3F	; 63
+     cac:	89 83       	std	Y+1, r24	; 0x01
+		PORTC |= (1 << PORTC7);
+     cae:	47 9a       	sbi	0x08, 7	; 8
+	}
+	nrf24l01_write_register(CONFIG, config_values, 1);
+     cb0:	41 e0       	ldi	r20, 0x01	; 1
+     cb2:	be 01       	movw	r22, r28
+     cb4:	6f 5f       	subi	r22, 0xFF	; 255
+     cb6:	7f 4f       	sbci	r23, 0xFF	; 255
+     cb8:	80 e0       	ldi	r24, 0x00	; 0
+     cba:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+} 
+     cbe:	0f 90       	pop	r0
+     cc0:	df 91       	pop	r29
+     cc2:	cf 91       	pop	r28
+     cc4:	1f 91       	pop	r17
+     cc6:	0f 91       	pop	r16
+     cc8:	ff 90       	pop	r15
+     cca:	ef 90       	pop	r14
+     ccc:	df 90       	pop	r13
+     cce:	cf 90       	pop	r12
+     cd0:	bf 90       	pop	r11
+     cd2:	08 95       	ret
+	
+	//Bootup and config
+	config_values[0] = (1 << PWR_UP) | (1 << CRCO) | (1 << EN_CRC) | (1 << MASK_MAX_RT);
+	
+	if(mode == 0) {
+		config_values[0] |=  (1 << MASK_TX_DS) | (1 << MASK_RX_DR);
+     cd4:	8e e7       	ldi	r24, 0x7E	; 126
+     cd6:	89 83       	std	Y+1, r24	; 0x01
+     cd8:	eb cf       	rjmp	.-42     	; 0xcb0 <nrf24l01_init+0xba>
+
+00000cda <nrf24l01_transmit>:
+		PORTC |= (1 << PORTC7);
+	}
+	nrf24l01_write_register(CONFIG, config_values, 1);
+} 
+
+void nrf24l01_transmit(uint8_t* payload, uint8_t payload_size) {
+     cda:	ff 92       	push	r15
+     cdc:	0f 93       	push	r16
+     cde:	1f 93       	push	r17
+     ce0:	cf 93       	push	r28
+     ce2:	df 93       	push	r29
+     ce4:	f8 2e       	mov	r15, r24
+     ce6:	09 2f       	mov	r16, r25
+     ce8:	16 2f       	mov	r17, r22
+	SPI_unset_RF_cs();
+     cea:	0e 94 d8 06 	call	0xdb0	; 0xdb0 <SPI_unset_RF_cs>
+	SPI_send(FLUSH_TX);
+     cee:	81 ee       	ldi	r24, 0xE1	; 225
+     cf0:	0e 94 e0 06 	call	0xdc0	; 0xdc0 <SPI_send>
+	SPI_set_RF_cs();
+     cf4:	0e 94 da 06 	call	0xdb4	; 0xdb4 <SPI_set_RF_cs>
+	
+	SPI_unset_RF_cs();
+     cf8:	0e 94 d8 06 	call	0xdb0	; 0xdb0 <SPI_unset_RF_cs>
+	SPI_send(W_TX_PAYLOAD);
+     cfc:	80 ea       	ldi	r24, 0xA0	; 160
+     cfe:	0e 94 e0 06 	call	0xdc0	; 0xdc0 <SPI_send>
+	for(int i = 0; i < payload_size; i++) {
+     d02:	11 23       	and	r17, r17
+     d04:	61 f0       	breq	.+24     	; 0xd1e <nrf24l01_transmit+0x44>
+     d06:	cf 2d       	mov	r28, r15
+     d08:	d0 2f       	mov	r29, r16
+     d0a:	ce 01       	movw	r24, r28
+     d0c:	81 0f       	add	r24, r17
+     d0e:	91 1d       	adc	r25, r1
+     d10:	8c 01       	movw	r16, r24
+		SPI_send(payload[i]);
+     d12:	89 91       	ld	r24, Y+
+     d14:	0e 94 e0 06 	call	0xdc0	; 0xdc0 <SPI_send>
+	SPI_send(FLUSH_TX);
+	SPI_set_RF_cs();
+	
+	SPI_unset_RF_cs();
+	SPI_send(W_TX_PAYLOAD);
+	for(int i = 0; i < payload_size; i++) {
+     d18:	c0 17       	cp	r28, r16
+     d1a:	d1 07       	cpc	r29, r17
+     d1c:	d1 f7       	brne	.-12     	; 0xd12 <nrf24l01_transmit+0x38>
+		SPI_send(payload[i]);
+	}
+	SPI_set_RF_cs();
+
+}
+     d1e:	df 91       	pop	r29
+     d20:	cf 91       	pop	r28
+     d22:	1f 91       	pop	r17
+     d24:	0f 91       	pop	r16
+     d26:	ff 90       	pop	r15
+	SPI_unset_RF_cs();
+	SPI_send(W_TX_PAYLOAD);
+	for(int i = 0; i < payload_size; i++) {
+		SPI_send(payload[i]);
+	}
+	SPI_set_RF_cs();
+     d28:	0c 94 da 06 	jmp	0xdb4	; 0xdb4 <SPI_set_RF_cs>
+
+00000d2c <nrf24l01_read_register>:
+
+}
+
+void nrf24l01_read_register(uint8_t reg, uint8_t* data, uint8_t bytecount) {
+     d2c:	ff 92       	push	r15
+     d2e:	0f 93       	push	r16
+     d30:	1f 93       	push	r17
+     d32:	cf 93       	push	r28
+     d34:	df 93       	push	r29
+     d36:	c8 2f       	mov	r28, r24
+     d38:	f6 2e       	mov	r15, r22
+     d3a:	07 2f       	mov	r16, r23
+     d3c:	14 2f       	mov	r17, r20
+	SPI_unset_RF_cs();
+     d3e:	0e 94 d8 06 	call	0xdb0	; 0xdb0 <SPI_unset_RF_cs>
+	SPI_send(reg);
+     d42:	8c 2f       	mov	r24, r28
+     d44:	0e 94 e0 06 	call	0xdc0	; 0xdc0 <SPI_send>
+	for(int i = 0; i < bytecount; i++) {
+     d48:	11 23       	and	r17, r17
+     d4a:	71 f0       	breq	.+28     	; 0xd68 <nrf24l01_read_register+0x3c>
+     d4c:	cf 2d       	mov	r28, r15
+     d4e:	d0 2f       	mov	r29, r16
+     d50:	ce 01       	movw	r24, r28
+     d52:	81 0f       	add	r24, r17
+     d54:	91 1d       	adc	r25, r1
+     d56:	8c 01       	movw	r16, r24
+		SPI_send(NOP);
+     d58:	8f ef       	ldi	r24, 0xFF	; 255
+     d5a:	0e 94 e0 06 	call	0xdc0	; 0xdc0 <SPI_send>
+		data[i] = SPDR;
+     d5e:	8e b5       	in	r24, 0x2e	; 46
+     d60:	89 93       	st	Y+, r24
+}
+
+void nrf24l01_read_register(uint8_t reg, uint8_t* data, uint8_t bytecount) {
+	SPI_unset_RF_cs();
+	SPI_send(reg);
+	for(int i = 0; i < bytecount; i++) {
+     d62:	c0 17       	cp	r28, r16
+     d64:	d1 07       	cpc	r29, r17
+     d66:	c1 f7       	brne	.-16     	; 0xd58 <nrf24l01_read_register+0x2c>
+		SPI_send(NOP);
+		data[i] = SPDR;
+	}
+	SPI_set_RF_cs();
+}
+     d68:	df 91       	pop	r29
+     d6a:	cf 91       	pop	r28
+     d6c:	1f 91       	pop	r17
+     d6e:	0f 91       	pop	r16
+     d70:	ff 90       	pop	r15
+	SPI_send(reg);
+	for(int i = 0; i < bytecount; i++) {
+		SPI_send(NOP);
+		data[i] = SPDR;
+	}
+	SPI_set_RF_cs();
+     d72:	0c 94 da 06 	jmp	0xdb4	; 0xdb4 <SPI_set_RF_cs>
+
+00000d76 <nrf24l01_reset_interrupts>:
+}
+
+void nrf24l01_reset_interrupts() {
+     d76:	cf 93       	push	r28
+     d78:	df 93       	push	r29
+     d7a:	1f 92       	push	r1
+     d7c:	cd b7       	in	r28, 0x3d	; 61
+     d7e:	de b7       	in	r29, 0x3e	; 62
+	uint8_t val[1];
+	val[0] = 0x70;
+     d80:	80 e7       	ldi	r24, 0x70	; 112
+     d82:	89 83       	std	Y+1, r24	; 0x01
+	nrf24l01_write_register(STATUS,val,1);
+     d84:	41 e0       	ldi	r20, 0x01	; 1
+     d86:	be 01       	movw	r22, r28
+     d88:	6f 5f       	subi	r22, 0xFF	; 255
+     d8a:	7f 4f       	sbci	r23, 0xFF	; 255
+     d8c:	87 e0       	ldi	r24, 0x07	; 7
+     d8e:	0e 94 d7 05 	call	0xbae	; 0xbae <nrf24l01_write_register>
+}
+     d92:	0f 90       	pop	r0
+     d94:	df 91       	pop	r29
+     d96:	cf 91       	pop	r28
+     d98:	08 95       	ret
+
+00000d9a <SPI_init>:
+#include <avr/io.h>
+#include <include/spi.h>
+
+void SPI_init() {
+	//EINK CS, SCK & MOSI out
+	DDRB |= (1 << DDB0) | (1 << DDB1) | (1 << DDB2);
+     d9a:	84 b1       	in	r24, 0x04	; 4
+     d9c:	87 60       	ori	r24, 0x07	; 7
+     d9e:	84 b9       	out	0x04, r24	; 4
+	// RF CS
+	DDRC |= (1 << DDC6);
+     da0:	3e 9a       	sbi	0x07, 6	; 7
+	
+	DDRB &= ~(1 << DDB3);
+     da2:	23 98       	cbi	0x04, 3	; 4
+	
+	SPCR|=(1<<SPE)|(1<<MSTR)|(1<<SPR0);
+     da4:	8c b5       	in	r24, 0x2c	; 44
+     da6:	81 65       	ori	r24, 0x51	; 81
+     da8:	8c bd       	out	0x2c, r24	; 44
+	
+	//RF CS High
+    PORTC |= (1 << PC6);
+     daa:	46 9a       	sbi	0x08, 6	; 8
+	
+	//EINK CS HIGH
+	PORTB |= (1 << PB0);
+     dac:	28 9a       	sbi	0x05, 0	; 5
+     dae:	08 95       	ret
+
+00000db0 <SPI_unset_RF_cs>:
+}
+
+void SPI_unset_RF_cs() {
+    PORTC &= ~(1 << PINC6);
+     db0:	46 98       	cbi	0x08, 6	; 8
+     db2:	08 95       	ret
+
+00000db4 <SPI_set_RF_cs>:
+}
+
+void SPI_set_RF_cs(){
+    PORTC |= (1 << PINC6);
+     db4:	46 9a       	sbi	0x08, 6	; 8
+     db6:	08 95       	ret
+
+00000db8 <SPI_unset_EINK_cs>:
+}
+
+void SPI_unset_EINK_cs() {
+	PORTB &= ~(1 << PB0);
+     db8:	28 98       	cbi	0x05, 0	; 5
+     dba:	08 95       	ret
+
+00000dbc <SPI_set_EINK_cs>:
+}
+
+void SPI_set_EINK_cs() {
+	PORTB |= (1 << PB0);
+     dbc:	28 9a       	sbi	0x05, 0	; 5
+     dbe:	08 95       	ret
+
+00000dc0 <SPI_send>:
+}
+
+void SPI_send(uint8_t data) {
+	SPDR = data;
+     dc0:	8e bd       	out	0x2e, r24	; 46
+	while(!(SPSR & (1<<SPIF) ));
+     dc2:	0d b4       	in	r0, 0x2d	; 45
+     dc4:	07 fe       	sbrs	r0, 7
+     dc6:	fd cf       	rjmp	.-6      	; 0xdc2 <SPI_send+0x2>
+     dc8:	08 95       	ret
+
+00000dca <main>:
+
+int main() {
+     dca:	cf 93       	push	r28
+     dcc:	df 93       	push	r29
+     dce:	00 d0       	rcall	.+0      	; 0xdd0 <main+0x6>
+     dd0:	00 d0       	rcall	.+0      	; 0xdd2 <main+0x8>
+     dd2:	1f 92       	push	r1
+     dd4:	cd b7       	in	r28, 0x3d	; 61
+     dd6:	de b7       	in	r29, 0x3e	; 62
+
+	//DEBUG led
+	DDRF = (1 << DDF0);
+     dd8:	11 e0       	ldi	r17, 0x01	; 1
+     dda:	10 bb       	out	0x10, r17	; 16
+	
+	if(batmon_init()) {
+     ddc:	0e 94 6a 00 	call	0xd4	; 0xd4 <batmon_init>
+     de0:	81 11       	cpse	r24, r1
+     de2:	f1 c0       	rjmp	.+482    	; 0xfc6 <main+0x1fc>
+
+        }
+	}
+	
+	//IRQ
+	DDRE &= ~(1 << DDE6);
+     de4:	6e 98       	cbi	0x0d, 6	; 13
+    EICRB |= (1<<ISC60)|(0<<ISC61);   //INT6 falling edge
+     de6:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <__TEXT_REGION_LENGTH__+0x7f806a>
+     dea:	80 61       	ori	r24, 0x10	; 16
+     dec:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <__TEXT_REGION_LENGTH__+0x7f806a>
+    EIMSK |= (1<<INT6);
+     df0:	ee 9a       	sbi	0x1d, 6	; 29
+	sei();
+     df2:	78 94       	sei
+	DDRD &= ~(1 << DDD3);
+     df4:	53 98       	cbi	0x0a, 3	; 10
+
+	SPI_init();
+     df6:	0e 94 cd 06 	call	0xd9a	; 0xd9a <SPI_init>
+	
+	EINK_init();
+     dfa:	0e 94 e8 01 	call	0x3d0	; 0x3d0 <EINK_init>
+	while(PIND & !(1<<PD3));
+     dfe:	89 b1       	in	r24, 0x09	; 9
+
+	unsigned char buffer[(epdwidth / 8) * HEIGHT];
+     e00:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <epdwidth>
+     e04:	86 95       	lsr	r24
+     e06:	86 95       	lsr	r24
+     e08:	86 95       	lsr	r24
+     e0a:	2d b7       	in	r18, 0x3d	; 61
+     e0c:	3e b7       	in	r19, 0x3e	; 62
+     e0e:	98 e2       	ldi	r25, 0x28	; 40
+     e10:	89 9f       	mul	r24, r25
+     e12:	20 19       	sub	r18, r0
+     e14:	31 09       	sbc	r19, r1
+     e16:	11 24       	eor	r1, r1
+     e18:	0f b6       	in	r0, 0x3f	; 63
+     e1a:	f8 94       	cli
+     e1c:	3e bf       	out	0x3e, r19	; 62
+     e1e:	0f be       	out	0x3f, r0	; 63
+     e20:	2d bf       	out	0x3d, r18	; 61
+     e22:	2f 5f       	subi	r18, 0xFF	; 255
+     e24:	3f 4f       	sbci	r19, 0xFF	; 255
+     e26:	79 01       	movw	r14, r18
+
+	clean_buffer(&buffer);
+     e28:	c9 01       	movw	r24, r18
+     e2a:	0e 94 69 05 	call	0xad2	; 0xad2 <clean_buffer>
+	while(PIND & !(1<<PD3));
+     e2e:	89 b1       	in	r24, 0x09	; 9
+	EINK_send_command(DISPLAY_REFRESH);
+     e30:	82 e1       	ldi	r24, 0x12	; 18
+     e32:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+	while(PIND & !(1<<PD3));
+     e36:	89 b1       	in	r24, 0x09	; 9
+     e38:	3f ef       	ldi	r19, 0xFF	; 255
+     e3a:	89 e5       	ldi	r24, 0x59	; 89
+     e3c:	92 e6       	ldi	r25, 0x62	; 98
+     e3e:	22 e0       	ldi	r18, 0x02	; 2
+     e40:	31 50       	subi	r19, 0x01	; 1
+     e42:	80 40       	sbci	r24, 0x00	; 0
+     e44:	90 40       	sbci	r25, 0x00	; 0
+     e46:	20 40       	sbci	r18, 0x00	; 0
+     e48:	d9 f7       	brne	.-10     	; 0xe40 <main+0x76>
+     e4a:	00 c0       	rjmp	.+0      	; 0xe4c <main+0x82>
+     e4c:	00 00       	nop
+
+
+	//Suvaline aadress
+	uint8_t address[5];
+	for(int i = 0; i < 5; i++) {
+		address[i] = 0x12+i;
+     e4e:	82 e1       	ldi	r24, 0x12	; 18
+     e50:	89 83       	std	Y+1, r24	; 0x01
+     e52:	83 e1       	ldi	r24, 0x13	; 19
+     e54:	8a 83       	std	Y+2, r24	; 0x02
+     e56:	84 e1       	ldi	r24, 0x14	; 20
+     e58:	8b 83       	std	Y+3, r24	; 0x03
+     e5a:	85 e1       	ldi	r24, 0x15	; 21
+     e5c:	8c 83       	std	Y+4, r24	; 0x04
+     e5e:	86 e1       	ldi	r24, 0x16	; 22
+     e60:	8d 83       	std	Y+5, r24	; 0x05
+    }
+	
+	nrf24l01_init(5, address, 110, 10 ,MODE_RECIEVE);
+     e62:	01 e0       	ldi	r16, 0x01	; 1
+     e64:	2a e0       	ldi	r18, 0x0A	; 10
+     e66:	4e e6       	ldi	r20, 0x6E	; 110
+     e68:	be 01       	movw	r22, r28
+     e6a:	6f 5f       	subi	r22, 0xFF	; 255
+     e6c:	7f 4f       	sbci	r23, 0xFF	; 255
+     e6e:	85 e0       	ldi	r24, 0x05	; 5
+     e70:	0e 94 fb 05 	call	0xbf6	; 0xbf6 <nrf24l01_init>
+	
+	nrf24l01_read_register(R_RX_PAYLOAD,data,10); // Esimesel korral peame puhvritühjendust ise tegema..
+     e74:	4a e0       	ldi	r20, 0x0A	; 10
+     e76:	62 e0       	ldi	r22, 0x02	; 2
+     e78:	71 e0       	ldi	r23, 0x01	; 1
+     e7a:	81 e6       	ldi	r24, 0x61	; 97
+     e7c:	0e 94 96 06 	call	0xd2c	; 0xd2c <nrf24l01_read_register>
+	nrf24l01_reset_interrupts();    
+     e80:	0e 94 bb 06 	call	0xd76	; 0xd76 <nrf24l01_reset_interrupts>
+
+	while(1) {
+		if(data_available) {
+     e84:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+     e88:	88 23       	and	r24, r24
+     e8a:	e1 f3       	breq	.-8      	; 0xe84 <main+0xba>
+
+			if(data[0] == 'D') {
+     e8c:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <data>
+     e90:	84 34       	cpi	r24, 0x44	; 68
+     e92:	c9 f0       	breq	.+50     	; 0xec6 <main+0xfc>
+                        }
+                    }
+				}
+			} else {
+
+				if(data[0] == 'S') {
+     e94:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <data>
+     e98:	83 35       	cpi	r24, 0x53	; 83
+     e9a:	09 f4       	brne	.+2      	; 0xe9e <main+0xd4>
+     e9c:	47 c0       	rjmp	.+142    	; 0xf2c <main+0x162>
+					EINK_draw_absolute_pixel(buffer,(uint8_t)data[1],(uint8_t)data[2],1);
+				} else if(data[0] == 'C') {
+     e9e:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <data>
+     ea2:	83 34       	cpi	r24, 0x43	; 67
+     ea4:	09 f4       	brne	.+2      	; 0xea8 <main+0xde>
+     ea6:	4e c0       	rjmp	.+156    	; 0xf44 <main+0x17a>
+					EINK_draw_absolute_pixel(buffer,data[1],data[2],0);
+				} else if(data[0] == 'R') {
+     ea8:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <data>
+     eac:	82 35       	cpi	r24, 0x52	; 82
+     eae:	09 f4       	brne	.+2      	; 0xeb2 <main+0xe8>
+     eb0:	80 c0       	rjmp	.+256    	; 0xfb2 <main+0x1e8>
+					EINK_send_command(DISPLAY_REFRESH);
+					while(PIND & !(1<<PD3));
+				} else if(data[0] == 'W') {
+     eb2:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <data>
+     eb6:	87 35       	cpi	r24, 0x57	; 87
+     eb8:	09 f4       	brne	.+2      	; 0xebc <main+0xf2>
+     eba:	80 c0       	rjmp	.+256    	; 0xfbc <main+0x1f2>
+                    while(PIND & !(1<<PD3));
+                    
+                }
+            }
+			
+			nrf24l01_reset_interrupts();
+     ebc:	0e 94 bb 06 	call	0xd76	; 0xd76 <nrf24l01_reset_interrupts>
+			data_available = 0;
+     ec0:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <__DATA_REGION_ORIGIN__>
+     ec4:	df cf       	rjmp	.-66     	; 0xe84 <main+0xba>
+
+	while(1) {
+		if(data_available) {
+
+			if(data[0] == 'D') {
+				if(data[1] == 'B') {
+     ec6:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <data+0x1>
+     eca:	82 34       	cpi	r24, 0x42	; 66
+     ecc:	09 f4       	brne	.+2      	; 0xed0 <main+0x106>
+     ece:	46 c0       	rjmp	.+140    	; 0xf5c <main+0x192>
+                    for(uint8_t x = 0; x < epdwidth; x++) {
+                        for (uint8_t y = 0; y < HEIGHT; y++) {
+                            EINK_draw_absolute_pixel(buffer,x,y,0);
+                        }
+                    }
+				} else if (data[1] == 'R') {
+     ed0:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <data+0x1>
+     ed4:	82 35       	cpi	r24, 0x52	; 82
+     ed6:	91 f7       	brne	.-28     	; 0xebc <main+0xf2>
+					EINK_set_partial_red(buffer, (uint8_t)data[2], (uint8_t)data[3], epdwidth,HEIGHT);
+     ed8:	40 91 05 01 	lds	r20, 0x0105	; 0x800105 <data+0x3>
+     edc:	60 91 04 01 	lds	r22, 0x0104	; 0x800104 <data+0x2>
+     ee0:	20 91 01 01 	lds	r18, 0x0101	; 0x800101 <epdwidth>
+     ee4:	30 e0       	ldi	r19, 0x00	; 0
+     ee6:	50 e0       	ldi	r21, 0x00	; 0
+     ee8:	70 e0       	ldi	r23, 0x00	; 0
+     eea:	08 e2       	ldi	r16, 0x28	; 40
+     eec:	10 e0       	ldi	r17, 0x00	; 0
+     eee:	c7 01       	movw	r24, r14
+     ef0:	0e 94 67 03 	call	0x6ce	; 0x6ce <EINK_set_partial_red>
+					while(PIND & !(1<<PD3));
+     ef4:	89 b1       	in	r24, 0x09	; 9
+                    for(uint8_t x = 0; x < epdwidth; x++) {
+     ef6:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <epdwidth>
+     efa:	88 23       	and	r24, r24
+     efc:	f9 f2       	breq	.-66     	; 0xebc <main+0xf2>
+     efe:	b1 2c       	mov	r11, r1
+     f00:	cb 2c       	mov	r12, r11
+     f02:	d1 2c       	mov	r13, r1
+     f04:	00 e0       	ldi	r16, 0x00	; 0
+     f06:	10 e0       	ldi	r17, 0x00	; 0
+                        for (uint8_t y = 0; y < HEIGHT; y++) {
+                            EINK_draw_absolute_pixel(buffer,x,y,0);
+     f08:	20 e0       	ldi	r18, 0x00	; 0
+     f0a:	30 e0       	ldi	r19, 0x00	; 0
+     f0c:	a8 01       	movw	r20, r16
+     f0e:	b6 01       	movw	r22, r12
+     f10:	c7 01       	movw	r24, r14
+     f12:	0e 94 87 02 	call	0x50e	; 0x50e <EINK_draw_absolute_pixel>
+     f16:	0f 5f       	subi	r16, 0xFF	; 255
+     f18:	1f 4f       	sbci	r17, 0xFF	; 255
+                    }
+				} else if (data[1] == 'R') {
+					EINK_set_partial_red(buffer, (uint8_t)data[2], (uint8_t)data[3], epdwidth,HEIGHT);
+					while(PIND & !(1<<PD3));
+                    for(uint8_t x = 0; x < epdwidth; x++) {
+                        for (uint8_t y = 0; y < HEIGHT; y++) {
+     f1a:	08 32       	cpi	r16, 0x28	; 40
+     f1c:	11 05       	cpc	r17, r1
+     f1e:	a1 f7       	brne	.-24     	; 0xf08 <main+0x13e>
+                        }
+                    }
+				} else if (data[1] == 'R') {
+					EINK_set_partial_red(buffer, (uint8_t)data[2], (uint8_t)data[3], epdwidth,HEIGHT);
+					while(PIND & !(1<<PD3));
+                    for(uint8_t x = 0; x < epdwidth; x++) {
+     f20:	b3 94       	inc	r11
+     f22:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <epdwidth>
+     f26:	b8 16       	cp	r11, r24
+     f28:	58 f3       	brcs	.-42     	; 0xf00 <main+0x136>
+     f2a:	c8 cf       	rjmp	.-112    	; 0xebc <main+0xf2>
+                    }
+				}
+			} else {
+
+				if(data[0] == 'S') {
+					EINK_draw_absolute_pixel(buffer,(uint8_t)data[1],(uint8_t)data[2],1);
+     f2c:	40 91 04 01 	lds	r20, 0x0104	; 0x800104 <data+0x2>
+     f30:	60 91 03 01 	lds	r22, 0x0103	; 0x800103 <data+0x1>
+     f34:	50 e0       	ldi	r21, 0x00	; 0
+     f36:	70 e0       	ldi	r23, 0x00	; 0
+     f38:	21 e0       	ldi	r18, 0x01	; 1
+     f3a:	30 e0       	ldi	r19, 0x00	; 0
+     f3c:	c7 01       	movw	r24, r14
+     f3e:	0e 94 87 02 	call	0x50e	; 0x50e <EINK_draw_absolute_pixel>
+     f42:	bc cf       	rjmp	.-136    	; 0xebc <main+0xf2>
+				} else if(data[0] == 'C') {
+					EINK_draw_absolute_pixel(buffer,data[1],data[2],0);
+     f44:	40 91 04 01 	lds	r20, 0x0104	; 0x800104 <data+0x2>
+     f48:	60 91 03 01 	lds	r22, 0x0103	; 0x800103 <data+0x1>
+     f4c:	50 e0       	ldi	r21, 0x00	; 0
+     f4e:	70 e0       	ldi	r23, 0x00	; 0
+     f50:	20 e0       	ldi	r18, 0x00	; 0
+     f52:	30 e0       	ldi	r19, 0x00	; 0
+     f54:	c7 01       	movw	r24, r14
+     f56:	0e 94 87 02 	call	0x50e	; 0x50e <EINK_draw_absolute_pixel>
+     f5a:	b0 cf       	rjmp	.-160    	; 0xebc <main+0xf2>
+	while(1) {
+		if(data_available) {
+
+			if(data[0] == 'D') {
+				if(data[1] == 'B') {
+					EINK_set_partial_black(buffer, (uint8_t)data[2], (uint8_t)data[3], epdwidth,HEIGHT);
+     f5c:	40 91 05 01 	lds	r20, 0x0105	; 0x800105 <data+0x3>
+     f60:	60 91 04 01 	lds	r22, 0x0104	; 0x800104 <data+0x2>
+     f64:	20 91 01 01 	lds	r18, 0x0101	; 0x800101 <epdwidth>
+     f68:	30 e0       	ldi	r19, 0x00	; 0
+     f6a:	50 e0       	ldi	r21, 0x00	; 0
+     f6c:	70 e0       	ldi	r23, 0x00	; 0
+     f6e:	08 e2       	ldi	r16, 0x28	; 40
+     f70:	10 e0       	ldi	r17, 0x00	; 0
+     f72:	c7 01       	movw	r24, r14
+     f74:	0e 94 d3 02 	call	0x5a6	; 0x5a6 <EINK_set_partial_black>
+					while(PIND & !(1<<PD3));
+     f78:	89 b1       	in	r24, 0x09	; 9
+                    for(uint8_t x = 0; x < epdwidth; x++) {
+     f7a:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <epdwidth>
+     f7e:	88 23       	and	r24, r24
+     f80:	09 f4       	brne	.+2      	; 0xf84 <main+0x1ba>
+     f82:	9c cf       	rjmp	.-200    	; 0xebc <main+0xf2>
+     f84:	b1 2c       	mov	r11, r1
+     f86:	cb 2c       	mov	r12, r11
+     f88:	d1 2c       	mov	r13, r1
+     f8a:	00 e0       	ldi	r16, 0x00	; 0
+     f8c:	10 e0       	ldi	r17, 0x00	; 0
+                        for (uint8_t y = 0; y < HEIGHT; y++) {
+                            EINK_draw_absolute_pixel(buffer,x,y,0);
+     f8e:	20 e0       	ldi	r18, 0x00	; 0
+     f90:	30 e0       	ldi	r19, 0x00	; 0
+     f92:	a8 01       	movw	r20, r16
+     f94:	b6 01       	movw	r22, r12
+     f96:	c7 01       	movw	r24, r14
+     f98:	0e 94 87 02 	call	0x50e	; 0x50e <EINK_draw_absolute_pixel>
+     f9c:	0f 5f       	subi	r16, 0xFF	; 255
+     f9e:	1f 4f       	sbci	r17, 0xFF	; 255
+			if(data[0] == 'D') {
+				if(data[1] == 'B') {
+					EINK_set_partial_black(buffer, (uint8_t)data[2], (uint8_t)data[3], epdwidth,HEIGHT);
+					while(PIND & !(1<<PD3));
+                    for(uint8_t x = 0; x < epdwidth; x++) {
+                        for (uint8_t y = 0; y < HEIGHT; y++) {
+     fa0:	08 32       	cpi	r16, 0x28	; 40
+     fa2:	11 05       	cpc	r17, r1
+     fa4:	a1 f7       	brne	.-24     	; 0xf8e <main+0x1c4>
+
+			if(data[0] == 'D') {
+				if(data[1] == 'B') {
+					EINK_set_partial_black(buffer, (uint8_t)data[2], (uint8_t)data[3], epdwidth,HEIGHT);
+					while(PIND & !(1<<PD3));
+                    for(uint8_t x = 0; x < epdwidth; x++) {
+     fa6:	b3 94       	inc	r11
+     fa8:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <epdwidth>
+     fac:	b8 16       	cp	r11, r24
+     fae:	58 f3       	brcs	.-42     	; 0xf86 <main+0x1bc>
+     fb0:	85 cf       	rjmp	.-246    	; 0xebc <main+0xf2>
+				if(data[0] == 'S') {
+					EINK_draw_absolute_pixel(buffer,(uint8_t)data[1],(uint8_t)data[2],1);
+				} else if(data[0] == 'C') {
+					EINK_draw_absolute_pixel(buffer,data[1],data[2],0);
+				} else if(data[0] == 'R') {
+					EINK_send_command(DISPLAY_REFRESH);
+     fb2:	82 e1       	ldi	r24, 0x12	; 18
+     fb4:	0e 94 a1 01 	call	0x342	; 0x342 <EINK_send_command>
+					while(PIND & !(1<<PD3));
+     fb8:	89 b1       	in	r24, 0x09	; 9
+     fba:	80 cf       	rjmp	.-256    	; 0xebc <main+0xf2>
+				} else if(data[0] == 'W') {
+					clean_buffer(&buffer);
+     fbc:	c7 01       	movw	r24, r14
+     fbe:	0e 94 69 05 	call	0xad2	; 0xad2 <clean_buffer>
+                    while(PIND & !(1<<PD3));
+     fc2:	89 b1       	in	r24, 0x09	; 9
+     fc4:	7b cf       	rjmp	.-266    	; 0xebc <main+0xf2>
+
+	//DEBUG led
+	DDRF = (1 << DDF0);
+	
+	if(batmon_init()) {
+        batmon_config(700);
+     fc6:	8c eb       	ldi	r24, 0xBC	; 188
+     fc8:	92 e0       	ldi	r25, 0x02	; 2
+     fca:	0e 94 ac 00 	call	0x158	; 0x158 <batmon_config>
+        if(batmon_soc() > 96) {
+     fce:	0e 94 8e 01 	call	0x31c	; 0x31c <batmon_soc>
+     fd2:	81 36       	cpi	r24, 0x61	; 97
+     fd4:	08 f4       	brcc	.+2      	; 0xfd8 <main+0x20e>
+     fd6:	06 cf       	rjmp	.-500    	; 0xde4 <main+0x1a>
+        		PORTF = (1 << PF0);
+     fd8:	11 bb       	out	0x11, r17	; 17
+     fda:	04 cf       	rjmp	.-504    	; 0xde4 <main+0x1a>
+
+00000fdc <__divmodhi4>:
+     fdc:	97 fb       	bst	r25, 7
+     fde:	07 2e       	mov	r0, r23
+     fe0:	16 f4       	brtc	.+4      	; 0xfe6 <__divmodhi4+0xa>
+     fe2:	00 94       	com	r0
+     fe4:	07 d0       	rcall	.+14     	; 0xff4 <__divmodhi4_neg1>
+     fe6:	77 fd       	sbrc	r23, 7
+     fe8:	09 d0       	rcall	.+18     	; 0xffc <__divmodhi4_neg2>
+     fea:	0e 94 24 08 	call	0x1048	; 0x1048 <__udivmodhi4>
+     fee:	07 fc       	sbrc	r0, 7
+     ff0:	05 d0       	rcall	.+10     	; 0xffc <__divmodhi4_neg2>
+     ff2:	3e f4       	brtc	.+14     	; 0x1002 <__divmodhi4_exit>
+
+00000ff4 <__divmodhi4_neg1>:
+     ff4:	90 95       	com	r25
+     ff6:	81 95       	neg	r24
+     ff8:	9f 4f       	sbci	r25, 0xFF	; 255
+     ffa:	08 95       	ret
+
+00000ffc <__divmodhi4_neg2>:
+     ffc:	70 95       	com	r23
+     ffe:	61 95       	neg	r22
+    1000:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00001002 <__divmodhi4_exit>:
+    1002:	08 95       	ret
+
+00001004 <__udivmodsi4>:
+    1004:	a1 e2       	ldi	r26, 0x21	; 33
+    1006:	1a 2e       	mov	r1, r26
+    1008:	aa 1b       	sub	r26, r26
+    100a:	bb 1b       	sub	r27, r27
+    100c:	fd 01       	movw	r30, r26
+    100e:	0d c0       	rjmp	.+26     	; 0x102a <__udivmodsi4_ep>
+
+00001010 <__udivmodsi4_loop>:
+    1010:	aa 1f       	adc	r26, r26
+    1012:	bb 1f       	adc	r27, r27
+    1014:	ee 1f       	adc	r30, r30
+    1016:	ff 1f       	adc	r31, r31
+    1018:	a2 17       	cp	r26, r18
+    101a:	b3 07       	cpc	r27, r19
+    101c:	e4 07       	cpc	r30, r20
+    101e:	f5 07       	cpc	r31, r21
+    1020:	20 f0       	brcs	.+8      	; 0x102a <__udivmodsi4_ep>
+    1022:	a2 1b       	sub	r26, r18
+    1024:	b3 0b       	sbc	r27, r19
+    1026:	e4 0b       	sbc	r30, r20
+    1028:	f5 0b       	sbc	r31, r21
+
+0000102a <__udivmodsi4_ep>:
+    102a:	66 1f       	adc	r22, r22
+    102c:	77 1f       	adc	r23, r23
+    102e:	88 1f       	adc	r24, r24
+    1030:	99 1f       	adc	r25, r25
+    1032:	1a 94       	dec	r1
+    1034:	69 f7       	brne	.-38     	; 0x1010 <__udivmodsi4_loop>
+    1036:	60 95       	com	r22
+    1038:	70 95       	com	r23
+    103a:	80 95       	com	r24
+    103c:	90 95       	com	r25
+    103e:	9b 01       	movw	r18, r22
+    1040:	ac 01       	movw	r20, r24
+    1042:	bd 01       	movw	r22, r26
+    1044:	cf 01       	movw	r24, r30
+    1046:	08 95       	ret
+
+00001048 <__udivmodhi4>:
+    1048:	aa 1b       	sub	r26, r26
+    104a:	bb 1b       	sub	r27, r27
+    104c:	51 e1       	ldi	r21, 0x11	; 17
+    104e:	07 c0       	rjmp	.+14     	; 0x105e <__udivmodhi4_ep>
+
+00001050 <__udivmodhi4_loop>:
+    1050:	aa 1f       	adc	r26, r26
+    1052:	bb 1f       	adc	r27, r27
+    1054:	a6 17       	cp	r26, r22
+    1056:	b7 07       	cpc	r27, r23
+    1058:	10 f0       	brcs	.+4      	; 0x105e <__udivmodhi4_ep>
+    105a:	a6 1b       	sub	r26, r22
+    105c:	b7 0b       	sbc	r27, r23
+
+0000105e <__udivmodhi4_ep>:
+    105e:	88 1f       	adc	r24, r24
+    1060:	99 1f       	adc	r25, r25
+    1062:	5a 95       	dec	r21
+    1064:	a9 f7       	brne	.-22     	; 0x1050 <__udivmodhi4_loop>
+    1066:	80 95       	com	r24
+    1068:	90 95       	com	r25
+    106a:	bc 01       	movw	r22, r24
+    106c:	cd 01       	movw	r24, r26
+    106e:	08 95       	ret
+
+00001070 <_exit>:
+    1070:	f8 94       	cli
+
+00001072 <__stop_program>:
+    1072:	ff cf       	rjmp	.-2      	; 0x1072 <__stop_program>

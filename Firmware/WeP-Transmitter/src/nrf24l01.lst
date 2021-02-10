@@ -1,0 +1,3042 @@
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 1
+
+
+   1               		.file	"nrf24l01.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	nrf24l01_write_register
+  11               		.type	nrf24l01_write_register, @function
+  12               	nrf24l01_write_register:
+  13               	.LFB6:
+  14               		.file 1 "src/nrf24l01.c"
+   1:src/nrf24l01.c **** #include <include/nrf24l01.h>
+   2:src/nrf24l01.c **** #include <include/spi.h>
+   3:src/nrf24l01.c **** #define F_CPU 16000000UL
+   4:src/nrf24l01.c **** #include <util/delay.h>
+   5:src/nrf24l01.c **** 
+   6:src/nrf24l01.c **** void nrf24l01_write_register(uint8_t reg, uint8_t* data, uint8_t bytecount) {
+  15               		.loc 1 6 0
+  16               		.cfi_startproc
+  17               	.LVL0:
+  18 0000 FF92      		push r15
+  19               	.LCFI0:
+  20               		.cfi_def_cfa_offset 3
+  21               		.cfi_offset 15, -2
+  22 0002 0F93      		push r16
+  23               	.LCFI1:
+  24               		.cfi_def_cfa_offset 4
+  25               		.cfi_offset 16, -3
+  26 0004 1F93      		push r17
+  27               	.LCFI2:
+  28               		.cfi_def_cfa_offset 5
+  29               		.cfi_offset 17, -4
+  30 0006 CF93      		push r28
+  31               	.LCFI3:
+  32               		.cfi_def_cfa_offset 6
+  33               		.cfi_offset 28, -5
+  34 0008 DF93      		push r29
+  35               	.LCFI4:
+  36               		.cfi_def_cfa_offset 7
+  37               		.cfi_offset 29, -6
+  38               	/* prologue: function */
+  39               	/* frame size = 0 */
+  40               	/* stack size = 5 */
+  41               	.L__stack_usage = 5
+  42 000a C82F      		mov r28,r24
+  43 000c F62E      		mov r15,r22
+  44 000e 072F      		mov r16,r23
+  45 0010 142F      		mov r17,r20
+  46               	.LVL1:
+   7:src/nrf24l01.c **** 	reg =  NRF_WRITE + reg;
+   8:src/nrf24l01.c **** 	SPI_unset_cs();
+  47               		.loc 1 8 0
+  48 0012 0E94 0000 		call SPI_unset_cs
+  49               	.LVL2:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 2
+
+
+   9:src/nrf24l01.c **** 	SPI_send(reg);
+  50               		.loc 1 9 0
+  51 0016 80E2      		ldi r24,lo8(32)
+  52 0018 8C0F      		add r24,r28
+  53               	.LVL3:
+  54 001a 0E94 0000 		call SPI_send
+  55               	.LVL4:
+  56               	.LBB9:
+  10:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
+  57               		.loc 1 10 0
+  58 001e 1123      		tst r17
+  59 0020 01F0      		breq .L4
+  60 0022 CF2D      		mov r28,r15
+  61               	.LVL5:
+  62 0024 D02F      		mov r29,r16
+  63 0026 CE01      		movw r24,r28
+  64 0028 810F      		add r24,r17
+  65 002a 911D      		adc r25,__zero_reg__
+  66 002c 8C01      		movw r16,r24
+  67               	.LVL6:
+  68               	.L3:
+  11:src/nrf24l01.c **** 		SPI_send(data[i]);
+  69               		.loc 1 11 0 discriminator 3
+  70 002e 8991      		ld r24,Y+
+  71               	.LVL7:
+  72 0030 0E94 0000 		call SPI_send
+  73               	.LVL8:
+  10:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
+  74               		.loc 1 10 0 discriminator 3
+  75 0034 C017      		cp r28,r16
+  76 0036 D107      		cpc r29,r17
+  77 0038 01F4      		brne .L3
+  78               	.LVL9:
+  79               	.L4:
+  80               	/* epilogue start */
+  81               	.LBE9:
+  12:src/nrf24l01.c **** 	}
+  13:src/nrf24l01.c **** 	SPI_set_cs();
+  14:src/nrf24l01.c **** }
+  82               		.loc 1 14 0
+  83 003a DF91      		pop r29
+  84 003c CF91      		pop r28
+  85 003e 1F91      		pop r17
+  86               	.LVL10:
+  87 0040 0F91      		pop r16
+  88 0042 FF90      		pop r15
+  13:src/nrf24l01.c **** }
+  89               		.loc 1 13 0
+  90 0044 0C94 0000 		jmp SPI_set_cs
+  91               	.LVL11:
+  92               		.cfi_endproc
+  93               	.LFE6:
+  94               		.size	nrf24l01_write_register, .-nrf24l01_write_register
+  95               	.global	nrf24l01_init
+  96               		.type	nrf24l01_init, @function
+  97               	nrf24l01_init:
+  98               	.LFB7:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 3
+
+
+  15:src/nrf24l01.c **** 
+  16:src/nrf24l01.c **** void nrf24l01_init(uint8_t address_width, uint8_t* address, uint8_t channel, uint8_t payload_width,
+  99               		.loc 1 16 0
+ 100               		.cfi_startproc
+ 101               	.LVL12:
+ 102 0048 BF92      		push r11
+ 103               	.LCFI5:
+ 104               		.cfi_def_cfa_offset 3
+ 105               		.cfi_offset 11, -2
+ 106 004a CF92      		push r12
+ 107               	.LCFI6:
+ 108               		.cfi_def_cfa_offset 4
+ 109               		.cfi_offset 12, -3
+ 110 004c DF92      		push r13
+ 111               	.LCFI7:
+ 112               		.cfi_def_cfa_offset 5
+ 113               		.cfi_offset 13, -4
+ 114 004e EF92      		push r14
+ 115               	.LCFI8:
+ 116               		.cfi_def_cfa_offset 6
+ 117               		.cfi_offset 14, -5
+ 118 0050 FF92      		push r15
+ 119               	.LCFI9:
+ 120               		.cfi_def_cfa_offset 7
+ 121               		.cfi_offset 15, -6
+ 122 0052 0F93      		push r16
+ 123               	.LCFI10:
+ 124               		.cfi_def_cfa_offset 8
+ 125               		.cfi_offset 16, -7
+ 126 0054 1F93      		push r17
+ 127               	.LCFI11:
+ 128               		.cfi_def_cfa_offset 9
+ 129               		.cfi_offset 17, -8
+ 130 0056 CF93      		push r28
+ 131               	.LCFI12:
+ 132               		.cfi_def_cfa_offset 10
+ 133               		.cfi_offset 28, -9
+ 134 0058 DF93      		push r29
+ 135               	.LCFI13:
+ 136               		.cfi_def_cfa_offset 11
+ 137               		.cfi_offset 29, -10
+ 138 005a 1F92      		push __zero_reg__
+ 139               	.LCFI14:
+ 140               		.cfi_def_cfa_offset 12
+ 141 005c CDB7      		in r28,__SP_L__
+ 142 005e DEB7      		in r29,__SP_H__
+ 143               	.LCFI15:
+ 144               		.cfi_def_cfa_register 28
+ 145               	/* prologue: function */
+ 146               	/* frame size = 1 */
+ 147               	/* stack size = 10 */
+ 148               	.L__stack_usage = 10
+ 149 0060 182F      		mov r17,r24
+ 150 0062 7B01      		movw r14,r22
+ 151 0064 B42E      		mov r11,r20
+ 152 0066 C22E      		mov r12,r18
+  17:src/nrf24l01.c **** 	
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 4
+
+
+  18:src/nrf24l01.c **** 	// Setup CE pin that enables RF activity (not to be confused with the CSN pin, which is for the SP
+  19:src/nrf24l01.c **** 	DDRB |= (1 << DDB7);
+ 153               		.loc 1 19 0
+ 154 0068 279A      		sbi 0x4,7
+  20:src/nrf24l01.c **** 	PORTB &= ~(1 << PORTB7);
+ 155               		.loc 1 20 0
+ 156 006a 2F98      		cbi 0x5,7
+  21:src/nrf24l01.c **** 
+  22:src/nrf24l01.c **** 	uint8_t config_values[1];
+  23:src/nrf24l01.c **** 	
+  24:src/nrf24l01.c **** 	//Enable Auto-ACK
+  25:src/nrf24l01.c **** 	config_values[0] = 0x01;
+ 157               		.loc 1 25 0
+ 158 006c DD24      		clr r13
+ 159 006e D394      		inc r13
+ 160 0070 D982      		std Y+1,r13
+  26:src/nrf24l01.c **** 	nrf24l01_write_register(EN_AA, config_values, 1);
+ 161               		.loc 1 26 0
+ 162 0072 41E0      		ldi r20,lo8(1)
+ 163               	.LVL13:
+ 164 0074 BE01      		movw r22,r28
+ 165               	.LVL14:
+ 166 0076 6F5F      		subi r22,-1
+ 167 0078 7F4F      		sbci r23,-1
+ 168 007a 81E0      		ldi r24,lo8(1)
+ 169               	.LVL15:
+ 170 007c 0E94 0000 		call nrf24l01_write_register
+ 171               	.LVL16:
+  27:src/nrf24l01.c **** 	
+  28:src/nrf24l01.c **** 	//Setup automatic retries 750uS delay, up to 15 times
+  29:src/nrf24l01.c **** 	config_values[0] = 0x2F;
+ 172               		.loc 1 29 0
+ 173 0080 8FE2      		ldi r24,lo8(47)
+ 174 0082 8983      		std Y+1,r24
+  30:src/nrf24l01.c **** 	nrf24l01_write_register(SETUP_RETR, config_values, 1);
+ 175               		.loc 1 30 0
+ 176 0084 41E0      		ldi r20,lo8(1)
+ 177 0086 BE01      		movw r22,r28
+ 178 0088 6F5F      		subi r22,-1
+ 179 008a 7F4F      		sbci r23,-1
+ 180 008c 84E0      		ldi r24,lo8(4)
+ 181 008e 0E94 0000 		call nrf24l01_write_register
+ 182               	.LVL17:
+  31:src/nrf24l01.c **** 	
+  32:src/nrf24l01.c **** 	//Enable data pipe 0 for recieve communications
+  33:src/nrf24l01.c **** 	config_values[0] = 0x01;
+ 183               		.loc 1 33 0
+ 184 0092 D982      		std Y+1,r13
+  34:src/nrf24l01.c **** 	nrf24l01_write_register(EN_RXADDR, config_values, 1);
+ 185               		.loc 1 34 0
+ 186 0094 41E0      		ldi r20,lo8(1)
+ 187 0096 BE01      		movw r22,r28
+ 188 0098 6F5F      		subi r22,-1
+ 189 009a 7F4F      		sbci r23,-1
+ 190 009c 82E0      		ldi r24,lo8(2)
+ 191 009e 0E94 0000 		call nrf24l01_write_register
+ 192               	.LVL18:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 5
+
+
+  35:src/nrf24l01.c **** 	
+  36:src/nrf24l01.c **** 	//Set address length as 5 bytes
+  37:src/nrf24l01.c **** 	config_values[0] = address_width;
+ 193               		.loc 1 37 0
+ 194 00a2 1983      		std Y+1,r17
+  38:src/nrf24l01.c **** 	nrf24l01_write_register(SETUP_AW, config_values,1);
+ 195               		.loc 1 38 0
+ 196 00a4 41E0      		ldi r20,lo8(1)
+ 197 00a6 BE01      		movw r22,r28
+ 198 00a8 6F5F      		subi r22,-1
+ 199 00aa 7F4F      		sbci r23,-1
+ 200 00ac 83E0      		ldi r24,lo8(3)
+ 201 00ae 0E94 0000 		call nrf24l01_write_register
+ 202               	.LVL19:
+  39:src/nrf24l01.c **** 	
+  40:src/nrf24l01.c **** 	//Setup a radio channel
+  41:src/nrf24l01.c **** 	config_values[0] = channel;
+ 203               		.loc 1 41 0
+ 204 00b2 B982      		std Y+1,r11
+  42:src/nrf24l01.c **** 	nrf24l01_write_register(RF_CH, config_values,1);
+ 205               		.loc 1 42 0
+ 206 00b4 41E0      		ldi r20,lo8(1)
+ 207 00b6 BE01      		movw r22,r28
+ 208 00b8 6F5F      		subi r22,-1
+ 209 00ba 7F4F      		sbci r23,-1
+ 210 00bc 85E0      		ldi r24,lo8(5)
+ 211 00be 0E94 0000 		call nrf24l01_write_register
+ 212               	.LVL20:
+  43:src/nrf24l01.c **** 
+  44:src/nrf24l01.c **** 	//Setup in -0dB long range mode
+  45:src/nrf24l01.c **** 	config_values[0] = 0x07;
+ 213               		.loc 1 45 0
+ 214 00c2 87E0      		ldi r24,lo8(7)
+ 215 00c4 8983      		std Y+1,r24
+  46:src/nrf24l01.c **** 	nrf24l01_write_register(RF_SETUP, config_values,1);
+ 216               		.loc 1 46 0
+ 217 00c6 41E0      		ldi r20,lo8(1)
+ 218 00c8 BE01      		movw r22,r28
+ 219 00ca 6F5F      		subi r22,-1
+ 220 00cc 7F4F      		sbci r23,-1
+ 221 00ce 86E0      		ldi r24,lo8(6)
+ 222 00d0 0E94 0000 		call nrf24l01_write_register
+ 223               	.LVL21:
+  47:src/nrf24l01.c **** 	
+  48:src/nrf24l01.c **** 	//Setup addresses for recieve pipe 0 and tx
+  49:src/nrf24l01.c **** 	nrf24l01_write_register(RX_ADDR_P0,address,address_width);
+ 224               		.loc 1 49 0
+ 225 00d4 412F      		mov r20,r17
+ 226 00d6 B701      		movw r22,r14
+ 227 00d8 8AE0      		ldi r24,lo8(10)
+ 228 00da 0E94 0000 		call nrf24l01_write_register
+ 229               	.LVL22:
+  50:src/nrf24l01.c **** 	nrf24l01_write_register(TX_ADDR,address,address_width);
+ 230               		.loc 1 50 0
+ 231 00de 412F      		mov r20,r17
+ 232 00e0 B701      		movw r22,r14
+ 233 00e2 80E1      		ldi r24,lo8(16)
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 6
+
+
+ 234 00e4 0E94 0000 		call nrf24l01_write_register
+ 235               	.LVL23:
+  51:src/nrf24l01.c **** 	
+  52:src/nrf24l01.c **** 	//Setup payload width (bytes/package)
+  53:src/nrf24l01.c **** 	config_values[0] = payload_width;
+ 236               		.loc 1 53 0
+ 237 00e8 C982      		std Y+1,r12
+  54:src/nrf24l01.c **** 	nrf24l01_write_register(RX_PW_P0,config_values,1);
+ 238               		.loc 1 54 0
+ 239 00ea 41E0      		ldi r20,lo8(1)
+ 240 00ec BE01      		movw r22,r28
+ 241 00ee 6F5F      		subi r22,-1
+ 242 00f0 7F4F      		sbci r23,-1
+ 243 00f2 81E1      		ldi r24,lo8(17)
+ 244 00f4 0E94 0000 		call nrf24l01_write_register
+ 245               	.LVL24:
+  55:src/nrf24l01.c **** 	
+  56:src/nrf24l01.c **** 	//Bootup and config
+  57:src/nrf24l01.c **** 	config_values[0] = (1 << PWR_UP) | (1 << CRCO) | (1 << EN_CRC) | (1 << MASK_MAX_RT);
+  58:src/nrf24l01.c **** 	
+  59:src/nrf24l01.c **** 	if(mode == 0) {
+ 246               		.loc 1 59 0
+ 247 00f8 0023      		tst r16
+ 248 00fa 01F0      		breq .L10
+  60:src/nrf24l01.c **** 		config_values[0] = 0x1E;
+  61:src/nrf24l01.c **** 		//config_values[0] |=  (1 << MASK_TX_DS) | (1 << MASK_RX_DR);
+  62:src/nrf24l01.c **** 	} else {
+  63:src/nrf24l01.c **** 		config_values[0] |= (1 << PRIM_RX) | (1 << MASK_TX_DS);
+ 249               		.loc 1 63 0
+ 250 00fc 8FE3      		ldi r24,lo8(63)
+ 251 00fe 8983      		std Y+1,r24
+ 252               	.L9:
+  64:src/nrf24l01.c **** 	}
+  65:src/nrf24l01.c **** 	nrf24l01_write_register(CONFIG, config_values, 1);
+ 253               		.loc 1 65 0
+ 254 0100 41E0      		ldi r20,lo8(1)
+ 255 0102 BE01      		movw r22,r28
+ 256 0104 6F5F      		subi r22,-1
+ 257 0106 7F4F      		sbci r23,-1
+ 258 0108 80E0      		ldi r24,0
+ 259 010a 0E94 0000 		call nrf24l01_write_register
+ 260               	.LVL25:
+ 261               	/* epilogue start */
+  66:src/nrf24l01.c **** } 
+ 262               		.loc 1 66 0
+ 263 010e 0F90      		pop __tmp_reg__
+ 264 0110 DF91      		pop r29
+ 265 0112 CF91      		pop r28
+ 266 0114 1F91      		pop r17
+ 267               	.LVL26:
+ 268 0116 0F91      		pop r16
+ 269               	.LVL27:
+ 270 0118 FF90      		pop r15
+ 271 011a EF90      		pop r14
+ 272               	.LVL28:
+ 273 011c DF90      		pop r13
+ 274 011e CF90      		pop r12
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 7
+
+
+ 275               	.LVL29:
+ 276 0120 BF90      		pop r11
+ 277               	.LVL30:
+ 278 0122 0895      		ret
+ 279               	.LVL31:
+ 280               	.L10:
+  57:src/nrf24l01.c **** 	
+ 281               		.loc 1 57 0
+ 282 0124 8EE1      		ldi r24,lo8(30)
+ 283 0126 8983      		std Y+1,r24
+ 284 0128 00C0      		rjmp .L9
+ 285               		.cfi_endproc
+ 286               	.LFE7:
+ 287               		.size	nrf24l01_init, .-nrf24l01_init
+ 288               	.global	nrf24l01_transmit
+ 289               		.type	nrf24l01_transmit, @function
+ 290               	nrf24l01_transmit:
+ 291               	.LFB8:
+  67:src/nrf24l01.c **** 
+  68:src/nrf24l01.c **** void nrf24l01_transmit(uint8_t* payload, uint8_t payload_size) {
+ 292               		.loc 1 68 0
+ 293               		.cfi_startproc
+ 294               	.LVL32:
+ 295 012a FF92      		push r15
+ 296               	.LCFI16:
+ 297               		.cfi_def_cfa_offset 3
+ 298               		.cfi_offset 15, -2
+ 299 012c 0F93      		push r16
+ 300               	.LCFI17:
+ 301               		.cfi_def_cfa_offset 4
+ 302               		.cfi_offset 16, -3
+ 303 012e 1F93      		push r17
+ 304               	.LCFI18:
+ 305               		.cfi_def_cfa_offset 5
+ 306               		.cfi_offset 17, -4
+ 307 0130 CF93      		push r28
+ 308               	.LCFI19:
+ 309               		.cfi_def_cfa_offset 6
+ 310               		.cfi_offset 28, -5
+ 311 0132 DF93      		push r29
+ 312               	.LCFI20:
+ 313               		.cfi_def_cfa_offset 7
+ 314               		.cfi_offset 29, -6
+ 315               	/* prologue: function */
+ 316               	/* frame size = 0 */
+ 317               	/* stack size = 5 */
+ 318               	.L__stack_usage = 5
+ 319 0134 F82E      		mov r15,r24
+ 320 0136 092F      		mov r16,r25
+ 321 0138 162F      		mov r17,r22
+  69:src/nrf24l01.c **** 	SPI_unset_cs();
+ 322               		.loc 1 69 0
+ 323 013a 0E94 0000 		call SPI_unset_cs
+ 324               	.LVL33:
+  70:src/nrf24l01.c **** 	SPI_send(FLUSH_TX);
+ 325               		.loc 1 70 0
+ 326 013e 81EE      		ldi r24,lo8(-31)
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 8
+
+
+ 327 0140 0E94 0000 		call SPI_send
+ 328               	.LVL34:
+  71:src/nrf24l01.c **** 	SPI_set_cs();
+ 329               		.loc 1 71 0
+ 330 0144 0E94 0000 		call SPI_set_cs
+ 331               	.LVL35:
+  72:src/nrf24l01.c **** 	
+  73:src/nrf24l01.c **** 	SPI_unset_cs();
+ 332               		.loc 1 73 0
+ 333 0148 0E94 0000 		call SPI_unset_cs
+ 334               	.LVL36:
+  74:src/nrf24l01.c **** 	SPI_send(W_TX_PAYLOAD);
+ 335               		.loc 1 74 0
+ 336 014c 80EA      		ldi r24,lo8(-96)
+ 337 014e 0E94 0000 		call SPI_send
+ 338               	.LVL37:
+ 339               	.LBB10:
+  75:src/nrf24l01.c **** 	for(int i = 0; i < payload_size; i++) {
+ 340               		.loc 1 75 0
+ 341 0152 1123      		tst r17
+ 342 0154 01F0      		breq .L14
+ 343 0156 CF2D      		mov r28,r15
+ 344 0158 D02F      		mov r29,r16
+ 345 015a CE01      		movw r24,r28
+ 346 015c 810F      		add r24,r17
+ 347 015e 911D      		adc r25,__zero_reg__
+ 348 0160 8C01      		movw r16,r24
+ 349               	.LVL38:
+ 350               	.L13:
+  76:src/nrf24l01.c **** 		SPI_send(payload[i]);
+ 351               		.loc 1 76 0 discriminator 3
+ 352 0162 8991      		ld r24,Y+
+ 353               	.LVL39:
+ 354 0164 0E94 0000 		call SPI_send
+ 355               	.LVL40:
+  75:src/nrf24l01.c **** 	for(int i = 0; i < payload_size; i++) {
+ 356               		.loc 1 75 0 discriminator 3
+ 357 0168 C017      		cp r28,r16
+ 358 016a D107      		cpc r29,r17
+ 359 016c 01F4      		brne .L13
+ 360               	.LVL41:
+ 361               	.L14:
+ 362               	.LBE10:
+  77:src/nrf24l01.c **** 	}
+  78:src/nrf24l01.c **** 	SPI_set_cs();
+ 363               		.loc 1 78 0
+ 364 016e 0E94 0000 		call SPI_set_cs
+ 365               	.LVL42:
+ 366               	.LBB11:
+ 367               	.LBB12:
+ 368               		.file 2 "c:\\avr toolchain\\avr\\include\\util\\delay.h"
+   1:c:\avr toolchain\avr\include\util\delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:c:\avr toolchain\avr\include\util\delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:c:\avr toolchain\avr\include\util\delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:c:\avr toolchain\avr\include\util\delay.h ****    All rights reserved.
+   5:c:\avr toolchain\avr\include\util\delay.h **** 
+   6:c:\avr toolchain\avr\include\util\delay.h ****    Redistribution and use in source and binary forms, with or without
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 9
+
+
+   7:c:\avr toolchain\avr\include\util\delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:c:\avr toolchain\avr\include\util\delay.h **** 
+   9:c:\avr toolchain\avr\include\util\delay.h ****    * Redistributions of source code must retain the above copyright
+  10:c:\avr toolchain\avr\include\util\delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:c:\avr toolchain\avr\include\util\delay.h **** 
+  12:c:\avr toolchain\avr\include\util\delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:c:\avr toolchain\avr\include\util\delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:c:\avr toolchain\avr\include\util\delay.h ****      the documentation and/or other materials provided with the
+  15:c:\avr toolchain\avr\include\util\delay.h ****      distribution.
+  16:c:\avr toolchain\avr\include\util\delay.h **** 
+  17:c:\avr toolchain\avr\include\util\delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:c:\avr toolchain\avr\include\util\delay.h ****      contributors may be used to endorse or promote products derived
+  19:c:\avr toolchain\avr\include\util\delay.h ****      from this software without specific prior written permission.
+  20:c:\avr toolchain\avr\include\util\delay.h **** 
+  21:c:\avr toolchain\avr\include\util\delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:c:\avr toolchain\avr\include\util\delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:c:\avr toolchain\avr\include\util\delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:c:\avr toolchain\avr\include\util\delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:c:\avr toolchain\avr\include\util\delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:c:\avr toolchain\avr\include\util\delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:c:\avr toolchain\avr\include\util\delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:c:\avr toolchain\avr\include\util\delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:c:\avr toolchain\avr\include\util\delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:c:\avr toolchain\avr\include\util\delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:c:\avr toolchain\avr\include\util\delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:c:\avr toolchain\avr\include\util\delay.h **** 
+  33:c:\avr toolchain\avr\include\util\delay.h **** /* $Id$ */
+  34:c:\avr toolchain\avr\include\util\delay.h **** 
+  35:c:\avr toolchain\avr\include\util\delay.h **** #ifndef _UTIL_DELAY_H_
+  36:c:\avr toolchain\avr\include\util\delay.h **** #define _UTIL_DELAY_H_ 1
+  37:c:\avr toolchain\avr\include\util\delay.h **** 
+  38:c:\avr toolchain\avr\include\util\delay.h **** #ifndef __DOXYGEN__
+  39:c:\avr toolchain\avr\include\util\delay.h **** #  ifndef __HAS_DELAY_CYCLES
+  40:c:\avr toolchain\avr\include\util\delay.h **** #    define __HAS_DELAY_CYCLES 1
+  41:c:\avr toolchain\avr\include\util\delay.h **** #  endif
+  42:c:\avr toolchain\avr\include\util\delay.h **** #endif  /* __DOXYGEN__ */
+  43:c:\avr toolchain\avr\include\util\delay.h **** 
+  44:c:\avr toolchain\avr\include\util\delay.h **** #include <inttypes.h>
+  45:c:\avr toolchain\avr\include\util\delay.h **** #include <util/delay_basic.h>
+  46:c:\avr toolchain\avr\include\util\delay.h **** #include <math.h>
+  47:c:\avr toolchain\avr\include\util\delay.h **** 
+  48:c:\avr toolchain\avr\include\util\delay.h **** /** \file */
+  49:c:\avr toolchain\avr\include\util\delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  50:c:\avr toolchain\avr\include\util\delay.h ****     \code
+  51:c:\avr toolchain\avr\include\util\delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  52:c:\avr toolchain\avr\include\util\delay.h ****     //#define F_CPU 14.7456E6
+  53:c:\avr toolchain\avr\include\util\delay.h ****     #include <util/delay.h>
+  54:c:\avr toolchain\avr\include\util\delay.h ****     \endcode
+  55:c:\avr toolchain\avr\include\util\delay.h **** 
+  56:c:\avr toolchain\avr\include\util\delay.h ****     \note As an alternative method, it is possible to pass the
+  57:c:\avr toolchain\avr\include\util\delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  58:c:\avr toolchain\avr\include\util\delay.h ****     Obviously, in that case, no \c \#define statement should be
+  59:c:\avr toolchain\avr\include\util\delay.h ****     used.
+  60:c:\avr toolchain\avr\include\util\delay.h **** 
+  61:c:\avr toolchain\avr\include\util\delay.h ****     The functions in this header file are wrappers around the basic
+  62:c:\avr toolchain\avr\include\util\delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  63:c:\avr toolchain\avr\include\util\delay.h ****     convenience functions where actual time values can be specified
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 10
+
+
+  64:c:\avr toolchain\avr\include\util\delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+  65:c:\avr toolchain\avr\include\util\delay.h ****     that compile-time constant expressions will be eliminated by
+  66:c:\avr toolchain\avr\include\util\delay.h ****     compiler optimization so floating-point expressions can be used
+  67:c:\avr toolchain\avr\include\util\delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  68:c:\avr toolchain\avr\include\util\delay.h ****     frequency passed by the macro F_CPU.
+  69:c:\avr toolchain\avr\include\util\delay.h **** 
+  70:c:\avr toolchain\avr\include\util\delay.h ****     \note In order for these functions to work as intended, compiler
+  71:c:\avr toolchain\avr\include\util\delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  72:c:\avr toolchain\avr\include\util\delay.h ****     <em>must</em> be an expression that is a known constant at
+  73:c:\avr toolchain\avr\include\util\delay.h ****     compile-time.  If these requirements are not met, the resulting
+  74:c:\avr toolchain\avr\include\util\delay.h ****     delay will be much longer (and basically unpredictable), and
+  75:c:\avr toolchain\avr\include\util\delay.h ****     applications that otherwise do not use floating-point calculations
+  76:c:\avr toolchain\avr\include\util\delay.h ****     will experience severe code bloat by the floating-point library
+  77:c:\avr toolchain\avr\include\util\delay.h ****     routines linked into the application.
+  78:c:\avr toolchain\avr\include\util\delay.h **** 
+  79:c:\avr toolchain\avr\include\util\delay.h ****     The functions available allow the specification of microsecond, and
+  80:c:\avr toolchain\avr\include\util\delay.h ****     millisecond delays directly, using the application-supplied macro
+  81:c:\avr toolchain\avr\include\util\delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  82:c:\avr toolchain\avr\include\util\delay.h **** 
+  83:c:\avr toolchain\avr\include\util\delay.h **** */
+  84:c:\avr toolchain\avr\include\util\delay.h **** 
+  85:c:\avr toolchain\avr\include\util\delay.h **** #if !defined(__DOXYGEN__)
+  86:c:\avr toolchain\avr\include\util\delay.h **** static __inline__ void _delay_us(double __us) __attribute__((__always_inline__));
+  87:c:\avr toolchain\avr\include\util\delay.h **** static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__));
+  88:c:\avr toolchain\avr\include\util\delay.h **** #endif
+  89:c:\avr toolchain\avr\include\util\delay.h **** 
+  90:c:\avr toolchain\avr\include\util\delay.h **** #ifndef F_CPU
+  91:c:\avr toolchain\avr\include\util\delay.h **** /* prevent compiler error by supplying a default */
+  92:c:\avr toolchain\avr\include\util\delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  93:c:\avr toolchain\avr\include\util\delay.h **** /** \ingroup util_delay
+  94:c:\avr toolchain\avr\include\util\delay.h ****     \def F_CPU
+  95:c:\avr toolchain\avr\include\util\delay.h ****     \brief CPU frequency in Hz
+  96:c:\avr toolchain\avr\include\util\delay.h **** 
+  97:c:\avr toolchain\avr\include\util\delay.h ****     The macro F_CPU specifies the CPU frequency to be considered by
+  98:c:\avr toolchain\avr\include\util\delay.h ****     the delay macros.  This macro is normally supplied by the
+  99:c:\avr toolchain\avr\include\util\delay.h ****     environment (e.g. from within a project header, or the project's
+ 100:c:\avr toolchain\avr\include\util\delay.h ****     Makefile).  The value 1 MHz here is only provided as a "vanilla"
+ 101:c:\avr toolchain\avr\include\util\delay.h ****     fallback if no such user-provided definition could be found.
+ 102:c:\avr toolchain\avr\include\util\delay.h **** 
+ 103:c:\avr toolchain\avr\include\util\delay.h ****     In terms of the delay functions, the CPU frequency can be given as
+ 104:c:\avr toolchain\avr\include\util\delay.h ****     a floating-point constant (e.g. 3.6864E6 for 3.6864 MHz).
+ 105:c:\avr toolchain\avr\include\util\delay.h ****     However, the macros in <util/setbaud.h> require it to be an
+ 106:c:\avr toolchain\avr\include\util\delay.h ****     integer value.
+ 107:c:\avr toolchain\avr\include\util\delay.h ****  */
+ 108:c:\avr toolchain\avr\include\util\delay.h **** # define F_CPU 1000000UL
+ 109:c:\avr toolchain\avr\include\util\delay.h **** #endif
+ 110:c:\avr toolchain\avr\include\util\delay.h **** 
+ 111:c:\avr toolchain\avr\include\util\delay.h **** #ifndef __OPTIMIZE__
+ 112:c:\avr toolchain\avr\include\util\delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+ 113:c:\avr toolchain\avr\include\util\delay.h **** #endif
+ 114:c:\avr toolchain\avr\include\util\delay.h **** 
+ 115:c:\avr toolchain\avr\include\util\delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 116:c:\avr toolchain\avr\include\util\delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 117:c:\avr toolchain\avr\include\util\delay.h ****   __STDC_HOSTED__
+ 118:c:\avr toolchain\avr\include\util\delay.h **** #  include <math.h>
+ 119:c:\avr toolchain\avr\include\util\delay.h **** #endif
+ 120:c:\avr toolchain\avr\include\util\delay.h **** 
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 11
+
+
+ 121:c:\avr toolchain\avr\include\util\delay.h **** /**
+ 122:c:\avr toolchain\avr\include\util\delay.h ****    \ingroup util_delay
+ 123:c:\avr toolchain\avr\include\util\delay.h **** 
+ 124:c:\avr toolchain\avr\include\util\delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 125:c:\avr toolchain\avr\include\util\delay.h **** 
+ 126:c:\avr toolchain\avr\include\util\delay.h ****    The macro F_CPU is supposed to be defined to a
+ 127:c:\avr toolchain\avr\include\util\delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 128:c:\avr toolchain\avr\include\util\delay.h **** 
+ 129:c:\avr toolchain\avr\include\util\delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 130:c:\avr toolchain\avr\include\util\delay.h **** 
+ 131:c:\avr toolchain\avr\include\util\delay.h ****    When the user request delay which exceed the maximum possible one,
+ 132:c:\avr toolchain\avr\include\util\delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 133:c:\avr toolchain\avr\include\util\delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 134:c:\avr toolchain\avr\include\util\delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 135:c:\avr toolchain\avr\include\util\delay.h ****    user will not be informed about decreased resolution.
+ 136:c:\avr toolchain\avr\include\util\delay.h **** 
+ 137:c:\avr toolchain\avr\include\util\delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles()
+ 138:c:\avr toolchain\avr\include\util\delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 139:c:\avr toolchain\avr\include\util\delay.h ****    values greater than the maximal possible delay, overflows results in
+ 140:c:\avr toolchain\avr\include\util\delay.h ****    no delay i.e., 0ms.
+ 141:c:\avr toolchain\avr\include\util\delay.h **** 
+ 142:c:\avr toolchain\avr\include\util\delay.h ****    Conversion of \c __ms into clock cycles may not always result in
+ 143:c:\avr toolchain\avr\include\util\delay.h ****    integer.  By default, the clock cycles rounded up to next
+ 144:c:\avr toolchain\avr\include\util\delay.h ****    integer. This ensures that the user gets at least \c __ms
+ 145:c:\avr toolchain\avr\include\util\delay.h ****    microseconds of delay.
+ 146:c:\avr toolchain\avr\include\util\delay.h **** 
+ 147:c:\avr toolchain\avr\include\util\delay.h ****    Alternatively, by defining the macro \c __DELAY_ROUND_DOWN__, or
+ 148:c:\avr toolchain\avr\include\util\delay.h ****    \c __DELAY_ROUND_CLOSEST__, before including this header file, the
+ 149:c:\avr toolchain\avr\include\util\delay.h ****    algorithm can be made to round down, or round to closest integer,
+ 150:c:\avr toolchain\avr\include\util\delay.h ****    respectively.
+ 151:c:\avr toolchain\avr\include\util\delay.h **** 
+ 152:c:\avr toolchain\avr\include\util\delay.h ****    \note
+ 153:c:\avr toolchain\avr\include\util\delay.h **** 
+ 154:c:\avr toolchain\avr\include\util\delay.h ****    The implementation of _delay_ms() based on
+ 155:c:\avr toolchain\avr\include\util\delay.h ****    __builtin_avr_delay_cycles() is not backward compatible with older
+ 156:c:\avr toolchain\avr\include\util\delay.h ****    implementations.  In order to get functionality backward compatible
+ 157:c:\avr toolchain\avr\include\util\delay.h ****    with previous versions, the macro \c "__DELAY_BACKWARD_COMPATIBLE__"
+ 158:c:\avr toolchain\avr\include\util\delay.h ****    must be defined before including this header file. Also, the
+ 159:c:\avr toolchain\avr\include\util\delay.h ****    backward compatible algorithm will be chosen if the code is
+ 160:c:\avr toolchain\avr\include\util\delay.h ****    compiled in a <em>freestanding environment</em> (GCC option
+ 161:c:\avr toolchain\avr\include\util\delay.h ****    \c -ffreestanding), as the math functions required for rounding are
+ 162:c:\avr toolchain\avr\include\util\delay.h ****    not available to the compiler then.
+ 163:c:\avr toolchain\avr\include\util\delay.h **** 
+ 164:c:\avr toolchain\avr\include\util\delay.h ****  */
+ 165:c:\avr toolchain\avr\include\util\delay.h **** void
+ 166:c:\avr toolchain\avr\include\util\delay.h **** _delay_ms(double __ms)
+ 167:c:\avr toolchain\avr\include\util\delay.h **** {
+ 168:c:\avr toolchain\avr\include\util\delay.h **** 	double __tmp ;
+ 169:c:\avr toolchain\avr\include\util\delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 170:c:\avr toolchain\avr\include\util\delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 171:c:\avr toolchain\avr\include\util\delay.h ****   __STDC_HOSTED__
+ 172:c:\avr toolchain\avr\include\util\delay.h **** 	uint32_t __ticks_dc;
+ 173:c:\avr toolchain\avr\include\util\delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 174:c:\avr toolchain\avr\include\util\delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+ 175:c:\avr toolchain\avr\include\util\delay.h **** 
+ 176:c:\avr toolchain\avr\include\util\delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 177:c:\avr toolchain\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 12
+
+
+ 178:c:\avr toolchain\avr\include\util\delay.h **** 
+ 179:c:\avr toolchain\avr\include\util\delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 180:c:\avr toolchain\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 181:c:\avr toolchain\avr\include\util\delay.h **** 
+ 182:c:\avr toolchain\avr\include\util\delay.h **** 	#else
+ 183:c:\avr toolchain\avr\include\util\delay.h **** 		//round up by default
+ 184:c:\avr toolchain\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 185:c:\avr toolchain\avr\include\util\delay.h **** 	#endif
+ 186:c:\avr toolchain\avr\include\util\delay.h **** 
+ 187:c:\avr toolchain\avr\include\util\delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 369               		.loc 2 187 0
+ 370 0172 8FE3      		ldi r24,lo8(-25537)
+ 371 0174 9CE9      		ldi r25,hi8(-25537)
+ 372 0176 0197      	1:	sbiw r24,1
+ 373 0178 01F4      		brne 1b
+ 374 017a 00C0      		rjmp .
+ 375 017c 0000      		nop
+ 376               	.LVL43:
+ 377               	.LBE12:
+ 378               	.LBE11:
+  79:src/nrf24l01.c **** 	_delay_ms(10);
+  80:src/nrf24l01.c **** 	PORTB |= (1 << PORTB7);
+ 379               		.loc 1 80 0
+ 380 017e 2F9A      		sbi 0x5,7
+ 381               	.LVL44:
+ 382               	.LBB13:
+ 383               	.LBB14:
+ 384               		.loc 2 187 0
+ 385 0180 9FEF      		ldi r25,lo8(63999)
+ 386 0182 29EF      		ldi r18,hi8(63999)
+ 387 0184 80E0      		ldi r24,hlo8(63999)
+ 388 0186 9150      	1:	subi r25,1
+ 389 0188 2040      		sbci r18,0
+ 390 018a 8040      		sbci r24,0
+ 391 018c 01F4      		brne 1b
+ 392 018e 00C0      		rjmp .
+ 393 0190 0000      		nop
+ 394               	.LVL45:
+ 395               	.LBE14:
+ 396               	.LBE13:
+  81:src/nrf24l01.c **** 	_delay_ms(20);
+  82:src/nrf24l01.c **** 	PORTB &= ~(1 << PORTB7);
+ 397               		.loc 1 82 0
+ 398 0192 2F98      		cbi 0x5,7
+ 399               	.LVL46:
+ 400               	.LBB15:
+ 401               	.LBB16:
+ 402               		.loc 2 187 0
+ 403 0194 8FE3      		ldi r24,lo8(-25537)
+ 404 0196 9CE9      		ldi r25,hi8(-25537)
+ 405 0198 0197      	1:	sbiw r24,1
+ 406 019a 01F4      		brne 1b
+ 407 019c 00C0      		rjmp .
+ 408 019e 0000      		nop
+ 409               	.LVL47:
+ 410               	/* epilogue start */
+ 411               	.LBE16:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 13
+
+
+ 412               	.LBE15:
+  83:src/nrf24l01.c **** 	_delay_ms(10);
+  84:src/nrf24l01.c **** }
+ 413               		.loc 1 84 0
+ 414 01a0 DF91      		pop r29
+ 415 01a2 CF91      		pop r28
+ 416 01a4 1F91      		pop r17
+ 417               	.LVL48:
+ 418 01a6 0F91      		pop r16
+ 419 01a8 FF90      		pop r15
+ 420 01aa 0895      		ret
+ 421               		.cfi_endproc
+ 422               	.LFE8:
+ 423               		.size	nrf24l01_transmit, .-nrf24l01_transmit
+ 424               	.global	nrf24l01_read_register
+ 425               		.type	nrf24l01_read_register, @function
+ 426               	nrf24l01_read_register:
+ 427               	.LFB9:
+  85:src/nrf24l01.c **** 
+  86:src/nrf24l01.c **** void nrf24l01_read_register(uint8_t reg, uint8_t* data, uint8_t bytecount) {
+ 428               		.loc 1 86 0
+ 429               		.cfi_startproc
+ 430               	.LVL49:
+ 431 01ac FF92      		push r15
+ 432               	.LCFI21:
+ 433               		.cfi_def_cfa_offset 3
+ 434               		.cfi_offset 15, -2
+ 435 01ae 0F93      		push r16
+ 436               	.LCFI22:
+ 437               		.cfi_def_cfa_offset 4
+ 438               		.cfi_offset 16, -3
+ 439 01b0 1F93      		push r17
+ 440               	.LCFI23:
+ 441               		.cfi_def_cfa_offset 5
+ 442               		.cfi_offset 17, -4
+ 443 01b2 CF93      		push r28
+ 444               	.LCFI24:
+ 445               		.cfi_def_cfa_offset 6
+ 446               		.cfi_offset 28, -5
+ 447 01b4 DF93      		push r29
+ 448               	.LCFI25:
+ 449               		.cfi_def_cfa_offset 7
+ 450               		.cfi_offset 29, -6
+ 451               	/* prologue: function */
+ 452               	/* frame size = 0 */
+ 453               	/* stack size = 5 */
+ 454               	.L__stack_usage = 5
+ 455 01b6 C82F      		mov r28,r24
+ 456 01b8 F62E      		mov r15,r22
+ 457 01ba 072F      		mov r16,r23
+ 458 01bc 142F      		mov r17,r20
+  87:src/nrf24l01.c **** 	SPI_unset_cs();
+ 459               		.loc 1 87 0
+ 460 01be 0E94 0000 		call SPI_unset_cs
+ 461               	.LVL50:
+  88:src/nrf24l01.c **** 	SPI_send(reg);
+ 462               		.loc 1 88 0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 14
+
+
+ 463 01c2 8C2F      		mov r24,r28
+ 464 01c4 0E94 0000 		call SPI_send
+ 465               	.LVL51:
+ 466               	.LBB17:
+  89:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
+ 467               		.loc 1 89 0
+ 468 01c8 1123      		tst r17
+ 469 01ca 01F0      		breq .L20
+ 470 01cc CF2D      		mov r28,r15
+ 471               	.LVL52:
+ 472 01ce D02F      		mov r29,r16
+ 473 01d0 CE01      		movw r24,r28
+ 474 01d2 810F      		add r24,r17
+ 475 01d4 911D      		adc r25,__zero_reg__
+ 476 01d6 8C01      		movw r16,r24
+ 477               	.LVL53:
+ 478               	.L19:
+  90:src/nrf24l01.c **** 		SPI_send(NOP);
+ 479               		.loc 1 90 0 discriminator 3
+ 480 01d8 8FEF      		ldi r24,lo8(-1)
+ 481 01da 0E94 0000 		call SPI_send
+ 482               	.LVL54:
+  91:src/nrf24l01.c **** 		data[i] = SPDR;
+ 483               		.loc 1 91 0 discriminator 3
+ 484 01de 8EB5      		in r24,0x2e
+ 485 01e0 8993      		st Y+,r24
+ 486               	.LVL55:
+  89:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
+ 487               		.loc 1 89 0 discriminator 3
+ 488 01e2 C017      		cp r28,r16
+ 489 01e4 D107      		cpc r29,r17
+ 490 01e6 01F4      		brne .L19
+ 491               	.LVL56:
+ 492               	.L20:
+ 493               	/* epilogue start */
+ 494               	.LBE17:
+  92:src/nrf24l01.c **** 	}
+  93:src/nrf24l01.c **** 	SPI_set_cs();
+  94:src/nrf24l01.c **** }
+ 495               		.loc 1 94 0
+ 496 01e8 DF91      		pop r29
+ 497 01ea CF91      		pop r28
+ 498 01ec 1F91      		pop r17
+ 499               	.LVL57:
+ 500 01ee 0F91      		pop r16
+ 501 01f0 FF90      		pop r15
+  93:src/nrf24l01.c **** }
+ 502               		.loc 1 93 0
+ 503 01f2 0C94 0000 		jmp SPI_set_cs
+ 504               	.LVL58:
+ 505               		.cfi_endproc
+ 506               	.LFE9:
+ 507               		.size	nrf24l01_read_register, .-nrf24l01_read_register
+ 508               	.global	nrf24l01_reset_interrupts
+ 509               		.type	nrf24l01_reset_interrupts, @function
+ 510               	nrf24l01_reset_interrupts:
+ 511               	.LFB10:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 15
+
+
+  95:src/nrf24l01.c **** 
+  96:src/nrf24l01.c **** void nrf24l01_reset_interrupts() {
+ 512               		.loc 1 96 0
+ 513               		.cfi_startproc
+ 514 01f6 CF93      		push r28
+ 515               	.LCFI26:
+ 516               		.cfi_def_cfa_offset 3
+ 517               		.cfi_offset 28, -2
+ 518 01f8 DF93      		push r29
+ 519               	.LCFI27:
+ 520               		.cfi_def_cfa_offset 4
+ 521               		.cfi_offset 29, -3
+ 522 01fa 1F92      		push __zero_reg__
+ 523               	.LCFI28:
+ 524               		.cfi_def_cfa_offset 5
+ 525 01fc CDB7      		in r28,__SP_L__
+ 526 01fe DEB7      		in r29,__SP_H__
+ 527               	.LCFI29:
+ 528               		.cfi_def_cfa_register 28
+ 529               	/* prologue: function */
+ 530               	/* frame size = 1 */
+ 531               	/* stack size = 3 */
+ 532               	.L__stack_usage = 3
+  97:src/nrf24l01.c **** 	uint8_t val[1];
+  98:src/nrf24l01.c **** 	val[0] = (1 << MAX_RT) | (1 << TX_DS) | (1 << RX_DR);
+ 533               		.loc 1 98 0
+ 534 0200 80E7      		ldi r24,lo8(112)
+ 535 0202 8983      		std Y+1,r24
+  99:src/nrf24l01.c **** 	nrf24l01_write_register(STATUS,val,1);
+ 536               		.loc 1 99 0
+ 537 0204 41E0      		ldi r20,lo8(1)
+ 538 0206 BE01      		movw r22,r28
+ 539 0208 6F5F      		subi r22,-1
+ 540 020a 7F4F      		sbci r23,-1
+ 541 020c 87E0      		ldi r24,lo8(7)
+ 542 020e 0E94 0000 		call nrf24l01_write_register
+ 543               	.LVL59:
+ 544               	/* epilogue start */
+ 100:src/nrf24l01.c **** }
+ 545               		.loc 1 100 0
+ 546 0212 0F90      		pop __tmp_reg__
+ 547 0214 DF91      		pop r29
+ 548 0216 CF91      		pop r28
+ 549 0218 0895      		ret
+ 550               		.cfi_endproc
+ 551               	.LFE10:
+ 552               		.size	nrf24l01_reset_interrupts, .-nrf24l01_reset_interrupts
+ 553               	.Letext0:
+ 554               		.file 3 "c:\\avr toolchain\\avr\\include\\stdint.h"
+ 555               		.file 4 "./include/spi.h"
+ 556               		.section	.debug_info,"",@progbits
+ 557               	.Ldebug_info0:
+ 558 0000 9505 0000 		.long	0x595
+ 559 0004 0200      		.word	0x2
+ 560 0006 0000 0000 		.long	.Ldebug_abbrev0
+ 561 000a 04        		.byte	0x4
+ 562 000b 01        		.uleb128 0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 16
+
+
+ 563 000c 0000 0000 		.long	.LASF30
+ 564 0010 0C        		.byte	0xc
+ 565 0011 0000 0000 		.long	.LASF31
+ 566 0015 0000 0000 		.long	.LASF32
+ 567 0019 0000 0000 		.long	.Ltext0
+ 568 001d 0000 0000 		.long	.Letext0
+ 569 0021 0000 0000 		.long	.Ldebug_line0
+ 570 0025 02        		.uleb128 0x2
+ 571 0026 01        		.byte	0x1
+ 572 0027 06        		.byte	0x6
+ 573 0028 0000 0000 		.long	.LASF0
+ 574 002c 03        		.uleb128 0x3
+ 575 002d 0000 0000 		.long	.LASF4
+ 576 0031 03        		.byte	0x3
+ 577 0032 7E        		.byte	0x7e
+ 578 0033 3700 0000 		.long	0x37
+ 579 0037 02        		.uleb128 0x2
+ 580 0038 01        		.byte	0x1
+ 581 0039 08        		.byte	0x8
+ 582 003a 0000 0000 		.long	.LASF1
+ 583 003e 04        		.uleb128 0x4
+ 584 003f 02        		.byte	0x2
+ 585 0040 05        		.byte	0x5
+ 586 0041 696E 7400 		.string	"int"
+ 587 0045 02        		.uleb128 0x2
+ 588 0046 02        		.byte	0x2
+ 589 0047 07        		.byte	0x7
+ 590 0048 0000 0000 		.long	.LASF2
+ 591 004c 02        		.uleb128 0x2
+ 592 004d 04        		.byte	0x4
+ 593 004e 05        		.byte	0x5
+ 594 004f 0000 0000 		.long	.LASF3
+ 595 0053 03        		.uleb128 0x3
+ 596 0054 0000 0000 		.long	.LASF5
+ 597 0058 03        		.byte	0x3
+ 598 0059 82        		.byte	0x82
+ 599 005a 5E00 0000 		.long	0x5e
+ 600 005e 02        		.uleb128 0x2
+ 601 005f 04        		.byte	0x4
+ 602 0060 07        		.byte	0x7
+ 603 0061 0000 0000 		.long	.LASF6
+ 604 0065 02        		.uleb128 0x2
+ 605 0066 08        		.byte	0x8
+ 606 0067 05        		.byte	0x5
+ 607 0068 0000 0000 		.long	.LASF7
+ 608 006c 02        		.uleb128 0x2
+ 609 006d 08        		.byte	0x8
+ 610 006e 07        		.byte	0x7
+ 611 006f 0000 0000 		.long	.LASF8
+ 612 0073 05        		.uleb128 0x5
+ 613 0074 0000 0000 		.long	.LASF33
+ 614 0078 02        		.byte	0x2
+ 615 0079 A6        		.byte	0xa6
+ 616 007a 01        		.byte	0x1
+ 617 007b 03        		.byte	0x3
+ 618 007c AC00 0000 		.long	0xac
+ 619 0080 06        		.uleb128 0x6
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 17
+
+
+ 620 0081 0000 0000 		.long	.LASF34
+ 621 0085 02        		.byte	0x2
+ 622 0086 A6        		.byte	0xa6
+ 623 0087 AC00 0000 		.long	0xac
+ 624 008b 07        		.uleb128 0x7
+ 625 008c 0000 0000 		.long	.LASF9
+ 626 0090 02        		.byte	0x2
+ 627 0091 A8        		.byte	0xa8
+ 628 0092 AC00 0000 		.long	0xac
+ 629 0096 07        		.uleb128 0x7
+ 630 0097 0000 0000 		.long	.LASF10
+ 631 009b 02        		.byte	0x2
+ 632 009c AC        		.byte	0xac
+ 633 009d 5300 0000 		.long	0x53
+ 634 00a1 08        		.uleb128 0x8
+ 635 00a2 01        		.byte	0x1
+ 636 00a3 0000 0000 		.long	.LASF35
+ 637 00a7 02        		.byte	0x2
+ 638 00a8 AD        		.byte	0xad
+ 639 00a9 01        		.byte	0x1
+ 640 00aa 00        		.byte	0
+ 641 00ab 00        		.byte	0
+ 642 00ac 02        		.uleb128 0x2
+ 643 00ad 04        		.byte	0x4
+ 644 00ae 04        		.byte	0x4
+ 645 00af 0000 0000 		.long	.LASF11
+ 646 00b3 09        		.uleb128 0x9
+ 647 00b4 01        		.byte	0x1
+ 648 00b5 0000 0000 		.long	.LASF14
+ 649 00b9 01        		.byte	0x1
+ 650 00ba 06        		.byte	0x6
+ 651 00bb 01        		.byte	0x1
+ 652 00bc 0000 0000 		.long	.LFB6
+ 653 00c0 0000 0000 		.long	.LFE6
+ 654 00c4 0000 0000 		.long	.LLST0
+ 655 00c8 01        		.byte	0x1
+ 656 00c9 4601 0000 		.long	0x146
+ 657 00cd 0A        		.uleb128 0xa
+ 658 00ce 7265 6700 		.string	"reg"
+ 659 00d2 01        		.byte	0x1
+ 660 00d3 06        		.byte	0x6
+ 661 00d4 2C00 0000 		.long	0x2c
+ 662 00d8 0000 0000 		.long	.LLST1
+ 663 00dc 0B        		.uleb128 0xb
+ 664 00dd 0000 0000 		.long	.LASF12
+ 665 00e1 01        		.byte	0x1
+ 666 00e2 06        		.byte	0x6
+ 667 00e3 4601 0000 		.long	0x146
+ 668 00e7 0000 0000 		.long	.LLST2
+ 669 00eb 0B        		.uleb128 0xb
+ 670 00ec 0000 0000 		.long	.LASF13
+ 671 00f0 01        		.byte	0x1
+ 672 00f1 06        		.byte	0x6
+ 673 00f2 2C00 0000 		.long	0x2c
+ 674 00f6 0000 0000 		.long	.LLST3
+ 675 00fa 0C        		.uleb128 0xc
+ 676 00fb 0000 0000 		.long	.LBB9
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 18
+
+
+ 677 00ff 0000 0000 		.long	.LBE9
+ 678 0103 1E01 0000 		.long	0x11e
+ 679 0107 0D        		.uleb128 0xd
+ 680 0108 6900      		.string	"i"
+ 681 010a 01        		.byte	0x1
+ 682 010b 0A        		.byte	0xa
+ 683 010c 3E00 0000 		.long	0x3e
+ 684 0110 0000 0000 		.long	.LLST4
+ 685 0114 0E        		.uleb128 0xe
+ 686 0115 0000 0000 		.long	.LVL8
+ 687 0119 7105 0000 		.long	0x571
+ 688 011d 00        		.byte	0
+ 689 011e 0E        		.uleb128 0xe
+ 690 011f 0000 0000 		.long	.LVL2
+ 691 0123 7E05 0000 		.long	0x57e
+ 692 0127 0F        		.uleb128 0xf
+ 693 0128 0000 0000 		.long	.LVL4
+ 694 012c 7105 0000 		.long	0x571
+ 695 0130 3B01 0000 		.long	0x13b
+ 696 0134 10        		.uleb128 0x10
+ 697 0135 01        		.byte	0x1
+ 698 0136 68        		.byte	0x68
+ 699 0137 02        		.byte	0x2
+ 700 0138 8C        		.byte	0x8c
+ 701 0139 20        		.sleb128 32
+ 702 013a 00        		.byte	0
+ 703 013b 11        		.uleb128 0x11
+ 704 013c 0000 0000 		.long	.LVL11
+ 705 0140 01        		.byte	0x1
+ 706 0141 8B05 0000 		.long	0x58b
+ 707 0145 00        		.byte	0
+ 708 0146 12        		.uleb128 0x12
+ 709 0147 02        		.byte	0x2
+ 710 0148 2C00 0000 		.long	0x2c
+ 711 014c 09        		.uleb128 0x9
+ 712 014d 01        		.byte	0x1
+ 713 014e 0000 0000 		.long	.LASF15
+ 714 0152 01        		.byte	0x1
+ 715 0153 10        		.byte	0x10
+ 716 0154 01        		.byte	0x1
+ 717 0155 0000 0000 		.long	.LFB7
+ 718 0159 0000 0000 		.long	.LFE7
+ 719 015d 0000 0000 		.long	.LLST5
+ 720 0161 01        		.byte	0x1
+ 721 0162 2503 0000 		.long	0x325
+ 722 0166 0B        		.uleb128 0xb
+ 723 0167 0000 0000 		.long	.LASF16
+ 724 016b 01        		.byte	0x1
+ 725 016c 10        		.byte	0x10
+ 726 016d 2C00 0000 		.long	0x2c
+ 727 0171 0000 0000 		.long	.LLST6
+ 728 0175 0B        		.uleb128 0xb
+ 729 0176 0000 0000 		.long	.LASF17
+ 730 017a 01        		.byte	0x1
+ 731 017b 10        		.byte	0x10
+ 732 017c 4601 0000 		.long	0x146
+ 733 0180 0000 0000 		.long	.LLST7
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 19
+
+
+ 734 0184 0B        		.uleb128 0xb
+ 735 0185 0000 0000 		.long	.LASF18
+ 736 0189 01        		.byte	0x1
+ 737 018a 10        		.byte	0x10
+ 738 018b 2C00 0000 		.long	0x2c
+ 739 018f 0000 0000 		.long	.LLST8
+ 740 0193 0B        		.uleb128 0xb
+ 741 0194 0000 0000 		.long	.LASF19
+ 742 0198 01        		.byte	0x1
+ 743 0199 10        		.byte	0x10
+ 744 019a 2C00 0000 		.long	0x2c
+ 745 019e 0000 0000 		.long	.LLST9
+ 746 01a2 0B        		.uleb128 0xb
+ 747 01a3 0000 0000 		.long	.LASF20
+ 748 01a7 01        		.byte	0x1
+ 749 01a8 10        		.byte	0x10
+ 750 01a9 2C00 0000 		.long	0x2c
+ 751 01ad 0000 0000 		.long	.LLST10
+ 752 01b1 13        		.uleb128 0x13
+ 753 01b2 0000 0000 		.long	.LASF21
+ 754 01b6 01        		.byte	0x1
+ 755 01b7 16        		.byte	0x16
+ 756 01b8 2503 0000 		.long	0x325
+ 757 01bc 02        		.byte	0x2
+ 758 01bd 8C        		.byte	0x8c
+ 759 01be 01        		.sleb128 1
+ 760 01bf 0F        		.uleb128 0xf
+ 761 01c0 0000 0000 		.long	.LVL16
+ 762 01c4 B300 0000 		.long	0xb3
+ 763 01c8 E401 0000 		.long	0x1e4
+ 764 01cc 10        		.uleb128 0x10
+ 765 01cd 01        		.byte	0x1
+ 766 01ce 68        		.byte	0x68
+ 767 01cf 02        		.byte	0x2
+ 768 01d0 7D        		.byte	0x7d
+ 769 01d1 00        		.sleb128 0
+ 770 01d2 10        		.uleb128 0x10
+ 771 01d3 06        		.byte	0x6
+ 772 01d4 66        		.byte	0x66
+ 773 01d5 93        		.byte	0x93
+ 774 01d6 01        		.uleb128 0x1
+ 775 01d7 67        		.byte	0x67
+ 776 01d8 93        		.byte	0x93
+ 777 01d9 01        		.uleb128 0x1
+ 778 01da 02        		.byte	0x2
+ 779 01db 8C        		.byte	0x8c
+ 780 01dc 01        		.sleb128 1
+ 781 01dd 10        		.uleb128 0x10
+ 782 01de 01        		.byte	0x1
+ 783 01df 64        		.byte	0x64
+ 784 01e0 02        		.byte	0x2
+ 785 01e1 7D        		.byte	0x7d
+ 786 01e2 00        		.sleb128 0
+ 787 01e3 00        		.byte	0
+ 788 01e4 0F        		.uleb128 0xf
+ 789 01e5 0000 0000 		.long	.LVL17
+ 790 01e9 B300 0000 		.long	0xb3
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 20
+
+
+ 791 01ed 0802 0000 		.long	0x208
+ 792 01f1 10        		.uleb128 0x10
+ 793 01f2 01        		.byte	0x1
+ 794 01f3 68        		.byte	0x68
+ 795 01f4 01        		.byte	0x1
+ 796 01f5 34        		.byte	0x34
+ 797 01f6 10        		.uleb128 0x10
+ 798 01f7 06        		.byte	0x6
+ 799 01f8 66        		.byte	0x66
+ 800 01f9 93        		.byte	0x93
+ 801 01fa 01        		.uleb128 0x1
+ 802 01fb 67        		.byte	0x67
+ 803 01fc 93        		.byte	0x93
+ 804 01fd 01        		.uleb128 0x1
+ 805 01fe 02        		.byte	0x2
+ 806 01ff 8C        		.byte	0x8c
+ 807 0200 01        		.sleb128 1
+ 808 0201 10        		.uleb128 0x10
+ 809 0202 01        		.byte	0x1
+ 810 0203 64        		.byte	0x64
+ 811 0204 02        		.byte	0x2
+ 812 0205 7D        		.byte	0x7d
+ 813 0206 00        		.sleb128 0
+ 814 0207 00        		.byte	0
+ 815 0208 0F        		.uleb128 0xf
+ 816 0209 0000 0000 		.long	.LVL18
+ 817 020d B300 0000 		.long	0xb3
+ 818 0211 2C02 0000 		.long	0x22c
+ 819 0215 10        		.uleb128 0x10
+ 820 0216 01        		.byte	0x1
+ 821 0217 68        		.byte	0x68
+ 822 0218 01        		.byte	0x1
+ 823 0219 32        		.byte	0x32
+ 824 021a 10        		.uleb128 0x10
+ 825 021b 06        		.byte	0x6
+ 826 021c 66        		.byte	0x66
+ 827 021d 93        		.byte	0x93
+ 828 021e 01        		.uleb128 0x1
+ 829 021f 67        		.byte	0x67
+ 830 0220 93        		.byte	0x93
+ 831 0221 01        		.uleb128 0x1
+ 832 0222 02        		.byte	0x2
+ 833 0223 8C        		.byte	0x8c
+ 834 0224 01        		.sleb128 1
+ 835 0225 10        		.uleb128 0x10
+ 836 0226 01        		.byte	0x1
+ 837 0227 64        		.byte	0x64
+ 838 0228 02        		.byte	0x2
+ 839 0229 7D        		.byte	0x7d
+ 840 022a 00        		.sleb128 0
+ 841 022b 00        		.byte	0
+ 842 022c 0F        		.uleb128 0xf
+ 843 022d 0000 0000 		.long	.LVL19
+ 844 0231 B300 0000 		.long	0xb3
+ 845 0235 5002 0000 		.long	0x250
+ 846 0239 10        		.uleb128 0x10
+ 847 023a 01        		.byte	0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 21
+
+
+ 848 023b 68        		.byte	0x68
+ 849 023c 01        		.byte	0x1
+ 850 023d 33        		.byte	0x33
+ 851 023e 10        		.uleb128 0x10
+ 852 023f 06        		.byte	0x6
+ 853 0240 66        		.byte	0x66
+ 854 0241 93        		.byte	0x93
+ 855 0242 01        		.uleb128 0x1
+ 856 0243 67        		.byte	0x67
+ 857 0244 93        		.byte	0x93
+ 858 0245 01        		.uleb128 0x1
+ 859 0246 02        		.byte	0x2
+ 860 0247 8C        		.byte	0x8c
+ 861 0248 01        		.sleb128 1
+ 862 0249 10        		.uleb128 0x10
+ 863 024a 01        		.byte	0x1
+ 864 024b 64        		.byte	0x64
+ 865 024c 02        		.byte	0x2
+ 866 024d 7D        		.byte	0x7d
+ 867 024e 00        		.sleb128 0
+ 868 024f 00        		.byte	0
+ 869 0250 0F        		.uleb128 0xf
+ 870 0251 0000 0000 		.long	.LVL20
+ 871 0255 B300 0000 		.long	0xb3
+ 872 0259 7402 0000 		.long	0x274
+ 873 025d 10        		.uleb128 0x10
+ 874 025e 01        		.byte	0x1
+ 875 025f 68        		.byte	0x68
+ 876 0260 01        		.byte	0x1
+ 877 0261 35        		.byte	0x35
+ 878 0262 10        		.uleb128 0x10
+ 879 0263 06        		.byte	0x6
+ 880 0264 66        		.byte	0x66
+ 881 0265 93        		.byte	0x93
+ 882 0266 01        		.uleb128 0x1
+ 883 0267 67        		.byte	0x67
+ 884 0268 93        		.byte	0x93
+ 885 0269 01        		.uleb128 0x1
+ 886 026a 02        		.byte	0x2
+ 887 026b 8C        		.byte	0x8c
+ 888 026c 01        		.sleb128 1
+ 889 026d 10        		.uleb128 0x10
+ 890 026e 01        		.byte	0x1
+ 891 026f 64        		.byte	0x64
+ 892 0270 02        		.byte	0x2
+ 893 0271 7D        		.byte	0x7d
+ 894 0272 00        		.sleb128 0
+ 895 0273 00        		.byte	0
+ 896 0274 0F        		.uleb128 0xf
+ 897 0275 0000 0000 		.long	.LVL21
+ 898 0279 B300 0000 		.long	0xb3
+ 899 027d 9802 0000 		.long	0x298
+ 900 0281 10        		.uleb128 0x10
+ 901 0282 01        		.byte	0x1
+ 902 0283 68        		.byte	0x68
+ 903 0284 01        		.byte	0x1
+ 904 0285 36        		.byte	0x36
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 22
+
+
+ 905 0286 10        		.uleb128 0x10
+ 906 0287 06        		.byte	0x6
+ 907 0288 66        		.byte	0x66
+ 908 0289 93        		.byte	0x93
+ 909 028a 01        		.uleb128 0x1
+ 910 028b 67        		.byte	0x67
+ 911 028c 93        		.byte	0x93
+ 912 028d 01        		.uleb128 0x1
+ 913 028e 02        		.byte	0x2
+ 914 028f 8C        		.byte	0x8c
+ 915 0290 01        		.sleb128 1
+ 916 0291 10        		.uleb128 0x10
+ 917 0292 01        		.byte	0x1
+ 918 0293 64        		.byte	0x64
+ 919 0294 02        		.byte	0x2
+ 920 0295 7D        		.byte	0x7d
+ 921 0296 00        		.sleb128 0
+ 922 0297 00        		.byte	0
+ 923 0298 0F        		.uleb128 0xf
+ 924 0299 0000 0000 		.long	.LVL22
+ 925 029d B300 0000 		.long	0xb3
+ 926 02a1 BC02 0000 		.long	0x2bc
+ 927 02a5 10        		.uleb128 0x10
+ 928 02a6 01        		.byte	0x1
+ 929 02a7 68        		.byte	0x68
+ 930 02a8 01        		.byte	0x1
+ 931 02a9 3A        		.byte	0x3a
+ 932 02aa 10        		.uleb128 0x10
+ 933 02ab 06        		.byte	0x6
+ 934 02ac 66        		.byte	0x66
+ 935 02ad 93        		.byte	0x93
+ 936 02ae 01        		.uleb128 0x1
+ 937 02af 67        		.byte	0x67
+ 938 02b0 93        		.byte	0x93
+ 939 02b1 01        		.uleb128 0x1
+ 940 02b2 02        		.byte	0x2
+ 941 02b3 7E        		.byte	0x7e
+ 942 02b4 00        		.sleb128 0
+ 943 02b5 10        		.uleb128 0x10
+ 944 02b6 01        		.byte	0x1
+ 945 02b7 64        		.byte	0x64
+ 946 02b8 02        		.byte	0x2
+ 947 02b9 81        		.byte	0x81
+ 948 02ba 00        		.sleb128 0
+ 949 02bb 00        		.byte	0
+ 950 02bc 0F        		.uleb128 0xf
+ 951 02bd 0000 0000 		.long	.LVL23
+ 952 02c1 B300 0000 		.long	0xb3
+ 953 02c5 E002 0000 		.long	0x2e0
+ 954 02c9 10        		.uleb128 0x10
+ 955 02ca 01        		.byte	0x1
+ 956 02cb 68        		.byte	0x68
+ 957 02cc 01        		.byte	0x1
+ 958 02cd 40        		.byte	0x40
+ 959 02ce 10        		.uleb128 0x10
+ 960 02cf 06        		.byte	0x6
+ 961 02d0 66        		.byte	0x66
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 23
+
+
+ 962 02d1 93        		.byte	0x93
+ 963 02d2 01        		.uleb128 0x1
+ 964 02d3 67        		.byte	0x67
+ 965 02d4 93        		.byte	0x93
+ 966 02d5 01        		.uleb128 0x1
+ 967 02d6 02        		.byte	0x2
+ 968 02d7 7E        		.byte	0x7e
+ 969 02d8 00        		.sleb128 0
+ 970 02d9 10        		.uleb128 0x10
+ 971 02da 01        		.byte	0x1
+ 972 02db 64        		.byte	0x64
+ 973 02dc 02        		.byte	0x2
+ 974 02dd 81        		.byte	0x81
+ 975 02de 00        		.sleb128 0
+ 976 02df 00        		.byte	0
+ 977 02e0 0F        		.uleb128 0xf
+ 978 02e1 0000 0000 		.long	.LVL24
+ 979 02e5 B300 0000 		.long	0xb3
+ 980 02e9 0403 0000 		.long	0x304
+ 981 02ed 10        		.uleb128 0x10
+ 982 02ee 01        		.byte	0x1
+ 983 02ef 68        		.byte	0x68
+ 984 02f0 01        		.byte	0x1
+ 985 02f1 41        		.byte	0x41
+ 986 02f2 10        		.uleb128 0x10
+ 987 02f3 06        		.byte	0x6
+ 988 02f4 66        		.byte	0x66
+ 989 02f5 93        		.byte	0x93
+ 990 02f6 01        		.uleb128 0x1
+ 991 02f7 67        		.byte	0x67
+ 992 02f8 93        		.byte	0x93
+ 993 02f9 01        		.uleb128 0x1
+ 994 02fa 02        		.byte	0x2
+ 995 02fb 8C        		.byte	0x8c
+ 996 02fc 01        		.sleb128 1
+ 997 02fd 10        		.uleb128 0x10
+ 998 02fe 01        		.byte	0x1
+ 999 02ff 64        		.byte	0x64
+ 1000 0300 02        		.byte	0x2
+ 1001 0301 7D        		.byte	0x7d
+ 1002 0302 00        		.sleb128 0
+ 1003 0303 00        		.byte	0
+ 1004 0304 14        		.uleb128 0x14
+ 1005 0305 0000 0000 		.long	.LVL25
+ 1006 0309 B300 0000 		.long	0xb3
+ 1007 030d 10        		.uleb128 0x10
+ 1008 030e 01        		.byte	0x1
+ 1009 030f 68        		.byte	0x68
+ 1010 0310 01        		.byte	0x1
+ 1011 0311 30        		.byte	0x30
+ 1012 0312 10        		.uleb128 0x10
+ 1013 0313 06        		.byte	0x6
+ 1014 0314 66        		.byte	0x66
+ 1015 0315 93        		.byte	0x93
+ 1016 0316 01        		.uleb128 0x1
+ 1017 0317 67        		.byte	0x67
+ 1018 0318 93        		.byte	0x93
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 24
+
+
+ 1019 0319 01        		.uleb128 0x1
+ 1020 031a 02        		.byte	0x2
+ 1021 031b 8C        		.byte	0x8c
+ 1022 031c 01        		.sleb128 1
+ 1023 031d 10        		.uleb128 0x10
+ 1024 031e 01        		.byte	0x1
+ 1025 031f 64        		.byte	0x64
+ 1026 0320 02        		.byte	0x2
+ 1027 0321 7D        		.byte	0x7d
+ 1028 0322 00        		.sleb128 0
+ 1029 0323 00        		.byte	0
+ 1030 0324 00        		.byte	0
+ 1031 0325 15        		.uleb128 0x15
+ 1032 0326 2C00 0000 		.long	0x2c
+ 1033 032a 3503 0000 		.long	0x335
+ 1034 032e 16        		.uleb128 0x16
+ 1035 032f 3503 0000 		.long	0x335
+ 1036 0333 00        		.byte	0
+ 1037 0334 00        		.byte	0
+ 1038 0335 02        		.uleb128 0x2
+ 1039 0336 02        		.byte	0x2
+ 1040 0337 07        		.byte	0x7
+ 1041 0338 0000 0000 		.long	.LASF22
+ 1042 033c 09        		.uleb128 0x9
+ 1043 033d 01        		.byte	0x1
+ 1044 033e 0000 0000 		.long	.LASF23
+ 1045 0342 01        		.byte	0x1
+ 1046 0343 44        		.byte	0x44
+ 1047 0344 01        		.byte	0x1
+ 1048 0345 0000 0000 		.long	.LFB8
+ 1049 0349 0000 0000 		.long	.LFE8
+ 1050 034d 0000 0000 		.long	.LLST11
+ 1051 0351 01        		.byte	0x1
+ 1052 0352 9004 0000 		.long	0x490
+ 1053 0356 0B        		.uleb128 0xb
+ 1054 0357 0000 0000 		.long	.LASF24
+ 1055 035b 01        		.byte	0x1
+ 1056 035c 44        		.byte	0x44
+ 1057 035d 4601 0000 		.long	0x146
+ 1058 0361 0000 0000 		.long	.LLST12
+ 1059 0365 0B        		.uleb128 0xb
+ 1060 0366 0000 0000 		.long	.LASF25
+ 1061 036a 01        		.byte	0x1
+ 1062 036b 44        		.byte	0x44
+ 1063 036c 2C00 0000 		.long	0x2c
+ 1064 0370 0000 0000 		.long	.LLST13
+ 1065 0374 0C        		.uleb128 0xc
+ 1066 0375 0000 0000 		.long	.LBB10
+ 1067 0379 0000 0000 		.long	.LBE10
+ 1068 037d 9803 0000 		.long	0x398
+ 1069 0381 0D        		.uleb128 0xd
+ 1070 0382 6900      		.string	"i"
+ 1071 0384 01        		.byte	0x1
+ 1072 0385 4B        		.byte	0x4b
+ 1073 0386 3E00 0000 		.long	0x3e
+ 1074 038a 0000 0000 		.long	.LLST14
+ 1075 038e 0E        		.uleb128 0xe
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 25
+
+
+ 1076 038f 0000 0000 		.long	.LVL40
+ 1077 0393 7105 0000 		.long	0x571
+ 1078 0397 00        		.byte	0
+ 1079 0398 17        		.uleb128 0x17
+ 1080 0399 7300 0000 		.long	0x73
+ 1081 039d 0000 0000 		.long	.LBB11
+ 1082 03a1 0000 0000 		.long	.LBE11
+ 1083 03a5 01        		.byte	0x1
+ 1084 03a6 4F        		.byte	0x4f
+ 1085 03a7 D103 0000 		.long	0x3d1
+ 1086 03ab 18        		.uleb128 0x18
+ 1087 03ac 8000 0000 		.long	0x80
+ 1088 03b0 0000 0000 		.long	.LLST15
+ 1089 03b4 19        		.uleb128 0x19
+ 1090 03b5 0000 0000 		.long	.LBB12
+ 1091 03b9 0000 0000 		.long	.LBE12
+ 1092 03bd 1A        		.uleb128 0x1a
+ 1093 03be 8B00 0000 		.long	0x8b
+ 1094 03c2 0000 0000 		.long	.LLST16
+ 1095 03c6 1A        		.uleb128 0x1a
+ 1096 03c7 9600 0000 		.long	0x96
+ 1097 03cb 0000 0000 		.long	.LLST17
+ 1098 03cf 00        		.byte	0
+ 1099 03d0 00        		.byte	0
+ 1100 03d1 17        		.uleb128 0x17
+ 1101 03d2 7300 0000 		.long	0x73
+ 1102 03d6 0000 0000 		.long	.LBB13
+ 1103 03da 0000 0000 		.long	.LBE13
+ 1104 03de 01        		.byte	0x1
+ 1105 03df 51        		.byte	0x51
+ 1106 03e0 0A04 0000 		.long	0x40a
+ 1107 03e4 18        		.uleb128 0x18
+ 1108 03e5 8000 0000 		.long	0x80
+ 1109 03e9 0000 0000 		.long	.LLST18
+ 1110 03ed 19        		.uleb128 0x19
+ 1111 03ee 0000 0000 		.long	.LBB14
+ 1112 03f2 0000 0000 		.long	.LBE14
+ 1113 03f6 1A        		.uleb128 0x1a
+ 1114 03f7 8B00 0000 		.long	0x8b
+ 1115 03fb 0000 0000 		.long	.LLST19
+ 1116 03ff 1A        		.uleb128 0x1a
+ 1117 0400 9600 0000 		.long	0x96
+ 1118 0404 0000 0000 		.long	.LLST20
+ 1119 0408 00        		.byte	0
+ 1120 0409 00        		.byte	0
+ 1121 040a 17        		.uleb128 0x17
+ 1122 040b 7300 0000 		.long	0x73
+ 1123 040f 0000 0000 		.long	.LBB15
+ 1124 0413 0000 0000 		.long	.LBE15
+ 1125 0417 01        		.byte	0x1
+ 1126 0418 53        		.byte	0x53
+ 1127 0419 4304 0000 		.long	0x443
+ 1128 041d 18        		.uleb128 0x18
+ 1129 041e 8000 0000 		.long	0x80
+ 1130 0422 0000 0000 		.long	.LLST21
+ 1131 0426 19        		.uleb128 0x19
+ 1132 0427 0000 0000 		.long	.LBB16
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 26
+
+
+ 1133 042b 0000 0000 		.long	.LBE16
+ 1134 042f 1A        		.uleb128 0x1a
+ 1135 0430 8B00 0000 		.long	0x8b
+ 1136 0434 0000 0000 		.long	.LLST22
+ 1137 0438 1A        		.uleb128 0x1a
+ 1138 0439 9600 0000 		.long	0x96
+ 1139 043d 0000 0000 		.long	.LLST23
+ 1140 0441 00        		.byte	0
+ 1141 0442 00        		.byte	0
+ 1142 0443 0E        		.uleb128 0xe
+ 1143 0444 0000 0000 		.long	.LVL33
+ 1144 0448 7E05 0000 		.long	0x57e
+ 1145 044c 0F        		.uleb128 0xf
+ 1146 044d 0000 0000 		.long	.LVL34
+ 1147 0451 7105 0000 		.long	0x571
+ 1148 0455 6004 0000 		.long	0x460
+ 1149 0459 10        		.uleb128 0x10
+ 1150 045a 01        		.byte	0x1
+ 1151 045b 68        		.byte	0x68
+ 1152 045c 02        		.byte	0x2
+ 1153 045d 09        		.byte	0x9
+ 1154 045e E1        		.byte	0xe1
+ 1155 045f 00        		.byte	0
+ 1156 0460 0E        		.uleb128 0xe
+ 1157 0461 0000 0000 		.long	.LVL35
+ 1158 0465 8B05 0000 		.long	0x58b
+ 1159 0469 0E        		.uleb128 0xe
+ 1160 046a 0000 0000 		.long	.LVL36
+ 1161 046e 7E05 0000 		.long	0x57e
+ 1162 0472 0F        		.uleb128 0xf
+ 1163 0473 0000 0000 		.long	.LVL37
+ 1164 0477 7105 0000 		.long	0x571
+ 1165 047b 8604 0000 		.long	0x486
+ 1166 047f 10        		.uleb128 0x10
+ 1167 0480 01        		.byte	0x1
+ 1168 0481 68        		.byte	0x68
+ 1169 0482 02        		.byte	0x2
+ 1170 0483 09        		.byte	0x9
+ 1171 0484 A0        		.byte	0xa0
+ 1172 0485 00        		.byte	0
+ 1173 0486 0E        		.uleb128 0xe
+ 1174 0487 0000 0000 		.long	.LVL42
+ 1175 048b 8B05 0000 		.long	0x58b
+ 1176 048f 00        		.byte	0
+ 1177 0490 09        		.uleb128 0x9
+ 1178 0491 01        		.byte	0x1
+ 1179 0492 0000 0000 		.long	.LASF26
+ 1180 0496 01        		.byte	0x1
+ 1181 0497 56        		.byte	0x56
+ 1182 0498 01        		.byte	0x1
+ 1183 0499 0000 0000 		.long	.LFB9
+ 1184 049d 0000 0000 		.long	.LFE9
+ 1185 04a1 0000 0000 		.long	.LLST24
+ 1186 04a5 01        		.byte	0x1
+ 1187 04a6 2A05 0000 		.long	0x52a
+ 1188 04aa 0A        		.uleb128 0xa
+ 1189 04ab 7265 6700 		.string	"reg"
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 27
+
+
+ 1190 04af 01        		.byte	0x1
+ 1191 04b0 56        		.byte	0x56
+ 1192 04b1 2C00 0000 		.long	0x2c
+ 1193 04b5 0000 0000 		.long	.LLST25
+ 1194 04b9 0B        		.uleb128 0xb
+ 1195 04ba 0000 0000 		.long	.LASF12
+ 1196 04be 01        		.byte	0x1
+ 1197 04bf 56        		.byte	0x56
+ 1198 04c0 4601 0000 		.long	0x146
+ 1199 04c4 0000 0000 		.long	.LLST26
+ 1200 04c8 0B        		.uleb128 0xb
+ 1201 04c9 0000 0000 		.long	.LASF13
+ 1202 04cd 01        		.byte	0x1
+ 1203 04ce 56        		.byte	0x56
+ 1204 04cf 2C00 0000 		.long	0x2c
+ 1205 04d3 0000 0000 		.long	.LLST27
+ 1206 04d7 0C        		.uleb128 0xc
+ 1207 04d8 0000 0000 		.long	.LBB17
+ 1208 04dc 0000 0000 		.long	.LBE17
+ 1209 04e0 0205 0000 		.long	0x502
+ 1210 04e4 0D        		.uleb128 0xd
+ 1211 04e5 6900      		.string	"i"
+ 1212 04e7 01        		.byte	0x1
+ 1213 04e8 59        		.byte	0x59
+ 1214 04e9 3E00 0000 		.long	0x3e
+ 1215 04ed 0000 0000 		.long	.LLST28
+ 1216 04f1 14        		.uleb128 0x14
+ 1217 04f2 0000 0000 		.long	.LVL54
+ 1218 04f6 7105 0000 		.long	0x571
+ 1219 04fa 10        		.uleb128 0x10
+ 1220 04fb 01        		.byte	0x1
+ 1221 04fc 68        		.byte	0x68
+ 1222 04fd 02        		.byte	0x2
+ 1223 04fe 09        		.byte	0x9
+ 1224 04ff FF        		.byte	0xff
+ 1225 0500 00        		.byte	0
+ 1226 0501 00        		.byte	0
+ 1227 0502 0E        		.uleb128 0xe
+ 1228 0503 0000 0000 		.long	.LVL50
+ 1229 0507 7E05 0000 		.long	0x57e
+ 1230 050b 0F        		.uleb128 0xf
+ 1231 050c 0000 0000 		.long	.LVL51
+ 1232 0510 7105 0000 		.long	0x571
+ 1233 0514 1F05 0000 		.long	0x51f
+ 1234 0518 10        		.uleb128 0x10
+ 1235 0519 01        		.byte	0x1
+ 1236 051a 68        		.byte	0x68
+ 1237 051b 02        		.byte	0x2
+ 1238 051c 8C        		.byte	0x8c
+ 1239 051d 00        		.sleb128 0
+ 1240 051e 00        		.byte	0
+ 1241 051f 11        		.uleb128 0x11
+ 1242 0520 0000 0000 		.long	.LVL58
+ 1243 0524 01        		.byte	0x1
+ 1244 0525 8B05 0000 		.long	0x58b
+ 1245 0529 00        		.byte	0
+ 1246 052a 1B        		.uleb128 0x1b
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 28
+
+
+ 1247 052b 01        		.byte	0x1
+ 1248 052c 0000 0000 		.long	.LASF36
+ 1249 0530 01        		.byte	0x1
+ 1250 0531 60        		.byte	0x60
+ 1251 0532 0000 0000 		.long	.LFB10
+ 1252 0536 0000 0000 		.long	.LFE10
+ 1253 053a 0000 0000 		.long	.LLST29
+ 1254 053e 01        		.byte	0x1
+ 1255 053f 7105 0000 		.long	0x571
+ 1256 0543 1C        		.uleb128 0x1c
+ 1257 0544 7661 6C00 		.string	"val"
+ 1258 0548 01        		.byte	0x1
+ 1259 0549 61        		.byte	0x61
+ 1260 054a 2503 0000 		.long	0x325
+ 1261 054e 02        		.byte	0x2
+ 1262 054f 8C        		.byte	0x8c
+ 1263 0550 01        		.sleb128 1
+ 1264 0551 14        		.uleb128 0x14
+ 1265 0552 0000 0000 		.long	.LVL59
+ 1266 0556 B300 0000 		.long	0xb3
+ 1267 055a 10        		.uleb128 0x10
+ 1268 055b 01        		.byte	0x1
+ 1269 055c 68        		.byte	0x68
+ 1270 055d 01        		.byte	0x1
+ 1271 055e 37        		.byte	0x37
+ 1272 055f 10        		.uleb128 0x10
+ 1273 0560 06        		.byte	0x6
+ 1274 0561 66        		.byte	0x66
+ 1275 0562 93        		.byte	0x93
+ 1276 0563 01        		.uleb128 0x1
+ 1277 0564 67        		.byte	0x67
+ 1278 0565 93        		.byte	0x93
+ 1279 0566 01        		.uleb128 0x1
+ 1280 0567 02        		.byte	0x2
+ 1281 0568 8C        		.byte	0x8c
+ 1282 0569 01        		.sleb128 1
+ 1283 056a 10        		.uleb128 0x10
+ 1284 056b 01        		.byte	0x1
+ 1285 056c 64        		.byte	0x64
+ 1286 056d 01        		.byte	0x1
+ 1287 056e 31        		.byte	0x31
+ 1288 056f 00        		.byte	0
+ 1289 0570 00        		.byte	0
+ 1290 0571 1D        		.uleb128 0x1d
+ 1291 0572 01        		.byte	0x1
+ 1292 0573 01        		.byte	0x1
+ 1293 0574 0000 0000 		.long	.LASF27
+ 1294 0578 0000 0000 		.long	.LASF27
+ 1295 057c 04        		.byte	0x4
+ 1296 057d 09        		.byte	0x9
+ 1297 057e 1D        		.uleb128 0x1d
+ 1298 057f 01        		.byte	0x1
+ 1299 0580 01        		.byte	0x1
+ 1300 0581 0000 0000 		.long	.LASF28
+ 1301 0585 0000 0000 		.long	.LASF28
+ 1302 0589 04        		.byte	0x4
+ 1303 058a 07        		.byte	0x7
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 29
+
+
+ 1304 058b 1D        		.uleb128 0x1d
+ 1305 058c 01        		.byte	0x1
+ 1306 058d 01        		.byte	0x1
+ 1307 058e 0000 0000 		.long	.LASF29
+ 1308 0592 0000 0000 		.long	.LASF29
+ 1309 0596 04        		.byte	0x4
+ 1310 0597 08        		.byte	0x8
+ 1311 0598 00        		.byte	0
+ 1312               		.section	.debug_abbrev,"",@progbits
+ 1313               	.Ldebug_abbrev0:
+ 1314 0000 01        		.uleb128 0x1
+ 1315 0001 11        		.uleb128 0x11
+ 1316 0002 01        		.byte	0x1
+ 1317 0003 25        		.uleb128 0x25
+ 1318 0004 0E        		.uleb128 0xe
+ 1319 0005 13        		.uleb128 0x13
+ 1320 0006 0B        		.uleb128 0xb
+ 1321 0007 03        		.uleb128 0x3
+ 1322 0008 0E        		.uleb128 0xe
+ 1323 0009 1B        		.uleb128 0x1b
+ 1324 000a 0E        		.uleb128 0xe
+ 1325 000b 11        		.uleb128 0x11
+ 1326 000c 01        		.uleb128 0x1
+ 1327 000d 12        		.uleb128 0x12
+ 1328 000e 01        		.uleb128 0x1
+ 1329 000f 10        		.uleb128 0x10
+ 1330 0010 06        		.uleb128 0x6
+ 1331 0011 00        		.byte	0
+ 1332 0012 00        		.byte	0
+ 1333 0013 02        		.uleb128 0x2
+ 1334 0014 24        		.uleb128 0x24
+ 1335 0015 00        		.byte	0
+ 1336 0016 0B        		.uleb128 0xb
+ 1337 0017 0B        		.uleb128 0xb
+ 1338 0018 3E        		.uleb128 0x3e
+ 1339 0019 0B        		.uleb128 0xb
+ 1340 001a 03        		.uleb128 0x3
+ 1341 001b 0E        		.uleb128 0xe
+ 1342 001c 00        		.byte	0
+ 1343 001d 00        		.byte	0
+ 1344 001e 03        		.uleb128 0x3
+ 1345 001f 16        		.uleb128 0x16
+ 1346 0020 00        		.byte	0
+ 1347 0021 03        		.uleb128 0x3
+ 1348 0022 0E        		.uleb128 0xe
+ 1349 0023 3A        		.uleb128 0x3a
+ 1350 0024 0B        		.uleb128 0xb
+ 1351 0025 3B        		.uleb128 0x3b
+ 1352 0026 0B        		.uleb128 0xb
+ 1353 0027 49        		.uleb128 0x49
+ 1354 0028 13        		.uleb128 0x13
+ 1355 0029 00        		.byte	0
+ 1356 002a 00        		.byte	0
+ 1357 002b 04        		.uleb128 0x4
+ 1358 002c 24        		.uleb128 0x24
+ 1359 002d 00        		.byte	0
+ 1360 002e 0B        		.uleb128 0xb
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 30
+
+
+ 1361 002f 0B        		.uleb128 0xb
+ 1362 0030 3E        		.uleb128 0x3e
+ 1363 0031 0B        		.uleb128 0xb
+ 1364 0032 03        		.uleb128 0x3
+ 1365 0033 08        		.uleb128 0x8
+ 1366 0034 00        		.byte	0
+ 1367 0035 00        		.byte	0
+ 1368 0036 05        		.uleb128 0x5
+ 1369 0037 2E        		.uleb128 0x2e
+ 1370 0038 01        		.byte	0x1
+ 1371 0039 03        		.uleb128 0x3
+ 1372 003a 0E        		.uleb128 0xe
+ 1373 003b 3A        		.uleb128 0x3a
+ 1374 003c 0B        		.uleb128 0xb
+ 1375 003d 3B        		.uleb128 0x3b
+ 1376 003e 0B        		.uleb128 0xb
+ 1377 003f 27        		.uleb128 0x27
+ 1378 0040 0C        		.uleb128 0xc
+ 1379 0041 20        		.uleb128 0x20
+ 1380 0042 0B        		.uleb128 0xb
+ 1381 0043 01        		.uleb128 0x1
+ 1382 0044 13        		.uleb128 0x13
+ 1383 0045 00        		.byte	0
+ 1384 0046 00        		.byte	0
+ 1385 0047 06        		.uleb128 0x6
+ 1386 0048 05        		.uleb128 0x5
+ 1387 0049 00        		.byte	0
+ 1388 004a 03        		.uleb128 0x3
+ 1389 004b 0E        		.uleb128 0xe
+ 1390 004c 3A        		.uleb128 0x3a
+ 1391 004d 0B        		.uleb128 0xb
+ 1392 004e 3B        		.uleb128 0x3b
+ 1393 004f 0B        		.uleb128 0xb
+ 1394 0050 49        		.uleb128 0x49
+ 1395 0051 13        		.uleb128 0x13
+ 1396 0052 00        		.byte	0
+ 1397 0053 00        		.byte	0
+ 1398 0054 07        		.uleb128 0x7
+ 1399 0055 34        		.uleb128 0x34
+ 1400 0056 00        		.byte	0
+ 1401 0057 03        		.uleb128 0x3
+ 1402 0058 0E        		.uleb128 0xe
+ 1403 0059 3A        		.uleb128 0x3a
+ 1404 005a 0B        		.uleb128 0xb
+ 1405 005b 3B        		.uleb128 0x3b
+ 1406 005c 0B        		.uleb128 0xb
+ 1407 005d 49        		.uleb128 0x49
+ 1408 005e 13        		.uleb128 0x13
+ 1409 005f 00        		.byte	0
+ 1410 0060 00        		.byte	0
+ 1411 0061 08        		.uleb128 0x8
+ 1412 0062 2E        		.uleb128 0x2e
+ 1413 0063 00        		.byte	0
+ 1414 0064 3F        		.uleb128 0x3f
+ 1415 0065 0C        		.uleb128 0xc
+ 1416 0066 03        		.uleb128 0x3
+ 1417 0067 0E        		.uleb128 0xe
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 31
+
+
+ 1418 0068 3A        		.uleb128 0x3a
+ 1419 0069 0B        		.uleb128 0xb
+ 1420 006a 3B        		.uleb128 0x3b
+ 1421 006b 0B        		.uleb128 0xb
+ 1422 006c 27        		.uleb128 0x27
+ 1423 006d 0C        		.uleb128 0xc
+ 1424 006e 20        		.uleb128 0x20
+ 1425 006f 0B        		.uleb128 0xb
+ 1426 0070 00        		.byte	0
+ 1427 0071 00        		.byte	0
+ 1428 0072 09        		.uleb128 0x9
+ 1429 0073 2E        		.uleb128 0x2e
+ 1430 0074 01        		.byte	0x1
+ 1431 0075 3F        		.uleb128 0x3f
+ 1432 0076 0C        		.uleb128 0xc
+ 1433 0077 03        		.uleb128 0x3
+ 1434 0078 0E        		.uleb128 0xe
+ 1435 0079 3A        		.uleb128 0x3a
+ 1436 007a 0B        		.uleb128 0xb
+ 1437 007b 3B        		.uleb128 0x3b
+ 1438 007c 0B        		.uleb128 0xb
+ 1439 007d 27        		.uleb128 0x27
+ 1440 007e 0C        		.uleb128 0xc
+ 1441 007f 11        		.uleb128 0x11
+ 1442 0080 01        		.uleb128 0x1
+ 1443 0081 12        		.uleb128 0x12
+ 1444 0082 01        		.uleb128 0x1
+ 1445 0083 40        		.uleb128 0x40
+ 1446 0084 06        		.uleb128 0x6
+ 1447 0085 9742      		.uleb128 0x2117
+ 1448 0087 0C        		.uleb128 0xc
+ 1449 0088 01        		.uleb128 0x1
+ 1450 0089 13        		.uleb128 0x13
+ 1451 008a 00        		.byte	0
+ 1452 008b 00        		.byte	0
+ 1453 008c 0A        		.uleb128 0xa
+ 1454 008d 05        		.uleb128 0x5
+ 1455 008e 00        		.byte	0
+ 1456 008f 03        		.uleb128 0x3
+ 1457 0090 08        		.uleb128 0x8
+ 1458 0091 3A        		.uleb128 0x3a
+ 1459 0092 0B        		.uleb128 0xb
+ 1460 0093 3B        		.uleb128 0x3b
+ 1461 0094 0B        		.uleb128 0xb
+ 1462 0095 49        		.uleb128 0x49
+ 1463 0096 13        		.uleb128 0x13
+ 1464 0097 02        		.uleb128 0x2
+ 1465 0098 06        		.uleb128 0x6
+ 1466 0099 00        		.byte	0
+ 1467 009a 00        		.byte	0
+ 1468 009b 0B        		.uleb128 0xb
+ 1469 009c 05        		.uleb128 0x5
+ 1470 009d 00        		.byte	0
+ 1471 009e 03        		.uleb128 0x3
+ 1472 009f 0E        		.uleb128 0xe
+ 1473 00a0 3A        		.uleb128 0x3a
+ 1474 00a1 0B        		.uleb128 0xb
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 32
+
+
+ 1475 00a2 3B        		.uleb128 0x3b
+ 1476 00a3 0B        		.uleb128 0xb
+ 1477 00a4 49        		.uleb128 0x49
+ 1478 00a5 13        		.uleb128 0x13
+ 1479 00a6 02        		.uleb128 0x2
+ 1480 00a7 06        		.uleb128 0x6
+ 1481 00a8 00        		.byte	0
+ 1482 00a9 00        		.byte	0
+ 1483 00aa 0C        		.uleb128 0xc
+ 1484 00ab 0B        		.uleb128 0xb
+ 1485 00ac 01        		.byte	0x1
+ 1486 00ad 11        		.uleb128 0x11
+ 1487 00ae 01        		.uleb128 0x1
+ 1488 00af 12        		.uleb128 0x12
+ 1489 00b0 01        		.uleb128 0x1
+ 1490 00b1 01        		.uleb128 0x1
+ 1491 00b2 13        		.uleb128 0x13
+ 1492 00b3 00        		.byte	0
+ 1493 00b4 00        		.byte	0
+ 1494 00b5 0D        		.uleb128 0xd
+ 1495 00b6 34        		.uleb128 0x34
+ 1496 00b7 00        		.byte	0
+ 1497 00b8 03        		.uleb128 0x3
+ 1498 00b9 08        		.uleb128 0x8
+ 1499 00ba 3A        		.uleb128 0x3a
+ 1500 00bb 0B        		.uleb128 0xb
+ 1501 00bc 3B        		.uleb128 0x3b
+ 1502 00bd 0B        		.uleb128 0xb
+ 1503 00be 49        		.uleb128 0x49
+ 1504 00bf 13        		.uleb128 0x13
+ 1505 00c0 02        		.uleb128 0x2
+ 1506 00c1 06        		.uleb128 0x6
+ 1507 00c2 00        		.byte	0
+ 1508 00c3 00        		.byte	0
+ 1509 00c4 0E        		.uleb128 0xe
+ 1510 00c5 8982 01   		.uleb128 0x4109
+ 1511 00c8 00        		.byte	0
+ 1512 00c9 11        		.uleb128 0x11
+ 1513 00ca 01        		.uleb128 0x1
+ 1514 00cb 31        		.uleb128 0x31
+ 1515 00cc 13        		.uleb128 0x13
+ 1516 00cd 00        		.byte	0
+ 1517 00ce 00        		.byte	0
+ 1518 00cf 0F        		.uleb128 0xf
+ 1519 00d0 8982 01   		.uleb128 0x4109
+ 1520 00d3 01        		.byte	0x1
+ 1521 00d4 11        		.uleb128 0x11
+ 1522 00d5 01        		.uleb128 0x1
+ 1523 00d6 31        		.uleb128 0x31
+ 1524 00d7 13        		.uleb128 0x13
+ 1525 00d8 01        		.uleb128 0x1
+ 1526 00d9 13        		.uleb128 0x13
+ 1527 00da 00        		.byte	0
+ 1528 00db 00        		.byte	0
+ 1529 00dc 10        		.uleb128 0x10
+ 1530 00dd 8A82 01   		.uleb128 0x410a
+ 1531 00e0 00        		.byte	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 33
+
+
+ 1532 00e1 02        		.uleb128 0x2
+ 1533 00e2 0A        		.uleb128 0xa
+ 1534 00e3 9142      		.uleb128 0x2111
+ 1535 00e5 0A        		.uleb128 0xa
+ 1536 00e6 00        		.byte	0
+ 1537 00e7 00        		.byte	0
+ 1538 00e8 11        		.uleb128 0x11
+ 1539 00e9 8982 01   		.uleb128 0x4109
+ 1540 00ec 00        		.byte	0
+ 1541 00ed 11        		.uleb128 0x11
+ 1542 00ee 01        		.uleb128 0x1
+ 1543 00ef 9542      		.uleb128 0x2115
+ 1544 00f1 0C        		.uleb128 0xc
+ 1545 00f2 31        		.uleb128 0x31
+ 1546 00f3 13        		.uleb128 0x13
+ 1547 00f4 00        		.byte	0
+ 1548 00f5 00        		.byte	0
+ 1549 00f6 12        		.uleb128 0x12
+ 1550 00f7 0F        		.uleb128 0xf
+ 1551 00f8 00        		.byte	0
+ 1552 00f9 0B        		.uleb128 0xb
+ 1553 00fa 0B        		.uleb128 0xb
+ 1554 00fb 49        		.uleb128 0x49
+ 1555 00fc 13        		.uleb128 0x13
+ 1556 00fd 00        		.byte	0
+ 1557 00fe 00        		.byte	0
+ 1558 00ff 13        		.uleb128 0x13
+ 1559 0100 34        		.uleb128 0x34
+ 1560 0101 00        		.byte	0
+ 1561 0102 03        		.uleb128 0x3
+ 1562 0103 0E        		.uleb128 0xe
+ 1563 0104 3A        		.uleb128 0x3a
+ 1564 0105 0B        		.uleb128 0xb
+ 1565 0106 3B        		.uleb128 0x3b
+ 1566 0107 0B        		.uleb128 0xb
+ 1567 0108 49        		.uleb128 0x49
+ 1568 0109 13        		.uleb128 0x13
+ 1569 010a 02        		.uleb128 0x2
+ 1570 010b 0A        		.uleb128 0xa
+ 1571 010c 00        		.byte	0
+ 1572 010d 00        		.byte	0
+ 1573 010e 14        		.uleb128 0x14
+ 1574 010f 8982 01   		.uleb128 0x4109
+ 1575 0112 01        		.byte	0x1
+ 1576 0113 11        		.uleb128 0x11
+ 1577 0114 01        		.uleb128 0x1
+ 1578 0115 31        		.uleb128 0x31
+ 1579 0116 13        		.uleb128 0x13
+ 1580 0117 00        		.byte	0
+ 1581 0118 00        		.byte	0
+ 1582 0119 15        		.uleb128 0x15
+ 1583 011a 01        		.uleb128 0x1
+ 1584 011b 01        		.byte	0x1
+ 1585 011c 49        		.uleb128 0x49
+ 1586 011d 13        		.uleb128 0x13
+ 1587 011e 01        		.uleb128 0x1
+ 1588 011f 13        		.uleb128 0x13
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 34
+
+
+ 1589 0120 00        		.byte	0
+ 1590 0121 00        		.byte	0
+ 1591 0122 16        		.uleb128 0x16
+ 1592 0123 21        		.uleb128 0x21
+ 1593 0124 00        		.byte	0
+ 1594 0125 49        		.uleb128 0x49
+ 1595 0126 13        		.uleb128 0x13
+ 1596 0127 2F        		.uleb128 0x2f
+ 1597 0128 0B        		.uleb128 0xb
+ 1598 0129 00        		.byte	0
+ 1599 012a 00        		.byte	0
+ 1600 012b 17        		.uleb128 0x17
+ 1601 012c 1D        		.uleb128 0x1d
+ 1602 012d 01        		.byte	0x1
+ 1603 012e 31        		.uleb128 0x31
+ 1604 012f 13        		.uleb128 0x13
+ 1605 0130 11        		.uleb128 0x11
+ 1606 0131 01        		.uleb128 0x1
+ 1607 0132 12        		.uleb128 0x12
+ 1608 0133 01        		.uleb128 0x1
+ 1609 0134 58        		.uleb128 0x58
+ 1610 0135 0B        		.uleb128 0xb
+ 1611 0136 59        		.uleb128 0x59
+ 1612 0137 0B        		.uleb128 0xb
+ 1613 0138 01        		.uleb128 0x1
+ 1614 0139 13        		.uleb128 0x13
+ 1615 013a 00        		.byte	0
+ 1616 013b 00        		.byte	0
+ 1617 013c 18        		.uleb128 0x18
+ 1618 013d 05        		.uleb128 0x5
+ 1619 013e 00        		.byte	0
+ 1620 013f 31        		.uleb128 0x31
+ 1621 0140 13        		.uleb128 0x13
+ 1622 0141 02        		.uleb128 0x2
+ 1623 0142 06        		.uleb128 0x6
+ 1624 0143 00        		.byte	0
+ 1625 0144 00        		.byte	0
+ 1626 0145 19        		.uleb128 0x19
+ 1627 0146 0B        		.uleb128 0xb
+ 1628 0147 01        		.byte	0x1
+ 1629 0148 11        		.uleb128 0x11
+ 1630 0149 01        		.uleb128 0x1
+ 1631 014a 12        		.uleb128 0x12
+ 1632 014b 01        		.uleb128 0x1
+ 1633 014c 00        		.byte	0
+ 1634 014d 00        		.byte	0
+ 1635 014e 1A        		.uleb128 0x1a
+ 1636 014f 34        		.uleb128 0x34
+ 1637 0150 00        		.byte	0
+ 1638 0151 31        		.uleb128 0x31
+ 1639 0152 13        		.uleb128 0x13
+ 1640 0153 02        		.uleb128 0x2
+ 1641 0154 06        		.uleb128 0x6
+ 1642 0155 00        		.byte	0
+ 1643 0156 00        		.byte	0
+ 1644 0157 1B        		.uleb128 0x1b
+ 1645 0158 2E        		.uleb128 0x2e
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 35
+
+
+ 1646 0159 01        		.byte	0x1
+ 1647 015a 3F        		.uleb128 0x3f
+ 1648 015b 0C        		.uleb128 0xc
+ 1649 015c 03        		.uleb128 0x3
+ 1650 015d 0E        		.uleb128 0xe
+ 1651 015e 3A        		.uleb128 0x3a
+ 1652 015f 0B        		.uleb128 0xb
+ 1653 0160 3B        		.uleb128 0x3b
+ 1654 0161 0B        		.uleb128 0xb
+ 1655 0162 11        		.uleb128 0x11
+ 1656 0163 01        		.uleb128 0x1
+ 1657 0164 12        		.uleb128 0x12
+ 1658 0165 01        		.uleb128 0x1
+ 1659 0166 40        		.uleb128 0x40
+ 1660 0167 06        		.uleb128 0x6
+ 1661 0168 9742      		.uleb128 0x2117
+ 1662 016a 0C        		.uleb128 0xc
+ 1663 016b 01        		.uleb128 0x1
+ 1664 016c 13        		.uleb128 0x13
+ 1665 016d 00        		.byte	0
+ 1666 016e 00        		.byte	0
+ 1667 016f 1C        		.uleb128 0x1c
+ 1668 0170 34        		.uleb128 0x34
+ 1669 0171 00        		.byte	0
+ 1670 0172 03        		.uleb128 0x3
+ 1671 0173 08        		.uleb128 0x8
+ 1672 0174 3A        		.uleb128 0x3a
+ 1673 0175 0B        		.uleb128 0xb
+ 1674 0176 3B        		.uleb128 0x3b
+ 1675 0177 0B        		.uleb128 0xb
+ 1676 0178 49        		.uleb128 0x49
+ 1677 0179 13        		.uleb128 0x13
+ 1678 017a 02        		.uleb128 0x2
+ 1679 017b 0A        		.uleb128 0xa
+ 1680 017c 00        		.byte	0
+ 1681 017d 00        		.byte	0
+ 1682 017e 1D        		.uleb128 0x1d
+ 1683 017f 2E        		.uleb128 0x2e
+ 1684 0180 00        		.byte	0
+ 1685 0181 3F        		.uleb128 0x3f
+ 1686 0182 0C        		.uleb128 0xc
+ 1687 0183 3C        		.uleb128 0x3c
+ 1688 0184 0C        		.uleb128 0xc
+ 1689 0185 8740      		.uleb128 0x2007
+ 1690 0187 0E        		.uleb128 0xe
+ 1691 0188 03        		.uleb128 0x3
+ 1692 0189 0E        		.uleb128 0xe
+ 1693 018a 3A        		.uleb128 0x3a
+ 1694 018b 0B        		.uleb128 0xb
+ 1695 018c 3B        		.uleb128 0x3b
+ 1696 018d 0B        		.uleb128 0xb
+ 1697 018e 00        		.byte	0
+ 1698 018f 00        		.byte	0
+ 1699 0190 00        		.byte	0
+ 1700               		.section	.debug_loc,"",@progbits
+ 1701               	.Ldebug_loc0:
+ 1702               	.LLST0:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 36
+
+
+ 1703 0000 0000 0000 		.long	.LFB6-.Ltext0
+ 1704 0004 0200 0000 		.long	.LCFI0-.Ltext0
+ 1705 0008 0300      		.word	0x3
+ 1706 000a 92        		.byte	0x92
+ 1707 000b 20        		.uleb128 0x20
+ 1708 000c 02        		.sleb128 2
+ 1709 000d 0200 0000 		.long	.LCFI0-.Ltext0
+ 1710 0011 0400 0000 		.long	.LCFI1-.Ltext0
+ 1711 0015 0300      		.word	0x3
+ 1712 0017 92        		.byte	0x92
+ 1713 0018 20        		.uleb128 0x20
+ 1714 0019 03        		.sleb128 3
+ 1715 001a 0400 0000 		.long	.LCFI1-.Ltext0
+ 1716 001e 0600 0000 		.long	.LCFI2-.Ltext0
+ 1717 0022 0300      		.word	0x3
+ 1718 0024 92        		.byte	0x92
+ 1719 0025 20        		.uleb128 0x20
+ 1720 0026 04        		.sleb128 4
+ 1721 0027 0600 0000 		.long	.LCFI2-.Ltext0
+ 1722 002b 0800 0000 		.long	.LCFI3-.Ltext0
+ 1723 002f 0300      		.word	0x3
+ 1724 0031 92        		.byte	0x92
+ 1725 0032 20        		.uleb128 0x20
+ 1726 0033 05        		.sleb128 5
+ 1727 0034 0800 0000 		.long	.LCFI3-.Ltext0
+ 1728 0038 0A00 0000 		.long	.LCFI4-.Ltext0
+ 1729 003c 0300      		.word	0x3
+ 1730 003e 92        		.byte	0x92
+ 1731 003f 20        		.uleb128 0x20
+ 1732 0040 06        		.sleb128 6
+ 1733 0041 0A00 0000 		.long	.LCFI4-.Ltext0
+ 1734 0045 4800 0000 		.long	.LFE6-.Ltext0
+ 1735 0049 0300      		.word	0x3
+ 1736 004b 92        		.byte	0x92
+ 1737 004c 20        		.uleb128 0x20
+ 1738 004d 07        		.sleb128 7
+ 1739 004e 0000 0000 		.long	0
+ 1740 0052 0000 0000 		.long	0
+ 1741               	.LLST1:
+ 1742 0056 0000 0000 		.long	.LVL0-.Ltext0
+ 1743 005a 1200 0000 		.long	.LVL1-.Ltext0
+ 1744 005e 0100      		.word	0x1
+ 1745 0060 68        		.byte	0x68
+ 1746 0061 1200 0000 		.long	.LVL1-.Ltext0
+ 1747 0065 1500 0000 		.long	.LVL2-1-.Ltext0
+ 1748 0069 0300      		.word	0x3
+ 1749 006b 88        		.byte	0x88
+ 1750 006c 20        		.sleb128 32
+ 1751 006d 9F        		.byte	0x9f
+ 1752 006e 1500 0000 		.long	.LVL2-1-.Ltext0
+ 1753 0072 1A00 0000 		.long	.LVL3-.Ltext0
+ 1754 0076 0300      		.word	0x3
+ 1755 0078 8C        		.byte	0x8c
+ 1756 0079 20        		.sleb128 32
+ 1757 007a 9F        		.byte	0x9f
+ 1758 007b 1A00 0000 		.long	.LVL3-.Ltext0
+ 1759 007f 1D00 0000 		.long	.LVL4-1-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 37
+
+
+ 1760 0083 0100      		.word	0x1
+ 1761 0085 68        		.byte	0x68
+ 1762 0086 1D00 0000 		.long	.LVL4-1-.Ltext0
+ 1763 008a 2400 0000 		.long	.LVL5-.Ltext0
+ 1764 008e 0300      		.word	0x3
+ 1765 0090 8C        		.byte	0x8c
+ 1766 0091 20        		.sleb128 32
+ 1767 0092 9F        		.byte	0x9f
+ 1768 0093 2400 0000 		.long	.LVL5-.Ltext0
+ 1769 0097 4800 0000 		.long	.LFE6-.Ltext0
+ 1770 009b 0600      		.word	0x6
+ 1771 009d F3        		.byte	0xf3
+ 1772 009e 01        		.uleb128 0x1
+ 1773 009f 68        		.byte	0x68
+ 1774 00a0 23        		.byte	0x23
+ 1775 00a1 20        		.uleb128 0x20
+ 1776 00a2 9F        		.byte	0x9f
+ 1777 00a3 0000 0000 		.long	0
+ 1778 00a7 0000 0000 		.long	0
+ 1779               	.LLST2:
+ 1780 00ab 0000 0000 		.long	.LVL0-.Ltext0
+ 1781 00af 1500 0000 		.long	.LVL2-1-.Ltext0
+ 1782 00b3 0600      		.word	0x6
+ 1783 00b5 66        		.byte	0x66
+ 1784 00b6 93        		.byte	0x93
+ 1785 00b7 01        		.uleb128 0x1
+ 1786 00b8 67        		.byte	0x67
+ 1787 00b9 93        		.byte	0x93
+ 1788 00ba 01        		.uleb128 0x1
+ 1789 00bb 1500 0000 		.long	.LVL2-1-.Ltext0
+ 1790 00bf 4800 0000 		.long	.LFE6-.Ltext0
+ 1791 00c3 0400      		.word	0x4
+ 1792 00c5 F3        		.byte	0xf3
+ 1793 00c6 01        		.uleb128 0x1
+ 1794 00c7 66        		.byte	0x66
+ 1795 00c8 9F        		.byte	0x9f
+ 1796 00c9 0000 0000 		.long	0
+ 1797 00cd 0000 0000 		.long	0
+ 1798               	.LLST3:
+ 1799 00d1 0000 0000 		.long	.LVL0-.Ltext0
+ 1800 00d5 1500 0000 		.long	.LVL2-1-.Ltext0
+ 1801 00d9 0100      		.word	0x1
+ 1802 00db 64        		.byte	0x64
+ 1803 00dc 1500 0000 		.long	.LVL2-1-.Ltext0
+ 1804 00e0 4000 0000 		.long	.LVL10-.Ltext0
+ 1805 00e4 0100      		.word	0x1
+ 1806 00e6 61        		.byte	0x61
+ 1807 00e7 4000 0000 		.long	.LVL10-.Ltext0
+ 1808 00eb 4800 0000 		.long	.LFE6-.Ltext0
+ 1809 00ef 0400      		.word	0x4
+ 1810 00f1 F3        		.byte	0xf3
+ 1811 00f2 01        		.uleb128 0x1
+ 1812 00f3 64        		.byte	0x64
+ 1813 00f4 9F        		.byte	0x9f
+ 1814 00f5 0000 0000 		.long	0
+ 1815 00f9 0000 0000 		.long	0
+ 1816               	.LLST4:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 38
+
+
+ 1817 00fd 1E00 0000 		.long	.LVL4-.Ltext0
+ 1818 0101 2E00 0000 		.long	.LVL6-.Ltext0
+ 1819 0105 0200      		.word	0x2
+ 1820 0107 30        		.byte	0x30
+ 1821 0108 9F        		.byte	0x9f
+ 1822 0109 2E00 0000 		.long	.LVL6-.Ltext0
+ 1823 010d 3000 0000 		.long	.LVL7-.Ltext0
+ 1824 0111 0700      		.word	0x7
+ 1825 0113 8C        		.byte	0x8c
+ 1826 0114 00        		.sleb128 0
+ 1827 0115 F3        		.byte	0xf3
+ 1828 0116 01        		.uleb128 0x1
+ 1829 0117 66        		.byte	0x66
+ 1830 0118 1C        		.byte	0x1c
+ 1831 0119 9F        		.byte	0x9f
+ 1832 011a 3000 0000 		.long	.LVL7-.Ltext0
+ 1833 011e 3400 0000 		.long	.LVL8-.Ltext0
+ 1834 0122 0800      		.word	0x8
+ 1835 0124 F3        		.byte	0xf3
+ 1836 0125 01        		.uleb128 0x1
+ 1837 0126 66        		.byte	0x66
+ 1838 0127 20        		.byte	0x20
+ 1839 0128 8C        		.byte	0x8c
+ 1840 0129 00        		.sleb128 0
+ 1841 012a 22        		.byte	0x22
+ 1842 012b 9F        		.byte	0x9f
+ 1843 012c 3400 0000 		.long	.LVL8-.Ltext0
+ 1844 0130 3A00 0000 		.long	.LVL9-.Ltext0
+ 1845 0134 0700      		.word	0x7
+ 1846 0136 8C        		.byte	0x8c
+ 1847 0137 00        		.sleb128 0
+ 1848 0138 F3        		.byte	0xf3
+ 1849 0139 01        		.uleb128 0x1
+ 1850 013a 66        		.byte	0x66
+ 1851 013b 1C        		.byte	0x1c
+ 1852 013c 9F        		.byte	0x9f
+ 1853 013d 0000 0000 		.long	0
+ 1854 0141 0000 0000 		.long	0
+ 1855               	.LLST5:
+ 1856 0145 4800 0000 		.long	.LFB7-.Ltext0
+ 1857 0149 4A00 0000 		.long	.LCFI5-.Ltext0
+ 1858 014d 0300      		.word	0x3
+ 1859 014f 92        		.byte	0x92
+ 1860 0150 20        		.uleb128 0x20
+ 1861 0151 02        		.sleb128 2
+ 1862 0152 4A00 0000 		.long	.LCFI5-.Ltext0
+ 1863 0156 4C00 0000 		.long	.LCFI6-.Ltext0
+ 1864 015a 0300      		.word	0x3
+ 1865 015c 92        		.byte	0x92
+ 1866 015d 20        		.uleb128 0x20
+ 1867 015e 03        		.sleb128 3
+ 1868 015f 4C00 0000 		.long	.LCFI6-.Ltext0
+ 1869 0163 4E00 0000 		.long	.LCFI7-.Ltext0
+ 1870 0167 0300      		.word	0x3
+ 1871 0169 92        		.byte	0x92
+ 1872 016a 20        		.uleb128 0x20
+ 1873 016b 04        		.sleb128 4
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 39
+
+
+ 1874 016c 4E00 0000 		.long	.LCFI7-.Ltext0
+ 1875 0170 5000 0000 		.long	.LCFI8-.Ltext0
+ 1876 0174 0300      		.word	0x3
+ 1877 0176 92        		.byte	0x92
+ 1878 0177 20        		.uleb128 0x20
+ 1879 0178 05        		.sleb128 5
+ 1880 0179 5000 0000 		.long	.LCFI8-.Ltext0
+ 1881 017d 5200 0000 		.long	.LCFI9-.Ltext0
+ 1882 0181 0300      		.word	0x3
+ 1883 0183 92        		.byte	0x92
+ 1884 0184 20        		.uleb128 0x20
+ 1885 0185 06        		.sleb128 6
+ 1886 0186 5200 0000 		.long	.LCFI9-.Ltext0
+ 1887 018a 5400 0000 		.long	.LCFI10-.Ltext0
+ 1888 018e 0300      		.word	0x3
+ 1889 0190 92        		.byte	0x92
+ 1890 0191 20        		.uleb128 0x20
+ 1891 0192 07        		.sleb128 7
+ 1892 0193 5400 0000 		.long	.LCFI10-.Ltext0
+ 1893 0197 5600 0000 		.long	.LCFI11-.Ltext0
+ 1894 019b 0300      		.word	0x3
+ 1895 019d 92        		.byte	0x92
+ 1896 019e 20        		.uleb128 0x20
+ 1897 019f 08        		.sleb128 8
+ 1898 01a0 5600 0000 		.long	.LCFI11-.Ltext0
+ 1899 01a4 5800 0000 		.long	.LCFI12-.Ltext0
+ 1900 01a8 0300      		.word	0x3
+ 1901 01aa 92        		.byte	0x92
+ 1902 01ab 20        		.uleb128 0x20
+ 1903 01ac 09        		.sleb128 9
+ 1904 01ad 5800 0000 		.long	.LCFI12-.Ltext0
+ 1905 01b1 5A00 0000 		.long	.LCFI13-.Ltext0
+ 1906 01b5 0300      		.word	0x3
+ 1907 01b7 92        		.byte	0x92
+ 1908 01b8 20        		.uleb128 0x20
+ 1909 01b9 0A        		.sleb128 10
+ 1910 01ba 5A00 0000 		.long	.LCFI13-.Ltext0
+ 1911 01be 5C00 0000 		.long	.LCFI14-.Ltext0
+ 1912 01c2 0300      		.word	0x3
+ 1913 01c4 92        		.byte	0x92
+ 1914 01c5 20        		.uleb128 0x20
+ 1915 01c6 0B        		.sleb128 11
+ 1916 01c7 5C00 0000 		.long	.LCFI14-.Ltext0
+ 1917 01cb 6000 0000 		.long	.LCFI15-.Ltext0
+ 1918 01cf 0300      		.word	0x3
+ 1919 01d1 92        		.byte	0x92
+ 1920 01d2 20        		.uleb128 0x20
+ 1921 01d3 0C        		.sleb128 12
+ 1922 01d4 6000 0000 		.long	.LCFI15-.Ltext0
+ 1923 01d8 2A01 0000 		.long	.LFE7-.Ltext0
+ 1924 01dc 0200      		.word	0x2
+ 1925 01de 8C        		.byte	0x8c
+ 1926 01df 0C        		.sleb128 12
+ 1927 01e0 0000 0000 		.long	0
+ 1928 01e4 0000 0000 		.long	0
+ 1929               	.LLST6:
+ 1930 01e8 4800 0000 		.long	.LVL12-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 40
+
+
+ 1931 01ec 7C00 0000 		.long	.LVL15-.Ltext0
+ 1932 01f0 0100      		.word	0x1
+ 1933 01f2 68        		.byte	0x68
+ 1934 01f3 7C00 0000 		.long	.LVL15-.Ltext0
+ 1935 01f7 1601 0000 		.long	.LVL26-.Ltext0
+ 1936 01fb 0100      		.word	0x1
+ 1937 01fd 61        		.byte	0x61
+ 1938 01fe 1601 0000 		.long	.LVL26-.Ltext0
+ 1939 0202 2401 0000 		.long	.LVL31-.Ltext0
+ 1940 0206 0400      		.word	0x4
+ 1941 0208 F3        		.byte	0xf3
+ 1942 0209 01        		.uleb128 0x1
+ 1943 020a 68        		.byte	0x68
+ 1944 020b 9F        		.byte	0x9f
+ 1945 020c 2401 0000 		.long	.LVL31-.Ltext0
+ 1946 0210 2A01 0000 		.long	.LFE7-.Ltext0
+ 1947 0214 0100      		.word	0x1
+ 1948 0216 61        		.byte	0x61
+ 1949 0217 0000 0000 		.long	0
+ 1950 021b 0000 0000 		.long	0
+ 1951               	.LLST7:
+ 1952 021f 4800 0000 		.long	.LVL12-.Ltext0
+ 1953 0223 7600 0000 		.long	.LVL14-.Ltext0
+ 1954 0227 0600      		.word	0x6
+ 1955 0229 66        		.byte	0x66
+ 1956 022a 93        		.byte	0x93
+ 1957 022b 01        		.uleb128 0x1
+ 1958 022c 67        		.byte	0x67
+ 1959 022d 93        		.byte	0x93
+ 1960 022e 01        		.uleb128 0x1
+ 1961 022f 7600 0000 		.long	.LVL14-.Ltext0
+ 1962 0233 1C01 0000 		.long	.LVL28-.Ltext0
+ 1963 0237 0600      		.word	0x6
+ 1964 0239 5E        		.byte	0x5e
+ 1965 023a 93        		.byte	0x93
+ 1966 023b 01        		.uleb128 0x1
+ 1967 023c 5F        		.byte	0x5f
+ 1968 023d 93        		.byte	0x93
+ 1969 023e 01        		.uleb128 0x1
+ 1970 023f 1C01 0000 		.long	.LVL28-.Ltext0
+ 1971 0243 2401 0000 		.long	.LVL31-.Ltext0
+ 1972 0247 0400      		.word	0x4
+ 1973 0249 F3        		.byte	0xf3
+ 1974 024a 01        		.uleb128 0x1
+ 1975 024b 66        		.byte	0x66
+ 1976 024c 9F        		.byte	0x9f
+ 1977 024d 2401 0000 		.long	.LVL31-.Ltext0
+ 1978 0251 2A01 0000 		.long	.LFE7-.Ltext0
+ 1979 0255 0600      		.word	0x6
+ 1980 0257 5E        		.byte	0x5e
+ 1981 0258 93        		.byte	0x93
+ 1982 0259 01        		.uleb128 0x1
+ 1983 025a 5F        		.byte	0x5f
+ 1984 025b 93        		.byte	0x93
+ 1985 025c 01        		.uleb128 0x1
+ 1986 025d 0000 0000 		.long	0
+ 1987 0261 0000 0000 		.long	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 41
+
+
+ 1988               	.LLST8:
+ 1989 0265 4800 0000 		.long	.LVL12-.Ltext0
+ 1990 0269 7400 0000 		.long	.LVL13-.Ltext0
+ 1991 026d 0100      		.word	0x1
+ 1992 026f 64        		.byte	0x64
+ 1993 0270 7400 0000 		.long	.LVL13-.Ltext0
+ 1994 0274 2201 0000 		.long	.LVL30-.Ltext0
+ 1995 0278 0100      		.word	0x1
+ 1996 027a 5B        		.byte	0x5b
+ 1997 027b 2201 0000 		.long	.LVL30-.Ltext0
+ 1998 027f 2401 0000 		.long	.LVL31-.Ltext0
+ 1999 0283 0400      		.word	0x4
+ 2000 0285 F3        		.byte	0xf3
+ 2001 0286 01        		.uleb128 0x1
+ 2002 0287 64        		.byte	0x64
+ 2003 0288 9F        		.byte	0x9f
+ 2004 0289 2401 0000 		.long	.LVL31-.Ltext0
+ 2005 028d 2A01 0000 		.long	.LFE7-.Ltext0
+ 2006 0291 0100      		.word	0x1
+ 2007 0293 5B        		.byte	0x5b
+ 2008 0294 0000 0000 		.long	0
+ 2009 0298 0000 0000 		.long	0
+ 2010               	.LLST9:
+ 2011 029c 4800 0000 		.long	.LVL12-.Ltext0
+ 2012 02a0 7F00 0000 		.long	.LVL16-1-.Ltext0
+ 2013 02a4 0100      		.word	0x1
+ 2014 02a6 62        		.byte	0x62
+ 2015 02a7 7F00 0000 		.long	.LVL16-1-.Ltext0
+ 2016 02ab 2001 0000 		.long	.LVL29-.Ltext0
+ 2017 02af 0100      		.word	0x1
+ 2018 02b1 5C        		.byte	0x5c
+ 2019 02b2 2001 0000 		.long	.LVL29-.Ltext0
+ 2020 02b6 2401 0000 		.long	.LVL31-.Ltext0
+ 2021 02ba 0400      		.word	0x4
+ 2022 02bc F3        		.byte	0xf3
+ 2023 02bd 01        		.uleb128 0x1
+ 2024 02be 62        		.byte	0x62
+ 2025 02bf 9F        		.byte	0x9f
+ 2026 02c0 2401 0000 		.long	.LVL31-.Ltext0
+ 2027 02c4 2A01 0000 		.long	.LFE7-.Ltext0
+ 2028 02c8 0100      		.word	0x1
+ 2029 02ca 5C        		.byte	0x5c
+ 2030 02cb 0000 0000 		.long	0
+ 2031 02cf 0000 0000 		.long	0
+ 2032               	.LLST10:
+ 2033 02d3 4800 0000 		.long	.LVL12-.Ltext0
+ 2034 02d7 1801 0000 		.long	.LVL27-.Ltext0
+ 2035 02db 0100      		.word	0x1
+ 2036 02dd 60        		.byte	0x60
+ 2037 02de 1801 0000 		.long	.LVL27-.Ltext0
+ 2038 02e2 2401 0000 		.long	.LVL31-.Ltext0
+ 2039 02e6 0400      		.word	0x4
+ 2040 02e8 F3        		.byte	0xf3
+ 2041 02e9 01        		.uleb128 0x1
+ 2042 02ea 60        		.byte	0x60
+ 2043 02eb 9F        		.byte	0x9f
+ 2044 02ec 2401 0000 		.long	.LVL31-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 42
+
+
+ 2045 02f0 2A01 0000 		.long	.LFE7-.Ltext0
+ 2046 02f4 0100      		.word	0x1
+ 2047 02f6 60        		.byte	0x60
+ 2048 02f7 0000 0000 		.long	0
+ 2049 02fb 0000 0000 		.long	0
+ 2050               	.LLST11:
+ 2051 02ff 2A01 0000 		.long	.LFB8-.Ltext0
+ 2052 0303 2C01 0000 		.long	.LCFI16-.Ltext0
+ 2053 0307 0300      		.word	0x3
+ 2054 0309 92        		.byte	0x92
+ 2055 030a 20        		.uleb128 0x20
+ 2056 030b 02        		.sleb128 2
+ 2057 030c 2C01 0000 		.long	.LCFI16-.Ltext0
+ 2058 0310 2E01 0000 		.long	.LCFI17-.Ltext0
+ 2059 0314 0300      		.word	0x3
+ 2060 0316 92        		.byte	0x92
+ 2061 0317 20        		.uleb128 0x20
+ 2062 0318 03        		.sleb128 3
+ 2063 0319 2E01 0000 		.long	.LCFI17-.Ltext0
+ 2064 031d 3001 0000 		.long	.LCFI18-.Ltext0
+ 2065 0321 0300      		.word	0x3
+ 2066 0323 92        		.byte	0x92
+ 2067 0324 20        		.uleb128 0x20
+ 2068 0325 04        		.sleb128 4
+ 2069 0326 3001 0000 		.long	.LCFI18-.Ltext0
+ 2070 032a 3201 0000 		.long	.LCFI19-.Ltext0
+ 2071 032e 0300      		.word	0x3
+ 2072 0330 92        		.byte	0x92
+ 2073 0331 20        		.uleb128 0x20
+ 2074 0332 05        		.sleb128 5
+ 2075 0333 3201 0000 		.long	.LCFI19-.Ltext0
+ 2076 0337 3401 0000 		.long	.LCFI20-.Ltext0
+ 2077 033b 0300      		.word	0x3
+ 2078 033d 92        		.byte	0x92
+ 2079 033e 20        		.uleb128 0x20
+ 2080 033f 06        		.sleb128 6
+ 2081 0340 3401 0000 		.long	.LCFI20-.Ltext0
+ 2082 0344 AC01 0000 		.long	.LFE8-.Ltext0
+ 2083 0348 0300      		.word	0x3
+ 2084 034a 92        		.byte	0x92
+ 2085 034b 20        		.uleb128 0x20
+ 2086 034c 07        		.sleb128 7
+ 2087 034d 0000 0000 		.long	0
+ 2088 0351 0000 0000 		.long	0
+ 2089               	.LLST12:
+ 2090 0355 2A01 0000 		.long	.LVL32-.Ltext0
+ 2091 0359 3D01 0000 		.long	.LVL33-1-.Ltext0
+ 2092 035d 0600      		.word	0x6
+ 2093 035f 68        		.byte	0x68
+ 2094 0360 93        		.byte	0x93
+ 2095 0361 01        		.uleb128 0x1
+ 2096 0362 69        		.byte	0x69
+ 2097 0363 93        		.byte	0x93
+ 2098 0364 01        		.uleb128 0x1
+ 2099 0365 3D01 0000 		.long	.LVL33-1-.Ltext0
+ 2100 0369 AC01 0000 		.long	.LFE8-.Ltext0
+ 2101 036d 0400      		.word	0x4
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 43
+
+
+ 2102 036f F3        		.byte	0xf3
+ 2103 0370 01        		.uleb128 0x1
+ 2104 0371 68        		.byte	0x68
+ 2105 0372 9F        		.byte	0x9f
+ 2106 0373 0000 0000 		.long	0
+ 2107 0377 0000 0000 		.long	0
+ 2108               	.LLST13:
+ 2109 037b 2A01 0000 		.long	.LVL32-.Ltext0
+ 2110 037f 3D01 0000 		.long	.LVL33-1-.Ltext0
+ 2111 0383 0100      		.word	0x1
+ 2112 0385 66        		.byte	0x66
+ 2113 0386 3D01 0000 		.long	.LVL33-1-.Ltext0
+ 2114 038a A601 0000 		.long	.LVL48-.Ltext0
+ 2115 038e 0100      		.word	0x1
+ 2116 0390 61        		.byte	0x61
+ 2117 0391 A601 0000 		.long	.LVL48-.Ltext0
+ 2118 0395 AC01 0000 		.long	.LFE8-.Ltext0
+ 2119 0399 0400      		.word	0x4
+ 2120 039b F3        		.byte	0xf3
+ 2121 039c 01        		.uleb128 0x1
+ 2122 039d 66        		.byte	0x66
+ 2123 039e 9F        		.byte	0x9f
+ 2124 039f 0000 0000 		.long	0
+ 2125 03a3 0000 0000 		.long	0
+ 2126               	.LLST14:
+ 2127 03a7 5201 0000 		.long	.LVL37-.Ltext0
+ 2128 03ab 6201 0000 		.long	.LVL38-.Ltext0
+ 2129 03af 0200      		.word	0x2
+ 2130 03b1 30        		.byte	0x30
+ 2131 03b2 9F        		.byte	0x9f
+ 2132 03b3 6201 0000 		.long	.LVL38-.Ltext0
+ 2133 03b7 6401 0000 		.long	.LVL39-.Ltext0
+ 2134 03bb 0700      		.word	0x7
+ 2135 03bd 8C        		.byte	0x8c
+ 2136 03be 00        		.sleb128 0
+ 2137 03bf F3        		.byte	0xf3
+ 2138 03c0 01        		.uleb128 0x1
+ 2139 03c1 68        		.byte	0x68
+ 2140 03c2 1C        		.byte	0x1c
+ 2141 03c3 9F        		.byte	0x9f
+ 2142 03c4 6401 0000 		.long	.LVL39-.Ltext0
+ 2143 03c8 6801 0000 		.long	.LVL40-.Ltext0
+ 2144 03cc 0800      		.word	0x8
+ 2145 03ce F3        		.byte	0xf3
+ 2146 03cf 01        		.uleb128 0x1
+ 2147 03d0 68        		.byte	0x68
+ 2148 03d1 20        		.byte	0x20
+ 2149 03d2 8C        		.byte	0x8c
+ 2150 03d3 00        		.sleb128 0
+ 2151 03d4 22        		.byte	0x22
+ 2152 03d5 9F        		.byte	0x9f
+ 2153 03d6 6801 0000 		.long	.LVL40-.Ltext0
+ 2154 03da 6E01 0000 		.long	.LVL41-.Ltext0
+ 2155 03de 0700      		.word	0x7
+ 2156 03e0 8C        		.byte	0x8c
+ 2157 03e1 00        		.sleb128 0
+ 2158 03e2 F3        		.byte	0xf3
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 44
+
+
+ 2159 03e3 01        		.uleb128 0x1
+ 2160 03e4 68        		.byte	0x68
+ 2161 03e5 1C        		.byte	0x1c
+ 2162 03e6 9F        		.byte	0x9f
+ 2163 03e7 0000 0000 		.long	0
+ 2164 03eb 0000 0000 		.long	0
+ 2165               	.LLST15:
+ 2166 03ef 7201 0000 		.long	.LVL42-.Ltext0
+ 2167 03f3 7E01 0000 		.long	.LVL43-.Ltext0
+ 2168 03f7 0600      		.word	0x6
+ 2169 03f9 9E        		.byte	0x9e
+ 2170 03fa 04        		.uleb128 0x4
+ 2171 03fb 0000 2041 		.long	0x41200000
+ 2172 03ff 0000 0000 		.long	0
+ 2173 0403 0000 0000 		.long	0
+ 2174               	.LLST16:
+ 2175 0407 7201 0000 		.long	.LVL42-.Ltext0
+ 2176 040b 7E01 0000 		.long	.LVL43-.Ltext0
+ 2177 040f 0600      		.word	0x6
+ 2178 0411 9E        		.byte	0x9e
+ 2179 0412 04        		.uleb128 0x4
+ 2180 0413 0040 1C48 		.long	0x481c4000
+ 2181 0417 0000 0000 		.long	0
+ 2182 041b 0000 0000 		.long	0
+ 2183               	.LLST17:
+ 2184 041f 7201 0000 		.long	.LVL42-.Ltext0
+ 2185 0423 7E01 0000 		.long	.LVL43-.Ltext0
+ 2186 0427 0600      		.word	0x6
+ 2187 0429 0C        		.byte	0xc
+ 2188 042a 0071 0200 		.long	0x27100
+ 2189 042e 9F        		.byte	0x9f
+ 2190 042f 0000 0000 		.long	0
+ 2191 0433 0000 0000 		.long	0
+ 2192               	.LLST18:
+ 2193 0437 8001 0000 		.long	.LVL44-.Ltext0
+ 2194 043b 9201 0000 		.long	.LVL45-.Ltext0
+ 2195 043f 0600      		.word	0x6
+ 2196 0441 9E        		.byte	0x9e
+ 2197 0442 04        		.uleb128 0x4
+ 2198 0443 0000 A041 		.long	0x41a00000
+ 2199 0447 0000 0000 		.long	0
+ 2200 044b 0000 0000 		.long	0
+ 2201               	.LLST19:
+ 2202 044f 8001 0000 		.long	.LVL44-.Ltext0
+ 2203 0453 9201 0000 		.long	.LVL45-.Ltext0
+ 2204 0457 0600      		.word	0x6
+ 2205 0459 9E        		.byte	0x9e
+ 2206 045a 04        		.uleb128 0x4
+ 2207 045b 0040 9C48 		.long	0x489c4000
+ 2208 045f 0000 0000 		.long	0
+ 2209 0463 0000 0000 		.long	0
+ 2210               	.LLST20:
+ 2211 0467 8001 0000 		.long	.LVL44-.Ltext0
+ 2212 046b 9201 0000 		.long	.LVL45-.Ltext0
+ 2213 046f 0600      		.word	0x6
+ 2214 0471 0C        		.byte	0xc
+ 2215 0472 00E2 0400 		.long	0x4e200
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 45
+
+
+ 2216 0476 9F        		.byte	0x9f
+ 2217 0477 0000 0000 		.long	0
+ 2218 047b 0000 0000 		.long	0
+ 2219               	.LLST21:
+ 2220 047f 9401 0000 		.long	.LVL46-.Ltext0
+ 2221 0483 A001 0000 		.long	.LVL47-.Ltext0
+ 2222 0487 0600      		.word	0x6
+ 2223 0489 9E        		.byte	0x9e
+ 2224 048a 04        		.uleb128 0x4
+ 2225 048b 0000 2041 		.long	0x41200000
+ 2226 048f 0000 0000 		.long	0
+ 2227 0493 0000 0000 		.long	0
+ 2228               	.LLST22:
+ 2229 0497 9401 0000 		.long	.LVL46-.Ltext0
+ 2230 049b A001 0000 		.long	.LVL47-.Ltext0
+ 2231 049f 0600      		.word	0x6
+ 2232 04a1 9E        		.byte	0x9e
+ 2233 04a2 04        		.uleb128 0x4
+ 2234 04a3 0040 1C48 		.long	0x481c4000
+ 2235 04a7 0000 0000 		.long	0
+ 2236 04ab 0000 0000 		.long	0
+ 2237               	.LLST23:
+ 2238 04af 9401 0000 		.long	.LVL46-.Ltext0
+ 2239 04b3 A001 0000 		.long	.LVL47-.Ltext0
+ 2240 04b7 0600      		.word	0x6
+ 2241 04b9 0C        		.byte	0xc
+ 2242 04ba 0071 0200 		.long	0x27100
+ 2243 04be 9F        		.byte	0x9f
+ 2244 04bf 0000 0000 		.long	0
+ 2245 04c3 0000 0000 		.long	0
+ 2246               	.LLST24:
+ 2247 04c7 AC01 0000 		.long	.LFB9-.Ltext0
+ 2248 04cb AE01 0000 		.long	.LCFI21-.Ltext0
+ 2249 04cf 0300      		.word	0x3
+ 2250 04d1 92        		.byte	0x92
+ 2251 04d2 20        		.uleb128 0x20
+ 2252 04d3 02        		.sleb128 2
+ 2253 04d4 AE01 0000 		.long	.LCFI21-.Ltext0
+ 2254 04d8 B001 0000 		.long	.LCFI22-.Ltext0
+ 2255 04dc 0300      		.word	0x3
+ 2256 04de 92        		.byte	0x92
+ 2257 04df 20        		.uleb128 0x20
+ 2258 04e0 03        		.sleb128 3
+ 2259 04e1 B001 0000 		.long	.LCFI22-.Ltext0
+ 2260 04e5 B201 0000 		.long	.LCFI23-.Ltext0
+ 2261 04e9 0300      		.word	0x3
+ 2262 04eb 92        		.byte	0x92
+ 2263 04ec 20        		.uleb128 0x20
+ 2264 04ed 04        		.sleb128 4
+ 2265 04ee B201 0000 		.long	.LCFI23-.Ltext0
+ 2266 04f2 B401 0000 		.long	.LCFI24-.Ltext0
+ 2267 04f6 0300      		.word	0x3
+ 2268 04f8 92        		.byte	0x92
+ 2269 04f9 20        		.uleb128 0x20
+ 2270 04fa 05        		.sleb128 5
+ 2271 04fb B401 0000 		.long	.LCFI24-.Ltext0
+ 2272 04ff B601 0000 		.long	.LCFI25-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 46
+
+
+ 2273 0503 0300      		.word	0x3
+ 2274 0505 92        		.byte	0x92
+ 2275 0506 20        		.uleb128 0x20
+ 2276 0507 06        		.sleb128 6
+ 2277 0508 B601 0000 		.long	.LCFI25-.Ltext0
+ 2278 050c F601 0000 		.long	.LFE9-.Ltext0
+ 2279 0510 0300      		.word	0x3
+ 2280 0512 92        		.byte	0x92
+ 2281 0513 20        		.uleb128 0x20
+ 2282 0514 07        		.sleb128 7
+ 2283 0515 0000 0000 		.long	0
+ 2284 0519 0000 0000 		.long	0
+ 2285               	.LLST25:
+ 2286 051d AC01 0000 		.long	.LVL49-.Ltext0
+ 2287 0521 C101 0000 		.long	.LVL50-1-.Ltext0
+ 2288 0525 0100      		.word	0x1
+ 2289 0527 68        		.byte	0x68
+ 2290 0528 C101 0000 		.long	.LVL50-1-.Ltext0
+ 2291 052c CE01 0000 		.long	.LVL52-.Ltext0
+ 2292 0530 0100      		.word	0x1
+ 2293 0532 6C        		.byte	0x6c
+ 2294 0533 CE01 0000 		.long	.LVL52-.Ltext0
+ 2295 0537 F601 0000 		.long	.LFE9-.Ltext0
+ 2296 053b 0400      		.word	0x4
+ 2297 053d F3        		.byte	0xf3
+ 2298 053e 01        		.uleb128 0x1
+ 2299 053f 68        		.byte	0x68
+ 2300 0540 9F        		.byte	0x9f
+ 2301 0541 0000 0000 		.long	0
+ 2302 0545 0000 0000 		.long	0
+ 2303               	.LLST26:
+ 2304 0549 AC01 0000 		.long	.LVL49-.Ltext0
+ 2305 054d C101 0000 		.long	.LVL50-1-.Ltext0
+ 2306 0551 0600      		.word	0x6
+ 2307 0553 66        		.byte	0x66
+ 2308 0554 93        		.byte	0x93
+ 2309 0555 01        		.uleb128 0x1
+ 2310 0556 67        		.byte	0x67
+ 2311 0557 93        		.byte	0x93
+ 2312 0558 01        		.uleb128 0x1
+ 2313 0559 C101 0000 		.long	.LVL50-1-.Ltext0
+ 2314 055d F601 0000 		.long	.LFE9-.Ltext0
+ 2315 0561 0400      		.word	0x4
+ 2316 0563 F3        		.byte	0xf3
+ 2317 0564 01        		.uleb128 0x1
+ 2318 0565 66        		.byte	0x66
+ 2319 0566 9F        		.byte	0x9f
+ 2320 0567 0000 0000 		.long	0
+ 2321 056b 0000 0000 		.long	0
+ 2322               	.LLST27:
+ 2323 056f AC01 0000 		.long	.LVL49-.Ltext0
+ 2324 0573 C101 0000 		.long	.LVL50-1-.Ltext0
+ 2325 0577 0100      		.word	0x1
+ 2326 0579 64        		.byte	0x64
+ 2327 057a C101 0000 		.long	.LVL50-1-.Ltext0
+ 2328 057e EE01 0000 		.long	.LVL57-.Ltext0
+ 2329 0582 0100      		.word	0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 47
+
+
+ 2330 0584 61        		.byte	0x61
+ 2331 0585 EE01 0000 		.long	.LVL57-.Ltext0
+ 2332 0589 F601 0000 		.long	.LFE9-.Ltext0
+ 2333 058d 0400      		.word	0x4
+ 2334 058f F3        		.byte	0xf3
+ 2335 0590 01        		.uleb128 0x1
+ 2336 0591 64        		.byte	0x64
+ 2337 0592 9F        		.byte	0x9f
+ 2338 0593 0000 0000 		.long	0
+ 2339 0597 0000 0000 		.long	0
+ 2340               	.LLST28:
+ 2341 059b C801 0000 		.long	.LVL51-.Ltext0
+ 2342 059f D801 0000 		.long	.LVL53-.Ltext0
+ 2343 05a3 0200      		.word	0x2
+ 2344 05a5 30        		.byte	0x30
+ 2345 05a6 9F        		.byte	0x9f
+ 2346 05a7 D801 0000 		.long	.LVL53-.Ltext0
+ 2347 05ab E801 0000 		.long	.LVL56-.Ltext0
+ 2348 05af 0700      		.word	0x7
+ 2349 05b1 8C        		.byte	0x8c
+ 2350 05b2 00        		.sleb128 0
+ 2351 05b3 F3        		.byte	0xf3
+ 2352 05b4 01        		.uleb128 0x1
+ 2353 05b5 66        		.byte	0x66
+ 2354 05b6 1C        		.byte	0x1c
+ 2355 05b7 9F        		.byte	0x9f
+ 2356 05b8 0000 0000 		.long	0
+ 2357 05bc 0000 0000 		.long	0
+ 2358               	.LLST29:
+ 2359 05c0 F601 0000 		.long	.LFB10-.Ltext0
+ 2360 05c4 F801 0000 		.long	.LCFI26-.Ltext0
+ 2361 05c8 0300      		.word	0x3
+ 2362 05ca 92        		.byte	0x92
+ 2363 05cb 20        		.uleb128 0x20
+ 2364 05cc 02        		.sleb128 2
+ 2365 05cd F801 0000 		.long	.LCFI26-.Ltext0
+ 2366 05d1 FA01 0000 		.long	.LCFI27-.Ltext0
+ 2367 05d5 0300      		.word	0x3
+ 2368 05d7 92        		.byte	0x92
+ 2369 05d8 20        		.uleb128 0x20
+ 2370 05d9 03        		.sleb128 3
+ 2371 05da FA01 0000 		.long	.LCFI27-.Ltext0
+ 2372 05de FC01 0000 		.long	.LCFI28-.Ltext0
+ 2373 05e2 0300      		.word	0x3
+ 2374 05e4 92        		.byte	0x92
+ 2375 05e5 20        		.uleb128 0x20
+ 2376 05e6 04        		.sleb128 4
+ 2377 05e7 FC01 0000 		.long	.LCFI28-.Ltext0
+ 2378 05eb 0002 0000 		.long	.LCFI29-.Ltext0
+ 2379 05ef 0300      		.word	0x3
+ 2380 05f1 92        		.byte	0x92
+ 2381 05f2 20        		.uleb128 0x20
+ 2382 05f3 05        		.sleb128 5
+ 2383 05f4 0002 0000 		.long	.LCFI29-.Ltext0
+ 2384 05f8 1A02 0000 		.long	.LFE10-.Ltext0
+ 2385 05fc 0200      		.word	0x2
+ 2386 05fe 8C        		.byte	0x8c
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 48
+
+
+ 2387 05ff 05        		.sleb128 5
+ 2388 0600 0000 0000 		.long	0
+ 2389 0604 0000 0000 		.long	0
+ 2390               		.section	.debug_aranges,"",@progbits
+ 2391 0000 1C00 0000 		.long	0x1c
+ 2392 0004 0200      		.word	0x2
+ 2393 0006 0000 0000 		.long	.Ldebug_info0
+ 2394 000a 04        		.byte	0x4
+ 2395 000b 00        		.byte	0
+ 2396 000c 0000      		.word	0
+ 2397 000e 0000      		.word	0
+ 2398 0010 0000 0000 		.long	.Ltext0
+ 2399 0014 1A02 0000 		.long	.Letext0-.Ltext0
+ 2400 0018 0000 0000 		.long	0
+ 2401 001c 0000 0000 		.long	0
+ 2402               		.section	.debug_line,"",@progbits
+ 2403               	.Ldebug_line0:
+ 2404 0000 3502 0000 		.section	.debug_str,"MS",@progbits,1
+ 2404      0200 8B00 
+ 2404      0000 0201 
+ 2404      FB0E 0A00 
+ 2404      0101 0101 
+ 2405               	.LASF23:
+ 2406 0000 6E72 6632 		.string	"nrf24l01_transmit"
+ 2406      346C 3031 
+ 2406      5F74 7261 
+ 2406      6E73 6D69 
+ 2406      7400 
+ 2407               	.LASF18:
+ 2408 0012 6368 616E 		.string	"channel"
+ 2408      6E65 6C00 
+ 2409               	.LASF21:
+ 2410 001a 636F 6E66 		.string	"config_values"
+ 2410      6967 5F76 
+ 2410      616C 7565 
+ 2410      7300 
+ 2411               	.LASF12:
+ 2412 0028 6461 7461 		.string	"data"
+ 2412      00
+ 2413               	.LASF32:
+ 2414 002d 633A 5C75 		.string	"c:\\users\\rando\\documents\\elektroonika\\wep-transmitter"
+ 2414      7365 7273 
+ 2414      5C72 616E 
+ 2414      646F 5C64 
+ 2414      6F63 756D 
+ 2415               	.LASF35:
+ 2416 0063 5F5F 6275 		.string	"__builtin_avr_delay_cycles"
+ 2416      696C 7469 
+ 2416      6E5F 6176 
+ 2416      725F 6465 
+ 2416      6C61 795F 
+ 2417               	.LASF13:
+ 2418 007e 6279 7465 		.string	"bytecount"
+ 2418      636F 756E 
+ 2418      7400 
+ 2419               	.LASF14:
+ 2420 0088 6E72 6632 		.string	"nrf24l01_write_register"
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 49
+
+
+ 2420      346C 3031 
+ 2420      5F77 7269 
+ 2420      7465 5F72 
+ 2420      6567 6973 
+ 2421               	.LASF25:
+ 2422 00a0 7061 796C 		.string	"payload_size"
+ 2422      6F61 645F 
+ 2422      7369 7A65 
+ 2422      00
+ 2423               	.LASF33:
+ 2424 00ad 5F64 656C 		.string	"_delay_ms"
+ 2424      6179 5F6D 
+ 2424      7300 
+ 2425               	.LASF1:
+ 2426 00b7 756E 7369 		.string	"unsigned char"
+ 2426      676E 6564 
+ 2426      2063 6861 
+ 2426      7200 
+ 2427               	.LASF36:
+ 2428 00c5 6E72 6632 		.string	"nrf24l01_reset_interrupts"
+ 2428      346C 3031 
+ 2428      5F72 6573 
+ 2428      6574 5F69 
+ 2428      6E74 6572 
+ 2429               	.LASF28:
+ 2430 00df 5350 495F 		.string	"SPI_unset_cs"
+ 2430      756E 7365 
+ 2430      745F 6373 
+ 2430      00
+ 2431               	.LASF6:
+ 2432 00ec 6C6F 6E67 		.string	"long unsigned int"
+ 2432      2075 6E73 
+ 2432      6967 6E65 
+ 2432      6420 696E 
+ 2432      7400 
+ 2433               	.LASF31:
+ 2434 00fe 7372 632F 		.string	"src/nrf24l01.c"
+ 2434      6E72 6632 
+ 2434      346C 3031 
+ 2434      2E63 00
+ 2435               	.LASF11:
+ 2436 010d 646F 7562 		.string	"double"
+ 2436      6C65 00
+ 2437               	.LASF27:
+ 2438 0114 5350 495F 		.string	"SPI_send"
+ 2438      7365 6E64 
+ 2438      00
+ 2439               	.LASF26:
+ 2440 011d 6E72 6632 		.string	"nrf24l01_read_register"
+ 2440      346C 3031 
+ 2440      5F72 6561 
+ 2440      645F 7265 
+ 2440      6769 7374 
+ 2441               	.LASF16:
+ 2442 0134 6164 6472 		.string	"address_width"
+ 2442      6573 735F 
+ 2442      7769 6474 
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 50
+
+
+ 2442      6800 
+ 2443               	.LASF2:
+ 2444 0142 756E 7369 		.string	"unsigned int"
+ 2444      676E 6564 
+ 2444      2069 6E74 
+ 2444      00
+ 2445               	.LASF17:
+ 2446 014f 6164 6472 		.string	"address"
+ 2446      6573 7300 
+ 2447               	.LASF8:
+ 2448 0157 6C6F 6E67 		.string	"long long unsigned int"
+ 2448      206C 6F6E 
+ 2448      6720 756E 
+ 2448      7369 676E 
+ 2448      6564 2069 
+ 2449               	.LASF4:
+ 2450 016e 7569 6E74 		.string	"uint8_t"
+ 2450      385F 7400 
+ 2451               	.LASF20:
+ 2452 0176 6D6F 6465 		.string	"mode"
+ 2452      00
+ 2453               	.LASF30:
+ 2454 017b 474E 5520 		.string	"GNU C11 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avr5 -g -O2 -funsigned-char -funsigned-bitf
+ 2454      4331 3120 
+ 2454      352E 342E 
+ 2454      3020 2D6D 
+ 2454      6E2D 666C 
+ 2455               	.LASF24:
+ 2456 01f6 7061 796C 		.string	"payload"
+ 2456      6F61 6400 
+ 2457               	.LASF29:
+ 2458 01fe 5350 495F 		.string	"SPI_set_cs"
+ 2458      7365 745F 
+ 2458      6373 00
+ 2459               	.LASF22:
+ 2460 0209 7369 7A65 		.string	"sizetype"
+ 2460      7479 7065 
+ 2460      00
+ 2461               	.LASF7:
+ 2462 0212 6C6F 6E67 		.string	"long long int"
+ 2462      206C 6F6E 
+ 2462      6720 696E 
+ 2462      7400 
+ 2463               	.LASF19:
+ 2464 0220 7061 796C 		.string	"payload_width"
+ 2464      6F61 645F 
+ 2464      7769 6474 
+ 2464      6800 
+ 2465               	.LASF10:
+ 2466 022e 5F5F 7469 		.string	"__ticks_dc"
+ 2466      636B 735F 
+ 2466      6463 00
+ 2467               	.LASF9:
+ 2468 0239 5F5F 746D 		.string	"__tmp"
+ 2468      7000 
+ 2469               	.LASF5:
+ 2470 023f 7569 6E74 		.string	"uint32_t"
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 51
+
+
+ 2470      3332 5F74 
+ 2470      00
+ 2471               	.LASF3:
+ 2472 0248 6C6F 6E67 		.string	"long int"
+ 2472      2069 6E74 
+ 2472      00
+ 2473               	.LASF0:
+ 2474 0251 7369 676E 		.string	"signed char"
+ 2474      6564 2063 
+ 2474      6861 7200 
+ 2475               	.LASF15:
+ 2476 025d 6E72 6632 		.string	"nrf24l01_init"
+ 2476      346C 3031 
+ 2476      5F69 6E69 
+ 2476      7400 
+ 2477               	.LASF34:
+ 2478 026b 5F5F 6D73 		.string	"__ms"
+ 2478      00
+ 2479               		.ident	"GCC: (AVR_8_bit_GNU_Toolchain_3.6.2_1778) 5.4.0"
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s 			page 52
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 nrf24l01.c
+C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s:2      *ABS*:0000003e __SP_H__
+C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s:3      *ABS*:0000003d __SP_L__
+C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s:4      *ABS*:0000003f __SREG__
+C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s:5      *ABS*:00000000 __tmp_reg__
+C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s:6      *ABS*:00000001 __zero_reg__
+C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s:12     .text:00000000 nrf24l01_write_register
+C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s:97     .text:00000048 nrf24l01_init
+C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s:290    .text:0000012a nrf24l01_transmit
+C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s:426    .text:000001ac nrf24l01_read_register
+C:\Users\Rando\AppData\Local\Temp\ccJpR0Ln.s:510    .text:000001f6 nrf24l01_reset_interrupts
+
+UNDEFINED SYMBOLS
+SPI_unset_cs
+SPI_send
+SPI_set_cs

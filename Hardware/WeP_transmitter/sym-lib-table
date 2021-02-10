@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name RVP_saatja-rescue)(type Legacy)(uri ${KIPRJMOD}/RVP_saatja-rescue.lib)(options "")(descr ""))
+)

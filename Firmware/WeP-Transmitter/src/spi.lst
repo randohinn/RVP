@@ -1,0 +1,475 @@
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s 			page 1
+
+
+   1               		.file	"spi.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	SPI_init
+  11               		.type	SPI_init, @function
+  12               	SPI_init:
+  13               	.LFB0:
+  14               		.file 1 "src/spi.c"
+   1:src/spi.c     **** #include <avr/io.h>
+   2:src/spi.c     **** #include <include/spi.h>
+   3:src/spi.c     **** 
+   4:src/spi.c     **** void SPI_init() {
+  15               		.loc 1 4 0
+  16               		.cfi_startproc
+  17               	/* prologue: function */
+  18               	/* frame size = 0 */
+  19               	/* stack size = 0 */
+  20               	.L__stack_usage = 0
+   5:src/spi.c     **** 	DDRB |= (1 << DDB0) | (1 << DDB1) | (1 << DDB2);
+  21               		.loc 1 5 0
+  22 0000 84B1      		in r24,0x4
+  23 0002 8760      		ori r24,lo8(7)
+  24 0004 84B9      		out 0x4,r24
+   6:src/spi.c     **** 	DDRB &= ~(1 << DDB3);
+  25               		.loc 1 6 0
+  26 0006 2398      		cbi 0x4,3
+   7:src/spi.c     **** 	SPCR|=(1<<SPE)|(1<<MSTR)|(1<<SPR0);
+  27               		.loc 1 7 0
+  28 0008 8CB5      		in r24,0x2c
+  29 000a 8165      		ori r24,lo8(81)
+  30 000c 8CBD      		out 0x2c,r24
+   8:src/spi.c     **** 	PORTB |= (1 << PINB0);
+  31               		.loc 1 8 0
+  32 000e 289A      		sbi 0x5,0
+  33 0010 0895      		ret
+  34               		.cfi_endproc
+  35               	.LFE0:
+  36               		.size	SPI_init, .-SPI_init
+  37               	.global	SPI_unset_cs
+  38               		.type	SPI_unset_cs, @function
+  39               	SPI_unset_cs:
+  40               	.LFB1:
+   9:src/spi.c     **** }
+  10:src/spi.c     **** 
+  11:src/spi.c     **** void SPI_unset_cs() {
+  41               		.loc 1 11 0
+  42               		.cfi_startproc
+  43               	/* prologue: function */
+  44               	/* frame size = 0 */
+  45               	/* stack size = 0 */
+  46               	.L__stack_usage = 0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s 			page 2
+
+
+  12:src/spi.c     ****     PORTB &= ~(1 << PINB0);
+  47               		.loc 1 12 0
+  48 0012 2898      		cbi 0x5,0
+  49 0014 0895      		ret
+  50               		.cfi_endproc
+  51               	.LFE1:
+  52               		.size	SPI_unset_cs, .-SPI_unset_cs
+  53               	.global	SPI_set_cs
+  54               		.type	SPI_set_cs, @function
+  55               	SPI_set_cs:
+  56               	.LFB2:
+  13:src/spi.c     **** }
+  14:src/spi.c     **** 
+  15:src/spi.c     **** void SPI_set_cs(){
+  57               		.loc 1 15 0
+  58               		.cfi_startproc
+  59               	/* prologue: function */
+  60               	/* frame size = 0 */
+  61               	/* stack size = 0 */
+  62               	.L__stack_usage = 0
+  16:src/spi.c     ****     PORTB |= (1 << PINB0);
+  63               		.loc 1 16 0
+  64 0016 289A      		sbi 0x5,0
+  65 0018 0895      		ret
+  66               		.cfi_endproc
+  67               	.LFE2:
+  68               		.size	SPI_set_cs, .-SPI_set_cs
+  69               	.global	SPI_send
+  70               		.type	SPI_send, @function
+  71               	SPI_send:
+  72               	.LFB3:
+  17:src/spi.c     **** }
+  18:src/spi.c     **** 
+  19:src/spi.c     **** void SPI_send(uint8_t data) {
+  73               		.loc 1 19 0
+  74               		.cfi_startproc
+  75               	.LVL0:
+  76               	/* prologue: function */
+  77               	/* frame size = 0 */
+  78               	/* stack size = 0 */
+  79               	.L__stack_usage = 0
+  20:src/spi.c     **** 	SPDR = data;
+  80               		.loc 1 20 0
+  81 001a 8EBD      		out 0x2e,r24
+  82               	.L5:
+  21:src/spi.c     **** 	while(!(SPSR & (1<<SPIF) ));
+  83               		.loc 1 21 0 discriminator 1
+  84 001c 0DB4      		in __tmp_reg__,0x2d
+  85 001e 07FE      		sbrs __tmp_reg__,7
+  86 0020 00C0      		rjmp .L5
+  87               	/* epilogue start */
+  22:src/spi.c     **** }...
+  88               		.loc 1 22 0
+  89 0022 0895      		ret
+  90               		.cfi_endproc
+  91               	.LFE3:
+  92               		.size	SPI_send, .-SPI_send
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s 			page 3
+
+
+  93               	.Letext0:
+  94               		.file 2 "c:\\avr toolchain\\avr\\include\\stdint.h"
+  95               		.section	.debug_info,"",@progbits
+  96               	.Ldebug_info0:
+  97 0000 C800 0000 		.long	0xc8
+  98 0004 0200      		.word	0x2
+  99 0006 0000 0000 		.long	.Ldebug_abbrev0
+ 100 000a 04        		.byte	0x4
+ 101 000b 01        		.uleb128 0x1
+ 102 000c 0000 0000 		.long	.LASF10
+ 103 0010 0C        		.byte	0xc
+ 104 0011 0000 0000 		.long	.LASF11
+ 105 0015 0000 0000 		.long	.LASF12
+ 106 0019 0000 0000 		.long	.Ltext0
+ 107 001d 0000 0000 		.long	.Letext0
+ 108 0021 0000 0000 		.long	.Ldebug_line0
+ 109 0025 02        		.uleb128 0x2
+ 110 0026 01        		.byte	0x1
+ 111 0027 06        		.byte	0x6
+ 112 0028 0000 0000 		.long	.LASF0
+ 113 002c 03        		.uleb128 0x3
+ 114 002d 0000 0000 		.long	.LASF13
+ 115 0031 02        		.byte	0x2
+ 116 0032 7E        		.byte	0x7e
+ 117 0033 3700 0000 		.long	0x37
+ 118 0037 02        		.uleb128 0x2
+ 119 0038 01        		.byte	0x1
+ 120 0039 08        		.byte	0x8
+ 121 003a 0000 0000 		.long	.LASF1
+ 122 003e 04        		.uleb128 0x4
+ 123 003f 02        		.byte	0x2
+ 124 0040 05        		.byte	0x5
+ 125 0041 696E 7400 		.string	"int"
+ 126 0045 02        		.uleb128 0x2
+ 127 0046 02        		.byte	0x2
+ 128 0047 07        		.byte	0x7
+ 129 0048 0000 0000 		.long	.LASF2
+ 130 004c 02        		.uleb128 0x2
+ 131 004d 04        		.byte	0x4
+ 132 004e 05        		.byte	0x5
+ 133 004f 0000 0000 		.long	.LASF3
+ 134 0053 02        		.uleb128 0x2
+ 135 0054 04        		.byte	0x4
+ 136 0055 07        		.byte	0x7
+ 137 0056 0000 0000 		.long	.LASF4
+ 138 005a 02        		.uleb128 0x2
+ 139 005b 08        		.byte	0x8
+ 140 005c 05        		.byte	0x5
+ 141 005d 0000 0000 		.long	.LASF5
+ 142 0061 02        		.uleb128 0x2
+ 143 0062 08        		.byte	0x8
+ 144 0063 07        		.byte	0x7
+ 145 0064 0000 0000 		.long	.LASF6
+ 146 0068 05        		.uleb128 0x5
+ 147 0069 01        		.byte	0x1
+ 148 006a 0000 0000 		.long	.LASF7
+ 149 006e 01        		.byte	0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s 			page 4
+
+
+ 150 006f 04        		.byte	0x4
+ 151 0070 0000 0000 		.long	.LFB0
+ 152 0074 0000 0000 		.long	.LFE0
+ 153 0078 03        		.byte	0x3
+ 154 0079 92        		.byte	0x92
+ 155 007a 20        		.uleb128 0x20
+ 156 007b 02        		.sleb128 2
+ 157 007c 01        		.byte	0x1
+ 158 007d 05        		.uleb128 0x5
+ 159 007e 01        		.byte	0x1
+ 160 007f 0000 0000 		.long	.LASF8
+ 161 0083 01        		.byte	0x1
+ 162 0084 0B        		.byte	0xb
+ 163 0085 0000 0000 		.long	.LFB1
+ 164 0089 0000 0000 		.long	.LFE1
+ 165 008d 03        		.byte	0x3
+ 166 008e 92        		.byte	0x92
+ 167 008f 20        		.uleb128 0x20
+ 168 0090 02        		.sleb128 2
+ 169 0091 01        		.byte	0x1
+ 170 0092 05        		.uleb128 0x5
+ 171 0093 01        		.byte	0x1
+ 172 0094 0000 0000 		.long	.LASF9
+ 173 0098 01        		.byte	0x1
+ 174 0099 0F        		.byte	0xf
+ 175 009a 0000 0000 		.long	.LFB2
+ 176 009e 0000 0000 		.long	.LFE2
+ 177 00a2 03        		.byte	0x3
+ 178 00a3 92        		.byte	0x92
+ 179 00a4 20        		.uleb128 0x20
+ 180 00a5 02        		.sleb128 2
+ 181 00a6 01        		.byte	0x1
+ 182 00a7 06        		.uleb128 0x6
+ 183 00a8 01        		.byte	0x1
+ 184 00a9 0000 0000 		.long	.LASF14
+ 185 00ad 01        		.byte	0x1
+ 186 00ae 13        		.byte	0x13
+ 187 00af 01        		.byte	0x1
+ 188 00b0 0000 0000 		.long	.LFB3
+ 189 00b4 0000 0000 		.long	.LFE3
+ 190 00b8 03        		.byte	0x3
+ 191 00b9 92        		.byte	0x92
+ 192 00ba 20        		.uleb128 0x20
+ 193 00bb 02        		.sleb128 2
+ 194 00bc 01        		.byte	0x1
+ 195 00bd 07        		.uleb128 0x7
+ 196 00be 0000 0000 		.long	.LASF15
+ 197 00c2 01        		.byte	0x1
+ 198 00c3 13        		.byte	0x13
+ 199 00c4 2C00 0000 		.long	0x2c
+ 200 00c8 01        		.byte	0x1
+ 201 00c9 68        		.byte	0x68
+ 202 00ca 00        		.byte	0
+ 203 00cb 00        		.byte	0
+ 204               		.section	.debug_abbrev,"",@progbits
+ 205               	.Ldebug_abbrev0:
+ 206 0000 01        		.uleb128 0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s 			page 5
+
+
+ 207 0001 11        		.uleb128 0x11
+ 208 0002 01        		.byte	0x1
+ 209 0003 25        		.uleb128 0x25
+ 210 0004 0E        		.uleb128 0xe
+ 211 0005 13        		.uleb128 0x13
+ 212 0006 0B        		.uleb128 0xb
+ 213 0007 03        		.uleb128 0x3
+ 214 0008 0E        		.uleb128 0xe
+ 215 0009 1B        		.uleb128 0x1b
+ 216 000a 0E        		.uleb128 0xe
+ 217 000b 11        		.uleb128 0x11
+ 218 000c 01        		.uleb128 0x1
+ 219 000d 12        		.uleb128 0x12
+ 220 000e 01        		.uleb128 0x1
+ 221 000f 10        		.uleb128 0x10
+ 222 0010 06        		.uleb128 0x6
+ 223 0011 00        		.byte	0
+ 224 0012 00        		.byte	0
+ 225 0013 02        		.uleb128 0x2
+ 226 0014 24        		.uleb128 0x24
+ 227 0015 00        		.byte	0
+ 228 0016 0B        		.uleb128 0xb
+ 229 0017 0B        		.uleb128 0xb
+ 230 0018 3E        		.uleb128 0x3e
+ 231 0019 0B        		.uleb128 0xb
+ 232 001a 03        		.uleb128 0x3
+ 233 001b 0E        		.uleb128 0xe
+ 234 001c 00        		.byte	0
+ 235 001d 00        		.byte	0
+ 236 001e 03        		.uleb128 0x3
+ 237 001f 16        		.uleb128 0x16
+ 238 0020 00        		.byte	0
+ 239 0021 03        		.uleb128 0x3
+ 240 0022 0E        		.uleb128 0xe
+ 241 0023 3A        		.uleb128 0x3a
+ 242 0024 0B        		.uleb128 0xb
+ 243 0025 3B        		.uleb128 0x3b
+ 244 0026 0B        		.uleb128 0xb
+ 245 0027 49        		.uleb128 0x49
+ 246 0028 13        		.uleb128 0x13
+ 247 0029 00        		.byte	0
+ 248 002a 00        		.byte	0
+ 249 002b 04        		.uleb128 0x4
+ 250 002c 24        		.uleb128 0x24
+ 251 002d 00        		.byte	0
+ 252 002e 0B        		.uleb128 0xb
+ 253 002f 0B        		.uleb128 0xb
+ 254 0030 3E        		.uleb128 0x3e
+ 255 0031 0B        		.uleb128 0xb
+ 256 0032 03        		.uleb128 0x3
+ 257 0033 08        		.uleb128 0x8
+ 258 0034 00        		.byte	0
+ 259 0035 00        		.byte	0
+ 260 0036 05        		.uleb128 0x5
+ 261 0037 2E        		.uleb128 0x2e
+ 262 0038 00        		.byte	0
+ 263 0039 3F        		.uleb128 0x3f
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s 			page 6
+
+
+ 264 003a 0C        		.uleb128 0xc
+ 265 003b 03        		.uleb128 0x3
+ 266 003c 0E        		.uleb128 0xe
+ 267 003d 3A        		.uleb128 0x3a
+ 268 003e 0B        		.uleb128 0xb
+ 269 003f 3B        		.uleb128 0x3b
+ 270 0040 0B        		.uleb128 0xb
+ 271 0041 11        		.uleb128 0x11
+ 272 0042 01        		.uleb128 0x1
+ 273 0043 12        		.uleb128 0x12
+ 274 0044 01        		.uleb128 0x1
+ 275 0045 40        		.uleb128 0x40
+ 276 0046 0A        		.uleb128 0xa
+ 277 0047 9742      		.uleb128 0x2117
+ 278 0049 0C        		.uleb128 0xc
+ 279 004a 00        		.byte	0
+ 280 004b 00        		.byte	0
+ 281 004c 06        		.uleb128 0x6
+ 282 004d 2E        		.uleb128 0x2e
+ 283 004e 01        		.byte	0x1
+ 284 004f 3F        		.uleb128 0x3f
+ 285 0050 0C        		.uleb128 0xc
+ 286 0051 03        		.uleb128 0x3
+ 287 0052 0E        		.uleb128 0xe
+ 288 0053 3A        		.uleb128 0x3a
+ 289 0054 0B        		.uleb128 0xb
+ 290 0055 3B        		.uleb128 0x3b
+ 291 0056 0B        		.uleb128 0xb
+ 292 0057 27        		.uleb128 0x27
+ 293 0058 0C        		.uleb128 0xc
+ 294 0059 11        		.uleb128 0x11
+ 295 005a 01        		.uleb128 0x1
+ 296 005b 12        		.uleb128 0x12
+ 297 005c 01        		.uleb128 0x1
+ 298 005d 40        		.uleb128 0x40
+ 299 005e 0A        		.uleb128 0xa
+ 300 005f 9742      		.uleb128 0x2117
+ 301 0061 0C        		.uleb128 0xc
+ 302 0062 00        		.byte	0
+ 303 0063 00        		.byte	0
+ 304 0064 07        		.uleb128 0x7
+ 305 0065 05        		.uleb128 0x5
+ 306 0066 00        		.byte	0
+ 307 0067 03        		.uleb128 0x3
+ 308 0068 0E        		.uleb128 0xe
+ 309 0069 3A        		.uleb128 0x3a
+ 310 006a 0B        		.uleb128 0xb
+ 311 006b 3B        		.uleb128 0x3b
+ 312 006c 0B        		.uleb128 0xb
+ 313 006d 49        		.uleb128 0x49
+ 314 006e 13        		.uleb128 0x13
+ 315 006f 02        		.uleb128 0x2
+ 316 0070 0A        		.uleb128 0xa
+ 317 0071 00        		.byte	0
+ 318 0072 00        		.byte	0
+ 319 0073 00        		.byte	0
+ 320               		.section	.debug_aranges,"",@progbits
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s 			page 7
+
+
+ 321 0000 1C00 0000 		.long	0x1c
+ 322 0004 0200      		.word	0x2
+ 323 0006 0000 0000 		.long	.Ldebug_info0
+ 324 000a 04        		.byte	0x4
+ 325 000b 00        		.byte	0
+ 326 000c 0000      		.word	0
+ 327 000e 0000      		.word	0
+ 328 0010 0000 0000 		.long	.Ltext0
+ 329 0014 2400 0000 		.long	.Letext0-.Ltext0
+ 330 0018 0000 0000 		.long	0
+ 331 001c 0000 0000 		.long	0
+ 332               		.section	.debug_line,"",@progbits
+ 333               	.Ldebug_line0:
+ 334 0000 A600 0000 		.section	.debug_str,"MS",@progbits,1
+ 334      0200 4600 
+ 334      0000 0201 
+ 334      FB0E 0A00 
+ 334      0101 0101 
+ 335               	.LASF9:
+ 336 0000 5350 495F 		.string	"SPI_set_cs"
+ 336      7365 745F 
+ 336      6373 00
+ 337               	.LASF12:
+ 338 000b 633A 5C75 		.string	"c:\\users\\rando\\documents\\elektroonika\\wep-transmitter"
+ 338      7365 7273 
+ 338      5C72 616E 
+ 338      646F 5C64 
+ 338      6F63 756D 
+ 339               	.LASF8:
+ 340 0041 5350 495F 		.string	"SPI_unset_cs"
+ 340      756E 7365 
+ 340      745F 6373 
+ 340      00
+ 341               	.LASF15:
+ 342 004e 6461 7461 		.string	"data"
+ 342      00
+ 343               	.LASF1:
+ 344 0053 756E 7369 		.string	"unsigned char"
+ 344      676E 6564 
+ 344      2063 6861 
+ 344      7200 
+ 345               	.LASF4:
+ 346 0061 6C6F 6E67 		.string	"long unsigned int"
+ 346      2075 6E73 
+ 346      6967 6E65 
+ 346      6420 696E 
+ 346      7400 
+ 347               	.LASF14:
+ 348 0073 5350 495F 		.string	"SPI_send"
+ 348      7365 6E64 
+ 348      00
+ 349               	.LASF2:
+ 350 007c 756E 7369 		.string	"unsigned int"
+ 350      676E 6564 
+ 350      2069 6E74 
+ 350      00
+ 351               	.LASF6:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s 			page 8
+
+
+ 352 0089 6C6F 6E67 		.string	"long long unsigned int"
+ 352      206C 6F6E 
+ 352      6720 756E 
+ 352      7369 676E 
+ 352      6564 2069 
+ 353               	.LASF13:
+ 354 00a0 7569 6E74 		.string	"uint8_t"
+ 354      385F 7400 
+ 355               	.LASF10:
+ 356 00a8 474E 5520 		.string	"GNU C11 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avr5 -g -O2 -funsigned-char -funsigned-bitf
+ 356      4331 3120 
+ 356      352E 342E 
+ 356      3020 2D6D 
+ 356      6E2D 666C 
+ 357               	.LASF11:
+ 358 0123 7372 632F 		.string	"src/spi.c"
+ 358      7370 692E 
+ 358      6300 
+ 359               	.LASF5:
+ 360 012d 6C6F 6E67 		.string	"long long int"
+ 360      206C 6F6E 
+ 360      6720 696E 
+ 360      7400 
+ 361               	.LASF3:
+ 362 013b 6C6F 6E67 		.string	"long int"
+ 362      2069 6E74 
+ 362      00
+ 363               	.LASF0:
+ 364 0144 7369 676E 		.string	"signed char"
+ 364      6564 2063 
+ 364      6861 7200 
+ 365               	.LASF7:
+ 366 0150 5350 495F 		.string	"SPI_init"
+ 366      696E 6974 
+ 366      00
+ 367               		.ident	"GCC: (AVR_8_bit_GNU_Toolchain_3.6.2_1778) 5.4.0"
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 spi.c
+C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s:2      *ABS*:0000003e __SP_H__
+C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s:3      *ABS*:0000003d __SP_L__
+C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s:4      *ABS*:0000003f __SREG__
+C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s:5      *ABS*:00000000 __tmp_reg__
+C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s:6      *ABS*:00000001 __zero_reg__
+C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s:12     .text:00000000 SPI_init
+C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s:39     .text:00000012 SPI_unset_cs
+C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s:55     .text:00000016 SPI_set_cs
+C:\Users\Rando\AppData\Local\Temp\ccFhOM7x.s:71     .text:0000001a SPI_send
+
+NO UNDEFINED SYMBOLS

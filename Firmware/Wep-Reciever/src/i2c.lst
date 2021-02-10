@@ -1,0 +1,3007 @@
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 1
+
+
+   1               		.file	"i2c.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	_wait_transmission_complete
+  11               		.type	_wait_transmission_complete, @function
+  12               	_wait_transmission_complete:
+  13               	.LFB0:
+  14               		.file 1 "src/i2c.c"
+   1:src/i2c.c     **** #include <include/i2c.h>
+   2:src/i2c.c     **** 
+   3:src/i2c.c     **** // Ootame kuni siinil on suhtlus toimunud
+   4:src/i2c.c     **** void _wait_transmission_complete() {
+  15               		.loc 1 4 0
+  16               		.cfi_startproc
+  17               	/* prologue: function */
+  18               	/* frame size = 0 */
+  19               	/* stack size = 0 */
+  20               	.L__stack_usage = 0
+  21               	.L2:
+   5:src/i2c.c     **** 	while (!(TWCR & (1<<TWINT)));
+  22               		.loc 1 5 0 discriminator 1
+  23 0000 8091 BC00 		lds r24,188
+  24 0004 87FF      		sbrs r24,7
+  25 0006 00C0      		rjmp .L2
+  26               	/* epilogue start */
+   6:src/i2c.c     **** }
+  27               		.loc 1 6 0
+  28 0008 0895      		ret
+  29               		.cfi_endproc
+  30               	.LFE0:
+  31               		.size	_wait_transmission_complete, .-_wait_transmission_complete
+  32               	.global	i2c_init
+  33               		.type	i2c_init, @function
+  34               	i2c_init:
+  35               	.LFB1:
+   7:src/i2c.c     **** 
+   8:src/i2c.c     **** // Käivitame I2C
+   9:src/i2c.c     **** void i2c_init(unsigned long clk_hz) {
+  36               		.loc 1 9 0
+  37               		.cfi_startproc
+  38               	.LVL0:
+  39               	/* prologue: function */
+  40               	/* frame size = 0 */
+  41               	/* stack size = 0 */
+  42               	.L__stack_usage = 0
+  43 000a 9B01      		movw r18,r22
+  44 000c AC01      		movw r20,r24
+  10:src/i2c.c     **** 	TWSR = 0;
+  45               		.loc 1 10 0
+  46 000e 1092 B900 		sts 185,__zero_reg__
+  11:src/i2c.c     **** 	TWBR = ((F_CPU/clk_hz)-16)/2;
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 2
+
+
+  47               		.loc 1 11 0
+  48 0012 60E0      		ldi r22,0
+  49 0014 74E2      		ldi r23,lo8(36)
+  50 0016 84EF      		ldi r24,lo8(-12)
+  51 0018 90E0      		ldi r25,0
+  52               	.LVL1:
+  53 001a 0E94 0000 		call __udivmodsi4
+  54               	.LVL2:
+  55 001e DA01      		movw r26,r20
+  56 0020 C901      		movw r24,r18
+  57 0022 4097      		sbiw r24,16
+  58 0024 A109      		sbc r26,__zero_reg__
+  59 0026 B109      		sbc r27,__zero_reg__
+  60 0028 B695      		lsr r27
+  61 002a A795      		ror r26
+  62 002c 9795      		ror r25
+  63 002e 8795      		ror r24
+  64 0030 8093 B800 		sts 184,r24
+  12:src/i2c.c     **** 	TWCR = (1<<TWEN);
+  65               		.loc 1 12 0
+  66 0034 84E0      		ldi r24,lo8(4)
+  67 0036 8093 BC00 		sts 188,r24
+  68 003a 0895      		ret
+  69               		.cfi_endproc
+  70               	.LFE1:
+  71               		.size	i2c_init, .-i2c_init
+  72               	.global	i2c_stop
+  73               		.type	i2c_stop, @function
+  74               	i2c_stop:
+  75               	.LFB2:
+  13:src/i2c.c     **** }
+  14:src/i2c.c     **** 
+  15:src/i2c.c     **** // Tõstatame STOP ja ootame siini vabastamist
+  16:src/i2c.c     **** void i2c_stop() {
+  76               		.loc 1 16 0
+  77               		.cfi_startproc
+  78               	/* prologue: function */
+  79               	/* frame size = 0 */
+  80               	/* stack size = 0 */
+  81               	.L__stack_usage = 0
+  17:src/i2c.c     **** 	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+  82               		.loc 1 17 0
+  83 003c 84E9      		ldi r24,lo8(-108)
+  84 003e 8093 BC00 		sts 188,r24
+  85               	.L7:
+  18:src/i2c.c     **** 	while(TWCR & (1<<TWSTO));
+  86               		.loc 1 18 0 discriminator 1
+  87 0042 8091 BC00 		lds r24,188
+  88 0046 84FD      		sbrc r24,4
+  89 0048 00C0      		rjmp .L7
+  90               	/* epilogue start */
+  19:src/i2c.c     **** }
+  91               		.loc 1 19 0
+  92 004a 0895      		ret
+  93               		.cfi_endproc
+  94               	.LFE2:
+  95               		.size	i2c_stop, .-i2c_stop
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 3
+
+
+  96               	.global	i2c_start
+  97               		.type	i2c_start, @function
+  98               	i2c_start:
+  99               	.LFB3:
+  20:src/i2c.c     **** 
+  21:src/i2c.c     **** // Algatame TWI operatsiooni ja kirjutame seadme aadressi siinile
+  22:src/i2c.c     **** uint8_t i2c_start(uint8_t address) {
+ 100               		.loc 1 22 0
+ 101               		.cfi_startproc
+ 102               	.LVL3:
+ 103               	/* prologue: function */
+ 104               	/* frame size = 0 */
+ 105               	/* stack size = 0 */
+ 106               	.L__stack_usage = 0
+  23:src/i2c.c     **** 	uint8_t status;
+  24:src/i2c.c     **** 	
+  25:src/i2c.c     **** 	// Saadame TWI stardi ja ootame selle toimumist.
+  26:src/i2c.c     **** 	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+ 107               		.loc 1 26 0
+ 108 004c 94EA      		ldi r25,lo8(-92)
+ 109 004e 9093 BC00 		sts 188,r25
+ 110               	.L10:
+ 111               	.LBB70:
+ 112               	.LBB71:
+   5:src/i2c.c     **** }
+ 113               		.loc 1 5 0
+ 114 0052 9091 BC00 		lds r25,188
+ 115 0056 97FF      		sbrs r25,7
+ 116 0058 00C0      		rjmp .L10
+ 117               	.LBE71:
+ 118               	.LBE70:
+  27:src/i2c.c     **** 	_wait_transmission_complete();
+  28:src/i2c.c     **** 	
+  29:src/i2c.c     **** 	// Loeme TWI staatusest vajaminevad bitid.
+  30:src/i2c.c     **** 	status = TW_STATUS & 0xF8;
+ 119               		.loc 1 30 0
+ 120 005a 9091 B900 		lds r25,185
+ 121 005e 987F      		andi r25,lo8(-8)
+ 122               	.LVL4:
+  31:src/i2c.c     **** 	// Kui staatuse kood ei ole START või REP_START
+  32:src/i2c.c     **** 	if((status != TW_START) && (status != TW_REP_START)) {
+ 123               		.loc 1 32 0
+ 124 0060 9830      		cpi r25,lo8(8)
+ 125 0062 01F0      		breq .L11
+ 126               		.loc 1 32 0 is_stmt 0 discriminator 1
+ 127 0064 9031      		cpi r25,lo8(16)
+ 128 0066 01F0      		breq .L11
+ 129 0068 892F      		mov r24,r25
+ 130               	.LVL5:
+ 131 006a 0895      		ret
+ 132               	.LVL6:
+ 133               	.L11:
+ 134               	.LBB72:
+ 135               	.LBB73:
+  33:src/i2c.c     **** 		return status; // Varajane return
+  34:src/i2c.c     **** 	}
+  35:src/i2c.c     **** 	
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 4
+
+
+  36:src/i2c.c     **** 	// Kirjutame seadme aadressi siini ja ootame 
+  37:src/i2c.c     **** 	TWDR = address;
+ 136               		.loc 1 37 0 is_stmt 1
+ 137 006c 8093 BB00 		sts 187,r24
+  38:src/i2c.c     **** 	TWCR = (1<<TWINT) | (1<<TWEN);
+ 138               		.loc 1 38 0
+ 139 0070 84E8      		ldi r24,lo8(-124)
+ 140               	.LVL7:
+ 141 0072 8093 BC00 		sts 188,r24
+ 142               	.LVL8:
+ 143               	.L13:
+ 144               	.LBB74:
+ 145               	.LBB75:
+   5:src/i2c.c     **** }
+ 146               		.loc 1 5 0
+ 147 0076 8091 BC00 		lds r24,188
+ 148 007a 87FF      		sbrs r24,7
+ 149 007c 00C0      		rjmp .L13
+ 150               	.LBE75:
+ 151               	.LBE74:
+  39:src/i2c.c     **** 	_wait_transmission_complete();
+  40:src/i2c.c     **** 	
+  41:src/i2c.c     **** 	// Loeme TWI staatusest vajaminevad bitid.
+  42:src/i2c.c     **** 	status = TW_STATUS & 0xF8;
+ 152               		.loc 1 42 0
+ 153 007e 8091 B900 		lds r24,185
+ 154 0082 887F      		andi r24,lo8(-8)
+ 155               	.LVL9:
+  43:src/i2c.c     **** 	// Kui staatus ei ole seadmelt tagasi tulnud ACK
+  44:src/i2c.c     **** 	if((status != TW_MT_SLA_ACK) && (status != TW_MR_SLA_ACK)) {
+ 156               		.loc 1 44 0
+ 157 0084 8831      		cpi r24,lo8(24)
+ 158 0086 01F0      		breq .L17
+ 159 0088 8034      		cpi r24,lo8(64)
+ 160 008a 01F0      		breq .L17
+ 161               	.LBB76:
+ 162               	.LBB77:
+  17:src/i2c.c     **** 	while(TWCR & (1<<TWSTO));
+ 163               		.loc 1 17 0
+ 164 008c 94E9      		ldi r25,lo8(-108)
+ 165               	.LVL10:
+ 166 008e 9093 BC00 		sts 188,r25
+ 167               	.L14:
+  18:src/i2c.c     **** }
+ 168               		.loc 1 18 0
+ 169 0092 9091 BC00 		lds r25,188
+ 170 0096 94FD      		sbrc r25,4
+ 171 0098 00C0      		rjmp .L14
+ 172 009a 0895      		ret
+ 173               	.LVL11:
+ 174               	.L17:
+ 175               	.LBE77:
+ 176               	.LBE76:
+  45:src/i2c.c     **** 		i2c_stop();
+  46:src/i2c.c     **** 		return status; // Varajane return
+  47:src/i2c.c     **** 	}
+  48:src/i2c.c     **** 	
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 5
+
+
+  49:src/i2c.c     **** 	return 0; // Probleeme pole return
+ 177               		.loc 1 49 0
+ 178 009c 80E0      		ldi r24,0
+ 179               	.LVL12:
+ 180               	.LBE73:
+ 181               	.LBE72:
+  50:src/i2c.c     **** 
+  51:src/i2c.c     **** }
+ 182               		.loc 1 51 0
+ 183 009e 0895      		ret
+ 184               		.cfi_endproc
+ 185               	.LFE3:
+ 186               		.size	i2c_start, .-i2c_start
+ 187               	.global	i2c_write
+ 188               		.type	i2c_write, @function
+ 189               	i2c_write:
+ 190               	.LFB4:
+  52:src/i2c.c     **** 
+  53:src/i2c.c     **** // Kirjutame siinile andmeid
+  54:src/i2c.c     **** uint8_t i2c_write(uint8_t data) {
+ 191               		.loc 1 54 0
+ 192               		.cfi_startproc
+ 193               	.LVL13:
+ 194               	/* prologue: function */
+ 195               	/* frame size = 0 */
+ 196               	/* stack size = 0 */
+ 197               	.L__stack_usage = 0
+  55:src/i2c.c     **** 	uint8_t status;
+  56:src/i2c.c     **** 	
+  57:src/i2c.c     **** 	// Kirjutame andmed siinile ja ootame operatsiooni lõppu
+  58:src/i2c.c     **** 	TWDR = data;
+ 198               		.loc 1 58 0
+ 199 00a0 8093 BB00 		sts 187,r24
+  59:src/i2c.c     **** 	TWCR = (1 << TWINT) | (1 << TWEN);
+ 200               		.loc 1 59 0
+ 201 00a4 84E8      		ldi r24,lo8(-124)
+ 202               	.LVL14:
+ 203 00a6 8093 BC00 		sts 188,r24
+ 204               	.LVL15:
+ 205               	.L25:
+ 206               	.LBB78:
+ 207               	.LBB79:
+   5:src/i2c.c     **** }
+ 208               		.loc 1 5 0
+ 209 00aa 8091 BC00 		lds r24,188
+ 210 00ae 87FF      		sbrs r24,7
+ 211 00b0 00C0      		rjmp .L25
+ 212               	.LBE79:
+ 213               	.LBE78:
+  60:src/i2c.c     **** 	_wait_transmission_complete();
+  61:src/i2c.c     **** 	
+  62:src/i2c.c     **** 	// Loeme TWI staatusest vajaminevad bitid.
+  63:src/i2c.c     **** 	status = TW_STATUS & 0xF8;
+ 214               		.loc 1 63 0
+ 215 00b2 8091 B900 		lds r24,185
+ 216 00b6 887F      		andi r24,lo8(-8)
+ 217               	.LVL16:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 6
+
+
+  64:src/i2c.c     **** 	// Kui seade ei tagastanud ACK
+  65:src/i2c.c     **** 	if(status != TW_MT_DATA_ACK) {
+ 218               		.loc 1 65 0
+ 219 00b8 8832      		cpi r24,lo8(40)
+ 220 00ba 01F0      		breq .L29
+  66:src/i2c.c     **** 		return status; // Varajane return
+  67:src/i2c.c     **** 	}
+  68:src/i2c.c     **** 	
+  69:src/i2c.c     **** 	return 0; // Probleeme pole return
+  70:src/i2c.c     **** }
+ 221               		.loc 1 70 0
+ 222 00bc 0895      		ret
+ 223               	.L29:
+  69:src/i2c.c     **** }
+ 224               		.loc 1 69 0
+ 225 00be 80E0      		ldi r24,0
+ 226               	.LVL17:
+ 227               		.loc 1 70 0
+ 228 00c0 0895      		ret
+ 229               		.cfi_endproc
+ 230               	.LFE4:
+ 231               		.size	i2c_write, .-i2c_write
+ 232               	.global	i2c_read_nack
+ 233               		.type	i2c_read_nack, @function
+ 234               	i2c_read_nack:
+ 235               	.LFB5:
+  71:src/i2c.c     **** 
+  72:src/i2c.c     **** // Loeme ilma mikrokontrolleripoolset ACK'i tagastamata - tüüpiliselt viimase (või ainsa ühekordse)
+  73:src/i2c.c     **** uint8_t i2c_read_nack() {
+ 236               		.loc 1 73 0
+ 237               		.cfi_startproc
+ 238               	/* prologue: function */
+ 239               	/* frame size = 0 */
+ 240               	/* stack size = 0 */
+ 241               	.L__stack_usage = 0
+  74:src/i2c.c     **** 	
+  75:src/i2c.c     **** 	TWCR = (1<<TWINT)|(1<<TWEN);
+ 242               		.loc 1 75 0
+ 243 00c2 84E8      		ldi r24,lo8(-124)
+ 244 00c4 8093 BC00 		sts 188,r24
+ 245               	.L31:
+ 246               	.LBB80:
+ 247               	.LBB81:
+   5:src/i2c.c     **** }
+ 248               		.loc 1 5 0
+ 249 00c8 8091 BC00 		lds r24,188
+ 250 00cc 87FF      		sbrs r24,7
+ 251 00ce 00C0      		rjmp .L31
+ 252               	.LBE81:
+ 253               	.LBE80:
+  76:src/i2c.c     **** 	_wait_transmission_complete();
+  77:src/i2c.c     **** 	
+  78:src/i2c.c     **** 	return TWDR;
+ 254               		.loc 1 78 0
+ 255 00d0 8091 BB00 		lds r24,187
+  79:src/i2c.c     **** }
+ 256               		.loc 1 79 0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 7
+
+
+ 257 00d4 0895      		ret
+ 258               		.cfi_endproc
+ 259               	.LFE5:
+ 260               		.size	i2c_read_nack, .-i2c_read_nack
+ 261               	.global	i2c_read_ack
+ 262               		.type	i2c_read_ack, @function
+ 263               	i2c_read_ack:
+ 264               	.LFB6:
+  80:src/i2c.c     **** 
+  81:src/i2c.c     **** // Loeme ilma mikrokontrolleripoolset ACK'i tagastades - tüüpiliselt annab seadmele märku, et prose
+  82:src/i2c.c     **** uint8_t i2c_read_ack() {
+ 265               		.loc 1 82 0
+ 266               		.cfi_startproc
+ 267               	/* prologue: function */
+ 268               	/* frame size = 0 */
+ 269               	/* stack size = 0 */
+ 270               	.L__stack_usage = 0
+  83:src/i2c.c     **** 	
+  84:src/i2c.c     **** 	TWCR = (1<<TWINT)|(1<<TWEN) | (1 << TWEA);
+ 271               		.loc 1 84 0
+ 272 00d6 84EC      		ldi r24,lo8(-60)
+ 273 00d8 8093 BC00 		sts 188,r24
+ 274               	.L34:
+ 275               	.LBB82:
+ 276               	.LBB83:
+   5:src/i2c.c     **** }
+ 277               		.loc 1 5 0
+ 278 00dc 8091 BC00 		lds r24,188
+ 279 00e0 87FF      		sbrs r24,7
+ 280 00e2 00C0      		rjmp .L34
+ 281               	.LBE83:
+ 282               	.LBE82:
+  85:src/i2c.c     **** 	_wait_transmission_complete();
+  86:src/i2c.c     **** 	
+  87:src/i2c.c     **** 	return TWDR;
+ 283               		.loc 1 87 0
+ 284 00e4 8091 BB00 		lds r24,187
+  88:src/i2c.c     **** }
+ 285               		.loc 1 88 0
+ 286 00e8 0895      		ret
+ 287               		.cfi_endproc
+ 288               	.LFE6:
+ 289               		.size	i2c_read_ack, .-i2c_read_ack
+ 290               	.global	i2c_read_multiple
+ 291               		.type	i2c_read_multiple, @function
+ 292               	i2c_read_multiple:
+ 293               	.LFB7:
+  89:src/i2c.c     **** 
+  90:src/i2c.c     **** // Loeb siinilt andmeid seadme mingist registrist n_bytes jagu ja kirjutab result'i. ACK jälgib spe
+  91:src/i2c.c     **** void i2c_read_multiple(uint8_t write_address, uint8_t read_address, uint8_t register_address, uint8
+ 294               		.loc 1 91 0
+ 295               		.cfi_startproc
+ 296               	.LVL18:
+ 297 00ea EF92      		push r14
+ 298               	.LCFI0:
+ 299               		.cfi_def_cfa_offset 3
+ 300               		.cfi_offset 14, -2
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 8
+
+
+ 301 00ec FF92      		push r15
+ 302               	.LCFI1:
+ 303               		.cfi_def_cfa_offset 4
+ 304               		.cfi_offset 15, -3
+ 305 00ee 0F93      		push r16
+ 306               	.LCFI2:
+ 307               		.cfi_def_cfa_offset 5
+ 308               		.cfi_offset 16, -4
+ 309 00f0 1F93      		push r17
+ 310               	.LCFI3:
+ 311               		.cfi_def_cfa_offset 6
+ 312               		.cfi_offset 17, -5
+ 313 00f2 CF93      		push r28
+ 314               	.LCFI4:
+ 315               		.cfi_def_cfa_offset 7
+ 316               		.cfi_offset 28, -6
+ 317 00f4 DF93      		push r29
+ 318               	.LCFI5:
+ 319               		.cfi_def_cfa_offset 8
+ 320               		.cfi_offset 29, -7
+ 321               	/* prologue: function */
+ 322               	/* frame size = 0 */
+ 323               	/* stack size = 6 */
+ 324               	.L__stack_usage = 6
+ 325 00f6 162F      		mov r17,r22
+ 326 00f8 D42F      		mov r29,r20
+ 327 00fa C22F      		mov r28,r18
+  92:src/i2c.c     **** 	uint8_t status = i2c_start(write_address);
+ 328               		.loc 1 92 0
+ 329 00fc 0E94 0000 		call i2c_start
+ 330               	.LVL19:
+  93:src/i2c.c     **** 	if(!status) {
+ 331               		.loc 1 93 0
+ 332 0100 8111      		cpse r24,__zero_reg__
+ 333 0102 00C0      		rjmp .L37
+ 334               	.LVL20:
+ 335               	.LBB84:
+ 336               	.LBB85:
+  58:src/i2c.c     **** 	TWCR = (1 << TWINT) | (1 << TWEN);
+ 337               		.loc 1 58 0
+ 338 0104 D093 BB00 		sts 187,r29
+  59:src/i2c.c     **** 	_wait_transmission_complete();
+ 339               		.loc 1 59 0
+ 340 0108 84E8      		ldi r24,lo8(-124)
+ 341               	.LVL21:
+ 342 010a 8093 BC00 		sts 188,r24
+ 343               	.L38:
+ 344               	.LBB86:
+ 345               	.LBB87:
+   5:src/i2c.c     **** }
+ 346               		.loc 1 5 0
+ 347 010e 8091 BC00 		lds r24,188
+ 348 0112 87FF      		sbrs r24,7
+ 349 0114 00C0      		rjmp .L38
+ 350               	.LBE87:
+ 351               	.LBE86:
+  63:src/i2c.c     **** 	// Kui seade ei tagastanud ACK
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 9
+
+
+ 352               		.loc 1 63 0
+ 353 0116 8091 B900 		lds r24,185
+ 354 011a 887F      		andi r24,lo8(-8)
+ 355               	.LVL22:
+  65:src/i2c.c     **** 		return status; // Varajane return
+ 356               		.loc 1 65 0
+ 357 011c 8832      		cpi r24,lo8(40)
+ 358 011e 01F0      		breq .L39
+ 359               	.LVL23:
+ 360               	.LBE85:
+ 361               	.LBE84:
+  94:src/i2c.c     **** 		status = i2c_write(register_address);
+  95:src/i2c.c     **** 		if(!status) {
+ 362               		.loc 1 95 0
+ 363 0120 8823      		tst r24
+ 364 0122 01F0      		breq .L39
+ 365               	/* epilogue start */
+  96:src/i2c.c     **** 			if(!repstart) {
+  97:src/i2c.c     **** 				i2c_stop();
+  98:src/i2c.c     **** 			}
+  99:src/i2c.c     **** 			status = i2c_start(read_address);
+ 100:src/i2c.c     **** 			for(uint8_t i = 0; i < n_bytes; i++) {
+ 101:src/i2c.c     **** 				if(i == n_bytes-1) {
+ 102:src/i2c.c     **** 					result[i] = i2c_read_nack();
+ 103:src/i2c.c     **** 				} else {
+ 104:src/i2c.c     **** 					result[i] = i2c_read_ack();
+ 105:src/i2c.c     **** 				}
+ 106:src/i2c.c     **** 			}
+ 107:src/i2c.c     **** 			i2c_stop();
+ 108:src/i2c.c     **** 		}	
+ 109:src/i2c.c     **** 	} else {
+ 110:src/i2c.c     **** 		i2c_stop();
+ 111:src/i2c.c     **** 	}
+ 112:src/i2c.c     **** }
+ 366               		.loc 1 112 0
+ 367 0124 DF91      		pop r29
+ 368               	.LVL24:
+ 369 0126 CF91      		pop r28
+ 370               	.LVL25:
+ 371 0128 1F91      		pop r17
+ 372               	.LVL26:
+ 373 012a 0F91      		pop r16
+ 374               	.LVL27:
+ 375 012c FF90      		pop r15
+ 376 012e EF90      		pop r14
+ 377               	.LVL28:
+ 378 0130 0895      		ret
+ 379               	.LVL29:
+ 380               	.L37:
+ 381               	.LBB88:
+ 382               	.LBB89:
+  17:src/i2c.c     **** 	while(TWCR & (1<<TWSTO));
+ 383               		.loc 1 17 0
+ 384 0132 84E9      		ldi r24,lo8(-108)
+ 385               	.LVL30:
+ 386 0134 8093 BC00 		sts 188,r24
+ 387               	.L52:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 10
+
+
+  18:src/i2c.c     **** }
+ 388               		.loc 1 18 0
+ 389 0138 8091 BC00 		lds r24,188
+ 390 013c 84FD      		sbrc r24,4
+ 391 013e 00C0      		rjmp .L52
+ 392               	/* epilogue start */
+ 393               	.LBE89:
+ 394               	.LBE88:
+ 395               		.loc 1 112 0
+ 396 0140 DF91      		pop r29
+ 397               	.LVL31:
+ 398 0142 CF91      		pop r28
+ 399               	.LVL32:
+ 400 0144 1F91      		pop r17
+ 401               	.LVL33:
+ 402 0146 0F91      		pop r16
+ 403               	.LVL34:
+ 404 0148 FF90      		pop r15
+ 405 014a EF90      		pop r14
+ 406               	.LVL35:
+ 407 014c 0895      		ret
+ 408               	.LVL36:
+ 409               	.L39:
+  96:src/i2c.c     **** 			if(!repstart) {
+ 410               		.loc 1 96 0
+ 411 014e 0023      		tst r16
+ 412 0150 01F0      		breq .L40
+ 413               	.L44:
+  99:src/i2c.c     **** 			for(uint8_t i = 0; i < n_bytes; i++) {
+ 414               		.loc 1 99 0
+ 415 0152 812F      		mov r24,r17
+ 416 0154 0E94 0000 		call i2c_start
+ 417               	.LVL37:
+ 418               	.LBB90:
+ 100:src/i2c.c     **** 				if(i == n_bytes-1) {
+ 419               		.loc 1 100 0
+ 420 0158 CC23      		tst r28
+ 421 015a 01F0      		breq .L42
+ 422 015c 4C2F      		mov r20,r28
+ 423 015e 50E0      		ldi r21,0
+ 424 0160 4150      		subi r20,1
+ 425 0162 5109      		sbc r21,__zero_reg__
+ 426 0164 F701      		movw r30,r14
+ 427 0166 20E0      		ldi r18,0
+ 428 0168 30E0      		ldi r19,0
+ 429               	.LBB91:
+ 430               	.LBB92:
+  84:src/i2c.c     **** 	_wait_transmission_complete();
+ 431               		.loc 1 84 0
+ 432 016a 94EC      		ldi r25,lo8(-60)
+ 433               	.LBE92:
+ 434               	.LBE91:
+ 435               	.LBB96:
+ 436               	.LBB97:
+  75:src/i2c.c     **** 	_wait_transmission_complete();
+ 437               		.loc 1 75 0
+ 438 016c 64E8      		ldi r22,lo8(-124)
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 11
+
+
+ 439               	.LVL38:
+ 440               	.L50:
+ 441               	.LBE97:
+ 442               	.LBE96:
+ 101:src/i2c.c     **** 					result[i] = i2c_read_nack();
+ 443               		.loc 1 101 0
+ 444 016e 2417      		cp r18,r20
+ 445 0170 3507      		cpc r19,r21
+ 446 0172 01F0      		breq .L67
+ 447               	.LBB101:
+ 448               	.LBB95:
+  84:src/i2c.c     **** 	_wait_transmission_complete();
+ 449               		.loc 1 84 0
+ 450 0174 9093 BC00 		sts 188,r25
+ 451               	.L49:
+ 452               	.LBB93:
+ 453               	.LBB94:
+   5:src/i2c.c     **** }
+ 454               		.loc 1 5 0
+ 455 0178 8091 BC00 		lds r24,188
+ 456 017c 87FF      		sbrs r24,7
+ 457 017e 00C0      		rjmp .L49
+ 458               	.L66:
+ 459               	.LBE94:
+ 460               	.LBE93:
+  87:src/i2c.c     **** }
+ 461               		.loc 1 87 0
+ 462 0180 8091 BB00 		lds r24,187
+ 463               	.LBE95:
+ 464               	.LBE101:
+ 104:src/i2c.c     **** 				}
+ 465               		.loc 1 104 0
+ 466 0184 8083      		st Z,r24
+ 467               	.LVL39:
+ 468 0186 2F5F      		subi r18,-1
+ 469 0188 3F4F      		sbci r19,-1
+ 470               	.LVL40:
+ 471 018a 3196      		adiw r30,1
+ 100:src/i2c.c     **** 				if(i == n_bytes-1) {
+ 472               		.loc 1 100 0
+ 473 018c 2C17      		cp r18,r28
+ 474 018e 00F0      		brlo .L50
+ 475               	.LVL41:
+ 476               	.L42:
+ 477               	.LBE90:
+ 478               	.LBB103:
+ 479               	.LBB104:
+  17:src/i2c.c     **** 	while(TWCR & (1<<TWSTO));
+ 480               		.loc 1 17 0
+ 481 0190 84E9      		ldi r24,lo8(-108)
+ 482 0192 8093 BC00 		sts 188,r24
+ 483               	.L45:
+  18:src/i2c.c     **** }
+ 484               		.loc 1 18 0
+ 485 0196 8091 BC00 		lds r24,188
+ 486 019a 84FD      		sbrc r24,4
+ 487 019c 00C0      		rjmp .L45
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 12
+
+
+ 488               	/* epilogue start */
+ 489               	.LBE104:
+ 490               	.LBE103:
+ 491               		.loc 1 112 0
+ 492 019e DF91      		pop r29
+ 493               	.LVL42:
+ 494 01a0 CF91      		pop r28
+ 495               	.LVL43:
+ 496 01a2 1F91      		pop r17
+ 497               	.LVL44:
+ 498 01a4 0F91      		pop r16
+ 499               	.LVL45:
+ 500 01a6 FF90      		pop r15
+ 501 01a8 EF90      		pop r14
+ 502               	.LVL46:
+ 503 01aa 0895      		ret
+ 504               	.LVL47:
+ 505               	.L67:
+ 506               	.LBB105:
+ 507               	.LBB102:
+ 508               	.LBB100:
+  75:src/i2c.c     **** 	_wait_transmission_complete();
+ 509               		.loc 1 75 0
+ 510 01ac 6093 BC00 		sts 188,r22
+ 511               	.L47:
+ 512               	.LBB98:
+ 513               	.LBB99:
+   5:src/i2c.c     **** }
+ 514               		.loc 1 5 0
+ 515 01b0 8091 BC00 		lds r24,188
+ 516 01b4 87FF      		sbrs r24,7
+ 517 01b6 00C0      		rjmp .L47
+ 518 01b8 00C0      		rjmp .L66
+ 519               	.LVL48:
+ 520               	.L40:
+ 521               	.LBE99:
+ 522               	.LBE98:
+ 523               	.LBE100:
+ 524               	.LBE102:
+ 525               	.LBE105:
+ 526               	.LBB106:
+ 527               	.LBB107:
+  17:src/i2c.c     **** 	while(TWCR & (1<<TWSTO));
+ 528               		.loc 1 17 0
+ 529 01ba 84E9      		ldi r24,lo8(-108)
+ 530 01bc 8093 BC00 		sts 188,r24
+ 531               	.L43:
+  18:src/i2c.c     **** }
+ 532               		.loc 1 18 0
+ 533 01c0 8091 BC00 		lds r24,188
+ 534 01c4 84FD      		sbrc r24,4
+ 535 01c6 00C0      		rjmp .L43
+ 536 01c8 00C0      		rjmp .L44
+ 537               	.LBE107:
+ 538               	.LBE106:
+ 539               		.cfi_endproc
+ 540               	.LFE7:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 13
+
+
+ 541               		.size	i2c_read_multiple, .-i2c_read_multiple
+ 542               	.global	i2c_read_single
+ 543               		.type	i2c_read_single, @function
+ 544               	i2c_read_single:
+ 545               	.LFB8:
+ 113:src/i2c.c     **** 
+ 114:src/i2c.c     **** // Loeme siinile üksiku baidi andmeid seadme mingist registrist. Ack parameetriga saab seadistada, 
+ 115:src/i2c.c     **** uint8_t i2c_read_single(uint8_t write_address, uint8_t read_address, uint8_t register_address, uint
+ 546               		.loc 1 115 0
+ 547               		.cfi_startproc
+ 548               	.LVL49:
+ 549 01ca 1F93      		push r17
+ 550               	.LCFI6:
+ 551               		.cfi_def_cfa_offset 3
+ 552               		.cfi_offset 17, -2
+ 553 01cc CF93      		push r28
+ 554               	.LCFI7:
+ 555               		.cfi_def_cfa_offset 4
+ 556               		.cfi_offset 28, -3
+ 557 01ce DF93      		push r29
+ 558               	.LCFI8:
+ 559               		.cfi_def_cfa_offset 5
+ 560               		.cfi_offset 29, -4
+ 561               	/* prologue: function */
+ 562               	/* frame size = 0 */
+ 563               	/* stack size = 3 */
+ 564               	.L__stack_usage = 3
+ 565 01d0 D62F      		mov r29,r22
+ 566 01d2 C42F      		mov r28,r20
+ 567 01d4 122F      		mov r17,r18
+ 116:src/i2c.c     **** 	uint8_t status = i2c_start(write_address);
+ 568               		.loc 1 116 0
+ 569 01d6 0E94 0000 		call i2c_start
+ 570               	.LVL50:
+ 117:src/i2c.c     **** 	if(!status) {
+ 571               		.loc 1 117 0
+ 572 01da 8111      		cpse r24,__zero_reg__
+ 573 01dc 00C0      		rjmp .L69
+ 574               	.LVL51:
+ 575               	.LBB108:
+ 576               	.LBB109:
+  58:src/i2c.c     **** 	TWCR = (1 << TWINT) | (1 << TWEN);
+ 577               		.loc 1 58 0
+ 578 01de C093 BB00 		sts 187,r28
+  59:src/i2c.c     **** 	_wait_transmission_complete();
+ 579               		.loc 1 59 0
+ 580 01e2 84E8      		ldi r24,lo8(-124)
+ 581               	.LVL52:
+ 582 01e4 8093 BC00 		sts 188,r24
+ 583               	.L70:
+ 584               	.LBB110:
+ 585               	.LBB111:
+   5:src/i2c.c     **** }
+ 586               		.loc 1 5 0
+ 587 01e8 8091 BC00 		lds r24,188
+ 588 01ec 87FF      		sbrs r24,7
+ 589 01ee 00C0      		rjmp .L70
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 14
+
+
+ 590               	.LBE111:
+ 591               	.LBE110:
+  63:src/i2c.c     **** 	// Kui seade ei tagastanud ACK
+ 592               		.loc 1 63 0
+ 593 01f0 8091 B900 		lds r24,185
+ 594 01f4 887F      		andi r24,lo8(-8)
+ 595               	.LVL53:
+  65:src/i2c.c     **** 		return status; // Varajane return
+ 596               		.loc 1 65 0
+ 597 01f6 8832      		cpi r24,lo8(40)
+ 598 01f8 01F0      		breq .L71
+ 599               	.LVL54:
+ 600               	.LBE109:
+ 601               	.LBE108:
+ 118:src/i2c.c     **** 		status = i2c_write(register_address);
+ 119:src/i2c.c     **** 		if(! status) {
+ 602               		.loc 1 119 0
+ 603 01fa 8823      		tst r24
+ 604 01fc 01F0      		breq .L71
+ 605               	.LBB112:
+ 606               	.LBB113:
+  17:src/i2c.c     **** 	while(TWCR & (1<<TWSTO));
+ 607               		.loc 1 17 0
+ 608 01fe 94E9      		ldi r25,lo8(-108)
+ 609 0200 9093 BC00 		sts 188,r25
+ 610               	.L80:
+  18:src/i2c.c     **** }
+ 611               		.loc 1 18 0
+ 612 0204 9091 BC00 		lds r25,188
+ 613 0208 94FD      		sbrc r25,4
+ 614 020a 00C0      		rjmp .L80
+ 615               	.L74:
+ 616               	/* epilogue start */
+ 617               	.LBE113:
+ 618               	.LBE112:
+ 120:src/i2c.c     **** 			i2c_stop();
+ 121:src/i2c.c     **** 			
+ 122:src/i2c.c     **** 			status = i2c_start(read_address);
+ 123:src/i2c.c     **** 			if(!status) {
+ 124:src/i2c.c     **** 				uint8_t reading;
+ 125:src/i2c.c     **** 				if(ack) {
+ 126:src/i2c.c     **** 					reading = i2c_read_ack();
+ 127:src/i2c.c     **** 				} else {
+ 128:src/i2c.c     **** 					reading = i2c_read_nack();
+ 129:src/i2c.c     **** 				}
+ 130:src/i2c.c     **** 				i2c_stop();
+ 131:src/i2c.c     **** 				return reading;
+ 132:src/i2c.c     **** 			}
+ 133:src/i2c.c     **** 			
+ 134:src/i2c.c     **** 		} else {
+ 135:src/i2c.c     **** 			i2c_stop();
+ 136:src/i2c.c     **** 		}
+ 137:src/i2c.c     **** 		
+ 138:src/i2c.c     **** 	} else {
+ 139:src/i2c.c     **** 		i2c_stop();
+ 140:src/i2c.c     **** 	}
+ 141:src/i2c.c     **** 	return status;
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 15
+
+
+ 142:src/i2c.c     **** }
+ 619               		.loc 1 142 0
+ 620 020c DF91      		pop r29
+ 621               	.LVL55:
+ 622 020e CF91      		pop r28
+ 623               	.LVL56:
+ 624 0210 1F91      		pop r17
+ 625               	.LVL57:
+ 626 0212 0895      		ret
+ 627               	.LVL58:
+ 628               	.L69:
+ 629               	.LBB114:
+ 630               	.LBB115:
+  17:src/i2c.c     **** 	while(TWCR & (1<<TWSTO));
+ 631               		.loc 1 17 0
+ 632 0214 94E9      		ldi r25,lo8(-108)
+ 633 0216 9093 BC00 		sts 188,r25
+ 634               	.L81:
+  18:src/i2c.c     **** }
+ 635               		.loc 1 18 0
+ 636 021a 9091 BC00 		lds r25,188
+ 637 021e 94FD      		sbrc r25,4
+ 638 0220 00C0      		rjmp .L81
+ 639               	/* epilogue start */
+ 640               	.LBE115:
+ 641               	.LBE114:
+ 642               		.loc 1 142 0
+ 643 0222 DF91      		pop r29
+ 644               	.LVL59:
+ 645 0224 CF91      		pop r28
+ 646               	.LVL60:
+ 647 0226 1F91      		pop r17
+ 648               	.LVL61:
+ 649 0228 0895      		ret
+ 650               	.LVL62:
+ 651               	.L71:
+ 652               	.LBB116:
+ 653               	.LBB117:
+  17:src/i2c.c     **** 	while(TWCR & (1<<TWSTO));
+ 654               		.loc 1 17 0
+ 655 022a 84E9      		ldi r24,lo8(-108)
+ 656 022c 8093 BC00 		sts 188,r24
+ 657               	.L73:
+  18:src/i2c.c     **** }
+ 658               		.loc 1 18 0
+ 659 0230 8091 BC00 		lds r24,188
+ 660 0234 84FD      		sbrc r24,4
+ 661 0236 00C0      		rjmp .L73
+ 662               	.LBE117:
+ 663               	.LBE116:
+ 122:src/i2c.c     **** 			if(!status) {
+ 664               		.loc 1 122 0
+ 665 0238 8D2F      		mov r24,r29
+ 666 023a 0E94 0000 		call i2c_start
+ 667               	.LVL63:
+ 123:src/i2c.c     **** 				uint8_t reading;
+ 668               		.loc 1 123 0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 16
+
+
+ 669 023e 8111      		cpse r24,__zero_reg__
+ 670 0240 00C0      		rjmp .L74
+ 671               	.LBB118:
+ 125:src/i2c.c     **** 					reading = i2c_read_ack();
+ 672               		.loc 1 125 0
+ 673 0242 1123      		tst r17
+ 674 0244 01F0      		breq .L75
+ 675               	.LBB119:
+ 676               	.LBB120:
+  84:src/i2c.c     **** 	_wait_transmission_complete();
+ 677               		.loc 1 84 0
+ 678 0246 84EC      		ldi r24,lo8(-60)
+ 679               	.LVL64:
+ 680 0248 8093 BC00 		sts 188,r24
+ 681               	.L76:
+ 682               	.LBB121:
+ 683               	.LBB122:
+   5:src/i2c.c     **** }
+ 684               		.loc 1 5 0
+ 685 024c 8091 BC00 		lds r24,188
+ 686 0250 87FF      		sbrs r24,7
+ 687 0252 00C0      		rjmp .L76
+ 688               	.L93:
+ 689               	.LBE122:
+ 690               	.LBE121:
+ 691               	.LBE120:
+ 692               	.LBE119:
+ 693               	.LBB123:
+ 694               	.LBB124:
+  78:src/i2c.c     **** }
+ 695               		.loc 1 78 0
+ 696 0254 8091 BB00 		lds r24,187
+ 697               	.LVL65:
+ 698               	.LBE124:
+ 699               	.LBE123:
+ 700               	.LBB128:
+ 701               	.LBB129:
+  17:src/i2c.c     **** 	while(TWCR & (1<<TWSTO));
+ 702               		.loc 1 17 0
+ 703 0258 94E9      		ldi r25,lo8(-108)
+ 704 025a 9093 BC00 		sts 188,r25
+ 705               	.L79:
+  18:src/i2c.c     **** }
+ 706               		.loc 1 18 0
+ 707 025e 9091 BC00 		lds r25,188
+ 708 0262 94FD      		sbrc r25,4
+ 709 0264 00C0      		rjmp .L79
+ 710               	/* epilogue start */
+ 711               	.LBE129:
+ 712               	.LBE128:
+ 713               	.LBE118:
+ 714               		.loc 1 142 0
+ 715 0266 DF91      		pop r29
+ 716               	.LVL66:
+ 717 0268 CF91      		pop r28
+ 718               	.LVL67:
+ 719 026a 1F91      		pop r17
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 17
+
+
+ 720               	.LVL68:
+ 721 026c 0895      		ret
+ 722               	.LVL69:
+ 723               	.L75:
+ 724               	.LBB131:
+ 725               	.LBB130:
+ 726               	.LBB127:
+  75:src/i2c.c     **** 	_wait_transmission_complete();
+ 727               		.loc 1 75 0
+ 728 026e 84E8      		ldi r24,lo8(-124)
+ 729               	.LVL70:
+ 730 0270 8093 BC00 		sts 188,r24
+ 731               	.L78:
+ 732               	.LBB125:
+ 733               	.LBB126:
+   5:src/i2c.c     **** }
+ 734               		.loc 1 5 0
+ 735 0274 8091 BC00 		lds r24,188
+ 736 0278 87FF      		sbrs r24,7
+ 737 027a 00C0      		rjmp .L78
+ 738 027c 00C0      		rjmp .L93
+ 739               	.LBE126:
+ 740               	.LBE125:
+ 741               	.LBE127:
+ 742               	.LBE130:
+ 743               	.LBE131:
+ 744               		.cfi_endproc
+ 745               	.LFE8:
+ 746               		.size	i2c_read_single, .-i2c_read_single
+ 747               	.Letext0:
+ 748               		.file 2 "c:\\avr toolchain\\avr\\include\\stdint.h"
+ 749               		.section	.debug_info,"",@progbits
+ 750               	.Ldebug_info0:
+ 751 0000 0A05 0000 		.long	0x50a
+ 752 0004 0200      		.word	0x2
+ 753 0006 0000 0000 		.long	.Ldebug_abbrev0
+ 754 000a 04        		.byte	0x4
+ 755 000b 01        		.uleb128 0x1
+ 756 000c 0000 0000 		.long	.LASF27
+ 757 0010 0C        		.byte	0xc
+ 758 0011 0000 0000 		.long	.LASF28
+ 759 0015 0000 0000 		.long	.LASF29
+ 760 0019 0000 0000 		.long	.Ltext0
+ 761 001d 0000 0000 		.long	.Letext0
+ 762 0021 0000 0000 		.long	.Ldebug_line0
+ 763 0025 02        		.uleb128 0x2
+ 764 0026 01        		.byte	0x1
+ 765 0027 06        		.byte	0x6
+ 766 0028 0000 0000 		.long	.LASF0
+ 767 002c 03        		.uleb128 0x3
+ 768 002d 0000 0000 		.long	.LASF30
+ 769 0031 02        		.byte	0x2
+ 770 0032 7E        		.byte	0x7e
+ 771 0033 3700 0000 		.long	0x37
+ 772 0037 02        		.uleb128 0x2
+ 773 0038 01        		.byte	0x1
+ 774 0039 08        		.byte	0x8
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 18
+
+
+ 775 003a 0000 0000 		.long	.LASF1
+ 776 003e 04        		.uleb128 0x4
+ 777 003f 02        		.byte	0x2
+ 778 0040 05        		.byte	0x5
+ 779 0041 696E 7400 		.string	"int"
+ 780 0045 02        		.uleb128 0x2
+ 781 0046 02        		.byte	0x2
+ 782 0047 07        		.byte	0x7
+ 783 0048 0000 0000 		.long	.LASF2
+ 784 004c 02        		.uleb128 0x2
+ 785 004d 04        		.byte	0x4
+ 786 004e 05        		.byte	0x5
+ 787 004f 0000 0000 		.long	.LASF3
+ 788 0053 02        		.uleb128 0x2
+ 789 0054 04        		.byte	0x4
+ 790 0055 07        		.byte	0x7
+ 791 0056 0000 0000 		.long	.LASF4
+ 792 005a 02        		.uleb128 0x2
+ 793 005b 08        		.byte	0x8
+ 794 005c 05        		.byte	0x5
+ 795 005d 0000 0000 		.long	.LASF5
+ 796 0061 02        		.uleb128 0x2
+ 797 0062 08        		.byte	0x8
+ 798 0063 07        		.byte	0x7
+ 799 0064 0000 0000 		.long	.LASF6
+ 800 0068 05        		.uleb128 0x5
+ 801 0069 01        		.byte	0x1
+ 802 006a 0000 0000 		.long	.LASF7
+ 803 006e 01        		.byte	0x1
+ 804 006f 04        		.byte	0x4
+ 805 0070 01        		.byte	0x1
+ 806 0071 05        		.uleb128 0x5
+ 807 0072 01        		.byte	0x1
+ 808 0073 0000 0000 		.long	.LASF8
+ 809 0077 01        		.byte	0x1
+ 810 0078 10        		.byte	0x10
+ 811 0079 01        		.byte	0x1
+ 812 007a 06        		.uleb128 0x6
+ 813 007b 01        		.byte	0x1
+ 814 007c 0000 0000 		.long	.LASF9
+ 815 0080 01        		.byte	0x1
+ 816 0081 16        		.byte	0x16
+ 817 0082 01        		.byte	0x1
+ 818 0083 2C00 0000 		.long	0x2c
+ 819 0087 01        		.byte	0x1
+ 820 0088 A300 0000 		.long	0xa3
+ 821 008c 07        		.uleb128 0x7
+ 822 008d 0000 0000 		.long	.LASF11
+ 823 0091 01        		.byte	0x1
+ 824 0092 16        		.byte	0x16
+ 825 0093 2C00 0000 		.long	0x2c
+ 826 0097 08        		.uleb128 0x8
+ 827 0098 0000 0000 		.long	.LASF13
+ 828 009c 01        		.byte	0x1
+ 829 009d 17        		.byte	0x17
+ 830 009e 2C00 0000 		.long	0x2c
+ 831 00a2 00        		.byte	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 19
+
+
+ 832 00a3 06        		.uleb128 0x6
+ 833 00a4 01        		.byte	0x1
+ 834 00a5 0000 0000 		.long	.LASF10
+ 835 00a9 01        		.byte	0x1
+ 836 00aa 36        		.byte	0x36
+ 837 00ab 01        		.byte	0x1
+ 838 00ac 2C00 0000 		.long	0x2c
+ 839 00b0 01        		.byte	0x1
+ 840 00b1 CC00 0000 		.long	0xcc
+ 841 00b5 07        		.uleb128 0x7
+ 842 00b6 0000 0000 		.long	.LASF12
+ 843 00ba 01        		.byte	0x1
+ 844 00bb 36        		.byte	0x36
+ 845 00bc 2C00 0000 		.long	0x2c
+ 846 00c0 08        		.uleb128 0x8
+ 847 00c1 0000 0000 		.long	.LASF13
+ 848 00c5 01        		.byte	0x1
+ 849 00c6 37        		.byte	0x37
+ 850 00c7 2C00 0000 		.long	0x2c
+ 851 00cb 00        		.byte	0
+ 852 00cc 09        		.uleb128 0x9
+ 853 00cd 01        		.byte	0x1
+ 854 00ce 0000 0000 		.long	.LASF14
+ 855 00d2 01        		.byte	0x1
+ 856 00d3 49        		.byte	0x49
+ 857 00d4 2C00 0000 		.long	0x2c
+ 858 00d8 01        		.byte	0x1
+ 859 00d9 09        		.uleb128 0x9
+ 860 00da 01        		.byte	0x1
+ 861 00db 0000 0000 		.long	.LASF15
+ 862 00df 01        		.byte	0x1
+ 863 00e0 52        		.byte	0x52
+ 864 00e1 2C00 0000 		.long	0x2c
+ 865 00e5 01        		.byte	0x1
+ 866 00e6 0A        		.uleb128 0xa
+ 867 00e7 6800 0000 		.long	0x68
+ 868 00eb 0000 0000 		.long	.LFB0
+ 869 00ef 0000 0000 		.long	.LFE0
+ 870 00f3 03        		.byte	0x3
+ 871 00f4 92        		.byte	0x92
+ 872 00f5 20        		.uleb128 0x20
+ 873 00f6 02        		.sleb128 2
+ 874 00f7 01        		.byte	0x1
+ 875 00f8 0B        		.uleb128 0xb
+ 876 00f9 01        		.byte	0x1
+ 877 00fa 0000 0000 		.long	.LASF16
+ 878 00fe 01        		.byte	0x1
+ 879 00ff 09        		.byte	0x9
+ 880 0100 01        		.byte	0x1
+ 881 0101 0000 0000 		.long	.LFB1
+ 882 0105 0000 0000 		.long	.LFE1
+ 883 0109 03        		.byte	0x3
+ 884 010a 92        		.byte	0x92
+ 885 010b 20        		.uleb128 0x20
+ 886 010c 02        		.sleb128 2
+ 887 010d 01        		.byte	0x1
+ 888 010e 2201 0000 		.long	0x122
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 20
+
+
+ 889 0112 0C        		.uleb128 0xc
+ 890 0113 0000 0000 		.long	.LASF18
+ 891 0117 01        		.byte	0x1
+ 892 0118 09        		.byte	0x9
+ 893 0119 5300 0000 		.long	0x53
+ 894 011d 0000 0000 		.long	.LLST0
+ 895 0121 00        		.byte	0
+ 896 0122 0A        		.uleb128 0xa
+ 897 0123 7100 0000 		.long	0x71
+ 898 0127 0000 0000 		.long	.LFB2
+ 899 012b 0000 0000 		.long	.LFE2
+ 900 012f 03        		.byte	0x3
+ 901 0130 92        		.byte	0x92
+ 902 0131 20        		.uleb128 0x20
+ 903 0132 02        		.sleb128 2
+ 904 0133 01        		.byte	0x1
+ 905 0134 0D        		.uleb128 0xd
+ 906 0135 7A00 0000 		.long	0x7a
+ 907 0139 0000 0000 		.long	.LFB3
+ 908 013d 0000 0000 		.long	.LFE3
+ 909 0141 03        		.byte	0x3
+ 910 0142 92        		.byte	0x92
+ 911 0143 20        		.uleb128 0x20
+ 912 0144 02        		.sleb128 2
+ 913 0145 01        		.byte	0x1
+ 914 0146 B001 0000 		.long	0x1b0
+ 915 014a 0E        		.uleb128 0xe
+ 916 014b 8C00 0000 		.long	0x8c
+ 917 014f 0000 0000 		.long	.LLST1
+ 918 0153 0F        		.uleb128 0xf
+ 919 0154 9700 0000 		.long	0x97
+ 920 0158 0000 0000 		.long	.LLST2
+ 921 015c 10        		.uleb128 0x10
+ 922 015d 6800 0000 		.long	0x68
+ 923 0161 0000 0000 		.long	.LBB70
+ 924 0165 0000 0000 		.long	.LBE70
+ 925 0169 01        		.byte	0x1
+ 926 016a 1B        		.byte	0x1b
+ 927 016b 11        		.uleb128 0x11
+ 928 016c 0000 0000 		.long	.LBB72
+ 929 0170 0000 0000 		.long	.LBE72
+ 930 0174 0E        		.uleb128 0xe
+ 931 0175 8C00 0000 		.long	0x8c
+ 932 0179 0000 0000 		.long	.LLST3
+ 933 017d 11        		.uleb128 0x11
+ 934 017e 0000 0000 		.long	.LBB73
+ 935 0182 0000 0000 		.long	.LBE73
+ 936 0186 0F        		.uleb128 0xf
+ 937 0187 9700 0000 		.long	0x97
+ 938 018b 0000 0000 		.long	.LLST4
+ 939 018f 10        		.uleb128 0x10
+ 940 0190 6800 0000 		.long	0x68
+ 941 0194 0000 0000 		.long	.LBB74
+ 942 0198 0000 0000 		.long	.LBE74
+ 943 019c 01        		.byte	0x1
+ 944 019d 27        		.byte	0x27
+ 945 019e 10        		.uleb128 0x10
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 21
+
+
+ 946 019f 7100 0000 		.long	0x71
+ 947 01a3 0000 0000 		.long	.LBB76
+ 948 01a7 0000 0000 		.long	.LBE76
+ 949 01ab 01        		.byte	0x1
+ 950 01ac 2D        		.byte	0x2d
+ 951 01ad 00        		.byte	0
+ 952 01ae 00        		.byte	0
+ 953 01af 00        		.byte	0
+ 954 01b0 0D        		.uleb128 0xd
+ 955 01b1 A300 0000 		.long	0xa3
+ 956 01b5 0000 0000 		.long	.LFB4
+ 957 01b9 0000 0000 		.long	.LFE4
+ 958 01bd 03        		.byte	0x3
+ 959 01be 92        		.byte	0x92
+ 960 01bf 20        		.uleb128 0x20
+ 961 01c0 02        		.sleb128 2
+ 962 01c1 01        		.byte	0x1
+ 963 01c2 E801 0000 		.long	0x1e8
+ 964 01c6 0E        		.uleb128 0xe
+ 965 01c7 B500 0000 		.long	0xb5
+ 966 01cb 0000 0000 		.long	.LLST5
+ 967 01cf 0F        		.uleb128 0xf
+ 968 01d0 C000 0000 		.long	0xc0
+ 969 01d4 0000 0000 		.long	.LLST6
+ 970 01d8 10        		.uleb128 0x10
+ 971 01d9 6800 0000 		.long	0x68
+ 972 01dd 0000 0000 		.long	.LBB78
+ 973 01e1 0000 0000 		.long	.LBE78
+ 974 01e5 01        		.byte	0x1
+ 975 01e6 3C        		.byte	0x3c
+ 976 01e7 00        		.byte	0
+ 977 01e8 0D        		.uleb128 0xd
+ 978 01e9 CC00 0000 		.long	0xcc
+ 979 01ed 0000 0000 		.long	.LFB5
+ 980 01f1 0000 0000 		.long	.LFE5
+ 981 01f5 03        		.byte	0x3
+ 982 01f6 92        		.byte	0x92
+ 983 01f7 20        		.uleb128 0x20
+ 984 01f8 02        		.sleb128 2
+ 985 01f9 01        		.byte	0x1
+ 986 01fa 0E02 0000 		.long	0x20e
+ 987 01fe 10        		.uleb128 0x10
+ 988 01ff 6800 0000 		.long	0x68
+ 989 0203 0000 0000 		.long	.LBB80
+ 990 0207 0000 0000 		.long	.LBE80
+ 991 020b 01        		.byte	0x1
+ 992 020c 4C        		.byte	0x4c
+ 993 020d 00        		.byte	0
+ 994 020e 0D        		.uleb128 0xd
+ 995 020f D900 0000 		.long	0xd9
+ 996 0213 0000 0000 		.long	.LFB6
+ 997 0217 0000 0000 		.long	.LFE6
+ 998 021b 03        		.byte	0x3
+ 999 021c 92        		.byte	0x92
+ 1000 021d 20        		.uleb128 0x20
+ 1001 021e 02        		.sleb128 2
+ 1002 021f 01        		.byte	0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 22
+
+
+ 1003 0220 3402 0000 		.long	0x234
+ 1004 0224 10        		.uleb128 0x10
+ 1005 0225 6800 0000 		.long	0x68
+ 1006 0229 0000 0000 		.long	.LBB82
+ 1007 022d 0000 0000 		.long	.LBE82
+ 1008 0231 01        		.byte	0x1
+ 1009 0232 55        		.byte	0x55
+ 1010 0233 00        		.byte	0
+ 1011 0234 12        		.uleb128 0x12
+ 1012 0235 01        		.byte	0x1
+ 1013 0236 0000 0000 		.long	.LASF17
+ 1014 023a 01        		.byte	0x1
+ 1015 023b 5B        		.byte	0x5b
+ 1016 023c 01        		.byte	0x1
+ 1017 023d 0000 0000 		.long	.LFB7
+ 1018 0241 0000 0000 		.long	.LFE7
+ 1019 0245 0000 0000 		.long	.LLST7
+ 1020 0249 01        		.byte	0x1
+ 1021 024a A203 0000 		.long	0x3a2
+ 1022 024e 0C        		.uleb128 0xc
+ 1023 024f 0000 0000 		.long	.LASF19
+ 1024 0253 01        		.byte	0x1
+ 1025 0254 5B        		.byte	0x5b
+ 1026 0255 2C00 0000 		.long	0x2c
+ 1027 0259 0000 0000 		.long	.LLST8
+ 1028 025d 0C        		.uleb128 0xc
+ 1029 025e 0000 0000 		.long	.LASF20
+ 1030 0262 01        		.byte	0x1
+ 1031 0263 5B        		.byte	0x5b
+ 1032 0264 2C00 0000 		.long	0x2c
+ 1033 0268 0000 0000 		.long	.LLST9
+ 1034 026c 0C        		.uleb128 0xc
+ 1035 026d 0000 0000 		.long	.LASF21
+ 1036 0271 01        		.byte	0x1
+ 1037 0272 5B        		.byte	0x5b
+ 1038 0273 2C00 0000 		.long	0x2c
+ 1039 0277 0000 0000 		.long	.LLST10
+ 1040 027b 0C        		.uleb128 0xc
+ 1041 027c 0000 0000 		.long	.LASF22
+ 1042 0280 01        		.byte	0x1
+ 1043 0281 5B        		.byte	0x5b
+ 1044 0282 2C00 0000 		.long	0x2c
+ 1045 0286 0000 0000 		.long	.LLST11
+ 1046 028a 0C        		.uleb128 0xc
+ 1047 028b 0000 0000 		.long	.LASF23
+ 1048 028f 01        		.byte	0x1
+ 1049 0290 5B        		.byte	0x5b
+ 1050 0291 2C00 0000 		.long	0x2c
+ 1051 0295 0000 0000 		.long	.LLST12
+ 1052 0299 0C        		.uleb128 0xc
+ 1053 029a 0000 0000 		.long	.LASF24
+ 1054 029e 01        		.byte	0x1
+ 1055 029f 5B        		.byte	0x5b
+ 1056 02a0 A203 0000 		.long	0x3a2
+ 1057 02a4 0000 0000 		.long	.LLST13
+ 1058 02a8 13        		.uleb128 0x13
+ 1059 02a9 0000 0000 		.long	.LASF13
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 23
+
+
+ 1060 02ad 01        		.byte	0x1
+ 1061 02ae 5C        		.byte	0x5c
+ 1062 02af 2C00 0000 		.long	0x2c
+ 1063 02b3 0000 0000 		.long	.LLST14
+ 1064 02b7 14        		.uleb128 0x14
+ 1065 02b8 A300 0000 		.long	0xa3
+ 1066 02bc 0000 0000 		.long	.LBB84
+ 1067 02c0 0000 0000 		.long	.LBE84
+ 1068 02c4 01        		.byte	0x1
+ 1069 02c5 5E        		.byte	0x5e
+ 1070 02c6 F602 0000 		.long	0x2f6
+ 1071 02ca 0E        		.uleb128 0xe
+ 1072 02cb B500 0000 		.long	0xb5
+ 1073 02cf 0000 0000 		.long	.LLST15
+ 1074 02d3 11        		.uleb128 0x11
+ 1075 02d4 0000 0000 		.long	.LBB85
+ 1076 02d8 0000 0000 		.long	.LBE85
+ 1077 02dc 0F        		.uleb128 0xf
+ 1078 02dd C000 0000 		.long	0xc0
+ 1079 02e1 0000 0000 		.long	.LLST16
+ 1080 02e5 10        		.uleb128 0x10
+ 1081 02e6 6800 0000 		.long	0x68
+ 1082 02ea 0000 0000 		.long	.LBB86
+ 1083 02ee 0000 0000 		.long	.LBE86
+ 1084 02f2 01        		.byte	0x1
+ 1085 02f3 3C        		.byte	0x3c
+ 1086 02f4 00        		.byte	0
+ 1087 02f5 00        		.byte	0
+ 1088 02f6 10        		.uleb128 0x10
+ 1089 02f7 7100 0000 		.long	0x71
+ 1090 02fb 0000 0000 		.long	.LBB88
+ 1091 02ff 0000 0000 		.long	.LBE88
+ 1092 0303 01        		.byte	0x1
+ 1093 0304 6E        		.byte	0x6e
+ 1094 0305 15        		.uleb128 0x15
+ 1095 0306 0000 0000 		.long	.Ldebug_ranges0+0
+ 1096 030a 5E03 0000 		.long	0x35e
+ 1097 030e 16        		.uleb128 0x16
+ 1098 030f 6900      		.string	"i"
+ 1099 0311 01        		.byte	0x1
+ 1100 0312 64        		.byte	0x64
+ 1101 0313 2C00 0000 		.long	0x2c
+ 1102 0317 0000 0000 		.long	.LLST17
+ 1103 031b 17        		.uleb128 0x17
+ 1104 031c D900 0000 		.long	0xd9
+ 1105 0320 0000 0000 		.long	.LBB91
+ 1106 0324 0000 0000 		.long	.Ldebug_ranges0+0x18
+ 1107 0328 01        		.byte	0x1
+ 1108 0329 68        		.byte	0x68
+ 1109 032a 3E03 0000 		.long	0x33e
+ 1110 032e 10        		.uleb128 0x10
+ 1111 032f 6800 0000 		.long	0x68
+ 1112 0333 0000 0000 		.long	.LBB93
+ 1113 0337 0000 0000 		.long	.LBE93
+ 1114 033b 01        		.byte	0x1
+ 1115 033c 55        		.byte	0x55
+ 1116 033d 00        		.byte	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 24
+
+
+ 1117 033e 18        		.uleb128 0x18
+ 1118 033f CC00 0000 		.long	0xcc
+ 1119 0343 0000 0000 		.long	.LBB96
+ 1120 0347 0000 0000 		.long	.Ldebug_ranges0+0x30
+ 1121 034b 01        		.byte	0x1
+ 1122 034c 66        		.byte	0x66
+ 1123 034d 10        		.uleb128 0x10
+ 1124 034e 6800 0000 		.long	0x68
+ 1125 0352 0000 0000 		.long	.LBB98
+ 1126 0356 0000 0000 		.long	.LBE98
+ 1127 035a 01        		.byte	0x1
+ 1128 035b 4C        		.byte	0x4c
+ 1129 035c 00        		.byte	0
+ 1130 035d 00        		.byte	0
+ 1131 035e 10        		.uleb128 0x10
+ 1132 035f 7100 0000 		.long	0x71
+ 1133 0363 0000 0000 		.long	.LBB103
+ 1134 0367 0000 0000 		.long	.LBE103
+ 1135 036b 01        		.byte	0x1
+ 1136 036c 6B        		.byte	0x6b
+ 1137 036d 10        		.uleb128 0x10
+ 1138 036e 7100 0000 		.long	0x71
+ 1139 0372 0000 0000 		.long	.LBB106
+ 1140 0376 0000 0000 		.long	.LBE106
+ 1141 037a 01        		.byte	0x1
+ 1142 037b 61        		.byte	0x61
+ 1143 037c 19        		.uleb128 0x19
+ 1144 037d 0000 0000 		.long	.LVL19
+ 1145 0381 7A00 0000 		.long	0x7a
+ 1146 0385 9103 0000 		.long	0x391
+ 1147 0389 1A        		.uleb128 0x1a
+ 1148 038a 01        		.byte	0x1
+ 1149 038b 68        		.byte	0x68
+ 1150 038c 03        		.byte	0x3
+ 1151 038d F3        		.byte	0xf3
+ 1152 038e 01        		.uleb128 0x1
+ 1153 038f 68        		.byte	0x68
+ 1154 0390 00        		.byte	0
+ 1155 0391 1B        		.uleb128 0x1b
+ 1156 0392 0000 0000 		.long	.LVL37
+ 1157 0396 7A00 0000 		.long	0x7a
+ 1158 039a 1A        		.uleb128 0x1a
+ 1159 039b 01        		.byte	0x1
+ 1160 039c 68        		.byte	0x68
+ 1161 039d 02        		.byte	0x2
+ 1162 039e 81        		.byte	0x81
+ 1163 039f 00        		.sleb128 0
+ 1164 03a0 00        		.byte	0
+ 1165 03a1 00        		.byte	0
+ 1166 03a2 1C        		.uleb128 0x1c
+ 1167 03a3 02        		.byte	0x2
+ 1168 03a4 2C00 0000 		.long	0x2c
+ 1169 03a8 1D        		.uleb128 0x1d
+ 1170 03a9 01        		.byte	0x1
+ 1171 03aa 0000 0000 		.long	.LASF25
+ 1172 03ae 01        		.byte	0x1
+ 1173 03af 73        		.byte	0x73
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 25
+
+
+ 1174 03b0 01        		.byte	0x1
+ 1175 03b1 2C00 0000 		.long	0x2c
+ 1176 03b5 0000 0000 		.long	.LFB8
+ 1177 03b9 0000 0000 		.long	.LFE8
+ 1178 03bd 0000 0000 		.long	.LLST18
+ 1179 03c1 01        		.byte	0x1
+ 1180 03c2 0C        		.uleb128 0xc
+ 1181 03c3 0000 0000 		.long	.LASF19
+ 1182 03c7 01        		.byte	0x1
+ 1183 03c8 73        		.byte	0x73
+ 1184 03c9 2C00 0000 		.long	0x2c
+ 1185 03cd 0000 0000 		.long	.LLST19
+ 1186 03d1 0C        		.uleb128 0xc
+ 1187 03d2 0000 0000 		.long	.LASF20
+ 1188 03d6 01        		.byte	0x1
+ 1189 03d7 73        		.byte	0x73
+ 1190 03d8 2C00 0000 		.long	0x2c
+ 1191 03dc 0000 0000 		.long	.LLST20
+ 1192 03e0 0C        		.uleb128 0xc
+ 1193 03e1 0000 0000 		.long	.LASF21
+ 1194 03e5 01        		.byte	0x1
+ 1195 03e6 73        		.byte	0x73
+ 1196 03e7 2C00 0000 		.long	0x2c
+ 1197 03eb 0000 0000 		.long	.LLST21
+ 1198 03ef 1E        		.uleb128 0x1e
+ 1199 03f0 6163 6B00 		.string	"ack"
+ 1200 03f4 01        		.byte	0x1
+ 1201 03f5 73        		.byte	0x73
+ 1202 03f6 2C00 0000 		.long	0x2c
+ 1203 03fa 0000 0000 		.long	.LLST22
+ 1204 03fe 13        		.uleb128 0x13
+ 1205 03ff 0000 0000 		.long	.LASF13
+ 1206 0403 01        		.byte	0x1
+ 1207 0404 74        		.byte	0x74
+ 1208 0405 2C00 0000 		.long	0x2c
+ 1209 0409 0000 0000 		.long	.LLST23
+ 1210 040d 14        		.uleb128 0x14
+ 1211 040e A300 0000 		.long	0xa3
+ 1212 0412 0000 0000 		.long	.LBB108
+ 1213 0416 0000 0000 		.long	.LBE108
+ 1214 041a 01        		.byte	0x1
+ 1215 041b 76        		.byte	0x76
+ 1216 041c 4C04 0000 		.long	0x44c
+ 1217 0420 0E        		.uleb128 0xe
+ 1218 0421 B500 0000 		.long	0xb5
+ 1219 0425 0000 0000 		.long	.LLST24
+ 1220 0429 11        		.uleb128 0x11
+ 1221 042a 0000 0000 		.long	.LBB109
+ 1222 042e 0000 0000 		.long	.LBE109
+ 1223 0432 0F        		.uleb128 0xf
+ 1224 0433 C000 0000 		.long	0xc0
+ 1225 0437 0000 0000 		.long	.LLST25
+ 1226 043b 10        		.uleb128 0x10
+ 1227 043c 6800 0000 		.long	0x68
+ 1228 0440 0000 0000 		.long	.LBB110
+ 1229 0444 0000 0000 		.long	.LBE110
+ 1230 0448 01        		.byte	0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 26
+
+
+ 1231 0449 3C        		.byte	0x3c
+ 1232 044a 00        		.byte	0
+ 1233 044b 00        		.byte	0
+ 1234 044c 10        		.uleb128 0x10
+ 1235 044d 7100 0000 		.long	0x71
+ 1236 0451 0000 0000 		.long	.LBB112
+ 1237 0455 0000 0000 		.long	.LBE112
+ 1238 0459 01        		.byte	0x1
+ 1239 045a 87        		.byte	0x87
+ 1240 045b 10        		.uleb128 0x10
+ 1241 045c 7100 0000 		.long	0x71
+ 1242 0460 0000 0000 		.long	.LBB114
+ 1243 0464 0000 0000 		.long	.LBE114
+ 1244 0468 01        		.byte	0x1
+ 1245 0469 8B        		.byte	0x8b
+ 1246 046a 10        		.uleb128 0x10
+ 1247 046b 7100 0000 		.long	0x71
+ 1248 046f 0000 0000 		.long	.LBB116
+ 1249 0473 0000 0000 		.long	.LBE116
+ 1250 0477 01        		.byte	0x1
+ 1251 0478 78        		.byte	0x78
+ 1252 0479 15        		.uleb128 0x15
+ 1253 047a 0000 0000 		.long	.Ldebug_ranges0+0x48
+ 1254 047e E704 0000 		.long	0x4e7
+ 1255 0482 13        		.uleb128 0x13
+ 1256 0483 0000 0000 		.long	.LASF26
+ 1257 0487 01        		.byte	0x1
+ 1258 0488 7C        		.byte	0x7c
+ 1259 0489 2C00 0000 		.long	0x2c
+ 1260 048d 0000 0000 		.long	.LLST26
+ 1261 0491 14        		.uleb128 0x14
+ 1262 0492 D900 0000 		.long	0xd9
+ 1263 0496 0000 0000 		.long	.LBB119
+ 1264 049a 0000 0000 		.long	.LBE119
+ 1265 049e 01        		.byte	0x1
+ 1266 049f 7E        		.byte	0x7e
+ 1267 04a0 B404 0000 		.long	0x4b4
+ 1268 04a4 10        		.uleb128 0x10
+ 1269 04a5 6800 0000 		.long	0x68
+ 1270 04a9 0000 0000 		.long	.LBB121
+ 1271 04ad 0000 0000 		.long	.LBE121
+ 1272 04b1 01        		.byte	0x1
+ 1273 04b2 55        		.byte	0x55
+ 1274 04b3 00        		.byte	0
+ 1275 04b4 17        		.uleb128 0x17
+ 1276 04b5 CC00 0000 		.long	0xcc
+ 1277 04b9 0000 0000 		.long	.LBB123
+ 1278 04bd 0000 0000 		.long	.Ldebug_ranges0+0x60
+ 1279 04c1 01        		.byte	0x1
+ 1280 04c2 80        		.byte	0x80
+ 1281 04c3 D704 0000 		.long	0x4d7
+ 1282 04c7 10        		.uleb128 0x10
+ 1283 04c8 6800 0000 		.long	0x68
+ 1284 04cc 0000 0000 		.long	.LBB125
+ 1285 04d0 0000 0000 		.long	.LBE125
+ 1286 04d4 01        		.byte	0x1
+ 1287 04d5 4C        		.byte	0x4c
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 27
+
+
+ 1288 04d6 00        		.byte	0
+ 1289 04d7 10        		.uleb128 0x10
+ 1290 04d8 7100 0000 		.long	0x71
+ 1291 04dc 0000 0000 		.long	.LBB128
+ 1292 04e0 0000 0000 		.long	.LBE128
+ 1293 04e4 01        		.byte	0x1
+ 1294 04e5 82        		.byte	0x82
+ 1295 04e6 00        		.byte	0
+ 1296 04e7 19        		.uleb128 0x19
+ 1297 04e8 0000 0000 		.long	.LVL50
+ 1298 04ec 7A00 0000 		.long	0x7a
+ 1299 04f0 FC04 0000 		.long	0x4fc
+ 1300 04f4 1A        		.uleb128 0x1a
+ 1301 04f5 01        		.byte	0x1
+ 1302 04f6 68        		.byte	0x68
+ 1303 04f7 03        		.byte	0x3
+ 1304 04f8 F3        		.byte	0xf3
+ 1305 04f9 01        		.uleb128 0x1
+ 1306 04fa 68        		.byte	0x68
+ 1307 04fb 00        		.byte	0
+ 1308 04fc 1B        		.uleb128 0x1b
+ 1309 04fd 0000 0000 		.long	.LVL63
+ 1310 0501 7A00 0000 		.long	0x7a
+ 1311 0505 1A        		.uleb128 0x1a
+ 1312 0506 01        		.byte	0x1
+ 1313 0507 68        		.byte	0x68
+ 1314 0508 02        		.byte	0x2
+ 1315 0509 8D        		.byte	0x8d
+ 1316 050a 00        		.sleb128 0
+ 1317 050b 00        		.byte	0
+ 1318 050c 00        		.byte	0
+ 1319 050d 00        		.byte	0
+ 1320               		.section	.debug_abbrev,"",@progbits
+ 1321               	.Ldebug_abbrev0:
+ 1322 0000 01        		.uleb128 0x1
+ 1323 0001 11        		.uleb128 0x11
+ 1324 0002 01        		.byte	0x1
+ 1325 0003 25        		.uleb128 0x25
+ 1326 0004 0E        		.uleb128 0xe
+ 1327 0005 13        		.uleb128 0x13
+ 1328 0006 0B        		.uleb128 0xb
+ 1329 0007 03        		.uleb128 0x3
+ 1330 0008 0E        		.uleb128 0xe
+ 1331 0009 1B        		.uleb128 0x1b
+ 1332 000a 0E        		.uleb128 0xe
+ 1333 000b 11        		.uleb128 0x11
+ 1334 000c 01        		.uleb128 0x1
+ 1335 000d 12        		.uleb128 0x12
+ 1336 000e 01        		.uleb128 0x1
+ 1337 000f 10        		.uleb128 0x10
+ 1338 0010 06        		.uleb128 0x6
+ 1339 0011 00        		.byte	0
+ 1340 0012 00        		.byte	0
+ 1341 0013 02        		.uleb128 0x2
+ 1342 0014 24        		.uleb128 0x24
+ 1343 0015 00        		.byte	0
+ 1344 0016 0B        		.uleb128 0xb
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 28
+
+
+ 1345 0017 0B        		.uleb128 0xb
+ 1346 0018 3E        		.uleb128 0x3e
+ 1347 0019 0B        		.uleb128 0xb
+ 1348 001a 03        		.uleb128 0x3
+ 1349 001b 0E        		.uleb128 0xe
+ 1350 001c 00        		.byte	0
+ 1351 001d 00        		.byte	0
+ 1352 001e 03        		.uleb128 0x3
+ 1353 001f 16        		.uleb128 0x16
+ 1354 0020 00        		.byte	0
+ 1355 0021 03        		.uleb128 0x3
+ 1356 0022 0E        		.uleb128 0xe
+ 1357 0023 3A        		.uleb128 0x3a
+ 1358 0024 0B        		.uleb128 0xb
+ 1359 0025 3B        		.uleb128 0x3b
+ 1360 0026 0B        		.uleb128 0xb
+ 1361 0027 49        		.uleb128 0x49
+ 1362 0028 13        		.uleb128 0x13
+ 1363 0029 00        		.byte	0
+ 1364 002a 00        		.byte	0
+ 1365 002b 04        		.uleb128 0x4
+ 1366 002c 24        		.uleb128 0x24
+ 1367 002d 00        		.byte	0
+ 1368 002e 0B        		.uleb128 0xb
+ 1369 002f 0B        		.uleb128 0xb
+ 1370 0030 3E        		.uleb128 0x3e
+ 1371 0031 0B        		.uleb128 0xb
+ 1372 0032 03        		.uleb128 0x3
+ 1373 0033 08        		.uleb128 0x8
+ 1374 0034 00        		.byte	0
+ 1375 0035 00        		.byte	0
+ 1376 0036 05        		.uleb128 0x5
+ 1377 0037 2E        		.uleb128 0x2e
+ 1378 0038 00        		.byte	0
+ 1379 0039 3F        		.uleb128 0x3f
+ 1380 003a 0C        		.uleb128 0xc
+ 1381 003b 03        		.uleb128 0x3
+ 1382 003c 0E        		.uleb128 0xe
+ 1383 003d 3A        		.uleb128 0x3a
+ 1384 003e 0B        		.uleb128 0xb
+ 1385 003f 3B        		.uleb128 0x3b
+ 1386 0040 0B        		.uleb128 0xb
+ 1387 0041 20        		.uleb128 0x20
+ 1388 0042 0B        		.uleb128 0xb
+ 1389 0043 00        		.byte	0
+ 1390 0044 00        		.byte	0
+ 1391 0045 06        		.uleb128 0x6
+ 1392 0046 2E        		.uleb128 0x2e
+ 1393 0047 01        		.byte	0x1
+ 1394 0048 3F        		.uleb128 0x3f
+ 1395 0049 0C        		.uleb128 0xc
+ 1396 004a 03        		.uleb128 0x3
+ 1397 004b 0E        		.uleb128 0xe
+ 1398 004c 3A        		.uleb128 0x3a
+ 1399 004d 0B        		.uleb128 0xb
+ 1400 004e 3B        		.uleb128 0x3b
+ 1401 004f 0B        		.uleb128 0xb
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 29
+
+
+ 1402 0050 27        		.uleb128 0x27
+ 1403 0051 0C        		.uleb128 0xc
+ 1404 0052 49        		.uleb128 0x49
+ 1405 0053 13        		.uleb128 0x13
+ 1406 0054 20        		.uleb128 0x20
+ 1407 0055 0B        		.uleb128 0xb
+ 1408 0056 01        		.uleb128 0x1
+ 1409 0057 13        		.uleb128 0x13
+ 1410 0058 00        		.byte	0
+ 1411 0059 00        		.byte	0
+ 1412 005a 07        		.uleb128 0x7
+ 1413 005b 05        		.uleb128 0x5
+ 1414 005c 00        		.byte	0
+ 1415 005d 03        		.uleb128 0x3
+ 1416 005e 0E        		.uleb128 0xe
+ 1417 005f 3A        		.uleb128 0x3a
+ 1418 0060 0B        		.uleb128 0xb
+ 1419 0061 3B        		.uleb128 0x3b
+ 1420 0062 0B        		.uleb128 0xb
+ 1421 0063 49        		.uleb128 0x49
+ 1422 0064 13        		.uleb128 0x13
+ 1423 0065 00        		.byte	0
+ 1424 0066 00        		.byte	0
+ 1425 0067 08        		.uleb128 0x8
+ 1426 0068 34        		.uleb128 0x34
+ 1427 0069 00        		.byte	0
+ 1428 006a 03        		.uleb128 0x3
+ 1429 006b 0E        		.uleb128 0xe
+ 1430 006c 3A        		.uleb128 0x3a
+ 1431 006d 0B        		.uleb128 0xb
+ 1432 006e 3B        		.uleb128 0x3b
+ 1433 006f 0B        		.uleb128 0xb
+ 1434 0070 49        		.uleb128 0x49
+ 1435 0071 13        		.uleb128 0x13
+ 1436 0072 00        		.byte	0
+ 1437 0073 00        		.byte	0
+ 1438 0074 09        		.uleb128 0x9
+ 1439 0075 2E        		.uleb128 0x2e
+ 1440 0076 00        		.byte	0
+ 1441 0077 3F        		.uleb128 0x3f
+ 1442 0078 0C        		.uleb128 0xc
+ 1443 0079 03        		.uleb128 0x3
+ 1444 007a 0E        		.uleb128 0xe
+ 1445 007b 3A        		.uleb128 0x3a
+ 1446 007c 0B        		.uleb128 0xb
+ 1447 007d 3B        		.uleb128 0x3b
+ 1448 007e 0B        		.uleb128 0xb
+ 1449 007f 49        		.uleb128 0x49
+ 1450 0080 13        		.uleb128 0x13
+ 1451 0081 20        		.uleb128 0x20
+ 1452 0082 0B        		.uleb128 0xb
+ 1453 0083 00        		.byte	0
+ 1454 0084 00        		.byte	0
+ 1455 0085 0A        		.uleb128 0xa
+ 1456 0086 2E        		.uleb128 0x2e
+ 1457 0087 00        		.byte	0
+ 1458 0088 31        		.uleb128 0x31
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 30
+
+
+ 1459 0089 13        		.uleb128 0x13
+ 1460 008a 11        		.uleb128 0x11
+ 1461 008b 01        		.uleb128 0x1
+ 1462 008c 12        		.uleb128 0x12
+ 1463 008d 01        		.uleb128 0x1
+ 1464 008e 40        		.uleb128 0x40
+ 1465 008f 0A        		.uleb128 0xa
+ 1466 0090 9742      		.uleb128 0x2117
+ 1467 0092 0C        		.uleb128 0xc
+ 1468 0093 00        		.byte	0
+ 1469 0094 00        		.byte	0
+ 1470 0095 0B        		.uleb128 0xb
+ 1471 0096 2E        		.uleb128 0x2e
+ 1472 0097 01        		.byte	0x1
+ 1473 0098 3F        		.uleb128 0x3f
+ 1474 0099 0C        		.uleb128 0xc
+ 1475 009a 03        		.uleb128 0x3
+ 1476 009b 0E        		.uleb128 0xe
+ 1477 009c 3A        		.uleb128 0x3a
+ 1478 009d 0B        		.uleb128 0xb
+ 1479 009e 3B        		.uleb128 0x3b
+ 1480 009f 0B        		.uleb128 0xb
+ 1481 00a0 27        		.uleb128 0x27
+ 1482 00a1 0C        		.uleb128 0xc
+ 1483 00a2 11        		.uleb128 0x11
+ 1484 00a3 01        		.uleb128 0x1
+ 1485 00a4 12        		.uleb128 0x12
+ 1486 00a5 01        		.uleb128 0x1
+ 1487 00a6 40        		.uleb128 0x40
+ 1488 00a7 0A        		.uleb128 0xa
+ 1489 00a8 9742      		.uleb128 0x2117
+ 1490 00aa 0C        		.uleb128 0xc
+ 1491 00ab 01        		.uleb128 0x1
+ 1492 00ac 13        		.uleb128 0x13
+ 1493 00ad 00        		.byte	0
+ 1494 00ae 00        		.byte	0
+ 1495 00af 0C        		.uleb128 0xc
+ 1496 00b0 05        		.uleb128 0x5
+ 1497 00b1 00        		.byte	0
+ 1498 00b2 03        		.uleb128 0x3
+ 1499 00b3 0E        		.uleb128 0xe
+ 1500 00b4 3A        		.uleb128 0x3a
+ 1501 00b5 0B        		.uleb128 0xb
+ 1502 00b6 3B        		.uleb128 0x3b
+ 1503 00b7 0B        		.uleb128 0xb
+ 1504 00b8 49        		.uleb128 0x49
+ 1505 00b9 13        		.uleb128 0x13
+ 1506 00ba 02        		.uleb128 0x2
+ 1507 00bb 06        		.uleb128 0x6
+ 1508 00bc 00        		.byte	0
+ 1509 00bd 00        		.byte	0
+ 1510 00be 0D        		.uleb128 0xd
+ 1511 00bf 2E        		.uleb128 0x2e
+ 1512 00c0 01        		.byte	0x1
+ 1513 00c1 31        		.uleb128 0x31
+ 1514 00c2 13        		.uleb128 0x13
+ 1515 00c3 11        		.uleb128 0x11
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 31
+
+
+ 1516 00c4 01        		.uleb128 0x1
+ 1517 00c5 12        		.uleb128 0x12
+ 1518 00c6 01        		.uleb128 0x1
+ 1519 00c7 40        		.uleb128 0x40
+ 1520 00c8 0A        		.uleb128 0xa
+ 1521 00c9 9742      		.uleb128 0x2117
+ 1522 00cb 0C        		.uleb128 0xc
+ 1523 00cc 01        		.uleb128 0x1
+ 1524 00cd 13        		.uleb128 0x13
+ 1525 00ce 00        		.byte	0
+ 1526 00cf 00        		.byte	0
+ 1527 00d0 0E        		.uleb128 0xe
+ 1528 00d1 05        		.uleb128 0x5
+ 1529 00d2 00        		.byte	0
+ 1530 00d3 31        		.uleb128 0x31
+ 1531 00d4 13        		.uleb128 0x13
+ 1532 00d5 02        		.uleb128 0x2
+ 1533 00d6 06        		.uleb128 0x6
+ 1534 00d7 00        		.byte	0
+ 1535 00d8 00        		.byte	0
+ 1536 00d9 0F        		.uleb128 0xf
+ 1537 00da 34        		.uleb128 0x34
+ 1538 00db 00        		.byte	0
+ 1539 00dc 31        		.uleb128 0x31
+ 1540 00dd 13        		.uleb128 0x13
+ 1541 00de 02        		.uleb128 0x2
+ 1542 00df 06        		.uleb128 0x6
+ 1543 00e0 00        		.byte	0
+ 1544 00e1 00        		.byte	0
+ 1545 00e2 10        		.uleb128 0x10
+ 1546 00e3 1D        		.uleb128 0x1d
+ 1547 00e4 00        		.byte	0
+ 1548 00e5 31        		.uleb128 0x31
+ 1549 00e6 13        		.uleb128 0x13
+ 1550 00e7 11        		.uleb128 0x11
+ 1551 00e8 01        		.uleb128 0x1
+ 1552 00e9 12        		.uleb128 0x12
+ 1553 00ea 01        		.uleb128 0x1
+ 1554 00eb 58        		.uleb128 0x58
+ 1555 00ec 0B        		.uleb128 0xb
+ 1556 00ed 59        		.uleb128 0x59
+ 1557 00ee 0B        		.uleb128 0xb
+ 1558 00ef 00        		.byte	0
+ 1559 00f0 00        		.byte	0
+ 1560 00f1 11        		.uleb128 0x11
+ 1561 00f2 0B        		.uleb128 0xb
+ 1562 00f3 01        		.byte	0x1
+ 1563 00f4 11        		.uleb128 0x11
+ 1564 00f5 01        		.uleb128 0x1
+ 1565 00f6 12        		.uleb128 0x12
+ 1566 00f7 01        		.uleb128 0x1
+ 1567 00f8 00        		.byte	0
+ 1568 00f9 00        		.byte	0
+ 1569 00fa 12        		.uleb128 0x12
+ 1570 00fb 2E        		.uleb128 0x2e
+ 1571 00fc 01        		.byte	0x1
+ 1572 00fd 3F        		.uleb128 0x3f
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 32
+
+
+ 1573 00fe 0C        		.uleb128 0xc
+ 1574 00ff 03        		.uleb128 0x3
+ 1575 0100 0E        		.uleb128 0xe
+ 1576 0101 3A        		.uleb128 0x3a
+ 1577 0102 0B        		.uleb128 0xb
+ 1578 0103 3B        		.uleb128 0x3b
+ 1579 0104 0B        		.uleb128 0xb
+ 1580 0105 27        		.uleb128 0x27
+ 1581 0106 0C        		.uleb128 0xc
+ 1582 0107 11        		.uleb128 0x11
+ 1583 0108 01        		.uleb128 0x1
+ 1584 0109 12        		.uleb128 0x12
+ 1585 010a 01        		.uleb128 0x1
+ 1586 010b 40        		.uleb128 0x40
+ 1587 010c 06        		.uleb128 0x6
+ 1588 010d 9742      		.uleb128 0x2117
+ 1589 010f 0C        		.uleb128 0xc
+ 1590 0110 01        		.uleb128 0x1
+ 1591 0111 13        		.uleb128 0x13
+ 1592 0112 00        		.byte	0
+ 1593 0113 00        		.byte	0
+ 1594 0114 13        		.uleb128 0x13
+ 1595 0115 34        		.uleb128 0x34
+ 1596 0116 00        		.byte	0
+ 1597 0117 03        		.uleb128 0x3
+ 1598 0118 0E        		.uleb128 0xe
+ 1599 0119 3A        		.uleb128 0x3a
+ 1600 011a 0B        		.uleb128 0xb
+ 1601 011b 3B        		.uleb128 0x3b
+ 1602 011c 0B        		.uleb128 0xb
+ 1603 011d 49        		.uleb128 0x49
+ 1604 011e 13        		.uleb128 0x13
+ 1605 011f 02        		.uleb128 0x2
+ 1606 0120 06        		.uleb128 0x6
+ 1607 0121 00        		.byte	0
+ 1608 0122 00        		.byte	0
+ 1609 0123 14        		.uleb128 0x14
+ 1610 0124 1D        		.uleb128 0x1d
+ 1611 0125 01        		.byte	0x1
+ 1612 0126 31        		.uleb128 0x31
+ 1613 0127 13        		.uleb128 0x13
+ 1614 0128 11        		.uleb128 0x11
+ 1615 0129 01        		.uleb128 0x1
+ 1616 012a 12        		.uleb128 0x12
+ 1617 012b 01        		.uleb128 0x1
+ 1618 012c 58        		.uleb128 0x58
+ 1619 012d 0B        		.uleb128 0xb
+ 1620 012e 59        		.uleb128 0x59
+ 1621 012f 0B        		.uleb128 0xb
+ 1622 0130 01        		.uleb128 0x1
+ 1623 0131 13        		.uleb128 0x13
+ 1624 0132 00        		.byte	0
+ 1625 0133 00        		.byte	0
+ 1626 0134 15        		.uleb128 0x15
+ 1627 0135 0B        		.uleb128 0xb
+ 1628 0136 01        		.byte	0x1
+ 1629 0137 55        		.uleb128 0x55
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 33
+
+
+ 1630 0138 06        		.uleb128 0x6
+ 1631 0139 01        		.uleb128 0x1
+ 1632 013a 13        		.uleb128 0x13
+ 1633 013b 00        		.byte	0
+ 1634 013c 00        		.byte	0
+ 1635 013d 16        		.uleb128 0x16
+ 1636 013e 34        		.uleb128 0x34
+ 1637 013f 00        		.byte	0
+ 1638 0140 03        		.uleb128 0x3
+ 1639 0141 08        		.uleb128 0x8
+ 1640 0142 3A        		.uleb128 0x3a
+ 1641 0143 0B        		.uleb128 0xb
+ 1642 0144 3B        		.uleb128 0x3b
+ 1643 0145 0B        		.uleb128 0xb
+ 1644 0146 49        		.uleb128 0x49
+ 1645 0147 13        		.uleb128 0x13
+ 1646 0148 02        		.uleb128 0x2
+ 1647 0149 06        		.uleb128 0x6
+ 1648 014a 00        		.byte	0
+ 1649 014b 00        		.byte	0
+ 1650 014c 17        		.uleb128 0x17
+ 1651 014d 1D        		.uleb128 0x1d
+ 1652 014e 01        		.byte	0x1
+ 1653 014f 31        		.uleb128 0x31
+ 1654 0150 13        		.uleb128 0x13
+ 1655 0151 52        		.uleb128 0x52
+ 1656 0152 01        		.uleb128 0x1
+ 1657 0153 55        		.uleb128 0x55
+ 1658 0154 06        		.uleb128 0x6
+ 1659 0155 58        		.uleb128 0x58
+ 1660 0156 0B        		.uleb128 0xb
+ 1661 0157 59        		.uleb128 0x59
+ 1662 0158 0B        		.uleb128 0xb
+ 1663 0159 01        		.uleb128 0x1
+ 1664 015a 13        		.uleb128 0x13
+ 1665 015b 00        		.byte	0
+ 1666 015c 00        		.byte	0
+ 1667 015d 18        		.uleb128 0x18
+ 1668 015e 1D        		.uleb128 0x1d
+ 1669 015f 01        		.byte	0x1
+ 1670 0160 31        		.uleb128 0x31
+ 1671 0161 13        		.uleb128 0x13
+ 1672 0162 52        		.uleb128 0x52
+ 1673 0163 01        		.uleb128 0x1
+ 1674 0164 55        		.uleb128 0x55
+ 1675 0165 06        		.uleb128 0x6
+ 1676 0166 58        		.uleb128 0x58
+ 1677 0167 0B        		.uleb128 0xb
+ 1678 0168 59        		.uleb128 0x59
+ 1679 0169 0B        		.uleb128 0xb
+ 1680 016a 00        		.byte	0
+ 1681 016b 00        		.byte	0
+ 1682 016c 19        		.uleb128 0x19
+ 1683 016d 8982 01   		.uleb128 0x4109
+ 1684 0170 01        		.byte	0x1
+ 1685 0171 11        		.uleb128 0x11
+ 1686 0172 01        		.uleb128 0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 34
+
+
+ 1687 0173 31        		.uleb128 0x31
+ 1688 0174 13        		.uleb128 0x13
+ 1689 0175 01        		.uleb128 0x1
+ 1690 0176 13        		.uleb128 0x13
+ 1691 0177 00        		.byte	0
+ 1692 0178 00        		.byte	0
+ 1693 0179 1A        		.uleb128 0x1a
+ 1694 017a 8A82 01   		.uleb128 0x410a
+ 1695 017d 00        		.byte	0
+ 1696 017e 02        		.uleb128 0x2
+ 1697 017f 0A        		.uleb128 0xa
+ 1698 0180 9142      		.uleb128 0x2111
+ 1699 0182 0A        		.uleb128 0xa
+ 1700 0183 00        		.byte	0
+ 1701 0184 00        		.byte	0
+ 1702 0185 1B        		.uleb128 0x1b
+ 1703 0186 8982 01   		.uleb128 0x4109
+ 1704 0189 01        		.byte	0x1
+ 1705 018a 11        		.uleb128 0x11
+ 1706 018b 01        		.uleb128 0x1
+ 1707 018c 31        		.uleb128 0x31
+ 1708 018d 13        		.uleb128 0x13
+ 1709 018e 00        		.byte	0
+ 1710 018f 00        		.byte	0
+ 1711 0190 1C        		.uleb128 0x1c
+ 1712 0191 0F        		.uleb128 0xf
+ 1713 0192 00        		.byte	0
+ 1714 0193 0B        		.uleb128 0xb
+ 1715 0194 0B        		.uleb128 0xb
+ 1716 0195 49        		.uleb128 0x49
+ 1717 0196 13        		.uleb128 0x13
+ 1718 0197 00        		.byte	0
+ 1719 0198 00        		.byte	0
+ 1720 0199 1D        		.uleb128 0x1d
+ 1721 019a 2E        		.uleb128 0x2e
+ 1722 019b 01        		.byte	0x1
+ 1723 019c 3F        		.uleb128 0x3f
+ 1724 019d 0C        		.uleb128 0xc
+ 1725 019e 03        		.uleb128 0x3
+ 1726 019f 0E        		.uleb128 0xe
+ 1727 01a0 3A        		.uleb128 0x3a
+ 1728 01a1 0B        		.uleb128 0xb
+ 1729 01a2 3B        		.uleb128 0x3b
+ 1730 01a3 0B        		.uleb128 0xb
+ 1731 01a4 27        		.uleb128 0x27
+ 1732 01a5 0C        		.uleb128 0xc
+ 1733 01a6 49        		.uleb128 0x49
+ 1734 01a7 13        		.uleb128 0x13
+ 1735 01a8 11        		.uleb128 0x11
+ 1736 01a9 01        		.uleb128 0x1
+ 1737 01aa 12        		.uleb128 0x12
+ 1738 01ab 01        		.uleb128 0x1
+ 1739 01ac 40        		.uleb128 0x40
+ 1740 01ad 06        		.uleb128 0x6
+ 1741 01ae 9742      		.uleb128 0x2117
+ 1742 01b0 0C        		.uleb128 0xc
+ 1743 01b1 00        		.byte	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 35
+
+
+ 1744 01b2 00        		.byte	0
+ 1745 01b3 1E        		.uleb128 0x1e
+ 1746 01b4 05        		.uleb128 0x5
+ 1747 01b5 00        		.byte	0
+ 1748 01b6 03        		.uleb128 0x3
+ 1749 01b7 08        		.uleb128 0x8
+ 1750 01b8 3A        		.uleb128 0x3a
+ 1751 01b9 0B        		.uleb128 0xb
+ 1752 01ba 3B        		.uleb128 0x3b
+ 1753 01bb 0B        		.uleb128 0xb
+ 1754 01bc 49        		.uleb128 0x49
+ 1755 01bd 13        		.uleb128 0x13
+ 1756 01be 02        		.uleb128 0x2
+ 1757 01bf 06        		.uleb128 0x6
+ 1758 01c0 00        		.byte	0
+ 1759 01c1 00        		.byte	0
+ 1760 01c2 00        		.byte	0
+ 1761               		.section	.debug_loc,"",@progbits
+ 1762               	.Ldebug_loc0:
+ 1763               	.LLST0:
+ 1764 0000 0A00 0000 		.long	.LVL0-.Ltext0
+ 1765 0004 1A00 0000 		.long	.LVL1-.Ltext0
+ 1766 0008 0C00      		.word	0xc
+ 1767 000a 66        		.byte	0x66
+ 1768 000b 93        		.byte	0x93
+ 1769 000c 01        		.uleb128 0x1
+ 1770 000d 67        		.byte	0x67
+ 1771 000e 93        		.byte	0x93
+ 1772 000f 01        		.uleb128 0x1
+ 1773 0010 68        		.byte	0x68
+ 1774 0011 93        		.byte	0x93
+ 1775 0012 01        		.uleb128 0x1
+ 1776 0013 69        		.byte	0x69
+ 1777 0014 93        		.byte	0x93
+ 1778 0015 01        		.uleb128 0x1
+ 1779 0016 1A00 0000 		.long	.LVL1-.Ltext0
+ 1780 001a 1E00 0000 		.long	.LVL2-.Ltext0
+ 1781 001e 0C00      		.word	0xc
+ 1782 0020 62        		.byte	0x62
+ 1783 0021 93        		.byte	0x93
+ 1784 0022 01        		.uleb128 0x1
+ 1785 0023 63        		.byte	0x63
+ 1786 0024 93        		.byte	0x93
+ 1787 0025 01        		.uleb128 0x1
+ 1788 0026 64        		.byte	0x64
+ 1789 0027 93        		.byte	0x93
+ 1790 0028 01        		.uleb128 0x1
+ 1791 0029 65        		.byte	0x65
+ 1792 002a 93        		.byte	0x93
+ 1793 002b 01        		.uleb128 0x1
+ 1794 002c 1E00 0000 		.long	.LVL2-.Ltext0
+ 1795 0030 3C00 0000 		.long	.LFE1-.Ltext0
+ 1796 0034 0400      		.word	0x4
+ 1797 0036 F3        		.byte	0xf3
+ 1798 0037 01        		.uleb128 0x1
+ 1799 0038 66        		.byte	0x66
+ 1800 0039 9F        		.byte	0x9f
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 36
+
+
+ 1801 003a 0000 0000 		.long	0
+ 1802 003e 0000 0000 		.long	0
+ 1803               	.LLST1:
+ 1804 0042 4C00 0000 		.long	.LVL3-.Ltext0
+ 1805 0046 6A00 0000 		.long	.LVL5-.Ltext0
+ 1806 004a 0100      		.word	0x1
+ 1807 004c 68        		.byte	0x68
+ 1808 004d 6A00 0000 		.long	.LVL5-.Ltext0
+ 1809 0051 6C00 0000 		.long	.LVL6-.Ltext0
+ 1810 0055 0400      		.word	0x4
+ 1811 0057 F3        		.byte	0xf3
+ 1812 0058 01        		.uleb128 0x1
+ 1813 0059 68        		.byte	0x68
+ 1814 005a 9F        		.byte	0x9f
+ 1815 005b 6C00 0000 		.long	.LVL6-.Ltext0
+ 1816 005f 7200 0000 		.long	.LVL7-.Ltext0
+ 1817 0063 0100      		.word	0x1
+ 1818 0065 68        		.byte	0x68
+ 1819 0066 7200 0000 		.long	.LVL7-.Ltext0
+ 1820 006a 7600 0000 		.long	.LVL8-.Ltext0
+ 1821 006e 0200      		.word	0x2
+ 1822 0070 08        		.byte	0x8
+ 1823 0071 BB        		.byte	0xbb
+ 1824 0072 7600 0000 		.long	.LVL8-.Ltext0
+ 1825 0076 A000 0000 		.long	.LFE3-.Ltext0
+ 1826 007a 0400      		.word	0x4
+ 1827 007c F3        		.byte	0xf3
+ 1828 007d 01        		.uleb128 0x1
+ 1829 007e 68        		.byte	0x68
+ 1830 007f 9F        		.byte	0x9f
+ 1831 0080 0000 0000 		.long	0
+ 1832 0084 0000 0000 		.long	0
+ 1833               	.LLST2:
+ 1834 0088 6000 0000 		.long	.LVL4-.Ltext0
+ 1835 008c 8E00 0000 		.long	.LVL10-.Ltext0
+ 1836 0090 0100      		.word	0x1
+ 1837 0092 69        		.byte	0x69
+ 1838 0093 9C00 0000 		.long	.LVL11-.Ltext0
+ 1839 0097 A000 0000 		.long	.LFE3-.Ltext0
+ 1840 009b 0100      		.word	0x1
+ 1841 009d 69        		.byte	0x69
+ 1842 009e 0000 0000 		.long	0
+ 1843 00a2 0000 0000 		.long	0
+ 1844               	.LLST3:
+ 1845 00a6 6C00 0000 		.long	.LVL6-.Ltext0
+ 1846 00aa 7200 0000 		.long	.LVL7-.Ltext0
+ 1847 00ae 0100      		.word	0x1
+ 1848 00b0 68        		.byte	0x68
+ 1849 00b1 7200 0000 		.long	.LVL7-.Ltext0
+ 1850 00b5 7600 0000 		.long	.LVL8-.Ltext0
+ 1851 00b9 0200      		.word	0x2
+ 1852 00bb 08        		.byte	0x8
+ 1853 00bc BB        		.byte	0xbb
+ 1854 00bd 7600 0000 		.long	.LVL8-.Ltext0
+ 1855 00c1 A000 0000 		.long	.LFE3-.Ltext0
+ 1856 00c5 0400      		.word	0x4
+ 1857 00c7 F3        		.byte	0xf3
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 37
+
+
+ 1858 00c8 01        		.uleb128 0x1
+ 1859 00c9 68        		.byte	0x68
+ 1860 00ca 9F        		.byte	0x9f
+ 1861 00cb 0000 0000 		.long	0
+ 1862 00cf 0000 0000 		.long	0
+ 1863               	.LLST4:
+ 1864 00d3 8400 0000 		.long	.LVL9-.Ltext0
+ 1865 00d7 9E00 0000 		.long	.LVL12-.Ltext0
+ 1866 00db 0100      		.word	0x1
+ 1867 00dd 68        		.byte	0x68
+ 1868 00de 0000 0000 		.long	0
+ 1869 00e2 0000 0000 		.long	0
+ 1870               	.LLST5:
+ 1871 00e6 A000 0000 		.long	.LVL13-.Ltext0
+ 1872 00ea A600 0000 		.long	.LVL14-.Ltext0
+ 1873 00ee 0100      		.word	0x1
+ 1874 00f0 68        		.byte	0x68
+ 1875 00f1 A600 0000 		.long	.LVL14-.Ltext0
+ 1876 00f5 AA00 0000 		.long	.LVL15-.Ltext0
+ 1877 00f9 0200      		.word	0x2
+ 1878 00fb 08        		.byte	0x8
+ 1879 00fc BB        		.byte	0xbb
+ 1880 00fd AA00 0000 		.long	.LVL15-.Ltext0
+ 1881 0101 C200 0000 		.long	.LFE4-.Ltext0
+ 1882 0105 0400      		.word	0x4
+ 1883 0107 F3        		.byte	0xf3
+ 1884 0108 01        		.uleb128 0x1
+ 1885 0109 68        		.byte	0x68
+ 1886 010a 9F        		.byte	0x9f
+ 1887 010b 0000 0000 		.long	0
+ 1888 010f 0000 0000 		.long	0
+ 1889               	.LLST6:
+ 1890 0113 B800 0000 		.long	.LVL16-.Ltext0
+ 1891 0117 C000 0000 		.long	.LVL17-.Ltext0
+ 1892 011b 0100      		.word	0x1
+ 1893 011d 68        		.byte	0x68
+ 1894 011e 0000 0000 		.long	0
+ 1895 0122 0000 0000 		.long	0
+ 1896               	.LLST7:
+ 1897 0126 EA00 0000 		.long	.LFB7-.Ltext0
+ 1898 012a EC00 0000 		.long	.LCFI0-.Ltext0
+ 1899 012e 0300      		.word	0x3
+ 1900 0130 92        		.byte	0x92
+ 1901 0131 20        		.uleb128 0x20
+ 1902 0132 02        		.sleb128 2
+ 1903 0133 EC00 0000 		.long	.LCFI0-.Ltext0
+ 1904 0137 EE00 0000 		.long	.LCFI1-.Ltext0
+ 1905 013b 0300      		.word	0x3
+ 1906 013d 92        		.byte	0x92
+ 1907 013e 20        		.uleb128 0x20
+ 1908 013f 03        		.sleb128 3
+ 1909 0140 EE00 0000 		.long	.LCFI1-.Ltext0
+ 1910 0144 F000 0000 		.long	.LCFI2-.Ltext0
+ 1911 0148 0300      		.word	0x3
+ 1912 014a 92        		.byte	0x92
+ 1913 014b 20        		.uleb128 0x20
+ 1914 014c 04        		.sleb128 4
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 38
+
+
+ 1915 014d F000 0000 		.long	.LCFI2-.Ltext0
+ 1916 0151 F200 0000 		.long	.LCFI3-.Ltext0
+ 1917 0155 0300      		.word	0x3
+ 1918 0157 92        		.byte	0x92
+ 1919 0158 20        		.uleb128 0x20
+ 1920 0159 05        		.sleb128 5
+ 1921 015a F200 0000 		.long	.LCFI3-.Ltext0
+ 1922 015e F400 0000 		.long	.LCFI4-.Ltext0
+ 1923 0162 0300      		.word	0x3
+ 1924 0164 92        		.byte	0x92
+ 1925 0165 20        		.uleb128 0x20
+ 1926 0166 06        		.sleb128 6
+ 1927 0167 F400 0000 		.long	.LCFI4-.Ltext0
+ 1928 016b F600 0000 		.long	.LCFI5-.Ltext0
+ 1929 016f 0300      		.word	0x3
+ 1930 0171 92        		.byte	0x92
+ 1931 0172 20        		.uleb128 0x20
+ 1932 0173 07        		.sleb128 7
+ 1933 0174 F600 0000 		.long	.LCFI5-.Ltext0
+ 1934 0178 CA01 0000 		.long	.LFE7-.Ltext0
+ 1935 017c 0300      		.word	0x3
+ 1936 017e 92        		.byte	0x92
+ 1937 017f 20        		.uleb128 0x20
+ 1938 0180 08        		.sleb128 8
+ 1939 0181 0000 0000 		.long	0
+ 1940 0185 0000 0000 		.long	0
+ 1941               	.LLST8:
+ 1942 0189 EA00 0000 		.long	.LVL18-.Ltext0
+ 1943 018d FF00 0000 		.long	.LVL19-1-.Ltext0
+ 1944 0191 0100      		.word	0x1
+ 1945 0193 68        		.byte	0x68
+ 1946 0194 FF00 0000 		.long	.LVL19-1-.Ltext0
+ 1947 0198 CA01 0000 		.long	.LFE7-.Ltext0
+ 1948 019c 0400      		.word	0x4
+ 1949 019e F3        		.byte	0xf3
+ 1950 019f 01        		.uleb128 0x1
+ 1951 01a0 68        		.byte	0x68
+ 1952 01a1 9F        		.byte	0x9f
+ 1953 01a2 0000 0000 		.long	0
+ 1954 01a6 0000 0000 		.long	0
+ 1955               	.LLST9:
+ 1956 01aa EA00 0000 		.long	.LVL18-.Ltext0
+ 1957 01ae FF00 0000 		.long	.LVL19-1-.Ltext0
+ 1958 01b2 0100      		.word	0x1
+ 1959 01b4 66        		.byte	0x66
+ 1960 01b5 FF00 0000 		.long	.LVL19-1-.Ltext0
+ 1961 01b9 2A01 0000 		.long	.LVL26-.Ltext0
+ 1962 01bd 0100      		.word	0x1
+ 1963 01bf 61        		.byte	0x61
+ 1964 01c0 2A01 0000 		.long	.LVL26-.Ltext0
+ 1965 01c4 3201 0000 		.long	.LVL29-.Ltext0
+ 1966 01c8 0400      		.word	0x4
+ 1967 01ca F3        		.byte	0xf3
+ 1968 01cb 01        		.uleb128 0x1
+ 1969 01cc 66        		.byte	0x66
+ 1970 01cd 9F        		.byte	0x9f
+ 1971 01ce 3201 0000 		.long	.LVL29-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 39
+
+
+ 1972 01d2 4601 0000 		.long	.LVL33-.Ltext0
+ 1973 01d6 0100      		.word	0x1
+ 1974 01d8 61        		.byte	0x61
+ 1975 01d9 4601 0000 		.long	.LVL33-.Ltext0
+ 1976 01dd 4E01 0000 		.long	.LVL36-.Ltext0
+ 1977 01e1 0400      		.word	0x4
+ 1978 01e3 F3        		.byte	0xf3
+ 1979 01e4 01        		.uleb128 0x1
+ 1980 01e5 66        		.byte	0x66
+ 1981 01e6 9F        		.byte	0x9f
+ 1982 01e7 4E01 0000 		.long	.LVL36-.Ltext0
+ 1983 01eb A401 0000 		.long	.LVL44-.Ltext0
+ 1984 01ef 0100      		.word	0x1
+ 1985 01f1 61        		.byte	0x61
+ 1986 01f2 A401 0000 		.long	.LVL44-.Ltext0
+ 1987 01f6 AC01 0000 		.long	.LVL47-.Ltext0
+ 1988 01fa 0400      		.word	0x4
+ 1989 01fc F3        		.byte	0xf3
+ 1990 01fd 01        		.uleb128 0x1
+ 1991 01fe 66        		.byte	0x66
+ 1992 01ff 9F        		.byte	0x9f
+ 1993 0200 AC01 0000 		.long	.LVL47-.Ltext0
+ 1994 0204 CA01 0000 		.long	.LFE7-.Ltext0
+ 1995 0208 0100      		.word	0x1
+ 1996 020a 61        		.byte	0x61
+ 1997 020b 0000 0000 		.long	0
+ 1998 020f 0000 0000 		.long	0
+ 1999               	.LLST10:
+ 2000 0213 EA00 0000 		.long	.LVL18-.Ltext0
+ 2001 0217 FF00 0000 		.long	.LVL19-1-.Ltext0
+ 2002 021b 0100      		.word	0x1
+ 2003 021d 64        		.byte	0x64
+ 2004 021e FF00 0000 		.long	.LVL19-1-.Ltext0
+ 2005 0222 2601 0000 		.long	.LVL24-.Ltext0
+ 2006 0226 0100      		.word	0x1
+ 2007 0228 6D        		.byte	0x6d
+ 2008 0229 2601 0000 		.long	.LVL24-.Ltext0
+ 2009 022d 3201 0000 		.long	.LVL29-.Ltext0
+ 2010 0231 0400      		.word	0x4
+ 2011 0233 F3        		.byte	0xf3
+ 2012 0234 01        		.uleb128 0x1
+ 2013 0235 64        		.byte	0x64
+ 2014 0236 9F        		.byte	0x9f
+ 2015 0237 3201 0000 		.long	.LVL29-.Ltext0
+ 2016 023b 4201 0000 		.long	.LVL31-.Ltext0
+ 2017 023f 0100      		.word	0x1
+ 2018 0241 6D        		.byte	0x6d
+ 2019 0242 4201 0000 		.long	.LVL31-.Ltext0
+ 2020 0246 4E01 0000 		.long	.LVL36-.Ltext0
+ 2021 024a 0400      		.word	0x4
+ 2022 024c F3        		.byte	0xf3
+ 2023 024d 01        		.uleb128 0x1
+ 2024 024e 64        		.byte	0x64
+ 2025 024f 9F        		.byte	0x9f
+ 2026 0250 4E01 0000 		.long	.LVL36-.Ltext0
+ 2027 0254 A001 0000 		.long	.LVL42-.Ltext0
+ 2028 0258 0100      		.word	0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 40
+
+
+ 2029 025a 6D        		.byte	0x6d
+ 2030 025b A001 0000 		.long	.LVL42-.Ltext0
+ 2031 025f AC01 0000 		.long	.LVL47-.Ltext0
+ 2032 0263 0400      		.word	0x4
+ 2033 0265 F3        		.byte	0xf3
+ 2034 0266 01        		.uleb128 0x1
+ 2035 0267 64        		.byte	0x64
+ 2036 0268 9F        		.byte	0x9f
+ 2037 0269 AC01 0000 		.long	.LVL47-.Ltext0
+ 2038 026d CA01 0000 		.long	.LFE7-.Ltext0
+ 2039 0271 0100      		.word	0x1
+ 2040 0273 6D        		.byte	0x6d
+ 2041 0274 0000 0000 		.long	0
+ 2042 0278 0000 0000 		.long	0
+ 2043               	.LLST11:
+ 2044 027c EA00 0000 		.long	.LVL18-.Ltext0
+ 2045 0280 FF00 0000 		.long	.LVL19-1-.Ltext0
+ 2046 0284 0100      		.word	0x1
+ 2047 0286 62        		.byte	0x62
+ 2048 0287 FF00 0000 		.long	.LVL19-1-.Ltext0
+ 2049 028b 2801 0000 		.long	.LVL25-.Ltext0
+ 2050 028f 0100      		.word	0x1
+ 2051 0291 6C        		.byte	0x6c
+ 2052 0292 2801 0000 		.long	.LVL25-.Ltext0
+ 2053 0296 3201 0000 		.long	.LVL29-.Ltext0
+ 2054 029a 0400      		.word	0x4
+ 2055 029c F3        		.byte	0xf3
+ 2056 029d 01        		.uleb128 0x1
+ 2057 029e 62        		.byte	0x62
+ 2058 029f 9F        		.byte	0x9f
+ 2059 02a0 3201 0000 		.long	.LVL29-.Ltext0
+ 2060 02a4 4401 0000 		.long	.LVL32-.Ltext0
+ 2061 02a8 0100      		.word	0x1
+ 2062 02aa 6C        		.byte	0x6c
+ 2063 02ab 4401 0000 		.long	.LVL32-.Ltext0
+ 2064 02af 4E01 0000 		.long	.LVL36-.Ltext0
+ 2065 02b3 0400      		.word	0x4
+ 2066 02b5 F3        		.byte	0xf3
+ 2067 02b6 01        		.uleb128 0x1
+ 2068 02b7 62        		.byte	0x62
+ 2069 02b8 9F        		.byte	0x9f
+ 2070 02b9 4E01 0000 		.long	.LVL36-.Ltext0
+ 2071 02bd A201 0000 		.long	.LVL43-.Ltext0
+ 2072 02c1 0100      		.word	0x1
+ 2073 02c3 6C        		.byte	0x6c
+ 2074 02c4 A201 0000 		.long	.LVL43-.Ltext0
+ 2075 02c8 AC01 0000 		.long	.LVL47-.Ltext0
+ 2076 02cc 0400      		.word	0x4
+ 2077 02ce F3        		.byte	0xf3
+ 2078 02cf 01        		.uleb128 0x1
+ 2079 02d0 62        		.byte	0x62
+ 2080 02d1 9F        		.byte	0x9f
+ 2081 02d2 AC01 0000 		.long	.LVL47-.Ltext0
+ 2082 02d6 CA01 0000 		.long	.LFE7-.Ltext0
+ 2083 02da 0100      		.word	0x1
+ 2084 02dc 6C        		.byte	0x6c
+ 2085 02dd 0000 0000 		.long	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 41
+
+
+ 2086 02e1 0000 0000 		.long	0
+ 2087               	.LLST12:
+ 2088 02e5 EA00 0000 		.long	.LVL18-.Ltext0
+ 2089 02e9 2C01 0000 		.long	.LVL27-.Ltext0
+ 2090 02ed 0100      		.word	0x1
+ 2091 02ef 60        		.byte	0x60
+ 2092 02f0 2C01 0000 		.long	.LVL27-.Ltext0
+ 2093 02f4 3201 0000 		.long	.LVL29-.Ltext0
+ 2094 02f8 0400      		.word	0x4
+ 2095 02fa F3        		.byte	0xf3
+ 2096 02fb 01        		.uleb128 0x1
+ 2097 02fc 60        		.byte	0x60
+ 2098 02fd 9F        		.byte	0x9f
+ 2099 02fe 3201 0000 		.long	.LVL29-.Ltext0
+ 2100 0302 4801 0000 		.long	.LVL34-.Ltext0
+ 2101 0306 0100      		.word	0x1
+ 2102 0308 60        		.byte	0x60
+ 2103 0309 4801 0000 		.long	.LVL34-.Ltext0
+ 2104 030d 4E01 0000 		.long	.LVL36-.Ltext0
+ 2105 0311 0400      		.word	0x4
+ 2106 0313 F3        		.byte	0xf3
+ 2107 0314 01        		.uleb128 0x1
+ 2108 0315 60        		.byte	0x60
+ 2109 0316 9F        		.byte	0x9f
+ 2110 0317 4E01 0000 		.long	.LVL36-.Ltext0
+ 2111 031b A601 0000 		.long	.LVL45-.Ltext0
+ 2112 031f 0100      		.word	0x1
+ 2113 0321 60        		.byte	0x60
+ 2114 0322 A601 0000 		.long	.LVL45-.Ltext0
+ 2115 0326 AC01 0000 		.long	.LVL47-.Ltext0
+ 2116 032a 0400      		.word	0x4
+ 2117 032c F3        		.byte	0xf3
+ 2118 032d 01        		.uleb128 0x1
+ 2119 032e 60        		.byte	0x60
+ 2120 032f 9F        		.byte	0x9f
+ 2121 0330 AC01 0000 		.long	.LVL47-.Ltext0
+ 2122 0334 CA01 0000 		.long	.LFE7-.Ltext0
+ 2123 0338 0100      		.word	0x1
+ 2124 033a 60        		.byte	0x60
+ 2125 033b 0000 0000 		.long	0
+ 2126 033f 0000 0000 		.long	0
+ 2127               	.LLST13:
+ 2128 0343 EA00 0000 		.long	.LVL18-.Ltext0
+ 2129 0347 3001 0000 		.long	.LVL28-.Ltext0
+ 2130 034b 0600      		.word	0x6
+ 2131 034d 5E        		.byte	0x5e
+ 2132 034e 93        		.byte	0x93
+ 2133 034f 01        		.uleb128 0x1
+ 2134 0350 5F        		.byte	0x5f
+ 2135 0351 93        		.byte	0x93
+ 2136 0352 01        		.uleb128 0x1
+ 2137 0353 3001 0000 		.long	.LVL28-.Ltext0
+ 2138 0357 3201 0000 		.long	.LVL29-.Ltext0
+ 2139 035b 0400      		.word	0x4
+ 2140 035d F3        		.byte	0xf3
+ 2141 035e 01        		.uleb128 0x1
+ 2142 035f 5E        		.byte	0x5e
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 42
+
+
+ 2143 0360 9F        		.byte	0x9f
+ 2144 0361 3201 0000 		.long	.LVL29-.Ltext0
+ 2145 0365 4C01 0000 		.long	.LVL35-.Ltext0
+ 2146 0369 0600      		.word	0x6
+ 2147 036b 5E        		.byte	0x5e
+ 2148 036c 93        		.byte	0x93
+ 2149 036d 01        		.uleb128 0x1
+ 2150 036e 5F        		.byte	0x5f
+ 2151 036f 93        		.byte	0x93
+ 2152 0370 01        		.uleb128 0x1
+ 2153 0371 4C01 0000 		.long	.LVL35-.Ltext0
+ 2154 0375 4E01 0000 		.long	.LVL36-.Ltext0
+ 2155 0379 0400      		.word	0x4
+ 2156 037b F3        		.byte	0xf3
+ 2157 037c 01        		.uleb128 0x1
+ 2158 037d 5E        		.byte	0x5e
+ 2159 037e 9F        		.byte	0x9f
+ 2160 037f 4E01 0000 		.long	.LVL36-.Ltext0
+ 2161 0383 AA01 0000 		.long	.LVL46-.Ltext0
+ 2162 0387 0600      		.word	0x6
+ 2163 0389 5E        		.byte	0x5e
+ 2164 038a 93        		.byte	0x93
+ 2165 038b 01        		.uleb128 0x1
+ 2166 038c 5F        		.byte	0x5f
+ 2167 038d 93        		.byte	0x93
+ 2168 038e 01        		.uleb128 0x1
+ 2169 038f AA01 0000 		.long	.LVL46-.Ltext0
+ 2170 0393 AC01 0000 		.long	.LVL47-.Ltext0
+ 2171 0397 0400      		.word	0x4
+ 2172 0399 F3        		.byte	0xf3
+ 2173 039a 01        		.uleb128 0x1
+ 2174 039b 5E        		.byte	0x5e
+ 2175 039c 9F        		.byte	0x9f
+ 2176 039d AC01 0000 		.long	.LVL47-.Ltext0
+ 2177 03a1 CA01 0000 		.long	.LFE7-.Ltext0
+ 2178 03a5 0600      		.word	0x6
+ 2179 03a7 5E        		.byte	0x5e
+ 2180 03a8 93        		.byte	0x93
+ 2181 03a9 01        		.uleb128 0x1
+ 2182 03aa 5F        		.byte	0x5f
+ 2183 03ab 93        		.byte	0x93
+ 2184 03ac 01        		.uleb128 0x1
+ 2185 03ad 0000 0000 		.long	0
+ 2186 03b1 0000 0000 		.long	0
+ 2187               	.LLST14:
+ 2188 03b5 0001 0000 		.long	.LVL19-.Ltext0
+ 2189 03b9 0A01 0000 		.long	.LVL21-.Ltext0
+ 2190 03bd 0100      		.word	0x1
+ 2191 03bf 68        		.byte	0x68
+ 2192 03c0 3201 0000 		.long	.LVL29-.Ltext0
+ 2193 03c4 3401 0000 		.long	.LVL30-.Ltext0
+ 2194 03c8 0100      		.word	0x1
+ 2195 03ca 68        		.byte	0x68
+ 2196 03cb 0000 0000 		.long	0
+ 2197 03cf 0000 0000 		.long	0
+ 2198               	.LLST15:
+ 2199 03d3 0401 0000 		.long	.LVL20-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 43
+
+
+ 2200 03d7 2001 0000 		.long	.LVL23-.Ltext0
+ 2201 03db 0100      		.word	0x1
+ 2202 03dd 6D        		.byte	0x6d
+ 2203 03de 0000 0000 		.long	0
+ 2204 03e2 0000 0000 		.long	0
+ 2205               	.LLST16:
+ 2206 03e6 1C01 0000 		.long	.LVL22-.Ltext0
+ 2207 03ea 2001 0000 		.long	.LVL23-.Ltext0
+ 2208 03ee 0100      		.word	0x1
+ 2209 03f0 68        		.byte	0x68
+ 2210 03f1 0000 0000 		.long	0
+ 2211 03f5 0000 0000 		.long	0
+ 2212               	.LLST17:
+ 2213 03f9 5801 0000 		.long	.LVL37-.Ltext0
+ 2214 03fd 6E01 0000 		.long	.LVL38-.Ltext0
+ 2215 0401 0200      		.word	0x2
+ 2216 0403 30        		.byte	0x30
+ 2217 0404 9F        		.byte	0x9f
+ 2218 0405 6E01 0000 		.long	.LVL38-.Ltext0
+ 2219 0409 8601 0000 		.long	.LVL39-.Ltext0
+ 2220 040d 0100      		.word	0x1
+ 2221 040f 62        		.byte	0x62
+ 2222 0410 8601 0000 		.long	.LVL39-.Ltext0
+ 2223 0414 8A01 0000 		.long	.LVL40-.Ltext0
+ 2224 0418 0300      		.word	0x3
+ 2225 041a 82        		.byte	0x82
+ 2226 041b 01        		.sleb128 1
+ 2227 041c 9F        		.byte	0x9f
+ 2228 041d 8A01 0000 		.long	.LVL40-.Ltext0
+ 2229 0421 9001 0000 		.long	.LVL41-.Ltext0
+ 2230 0425 0100      		.word	0x1
+ 2231 0427 62        		.byte	0x62
+ 2232 0428 AC01 0000 		.long	.LVL47-.Ltext0
+ 2233 042c BA01 0000 		.long	.LVL48-.Ltext0
+ 2234 0430 0100      		.word	0x1
+ 2235 0432 62        		.byte	0x62
+ 2236 0433 0000 0000 		.long	0
+ 2237 0437 0000 0000 		.long	0
+ 2238               	.LLST18:
+ 2239 043b CA01 0000 		.long	.LFB8-.Ltext0
+ 2240 043f CC01 0000 		.long	.LCFI6-.Ltext0
+ 2241 0443 0300      		.word	0x3
+ 2242 0445 92        		.byte	0x92
+ 2243 0446 20        		.uleb128 0x20
+ 2244 0447 02        		.sleb128 2
+ 2245 0448 CC01 0000 		.long	.LCFI6-.Ltext0
+ 2246 044c CE01 0000 		.long	.LCFI7-.Ltext0
+ 2247 0450 0300      		.word	0x3
+ 2248 0452 92        		.byte	0x92
+ 2249 0453 20        		.uleb128 0x20
+ 2250 0454 03        		.sleb128 3
+ 2251 0455 CE01 0000 		.long	.LCFI7-.Ltext0
+ 2252 0459 D001 0000 		.long	.LCFI8-.Ltext0
+ 2253 045d 0300      		.word	0x3
+ 2254 045f 92        		.byte	0x92
+ 2255 0460 20        		.uleb128 0x20
+ 2256 0461 04        		.sleb128 4
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 44
+
+
+ 2257 0462 D001 0000 		.long	.LCFI8-.Ltext0
+ 2258 0466 7E02 0000 		.long	.LFE8-.Ltext0
+ 2259 046a 0300      		.word	0x3
+ 2260 046c 92        		.byte	0x92
+ 2261 046d 20        		.uleb128 0x20
+ 2262 046e 05        		.sleb128 5
+ 2263 046f 0000 0000 		.long	0
+ 2264 0473 0000 0000 		.long	0
+ 2265               	.LLST19:
+ 2266 0477 CA01 0000 		.long	.LVL49-.Ltext0
+ 2267 047b D901 0000 		.long	.LVL50-1-.Ltext0
+ 2268 047f 0100      		.word	0x1
+ 2269 0481 68        		.byte	0x68
+ 2270 0482 D901 0000 		.long	.LVL50-1-.Ltext0
+ 2271 0486 7E02 0000 		.long	.LFE8-.Ltext0
+ 2272 048a 0400      		.word	0x4
+ 2273 048c F3        		.byte	0xf3
+ 2274 048d 01        		.uleb128 0x1
+ 2275 048e 68        		.byte	0x68
+ 2276 048f 9F        		.byte	0x9f
+ 2277 0490 0000 0000 		.long	0
+ 2278 0494 0000 0000 		.long	0
+ 2279               	.LLST20:
+ 2280 0498 CA01 0000 		.long	.LVL49-.Ltext0
+ 2281 049c D901 0000 		.long	.LVL50-1-.Ltext0
+ 2282 04a0 0100      		.word	0x1
+ 2283 04a2 66        		.byte	0x66
+ 2284 04a3 D901 0000 		.long	.LVL50-1-.Ltext0
+ 2285 04a7 0E02 0000 		.long	.LVL55-.Ltext0
+ 2286 04ab 0100      		.word	0x1
+ 2287 04ad 6D        		.byte	0x6d
+ 2288 04ae 0E02 0000 		.long	.LVL55-.Ltext0
+ 2289 04b2 1402 0000 		.long	.LVL58-.Ltext0
+ 2290 04b6 0400      		.word	0x4
+ 2291 04b8 F3        		.byte	0xf3
+ 2292 04b9 01        		.uleb128 0x1
+ 2293 04ba 66        		.byte	0x66
+ 2294 04bb 9F        		.byte	0x9f
+ 2295 04bc 1402 0000 		.long	.LVL58-.Ltext0
+ 2296 04c0 2402 0000 		.long	.LVL59-.Ltext0
+ 2297 04c4 0100      		.word	0x1
+ 2298 04c6 6D        		.byte	0x6d
+ 2299 04c7 2402 0000 		.long	.LVL59-.Ltext0
+ 2300 04cb 2A02 0000 		.long	.LVL62-.Ltext0
+ 2301 04cf 0400      		.word	0x4
+ 2302 04d1 F3        		.byte	0xf3
+ 2303 04d2 01        		.uleb128 0x1
+ 2304 04d3 66        		.byte	0x66
+ 2305 04d4 9F        		.byte	0x9f
+ 2306 04d5 2A02 0000 		.long	.LVL62-.Ltext0
+ 2307 04d9 6802 0000 		.long	.LVL66-.Ltext0
+ 2308 04dd 0100      		.word	0x1
+ 2309 04df 6D        		.byte	0x6d
+ 2310 04e0 6802 0000 		.long	.LVL66-.Ltext0
+ 2311 04e4 6E02 0000 		.long	.LVL69-.Ltext0
+ 2312 04e8 0400      		.word	0x4
+ 2313 04ea F3        		.byte	0xf3
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 45
+
+
+ 2314 04eb 01        		.uleb128 0x1
+ 2315 04ec 66        		.byte	0x66
+ 2316 04ed 9F        		.byte	0x9f
+ 2317 04ee 6E02 0000 		.long	.LVL69-.Ltext0
+ 2318 04f2 7E02 0000 		.long	.LFE8-.Ltext0
+ 2319 04f6 0100      		.word	0x1
+ 2320 04f8 6D        		.byte	0x6d
+ 2321 04f9 0000 0000 		.long	0
+ 2322 04fd 0000 0000 		.long	0
+ 2323               	.LLST21:
+ 2324 0501 CA01 0000 		.long	.LVL49-.Ltext0
+ 2325 0505 D901 0000 		.long	.LVL50-1-.Ltext0
+ 2326 0509 0100      		.word	0x1
+ 2327 050b 64        		.byte	0x64
+ 2328 050c D901 0000 		.long	.LVL50-1-.Ltext0
+ 2329 0510 1002 0000 		.long	.LVL56-.Ltext0
+ 2330 0514 0100      		.word	0x1
+ 2331 0516 6C        		.byte	0x6c
+ 2332 0517 1002 0000 		.long	.LVL56-.Ltext0
+ 2333 051b 1402 0000 		.long	.LVL58-.Ltext0
+ 2334 051f 0400      		.word	0x4
+ 2335 0521 F3        		.byte	0xf3
+ 2336 0522 01        		.uleb128 0x1
+ 2337 0523 64        		.byte	0x64
+ 2338 0524 9F        		.byte	0x9f
+ 2339 0525 1402 0000 		.long	.LVL58-.Ltext0
+ 2340 0529 2602 0000 		.long	.LVL60-.Ltext0
+ 2341 052d 0100      		.word	0x1
+ 2342 052f 6C        		.byte	0x6c
+ 2343 0530 2602 0000 		.long	.LVL60-.Ltext0
+ 2344 0534 2A02 0000 		.long	.LVL62-.Ltext0
+ 2345 0538 0400      		.word	0x4
+ 2346 053a F3        		.byte	0xf3
+ 2347 053b 01        		.uleb128 0x1
+ 2348 053c 64        		.byte	0x64
+ 2349 053d 9F        		.byte	0x9f
+ 2350 053e 2A02 0000 		.long	.LVL62-.Ltext0
+ 2351 0542 6A02 0000 		.long	.LVL67-.Ltext0
+ 2352 0546 0100      		.word	0x1
+ 2353 0548 6C        		.byte	0x6c
+ 2354 0549 6A02 0000 		.long	.LVL67-.Ltext0
+ 2355 054d 6E02 0000 		.long	.LVL69-.Ltext0
+ 2356 0551 0400      		.word	0x4
+ 2357 0553 F3        		.byte	0xf3
+ 2358 0554 01        		.uleb128 0x1
+ 2359 0555 64        		.byte	0x64
+ 2360 0556 9F        		.byte	0x9f
+ 2361 0557 6E02 0000 		.long	.LVL69-.Ltext0
+ 2362 055b 7E02 0000 		.long	.LFE8-.Ltext0
+ 2363 055f 0100      		.word	0x1
+ 2364 0561 6C        		.byte	0x6c
+ 2365 0562 0000 0000 		.long	0
+ 2366 0566 0000 0000 		.long	0
+ 2367               	.LLST22:
+ 2368 056a CA01 0000 		.long	.LVL49-.Ltext0
+ 2369 056e D901 0000 		.long	.LVL50-1-.Ltext0
+ 2370 0572 0100      		.word	0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 46
+
+
+ 2371 0574 62        		.byte	0x62
+ 2372 0575 D901 0000 		.long	.LVL50-1-.Ltext0
+ 2373 0579 1202 0000 		.long	.LVL57-.Ltext0
+ 2374 057d 0100      		.word	0x1
+ 2375 057f 61        		.byte	0x61
+ 2376 0580 1202 0000 		.long	.LVL57-.Ltext0
+ 2377 0584 1402 0000 		.long	.LVL58-.Ltext0
+ 2378 0588 0400      		.word	0x4
+ 2379 058a F3        		.byte	0xf3
+ 2380 058b 01        		.uleb128 0x1
+ 2381 058c 62        		.byte	0x62
+ 2382 058d 9F        		.byte	0x9f
+ 2383 058e 1402 0000 		.long	.LVL58-.Ltext0
+ 2384 0592 2802 0000 		.long	.LVL61-.Ltext0
+ 2385 0596 0100      		.word	0x1
+ 2386 0598 61        		.byte	0x61
+ 2387 0599 2802 0000 		.long	.LVL61-.Ltext0
+ 2388 059d 2A02 0000 		.long	.LVL62-.Ltext0
+ 2389 05a1 0400      		.word	0x4
+ 2390 05a3 F3        		.byte	0xf3
+ 2391 05a4 01        		.uleb128 0x1
+ 2392 05a5 62        		.byte	0x62
+ 2393 05a6 9F        		.byte	0x9f
+ 2394 05a7 2A02 0000 		.long	.LVL62-.Ltext0
+ 2395 05ab 6C02 0000 		.long	.LVL68-.Ltext0
+ 2396 05af 0100      		.word	0x1
+ 2397 05b1 61        		.byte	0x61
+ 2398 05b2 6C02 0000 		.long	.LVL68-.Ltext0
+ 2399 05b6 6E02 0000 		.long	.LVL69-.Ltext0
+ 2400 05ba 0400      		.word	0x4
+ 2401 05bc F3        		.byte	0xf3
+ 2402 05bd 01        		.uleb128 0x1
+ 2403 05be 62        		.byte	0x62
+ 2404 05bf 9F        		.byte	0x9f
+ 2405 05c0 6E02 0000 		.long	.LVL69-.Ltext0
+ 2406 05c4 7E02 0000 		.long	.LFE8-.Ltext0
+ 2407 05c8 0100      		.word	0x1
+ 2408 05ca 61        		.byte	0x61
+ 2409 05cb 0000 0000 		.long	0
+ 2410 05cf 0000 0000 		.long	0
+ 2411               	.LLST23:
+ 2412 05d3 DA01 0000 		.long	.LVL50-.Ltext0
+ 2413 05d7 E401 0000 		.long	.LVL52-.Ltext0
+ 2414 05db 0100      		.word	0x1
+ 2415 05dd 68        		.byte	0x68
+ 2416 05de 1402 0000 		.long	.LVL58-.Ltext0
+ 2417 05e2 2A02 0000 		.long	.LVL62-.Ltext0
+ 2418 05e6 0100      		.word	0x1
+ 2419 05e8 68        		.byte	0x68
+ 2420 05e9 3E02 0000 		.long	.LVL63-.Ltext0
+ 2421 05ed 4802 0000 		.long	.LVL64-.Ltext0
+ 2422 05f1 0100      		.word	0x1
+ 2423 05f3 68        		.byte	0x68
+ 2424 05f4 6E02 0000 		.long	.LVL69-.Ltext0
+ 2425 05f8 7002 0000 		.long	.LVL70-.Ltext0
+ 2426 05fc 0100      		.word	0x1
+ 2427 05fe 68        		.byte	0x68
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 47
+
+
+ 2428 05ff 0000 0000 		.long	0
+ 2429 0603 0000 0000 		.long	0
+ 2430               	.LLST24:
+ 2431 0607 DE01 0000 		.long	.LVL51-.Ltext0
+ 2432 060b FA01 0000 		.long	.LVL54-.Ltext0
+ 2433 060f 0100      		.word	0x1
+ 2434 0611 6C        		.byte	0x6c
+ 2435 0612 0000 0000 		.long	0
+ 2436 0616 0000 0000 		.long	0
+ 2437               	.LLST25:
+ 2438 061a F601 0000 		.long	.LVL53-.Ltext0
+ 2439 061e FA01 0000 		.long	.LVL54-.Ltext0
+ 2440 0622 0100      		.word	0x1
+ 2441 0624 68        		.byte	0x68
+ 2442 0625 0000 0000 		.long	0
+ 2443 0629 0000 0000 		.long	0
+ 2444               	.LLST26:
+ 2445 062d 5802 0000 		.long	.LVL65-.Ltext0
+ 2446 0631 6E02 0000 		.long	.LVL69-.Ltext0
+ 2447 0635 0100      		.word	0x1
+ 2448 0637 68        		.byte	0x68
+ 2449 0638 0000 0000 		.long	0
+ 2450 063c 0000 0000 		.long	0
+ 2451               		.section	.debug_aranges,"",@progbits
+ 2452 0000 1C00 0000 		.long	0x1c
+ 2453 0004 0200      		.word	0x2
+ 2454 0006 0000 0000 		.long	.Ldebug_info0
+ 2455 000a 04        		.byte	0x4
+ 2456 000b 00        		.byte	0
+ 2457 000c 0000      		.word	0
+ 2458 000e 0000      		.word	0
+ 2459 0010 0000 0000 		.long	.Ltext0
+ 2460 0014 7E02 0000 		.long	.Letext0-.Ltext0
+ 2461 0018 0000 0000 		.long	0
+ 2462 001c 0000 0000 		.long	0
+ 2463               		.section	.debug_ranges,"",@progbits
+ 2464               	.Ldebug_ranges0:
+ 2465 0000 5801 0000 		.long	.LBB90-.Ltext0
+ 2466 0004 9001 0000 		.long	.LBE90-.Ltext0
+ 2467 0008 AC01 0000 		.long	.LBB105-.Ltext0
+ 2468 000c BA01 0000 		.long	.LBE105-.Ltext0
+ 2469 0010 0000 0000 		.long	0
+ 2470 0014 0000 0000 		.long	0
+ 2471 0018 6A01 0000 		.long	.LBB91-.Ltext0
+ 2472 001c 6C01 0000 		.long	.LBE91-.Ltext0
+ 2473 0020 7401 0000 		.long	.LBB101-.Ltext0
+ 2474 0024 8401 0000 		.long	.LBE101-.Ltext0
+ 2475 0028 0000 0000 		.long	0
+ 2476 002c 0000 0000 		.long	0
+ 2477 0030 6C01 0000 		.long	.LBB96-.Ltext0
+ 2478 0034 6E01 0000 		.long	.LBE96-.Ltext0
+ 2479 0038 AC01 0000 		.long	.LBB102-.Ltext0
+ 2480 003c BA01 0000 		.long	.LBE102-.Ltext0
+ 2481 0040 0000 0000 		.long	0
+ 2482 0044 0000 0000 		.long	0
+ 2483 0048 4202 0000 		.long	.LBB118-.Ltext0
+ 2484 004c 6602 0000 		.long	.LBE118-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 48
+
+
+ 2485 0050 6E02 0000 		.long	.LBB131-.Ltext0
+ 2486 0054 7E02 0000 		.long	.LBE131-.Ltext0
+ 2487 0058 0000 0000 		.long	0
+ 2488 005c 0000 0000 		.long	0
+ 2489 0060 5402 0000 		.long	.LBB123-.Ltext0
+ 2490 0064 5802 0000 		.long	.LBE123-.Ltext0
+ 2491 0068 6E02 0000 		.long	.LBB130-.Ltext0
+ 2492 006c 7E02 0000 		.long	.LBE130-.Ltext0
+ 2493 0070 0000 0000 		.long	0
+ 2494 0074 0000 0000 		.long	0
+ 2495               		.section	.debug_line,"",@progbits
+ 2496               	.Ldebug_line0:
+ 2497 0000 E902 0000 		.section	.debug_str,"MS",@progbits,1
+ 2497      0200 4600 
+ 2497      0000 0201 
+ 2497      FB0E 0A00 
+ 2497      0101 0101 
+ 2498               	.LASF28:
+ 2499 0000 7372 632F 		.string	"src/i2c.c"
+ 2499      6932 632E 
+ 2499      6300 
+ 2500               	.LASF24:
+ 2501 000a 7265 7375 		.string	"result"
+ 2501      6C74 00
+ 2502               	.LASF7:
+ 2503 0011 5F77 6169 		.string	"_wait_transmission_complete"
+ 2503      745F 7472 
+ 2503      616E 736D 
+ 2503      6973 7369 
+ 2503      6F6E 5F63 
+ 2504               	.LASF9:
+ 2505 002d 6932 635F 		.string	"i2c_start"
+ 2505      7374 6172 
+ 2505      7400 
+ 2506               	.LASF23:
+ 2507 0037 7265 7073 		.string	"repstart"
+ 2507      7461 7274 
+ 2507      00
+ 2508               	.LASF13:
+ 2509 0040 7374 6174 		.string	"status"
+ 2509      7573 00
+ 2510               	.LASF20:
+ 2511 0047 7265 6164 		.string	"read_address"
+ 2511      5F61 6464 
+ 2511      7265 7373 
+ 2511      00
+ 2512               	.LASF26:
+ 2513 0054 7265 6164 		.string	"reading"
+ 2513      696E 6700 
+ 2514               	.LASF18:
+ 2515 005c 636C 6B5F 		.string	"clk_hz"
+ 2515      687A 00
+ 2516               	.LASF12:
+ 2517 0063 6461 7461 		.string	"data"
+ 2517      00
+ 2518               	.LASF1:
+ 2519 0068 756E 7369 		.string	"unsigned char"
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 49
+
+
+ 2519      676E 6564 
+ 2519      2063 6861 
+ 2519      7200 
+ 2520               	.LASF4:
+ 2521 0076 6C6F 6E67 		.string	"long unsigned int"
+ 2521      2075 6E73 
+ 2521      6967 6E65 
+ 2521      6420 696E 
+ 2521      7400 
+ 2522               	.LASF21:
+ 2523 0088 7265 6769 		.string	"register_address"
+ 2523      7374 6572 
+ 2523      5F61 6464 
+ 2523      7265 7373 
+ 2523      00
+ 2524               	.LASF16:
+ 2525 0099 6932 635F 		.string	"i2c_init"
+ 2525      696E 6974 
+ 2525      00
+ 2526               	.LASF10:
+ 2527 00a2 6932 635F 		.string	"i2c_write"
+ 2527      7772 6974 
+ 2527      6500 
+ 2528               	.LASF29:
+ 2529 00ac 633A 5C75 		.string	"c:\\users\\rando\\documents\\elektroonika\\wep-reciever"
+ 2529      7365 7273 
+ 2529      5C72 616E 
+ 2529      646F 5C64 
+ 2529      6F63 756D 
+ 2530               	.LASF2:
+ 2531 00df 756E 7369 		.string	"unsigned int"
+ 2531      676E 6564 
+ 2531      2069 6E74 
+ 2531      00
+ 2532               	.LASF11:
+ 2533 00ec 6164 6472 		.string	"address"
+ 2533      6573 7300 
+ 2534               	.LASF6:
+ 2535 00f4 6C6F 6E67 		.string	"long long unsigned int"
+ 2535      206C 6F6E 
+ 2535      6720 756E 
+ 2535      7369 676E 
+ 2535      6564 2069 
+ 2536               	.LASF30:
+ 2537 010b 7569 6E74 		.string	"uint8_t"
+ 2537      385F 7400 
+ 2538               	.LASF15:
+ 2539 0113 6932 635F 		.string	"i2c_read_ack"
+ 2539      7265 6164 
+ 2539      5F61 636B 
+ 2539      00
+ 2540               	.LASF27:
+ 2541 0120 474E 5520 		.string	"GNU C11 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avr5 -g -O2 -funsigned-char -funsigned-bitf
+ 2541      4331 3120 
+ 2541      352E 342E 
+ 2541      3020 2D6D 
+ 2541      6E2D 666C 
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 50
+
+
+ 2542               	.LASF14:
+ 2543 019b 6932 635F 		.string	"i2c_read_nack"
+ 2543      7265 6164 
+ 2543      5F6E 6163 
+ 2543      6B00 
+ 2544               	.LASF5:
+ 2545 01a9 6C6F 6E67 		.string	"long long int"
+ 2545      206C 6F6E 
+ 2545      6720 696E 
+ 2545      7400 
+ 2546               	.LASF8:
+ 2547 01b7 6932 635F 		.string	"i2c_stop"
+ 2547      7374 6F70 
+ 2547      00
+ 2548               	.LASF22:
+ 2549 01c0 6E5F 6279 		.string	"n_bytes"
+ 2549      7465 7300 
+ 2550               	.LASF3:
+ 2551 01c8 6C6F 6E67 		.string	"long int"
+ 2551      2069 6E74 
+ 2551      00
+ 2552               	.LASF19:
+ 2553 01d1 7772 6974 		.string	"write_address"
+ 2553      655F 6164 
+ 2553      6472 6573 
+ 2553      7300 
+ 2554               	.LASF17:
+ 2555 01df 6932 635F 		.string	"i2c_read_multiple"
+ 2555      7265 6164 
+ 2555      5F6D 756C 
+ 2555      7469 706C 
+ 2555      6500 
+ 2556               	.LASF0:
+ 2557 01f1 7369 676E 		.string	"signed char"
+ 2557      6564 2063 
+ 2557      6861 7200 
+ 2558               	.LASF25:
+ 2559 01fd 6932 635F 		.string	"i2c_read_single"
+ 2559      7265 6164 
+ 2559      5F73 696E 
+ 2559      676C 6500 
+ 2560               		.ident	"GCC: (AVR_8_bit_GNU_Toolchain_3.6.2_1778) 5.4.0"
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s 			page 51
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 i2c.c
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:2      *ABS*:0000003e __SP_H__
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:3      *ABS*:0000003d __SP_L__
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:4      *ABS*:0000003f __SREG__
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:5      *ABS*:00000000 __tmp_reg__
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:6      *ABS*:00000001 __zero_reg__
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:12     .text:00000000 _wait_transmission_complete
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:34     .text:0000000a i2c_init
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:74     .text:0000003c i2c_stop
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:98     .text:0000004c i2c_start
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:189    .text:000000a0 i2c_write
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:234    .text:000000c2 i2c_read_nack
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:263    .text:000000d6 i2c_read_ack
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:292    .text:000000ea i2c_read_multiple
+C:\Users\Rando\AppData\Local\Temp\ccJqte3m.s:544    .text:000001ca i2c_read_single
+
+UNDEFINED SYMBOLS
+__udivmodsi4
