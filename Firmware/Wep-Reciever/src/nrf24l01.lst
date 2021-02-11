@@ -1,4 +1,4 @@
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 1
 
 
    1               		.file	"nrf24l01.c"
@@ -20,8 +20,10 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
    3:src/nrf24l01.c **** #define F_CPU 16000000UL
    4:src/nrf24l01.c **** #include <util/delay.h>
    5:src/nrf24l01.c **** 
-   6:src/nrf24l01.c **** void nrf24l01_write_register(uint8_t reg, uint8_t* data, uint8_t bytecount) {
-  15               		.loc 1 6 0
+   6:src/nrf24l01.c **** /* Riistvaraprojekt UT 2020/21 - Rando Hinn, vastuvõtjamooduli nrf24l01 raadioside libra */
+   7:src/nrf24l01.c **** 
+   8:src/nrf24l01.c **** void nrf24l01_write_register(uint8_t reg, uint8_t* data, uint8_t bytecount) {
+  15               		.loc 1 8 0
   16               		.cfi_startproc
   17               	.LVL0:
   18 0000 FF92      		push r15
@@ -53,24 +55,24 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
   44 000e 072F      		mov r16,r23
   45 0010 142F      		mov r17,r20
   46               	.LVL1:
-   7:src/nrf24l01.c **** 	reg =  NRF_WRITE | reg;
-   8:src/nrf24l01.c **** 	SPI_unset_RF_cs();
-  47               		.loc 1 8 0
+   9:src/nrf24l01.c **** 	reg =  NRF_WRITE | reg;
+  10:src/nrf24l01.c **** 	SPI_unset_RF_cs();
+  47               		.loc 1 10 0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 2
+
+
   48 0012 0E94 0000 		call SPI_unset_RF_cs
   49               	.LVL2:
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 2
-
-
-   9:src/nrf24l01.c **** 	SPI_send(reg);
-  50               		.loc 1 9 0
+  11:src/nrf24l01.c **** 	SPI_send(reg);
+  50               		.loc 1 11 0
   51 0016 8C2F      		mov r24,r28
   52 0018 8062      		ori r24,lo8(32)
   53               	.LVL3:
   54 001a 0E94 0000 		call SPI_send
   55               	.LVL4:
   56               	.LBB2:
-  10:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
-  57               		.loc 1 10 0
+  12:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
+  57               		.loc 1 12 0
   58 001e 1123      		tst r17
   59 0020 01F0      		breq .L4
   60 0022 CF2D      		mov r28,r15
@@ -82,14 +84,14 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
   66 002c 8C01      		movw r16,r24
   67               	.LVL6:
   68               	.L3:
-  11:src/nrf24l01.c **** 		SPI_send(data[i]);
-  69               		.loc 1 11 0 discriminator 3
+  13:src/nrf24l01.c **** 		SPI_send(data[i]);
+  69               		.loc 1 13 0 discriminator 3
   70 002e 8991      		ld r24,Y+
   71               	.LVL7:
   72 0030 0E94 0000 		call SPI_send
   73               	.LVL8:
-  10:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
-  74               		.loc 1 10 0 discriminator 3
+  12:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
+  74               		.loc 1 12 0 discriminator 3
   75 0034 C017      		cp r28,r16
   76 0036 D107      		cpc r29,r17
   77 0038 01F4      		brne .L3
@@ -97,18 +99,18 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
   79               	.L4:
   80               	/* epilogue start */
   81               	.LBE2:
-  12:src/nrf24l01.c **** 	}
-  13:src/nrf24l01.c **** 	SPI_set_RF_cs();
-  14:src/nrf24l01.c **** }
-  82               		.loc 1 14 0
+  14:src/nrf24l01.c **** 	}
+  15:src/nrf24l01.c **** 	SPI_set_RF_cs();
+  16:src/nrf24l01.c **** }
+  82               		.loc 1 16 0
   83 003a DF91      		pop r29
   84 003c CF91      		pop r28
   85 003e 1F91      		pop r17
   86               	.LVL10:
   87 0040 0F91      		pop r16
   88 0042 FF90      		pop r15
-  13:src/nrf24l01.c **** }
-  89               		.loc 1 13 0
+  15:src/nrf24l01.c **** }
+  89               		.loc 1 15 0
   90 0044 0C94 0000 		jmp SPI_set_RF_cs
   91               	.LVL11:
   92               		.cfi_endproc
@@ -116,14 +118,14 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
   94               		.size	nrf24l01_write_register, .-nrf24l01_write_register
   95               	.global	nrf24l01_init
   96               		.type	nrf24l01_init, @function
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 3
+
+
   97               	nrf24l01_init:
   98               	.LFB7:
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 3
-
-
-  15:src/nrf24l01.c **** 
-  16:src/nrf24l01.c **** void nrf24l01_init(uint8_t address_width, uint8_t* address, uint8_t channel, uint8_t payload_width,
-  99               		.loc 1 16 0
+  17:src/nrf24l01.c **** 
+  18:src/nrf24l01.c **** void nrf24l01_init(uint8_t address_width, uint8_t* address, uint8_t channel, uint8_t payload_width,
+  99               		.loc 1 18 0
  100               		.cfi_startproc
  101               	.LVL12:
  102 0048 BF92      		push r11
@@ -176,28 +178,28 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  149 0060 182F      		mov r17,r24
  150 0062 7B01      		movw r14,r22
  151 0064 B42E      		mov r11,r20
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 4
+
+
  152 0066 C22E      		mov r12,r18
-  17:src/nrf24l01.c **** 
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 4
-
-
-  18:src/nrf24l01.c **** 	DDRC |= (1 << DDC7);
- 153               		.loc 1 18 0
+  19:src/nrf24l01.c **** 
+  20:src/nrf24l01.c **** 	DDRC |= (1 << DDC7);
+ 153               		.loc 1 20 0
  154 0068 3F9A      		sbi 0x7,7
-  19:src/nrf24l01.c **** 	PORTC &= ~(1 << PC7);
- 155               		.loc 1 19 0
+  21:src/nrf24l01.c **** 	PORTC &= ~(1 << PC7);
+ 155               		.loc 1 21 0
  156 006a 4798      		cbi 0x8,7
-  20:src/nrf24l01.c **** 	
-  21:src/nrf24l01.c **** 	uint8_t config_values[1];
   22:src/nrf24l01.c **** 	
-  23:src/nrf24l01.c **** 	//Enable Auto-ACK
-  24:src/nrf24l01.c **** 	config_values[0] = 0x01;
- 157               		.loc 1 24 0
+  23:src/nrf24l01.c **** 	uint8_t config_values[1];
+  24:src/nrf24l01.c **** 	
+  25:src/nrf24l01.c **** 	//Enable Auto-ACK
+  26:src/nrf24l01.c **** 	config_values[0] = 0x01;
+ 157               		.loc 1 26 0
  158 006c DD24      		clr r13
  159 006e D394      		inc r13
  160 0070 D982      		std Y+1,r13
-  25:src/nrf24l01.c **** 	nrf24l01_write_register(EN_AA, config_values, 1);
- 161               		.loc 1 25 0
+  27:src/nrf24l01.c **** 	nrf24l01_write_register(EN_AA, config_values, 1);
+ 161               		.loc 1 27 0
  162 0072 41E0      		ldi r20,lo8(1)
  163               	.LVL13:
  164 0074 BE01      		movw r22,r28
@@ -208,14 +210,14 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  169               	.LVL15:
  170 007c 0E94 0000 		call nrf24l01_write_register
  171               	.LVL16:
-  26:src/nrf24l01.c **** 	
-  27:src/nrf24l01.c **** 	//Setup automatic retries 750uS delay, up to 15 times
-  28:src/nrf24l01.c **** 	config_values[0] = 0x2F;
- 172               		.loc 1 28 0
+  28:src/nrf24l01.c **** 	
+  29:src/nrf24l01.c **** 	//Setup automatic retries 750uS delay, up to 15 times
+  30:src/nrf24l01.c **** 	config_values[0] = 0x2F;
+ 172               		.loc 1 30 0
  173 0080 8FE2      		ldi r24,lo8(47)
  174 0082 8983      		std Y+1,r24
-  29:src/nrf24l01.c **** 	nrf24l01_write_register(SETUP_RETR, config_values, 1);
- 175               		.loc 1 29 0
+  31:src/nrf24l01.c **** 	nrf24l01_write_register(SETUP_RETR, config_values, 1);
+ 175               		.loc 1 31 0
  176 0084 41E0      		ldi r20,lo8(1)
  177 0086 BE01      		movw r22,r28
  178 0088 6F5F      		subi r22,-1
@@ -223,30 +225,30 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  180 008c 84E0      		ldi r24,lo8(4)
  181 008e 0E94 0000 		call nrf24l01_write_register
  182               	.LVL17:
-  30:src/nrf24l01.c **** 	
-  31:src/nrf24l01.c **** 	//Enable data pipe 0 for recieve communications
-  32:src/nrf24l01.c **** 	config_values[0] = 0x01;
- 183               		.loc 1 32 0
+  32:src/nrf24l01.c **** 	
+  33:src/nrf24l01.c **** 	//Enable data pipe 0 for recieve communications
+  34:src/nrf24l01.c **** 	config_values[0] = 0x01;
+ 183               		.loc 1 34 0
  184 0092 D982      		std Y+1,r13
-  33:src/nrf24l01.c **** 	nrf24l01_write_register(EN_RXADDR, config_values, 1);
- 185               		.loc 1 33 0
+  35:src/nrf24l01.c **** 	nrf24l01_write_register(EN_RXADDR, config_values, 1);
+ 185               		.loc 1 35 0
  186 0094 41E0      		ldi r20,lo8(1)
  187 0096 BE01      		movw r22,r28
  188 0098 6F5F      		subi r22,-1
  189 009a 7F4F      		sbci r23,-1
  190 009c 82E0      		ldi r24,lo8(2)
  191 009e 0E94 0000 		call nrf24l01_write_register
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 5
+
+
  192               	.LVL18:
-  34:src/nrf24l01.c **** 	
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 5
-
-
-  35:src/nrf24l01.c **** 	//Set address length as 5 bytes
-  36:src/nrf24l01.c **** 	config_values[0] = address_width;
- 193               		.loc 1 36 0
+  36:src/nrf24l01.c **** 	
+  37:src/nrf24l01.c **** 	//Set address length as 5 bytes
+  38:src/nrf24l01.c **** 	config_values[0] = address_width;
+ 193               		.loc 1 38 0
  194 00a2 1983      		std Y+1,r17
-  37:src/nrf24l01.c **** 	nrf24l01_write_register(SETUP_AW, config_values,1);
- 195               		.loc 1 37 0
+  39:src/nrf24l01.c **** 	nrf24l01_write_register(SETUP_AW, config_values,1);
+ 195               		.loc 1 39 0
  196 00a4 41E0      		ldi r20,lo8(1)
  197 00a6 BE01      		movw r22,r28
  198 00a8 6F5F      		subi r22,-1
@@ -254,13 +256,13 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  200 00ac 83E0      		ldi r24,lo8(3)
  201 00ae 0E94 0000 		call nrf24l01_write_register
  202               	.LVL19:
-  38:src/nrf24l01.c **** 	
-  39:src/nrf24l01.c **** 	//Setup a radio channel
-  40:src/nrf24l01.c **** 	config_values[0] = channel;
- 203               		.loc 1 40 0
+  40:src/nrf24l01.c **** 	
+  41:src/nrf24l01.c **** 	//Setup a radio channel
+  42:src/nrf24l01.c **** 	config_values[0] = channel;
+ 203               		.loc 1 42 0
  204 00b2 B982      		std Y+1,r11
-  41:src/nrf24l01.c **** 	nrf24l01_write_register(RF_CH, config_values,1);
- 205               		.loc 1 41 0
+  43:src/nrf24l01.c **** 	nrf24l01_write_register(RF_CH, config_values,1);
+ 205               		.loc 1 43 0
  206 00b4 41E0      		ldi r20,lo8(1)
  207 00b6 BE01      		movw r22,r28
  208 00b8 6F5F      		subi r22,-1
@@ -268,14 +270,14 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  210 00bc 85E0      		ldi r24,lo8(5)
  211 00be 0E94 0000 		call nrf24l01_write_register
  212               	.LVL20:
-  42:src/nrf24l01.c **** 
-  43:src/nrf24l01.c **** 	//Setup in -0dB long range mode
-  44:src/nrf24l01.c **** 	config_values[0] = 0x07;
- 213               		.loc 1 44 0
+  44:src/nrf24l01.c **** 
+  45:src/nrf24l01.c **** 	//Setup in -0dB long range mode
+  46:src/nrf24l01.c **** 	config_values[0] = 0x07;
+ 213               		.loc 1 46 0
  214 00c2 87E0      		ldi r24,lo8(7)
  215 00c4 8983      		std Y+1,r24
-  45:src/nrf24l01.c **** 	nrf24l01_write_register(RF_SETUP, config_values,1);
- 216               		.loc 1 45 0
+  47:src/nrf24l01.c **** 	nrf24l01_write_register(RF_SETUP, config_values,1);
+ 216               		.loc 1 47 0
  217 00c6 41E0      		ldi r20,lo8(1)
  218 00c8 BE01      		movw r22,r28
  219 00ca 6F5F      		subi r22,-1
@@ -283,32 +285,32 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  221 00ce 86E0      		ldi r24,lo8(6)
  222 00d0 0E94 0000 		call nrf24l01_write_register
  223               	.LVL21:
-  46:src/nrf24l01.c **** 	
-  47:src/nrf24l01.c **** 	//Setup addresses for recieve pipe 0 and tx
-  48:src/nrf24l01.c **** 	nrf24l01_write_register(RX_ADDR_P0,address,address_width);
- 224               		.loc 1 48 0
+  48:src/nrf24l01.c **** 	
+  49:src/nrf24l01.c **** 	//Setup addresses for recieve pipe 0 and tx
+  50:src/nrf24l01.c **** 	nrf24l01_write_register(RX_ADDR_P0,address,address_width);
+ 224               		.loc 1 50 0
  225 00d4 412F      		mov r20,r17
  226 00d6 B701      		movw r22,r14
  227 00d8 8AE0      		ldi r24,lo8(10)
  228 00da 0E94 0000 		call nrf24l01_write_register
  229               	.LVL22:
-  49:src/nrf24l01.c **** 	nrf24l01_write_register(TX_ADDR,address,address_width);
- 230               		.loc 1 49 0
+  51:src/nrf24l01.c **** 	nrf24l01_write_register(TX_ADDR,address,address_width);
+ 230               		.loc 1 51 0
  231 00de 412F      		mov r20,r17
  232 00e0 B701      		movw r22,r14
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 6
+
+
  233 00e2 80E1      		ldi r24,lo8(16)
  234 00e4 0E94 0000 		call nrf24l01_write_register
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 6
-
-
  235               	.LVL23:
-  50:src/nrf24l01.c **** 	
-  51:src/nrf24l01.c **** 	//Setup payload width (bytes/package)
-  52:src/nrf24l01.c **** 	config_values[0] = payload_width;
- 236               		.loc 1 52 0
+  52:src/nrf24l01.c **** 	
+  53:src/nrf24l01.c **** 	//Setup payload width (bytes/package)
+  54:src/nrf24l01.c **** 	config_values[0] = payload_width;
+ 236               		.loc 1 54 0
  237 00e8 C982      		std Y+1,r12
-  53:src/nrf24l01.c **** 	nrf24l01_write_register(RX_PW_P0,config_values,1);
- 238               		.loc 1 53 0
+  55:src/nrf24l01.c **** 	nrf24l01_write_register(RX_PW_P0,config_values,1);
+ 238               		.loc 1 55 0
  239 00ea 41E0      		ldi r20,lo8(1)
  240 00ec BE01      		movw r22,r28
  241 00ee 6F5F      		subi r22,-1
@@ -316,27 +318,27 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  243 00f2 81E1      		ldi r24,lo8(17)
  244 00f4 0E94 0000 		call nrf24l01_write_register
  245               	.LVL24:
-  54:src/nrf24l01.c **** 	
-  55:src/nrf24l01.c **** 	//Bootup and config
-  56:src/nrf24l01.c **** 	config_values[0] = (1 << PWR_UP) | (1 << CRCO) | (1 << EN_CRC) | (1 << MASK_MAX_RT);
-  57:src/nrf24l01.c **** 	
-  58:src/nrf24l01.c **** 	if(mode == 0) {
- 246               		.loc 1 58 0
+  56:src/nrf24l01.c **** 	
+  57:src/nrf24l01.c **** 	//Bootup and config
+  58:src/nrf24l01.c **** 	config_values[0] = (1 << PWR_UP) | (1 << CRCO) | (1 << EN_CRC) | (1 << MASK_MAX_RT);
+  59:src/nrf24l01.c **** 	
+  60:src/nrf24l01.c **** 	if(mode == 0) {
+ 246               		.loc 1 60 0
  247 00f8 0023      		tst r16
  248 00fa 01F0      		breq .L10
-  59:src/nrf24l01.c **** 		config_values[0] |=  (1 << MASK_TX_DS) | (1 << MASK_RX_DR);
-  60:src/nrf24l01.c **** 	} else {
-  61:src/nrf24l01.c **** 		config_values[0] |= (1 << PRIM_RX) | (1 << MASK_TX_DS);
- 249               		.loc 1 61 0
+  61:src/nrf24l01.c **** 		config_values[0] |=  (1 << MASK_TX_DS) | (1 << MASK_RX_DR);
+  62:src/nrf24l01.c **** 	} else {
+  63:src/nrf24l01.c **** 		config_values[0] |= (1 << PRIM_RX) | (1 << MASK_TX_DS);
+ 249               		.loc 1 63 0
  250 00fc 8FE3      		ldi r24,lo8(63)
  251 00fe 8983      		std Y+1,r24
-  62:src/nrf24l01.c **** 		PORTC |= (1 << PORTC7);
- 252               		.loc 1 62 0
+  64:src/nrf24l01.c **** 		PORTC |= (1 << PORTC7);
+ 252               		.loc 1 64 0
  253 0100 479A      		sbi 0x8,7
  254               	.L9:
-  63:src/nrf24l01.c **** 	}
-  64:src/nrf24l01.c **** 	nrf24l01_write_register(CONFIG, config_values, 1);
- 255               		.loc 1 64 0
+  65:src/nrf24l01.c **** 	}
+  66:src/nrf24l01.c **** 	nrf24l01_write_register(CONFIG, config_values, 1);
+ 255               		.loc 1 66 0
  256 0102 41E0      		ldi r20,lo8(1)
  257 0104 BE01      		movw r22,r28
  258 0106 6F5F      		subi r22,-1
@@ -345,8 +347,8 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  261 010c 0E94 0000 		call nrf24l01_write_register
  262               	.LVL25:
  263               	/* epilogue start */
-  65:src/nrf24l01.c **** } 
- 264               		.loc 1 65 0
+  67:src/nrf24l01.c **** } 
+ 264               		.loc 1 67 0
  265 0110 0F90      		pop __tmp_reg__
  266 0112 DF91      		pop r29
  267 0114 CF91      		pop r28
@@ -356,11 +358,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  271               	.LVL27:
  272 011a FF90      		pop r15
  273 011c EF90      		pop r14
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 7
+
+
  274               	.LVL28:
  275 011e DF90      		pop r13
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 7
-
-
  276 0120 CF90      		pop r12
  277               	.LVL29:
  278 0122 BF90      		pop r11
@@ -368,8 +370,8 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  280 0124 0895      		ret
  281               	.LVL31:
  282               	.L10:
-  59:src/nrf24l01.c **** 	} else {
- 283               		.loc 1 59 0
+  61:src/nrf24l01.c **** 	} else {
+ 283               		.loc 1 61 0
  284 0126 8EE7      		ldi r24,lo8(126)
  285 0128 8983      		std Y+1,r24
  286 012a 00C0      		rjmp .L9
@@ -380,9 +382,9 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  291               		.type	nrf24l01_transmit, @function
  292               	nrf24l01_transmit:
  293               	.LFB8:
-  66:src/nrf24l01.c **** 
-  67:src/nrf24l01.c **** void nrf24l01_transmit(uint8_t* payload, uint8_t payload_size) {
- 294               		.loc 1 67 0
+  68:src/nrf24l01.c **** 
+  69:src/nrf24l01.c **** void nrf24l01_transmit(uint8_t* payload, uint8_t payload_size) {
+ 294               		.loc 1 69 0
  295               		.cfi_startproc
  296               	.LVL32:
  297 012c FF92      		push r15
@@ -412,35 +414,35 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  321 0136 F82E      		mov r15,r24
  322 0138 092F      		mov r16,r25
  323 013a 162F      		mov r17,r22
-  68:src/nrf24l01.c **** 	SPI_unset_RF_cs();
- 324               		.loc 1 68 0
+  70:src/nrf24l01.c **** 	SPI_unset_RF_cs();
+ 324               		.loc 1 70 0
  325 013c 0E94 0000 		call SPI_unset_RF_cs
  326               	.LVL33:
-  69:src/nrf24l01.c **** 	SPI_send(FLUSH_TX);
- 327               		.loc 1 69 0
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 8
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 8
 
 
+  71:src/nrf24l01.c **** 	SPI_send(FLUSH_TX);
+ 327               		.loc 1 71 0
  328 0140 81EE      		ldi r24,lo8(-31)
  329 0142 0E94 0000 		call SPI_send
  330               	.LVL34:
-  70:src/nrf24l01.c **** 	SPI_set_RF_cs();
- 331               		.loc 1 70 0
+  72:src/nrf24l01.c **** 	SPI_set_RF_cs();
+ 331               		.loc 1 72 0
  332 0146 0E94 0000 		call SPI_set_RF_cs
  333               	.LVL35:
-  71:src/nrf24l01.c **** 	
-  72:src/nrf24l01.c **** 	SPI_unset_RF_cs();
- 334               		.loc 1 72 0
+  73:src/nrf24l01.c **** 	
+  74:src/nrf24l01.c **** 	SPI_unset_RF_cs();
+ 334               		.loc 1 74 0
  335 014a 0E94 0000 		call SPI_unset_RF_cs
  336               	.LVL36:
-  73:src/nrf24l01.c **** 	SPI_send(W_TX_PAYLOAD);
- 337               		.loc 1 73 0
+  75:src/nrf24l01.c **** 	SPI_send(W_TX_PAYLOAD);
+ 337               		.loc 1 75 0
  338 014e 80EA      		ldi r24,lo8(-96)
  339 0150 0E94 0000 		call SPI_send
  340               	.LVL37:
  341               	.LBB3:
-  74:src/nrf24l01.c **** 	for(int i = 0; i < payload_size; i++) {
- 342               		.loc 1 74 0
+  76:src/nrf24l01.c **** 	for(int i = 0; i < payload_size; i++) {
+ 342               		.loc 1 76 0
  343 0154 1123      		tst r17
  344 0156 01F0      		breq .L14
  345 0158 CF2D      		mov r28,r15
@@ -451,14 +453,14 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  350 0162 8C01      		movw r16,r24
  351               	.LVL38:
  352               	.L13:
-  75:src/nrf24l01.c **** 		SPI_send(payload[i]);
- 353               		.loc 1 75 0 discriminator 3
+  77:src/nrf24l01.c **** 		SPI_send(payload[i]);
+ 353               		.loc 1 77 0 discriminator 3
  354 0164 8991      		ld r24,Y+
  355               	.LVL39:
  356 0166 0E94 0000 		call SPI_send
  357               	.LVL40:
-  74:src/nrf24l01.c **** 	for(int i = 0; i < payload_size; i++) {
- 358               		.loc 1 74 0 discriminator 3
+  76:src/nrf24l01.c **** 	for(int i = 0; i < payload_size; i++) {
+ 358               		.loc 1 76 0 discriminator 3
  359 016a C017      		cp r28,r16
  360 016c D107      		cpc r29,r17
  361 016e 01F4      		brne .L13
@@ -466,22 +468,22 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  363               	.L14:
  364               	/* epilogue start */
  365               	.LBE3:
-  76:src/nrf24l01.c **** 	}
-  77:src/nrf24l01.c **** 	SPI_set_RF_cs();
-  78:src/nrf24l01.c **** 
-  79:src/nrf24l01.c **** }
- 366               		.loc 1 79 0
+  78:src/nrf24l01.c **** 	}
+  79:src/nrf24l01.c **** 	SPI_set_RF_cs();
+  80:src/nrf24l01.c **** 
+  81:src/nrf24l01.c **** }
+ 366               		.loc 1 81 0
  367 0170 DF91      		pop r29
  368 0172 CF91      		pop r28
  369 0174 1F91      		pop r17
  370               	.LVL42:
  371 0176 0F91      		pop r16
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 9
+
+
  372 0178 FF90      		pop r15
-  77:src/nrf24l01.c **** 
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 9
-
-
- 373               		.loc 1 77 0
+  79:src/nrf24l01.c **** 
+ 373               		.loc 1 79 0
  374 017a 0C94 0000 		jmp SPI_set_RF_cs
  375               	.LVL43:
  376               		.cfi_endproc
@@ -491,9 +493,9 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  380               		.type	nrf24l01_read_register, @function
  381               	nrf24l01_read_register:
  382               	.LFB9:
-  80:src/nrf24l01.c **** 
-  81:src/nrf24l01.c **** void nrf24l01_read_register(uint8_t reg, uint8_t* data, uint8_t bytecount) {
- 383               		.loc 1 81 0
+  82:src/nrf24l01.c **** 
+  83:src/nrf24l01.c **** void nrf24l01_read_register(uint8_t reg, uint8_t* data, uint8_t bytecount) {
+ 383               		.loc 1 83 0
  384               		.cfi_startproc
  385               	.LVL44:
  386 017e FF92      		push r15
@@ -524,23 +526,23 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  411 018a F62E      		mov r15,r22
  412 018c 072F      		mov r16,r23
  413 018e 142F      		mov r17,r20
-  82:src/nrf24l01.c **** 	SPI_unset_RF_cs();
- 414               		.loc 1 82 0
+  84:src/nrf24l01.c **** 	SPI_unset_RF_cs();
+ 414               		.loc 1 84 0
  415 0190 0E94 0000 		call SPI_unset_RF_cs
  416               	.LVL45:
-  83:src/nrf24l01.c **** 	SPI_send(reg);
- 417               		.loc 1 83 0
+  85:src/nrf24l01.c **** 	SPI_send(reg);
+ 417               		.loc 1 85 0
  418 0194 8C2F      		mov r24,r28
  419 0196 0E94 0000 		call SPI_send
  420               	.LVL46:
  421               	.LBB4:
-  84:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
- 422               		.loc 1 84 0
+  86:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
+ 422               		.loc 1 86 0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 10
+
+
  423 019a 1123      		tst r17
  424 019c 01F0      		breq .L19
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 10
-
-
  425 019e CF2D      		mov r28,r15
  426               	.LVL47:
  427 01a0 D02F      		mov r29,r16
@@ -550,18 +552,18 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  431 01a8 8C01      		movw r16,r24
  432               	.LVL48:
  433               	.L18:
-  85:src/nrf24l01.c **** 		SPI_send(NOP);
- 434               		.loc 1 85 0 discriminator 3
+  87:src/nrf24l01.c **** 		SPI_send(NOP);
+ 434               		.loc 1 87 0 discriminator 3
  435 01aa 8FEF      		ldi r24,lo8(-1)
  436 01ac 0E94 0000 		call SPI_send
  437               	.LVL49:
-  86:src/nrf24l01.c **** 		data[i] = SPDR;
- 438               		.loc 1 86 0 discriminator 3
+  88:src/nrf24l01.c **** 		data[i] = SPDR;
+ 438               		.loc 1 88 0 discriminator 3
  439 01b0 8EB5      		in r24,0x2e
  440 01b2 8993      		st Y+,r24
  441               	.LVL50:
-  84:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
- 442               		.loc 1 84 0 discriminator 3
+  86:src/nrf24l01.c **** 	for(int i = 0; i < bytecount; i++) {
+ 442               		.loc 1 86 0 discriminator 3
  443 01b4 C017      		cp r28,r16
  444 01b6 D107      		cpc r29,r17
  445 01b8 01F4      		brne .L18
@@ -569,18 +571,18 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  447               	.L19:
  448               	/* epilogue start */
  449               	.LBE4:
-  87:src/nrf24l01.c **** 	}
-  88:src/nrf24l01.c **** 	SPI_set_RF_cs();
-  89:src/nrf24l01.c **** }
- 450               		.loc 1 89 0
+  89:src/nrf24l01.c **** 	}
+  90:src/nrf24l01.c **** 	SPI_set_RF_cs();
+  91:src/nrf24l01.c **** }
+ 450               		.loc 1 91 0
  451 01ba DF91      		pop r29
  452 01bc CF91      		pop r28
  453 01be 1F91      		pop r17
  454               	.LVL52:
  455 01c0 0F91      		pop r16
  456 01c2 FF90      		pop r15
-  88:src/nrf24l01.c **** }
- 457               		.loc 1 88 0
+  90:src/nrf24l01.c **** }
+ 457               		.loc 1 90 0
  458 01c4 0C94 0000 		jmp SPI_set_RF_cs
  459               	.LVL53:
  460               		.cfi_endproc
@@ -590,17 +592,17 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  464               		.type	nrf24l01_reset_interrupts, @function
  465               	nrf24l01_reset_interrupts:
  466               	.LFB10:
-  90:src/nrf24l01.c **** 
-  91:src/nrf24l01.c **** void nrf24l01_reset_interrupts() {
- 467               		.loc 1 91 0
+  92:src/nrf24l01.c **** 
+  93:src/nrf24l01.c **** void nrf24l01_reset_interrupts() {
+ 467               		.loc 1 93 0
  468               		.cfi_startproc
  469 01c8 CF93      		push r28
  470               	.LCFI26:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 11
+
+
  471               		.cfi_def_cfa_offset 3
  472               		.cfi_offset 28, -2
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 11
-
-
  473 01ca DF93      		push r29
  474               	.LCFI27:
  475               		.cfi_def_cfa_offset 4
@@ -616,13 +618,13 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  485               	/* frame size = 1 */
  486               	/* stack size = 3 */
  487               	.L__stack_usage = 3
-  92:src/nrf24l01.c **** 	uint8_t val[1];
-  93:src/nrf24l01.c **** 	val[0] = 0x70;
- 488               		.loc 1 93 0
+  94:src/nrf24l01.c **** 	uint8_t val[1];
+  95:src/nrf24l01.c **** 	val[0] = 0x70;
+ 488               		.loc 1 95 0
  489 01d2 80E7      		ldi r24,lo8(112)
  490 01d4 8983      		std Y+1,r24
-  94:src/nrf24l01.c **** 	nrf24l01_write_register(STATUS,val,1);
- 491               		.loc 1 94 0
+  96:src/nrf24l01.c **** 	nrf24l01_write_register(STATUS,val,1);
+ 491               		.loc 1 96 0
  492 01d6 41E0      		ldi r20,lo8(1)
  493 01d8 BE01      		movw r22,r28
  494 01da 6F5F      		subi r22,-1
@@ -631,8 +633,8 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  497 01e0 0E94 0000 		call nrf24l01_write_register
  498               	.LVL54:
  499               	/* epilogue start */
-  95:src/nrf24l01.c **** }
- 500               		.loc 1 95 0
+  97:src/nrf24l01.c **** }
+ 500               		.loc 1 97 0
  501 01e4 0F90      		pop __tmp_reg__
  502 01e6 DF91      		pop r29
  503 01e8 CF91      		pop r28
@@ -656,11 +658,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  521 0015 0000 0000 		.long	.LASF27
  522 0019 0000 0000 		.long	.Ltext0
  523 001d 0000 0000 		.long	.Letext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 12
+
+
  524 0021 0000 0000 		.long	.Ldebug_line0
  525 0025 02        		.uleb128 0x2
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 12
-
-
  526 0026 01        		.byte	0x1
  527 0027 06        		.byte	0x6
  528 0028 0000 0000 		.long	.LASF0
@@ -701,7 +703,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  563 0069 01        		.byte	0x1
  564 006a 0000 0000 		.long	.LASF9
  565 006e 01        		.byte	0x1
- 566 006f 06        		.byte	0x6
+ 566 006f 08        		.byte	0x8
  567 0070 01        		.byte	0x1
  568 0071 0000 0000 		.long	.LFB6
  569 0075 0000 0000 		.long	.LFE6
@@ -711,22 +713,22 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  573 0082 06        		.uleb128 0x6
  574 0083 7265 6700 		.string	"reg"
  575 0087 01        		.byte	0x1
- 576 0088 06        		.byte	0x6
+ 576 0088 08        		.byte	0x8
  577 0089 2C00 0000 		.long	0x2c
  578 008d 0000 0000 		.long	.LLST1
  579 0091 07        		.uleb128 0x7
  580 0092 0000 0000 		.long	.LASF7
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 13
+
+
  581 0096 01        		.byte	0x1
- 582 0097 06        		.byte	0x6
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 13
-
-
+ 582 0097 08        		.byte	0x8
  583 0098 FE00 0000 		.long	0xfe
  584 009c 0000 0000 		.long	.LLST2
  585 00a0 07        		.uleb128 0x7
  586 00a1 0000 0000 		.long	.LASF8
  587 00a5 01        		.byte	0x1
- 588 00a6 06        		.byte	0x6
+ 588 00a6 08        		.byte	0x8
  589 00a7 2C00 0000 		.long	0x2c
  590 00ab 0000 0000 		.long	.LLST3
  591 00af 08        		.uleb128 0x8
@@ -736,7 +738,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  595 00bc 09        		.uleb128 0x9
  596 00bd 6900      		.string	"i"
  597 00bf 01        		.byte	0x1
- 598 00c0 0A        		.byte	0xa
+ 598 00c0 0C        		.byte	0xc
  599 00c1 3E00 0000 		.long	0x3e
  600 00c5 0000 0000 		.long	.LLST4
  601 00c9 0A        		.uleb128 0xa
@@ -772,50 +774,50 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  631 0105 01        		.byte	0x1
  632 0106 0000 0000 		.long	.LASF10
  633 010a 01        		.byte	0x1
- 634 010b 10        		.byte	0x10
+ 634 010b 12        		.byte	0x12
  635 010c 01        		.byte	0x1
  636 010d 0000 0000 		.long	.LFB7
  637 0111 0000 0000 		.long	.LFE7
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 14
+
+
  638 0115 0000 0000 		.long	.LLST5
  639 0119 01        		.byte	0x1
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 14
-
-
  640 011a DD02 0000 		.long	0x2dd
  641 011e 07        		.uleb128 0x7
  642 011f 0000 0000 		.long	.LASF11
  643 0123 01        		.byte	0x1
- 644 0124 10        		.byte	0x10
+ 644 0124 12        		.byte	0x12
  645 0125 2C00 0000 		.long	0x2c
  646 0129 0000 0000 		.long	.LLST6
  647 012d 07        		.uleb128 0x7
  648 012e 0000 0000 		.long	.LASF12
  649 0132 01        		.byte	0x1
- 650 0133 10        		.byte	0x10
+ 650 0133 12        		.byte	0x12
  651 0134 FE00 0000 		.long	0xfe
  652 0138 0000 0000 		.long	.LLST7
  653 013c 07        		.uleb128 0x7
  654 013d 0000 0000 		.long	.LASF13
  655 0141 01        		.byte	0x1
- 656 0142 10        		.byte	0x10
+ 656 0142 12        		.byte	0x12
  657 0143 2C00 0000 		.long	0x2c
  658 0147 0000 0000 		.long	.LLST8
  659 014b 07        		.uleb128 0x7
  660 014c 0000 0000 		.long	.LASF14
  661 0150 01        		.byte	0x1
- 662 0151 10        		.byte	0x10
+ 662 0151 12        		.byte	0x12
  663 0152 2C00 0000 		.long	0x2c
  664 0156 0000 0000 		.long	.LLST9
  665 015a 07        		.uleb128 0x7
  666 015b 0000 0000 		.long	.LASF15
  667 015f 01        		.byte	0x1
- 668 0160 10        		.byte	0x10
+ 668 0160 12        		.byte	0x12
  669 0161 2C00 0000 		.long	0x2c
  670 0165 0000 0000 		.long	.LLST10
  671 0169 0F        		.uleb128 0xf
  672 016a 0000 0000 		.long	.LASF16
  673 016e 01        		.byte	0x1
- 674 016f 15        		.byte	0x15
+ 674 016f 17        		.byte	0x17
  675 0170 DD02 0000 		.long	0x2dd
  676 0174 02        		.byte	0x2
  677 0175 8C        		.byte	0x8c
@@ -836,11 +838,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  692 018d 93        		.byte	0x93
  693 018e 01        		.uleb128 0x1
  694 018f 67        		.byte	0x67
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 15
+
+
  695 0190 93        		.byte	0x93
  696 0191 01        		.uleb128 0x1
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 15
-
-
  697 0192 02        		.byte	0x2
  698 0193 8C        		.byte	0x8c
  699 0194 01        		.sleb128 1
@@ -896,11 +898,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  749 01d8 93        		.byte	0x93
  750 01d9 01        		.uleb128 0x1
  751 01da 02        		.byte	0x2
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 16
+
+
  752 01db 8C        		.byte	0x8c
  753 01dc 01        		.sleb128 1
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 16
-
-
  754 01dd 0C        		.uleb128 0xc
  755 01de 01        		.byte	0x1
  756 01df 64        		.byte	0x64
@@ -956,11 +958,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  806 0223 8C        		.byte	0x8c
  807 0224 01        		.sleb128 1
  808 0225 0C        		.uleb128 0xc
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 17
+
+
  809 0226 01        		.byte	0x1
  810 0227 64        		.byte	0x64
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 17
-
-
  811 0228 02        		.byte	0x2
  812 0229 7D        		.byte	0x7d
  813 022a 00        		.sleb128 0
@@ -1016,11 +1018,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  863 026e 01        		.byte	0x1
  864 026f 64        		.byte	0x64
  865 0270 02        		.byte	0x2
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 18
+
+
  866 0271 81        		.byte	0x81
  867 0272 00        		.sleb128 0
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 18
-
-
  868 0273 00        		.byte	0
  869 0274 0B        		.uleb128 0xb
  870 0275 0000 0000 		.long	.LVL23
@@ -1076,11 +1078,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  920 02b9 7D        		.byte	0x7d
  921 02ba 00        		.sleb128 0
  922 02bb 00        		.byte	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 19
+
+
  923 02bc 10        		.uleb128 0x10
  924 02bd 0000 0000 		.long	.LVL25
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 19
-
-
  925 02c1 6800 0000 		.long	0x68
  926 02c5 0C        		.uleb128 0xc
  927 02c6 01        		.byte	0x1
@@ -1121,7 +1123,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  962 02f5 01        		.byte	0x1
  963 02f6 0000 0000 		.long	.LASF18
  964 02fa 01        		.byte	0x1
- 965 02fb 43        		.byte	0x43
+ 965 02fb 45        		.byte	0x45
  966 02fc 01        		.byte	0x1
  967 02fd 0000 0000 		.long	.LFB8
  968 0301 0000 0000 		.long	.LFE8
@@ -1131,16 +1133,16 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  972 030e 07        		.uleb128 0x7
  973 030f 0000 0000 		.long	.LASF19
  974 0313 01        		.byte	0x1
- 975 0314 43        		.byte	0x43
+ 975 0314 45        		.byte	0x45
  976 0315 FE00 0000 		.long	0xfe
  977 0319 0000 0000 		.long	.LLST12
  978 031d 07        		.uleb128 0x7
  979 031e 0000 0000 		.long	.LASF20
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 20
+
+
  980 0322 01        		.byte	0x1
- 981 0323 43        		.byte	0x43
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 20
-
-
+ 981 0323 45        		.byte	0x45
  982 0324 2C00 0000 		.long	0x2c
  983 0328 0000 0000 		.long	.LLST13
  984 032c 08        		.uleb128 0x8
@@ -1150,7 +1152,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  988 0339 09        		.uleb128 0x9
  989 033a 6900      		.string	"i"
  990 033c 01        		.byte	0x1
- 991 033d 4A        		.byte	0x4a
+ 991 033d 4C        		.byte	0x4c
  992 033e 3E00 0000 		.long	0x3e
  993 0342 0000 0000 		.long	.LLST14
  994 0346 0A        		.uleb128 0xa
@@ -1196,11 +1198,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1034 039e 05        		.uleb128 0x5
  1035 039f 01        		.byte	0x1
  1036 03a0 0000 0000 		.long	.LASF21
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 21
+
+
  1037 03a4 01        		.byte	0x1
- 1038 03a5 51        		.byte	0x51
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 21
-
-
+ 1038 03a5 53        		.byte	0x53
  1039 03a6 01        		.byte	0x1
  1040 03a7 0000 0000 		.long	.LFB9
  1041 03ab 0000 0000 		.long	.LFE9
@@ -1210,19 +1212,19 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1045 03b8 06        		.uleb128 0x6
  1046 03b9 7265 6700 		.string	"reg"
  1047 03bd 01        		.byte	0x1
- 1048 03be 51        		.byte	0x51
+ 1048 03be 53        		.byte	0x53
  1049 03bf 2C00 0000 		.long	0x2c
  1050 03c3 0000 0000 		.long	.LLST16
  1051 03c7 07        		.uleb128 0x7
  1052 03c8 0000 0000 		.long	.LASF7
  1053 03cc 01        		.byte	0x1
- 1054 03cd 51        		.byte	0x51
+ 1054 03cd 53        		.byte	0x53
  1055 03ce FE00 0000 		.long	0xfe
  1056 03d2 0000 0000 		.long	.LLST17
  1057 03d6 07        		.uleb128 0x7
  1058 03d7 0000 0000 		.long	.LASF8
  1059 03db 01        		.byte	0x1
- 1060 03dc 51        		.byte	0x51
+ 1060 03dc 53        		.byte	0x53
  1061 03dd 2C00 0000 		.long	0x2c
  1062 03e1 0000 0000 		.long	.LLST18
  1063 03e5 08        		.uleb128 0x8
@@ -1232,7 +1234,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1067 03f2 09        		.uleb128 0x9
  1068 03f3 6900      		.string	"i"
  1069 03f5 01        		.byte	0x1
- 1070 03f6 54        		.byte	0x54
+ 1070 03f6 56        		.byte	0x56
  1071 03f7 3E00 0000 		.long	0x3e
  1072 03fb 0000 0000 		.long	.LLST19
  1073 03ff 10        		.uleb128 0x10
@@ -1256,11 +1258,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1091 0426 0C        		.uleb128 0xc
  1092 0427 01        		.byte	0x1
  1093 0428 68        		.byte	0x68
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 22
+
+
  1094 0429 02        		.byte	0x2
  1095 042a 8C        		.byte	0x8c
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 22
-
-
  1096 042b 00        		.sleb128 0
  1097 042c 00        		.byte	0
  1098 042d 0D        		.uleb128 0xd
@@ -1272,7 +1274,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1104 0439 01        		.byte	0x1
  1105 043a 0000 0000 		.long	.LASF29
  1106 043e 01        		.byte	0x1
- 1107 043f 5B        		.byte	0x5b
+ 1107 043f 5D        		.byte	0x5d
  1108 0440 0000 0000 		.long	.LFB10
  1109 0444 0000 0000 		.long	.LFE10
  1110 0448 0000 0000 		.long	.LLST20
@@ -1281,7 +1283,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1113 0451 14        		.uleb128 0x14
  1114 0452 7661 6C00 		.string	"val"
  1115 0456 01        		.byte	0x1
- 1116 0457 5C        		.byte	0x5c
+ 1116 0457 5E        		.byte	0x5e
  1117 0458 DD02 0000 		.long	0x2dd
  1118 045c 02        		.byte	0x2
  1119 045d 8C        		.byte	0x8c
@@ -1316,26 +1318,26 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1148 0480 01        		.byte	0x1
  1149 0481 01        		.byte	0x1
  1150 0482 0000 0000 		.long	.LASF22
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 23
+
+
  1151 0486 0000 0000 		.long	.LASF22
  1152 048a 02        		.byte	0x2
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 23
-
-
- 1153 048b 0D        		.byte	0xd
+ 1153 048b 10        		.byte	0x10
  1154 048c 15        		.uleb128 0x15
  1155 048d 01        		.byte	0x1
  1156 048e 01        		.byte	0x1
  1157 048f 0000 0000 		.long	.LASF23
  1158 0493 0000 0000 		.long	.LASF23
  1159 0497 02        		.byte	0x2
- 1160 0498 07        		.byte	0x7
+ 1160 0498 0A        		.byte	0xa
  1161 0499 15        		.uleb128 0x15
  1162 049a 01        		.byte	0x1
  1163 049b 01        		.byte	0x1
  1164 049c 0000 0000 		.long	.LASF24
  1165 04a0 0000 0000 		.long	.LASF24
  1166 04a4 02        		.byte	0x2
- 1167 04a5 08        		.byte	0x8
+ 1167 04a5 0B        		.byte	0xb
  1168 04a6 00        		.byte	0
  1169               		.section	.debug_abbrev,"",@progbits
  1170               	.Ldebug_abbrev0:
@@ -1376,11 +1378,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1205 0022 0E        		.uleb128 0xe
  1206 0023 3A        		.uleb128 0x3a
  1207 0024 0B        		.uleb128 0xb
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 24
+
+
  1208 0025 3B        		.uleb128 0x3b
  1209 0026 0B        		.uleb128 0xb
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 24
-
-
  1210 0027 49        		.uleb128 0x49
  1211 0028 13        		.uleb128 0x13
  1212 0029 00        		.byte	0
@@ -1436,11 +1438,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1262 005c 06        		.uleb128 0x6
  1263 005d 00        		.byte	0
  1264 005e 00        		.byte	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 25
+
+
  1265 005f 07        		.uleb128 0x7
  1266 0060 05        		.uleb128 0x5
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 25
-
-
  1267 0061 00        		.byte	0
  1268 0062 03        		.uleb128 0x3
  1269 0063 0E        		.uleb128 0xe
@@ -1496,11 +1498,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1319 0099 01        		.uleb128 0x1
  1320 009a 31        		.uleb128 0x31
  1321 009b 13        		.uleb128 0x13
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 26
+
+
  1322 009c 01        		.uleb128 0x1
  1323 009d 13        		.uleb128 0x13
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 26
-
-
  1324 009e 00        		.byte	0
  1325 009f 00        		.byte	0
  1326 00a0 0C        		.uleb128 0xc
@@ -1556,11 +1558,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1376 00da 13        		.uleb128 0x13
  1377 00db 00        		.byte	0
  1378 00dc 00        		.byte	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 27
+
+
  1379 00dd 11        		.uleb128 0x11
  1380 00de 01        		.uleb128 0x1
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 27
-
-
  1381 00df 01        		.byte	0x1
  1382 00e0 49        		.uleb128 0x49
  1383 00e1 13        		.uleb128 0x13
@@ -1616,11 +1618,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1433 0114 00        		.byte	0
  1434 0115 00        		.byte	0
  1435 0116 15        		.uleb128 0x15
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 28
+
+
  1436 0117 2E        		.uleb128 0x2e
  1437 0118 00        		.byte	0
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 28
-
-
  1438 0119 3F        		.uleb128 0x3f
  1439 011a 0C        		.uleb128 0xc
  1440 011b 3C        		.uleb128 0x3c
@@ -1676,11 +1678,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1490 004c 20        		.uleb128 0x20
  1491 004d 07        		.sleb128 7
  1492 004e 0000 0000 		.long	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 29
+
+
  1493 0052 0000 0000 		.long	0
  1494               	.LLST1:
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 29
-
-
  1495 0056 0000 0000 		.long	.LVL0-.Ltext0
  1496 005a 1200 0000 		.long	.LVL1-.Ltext0
  1497 005e 0100      		.word	0x1
@@ -1736,11 +1738,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1547 00c0 93        		.byte	0x93
  1548 00c1 01        		.uleb128 0x1
  1549 00c2 67        		.byte	0x67
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 30
+
+
  1550 00c3 93        		.byte	0x93
  1551 00c4 01        		.uleb128 0x1
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 30
-
-
  1552 00c5 1500 0000 		.long	.LVL2-1-.Ltext0
  1553 00c9 4800 0000 		.long	.LFE6-.Ltext0
  1554 00cd 0400      		.word	0x4
@@ -1796,11 +1798,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1604 0134 22        		.byte	0x22
  1605 0135 9F        		.byte	0x9f
  1606 0136 3400 0000 		.long	.LVL8-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 31
+
+
  1607 013a 3A00 0000 		.long	.LVL9-.Ltext0
  1608 013e 0700      		.word	0x7
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 31
-
-
  1609 0140 8C        		.byte	0x8c
  1610 0141 00        		.sleb128 0
  1611 0142 F3        		.byte	0xf3
@@ -1856,11 +1858,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1661 01aa 5600 0000 		.long	.LCFI11-.Ltext0
  1662 01ae 5800 0000 		.long	.LCFI12-.Ltext0
  1663 01b2 0300      		.word	0x3
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 32
+
+
  1664 01b4 92        		.byte	0x92
  1665 01b5 20        		.uleb128 0x20
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 32
-
-
  1666 01b6 09        		.sleb128 9
  1667 01b7 5800 0000 		.long	.LCFI12-.Ltext0
  1668 01bb 5A00 0000 		.long	.LCFI13-.Ltext0
@@ -1916,11 +1918,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1718 0233 66        		.byte	0x66
  1719 0234 93        		.byte	0x93
  1720 0235 01        		.uleb128 0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 33
+
+
  1721 0236 67        		.byte	0x67
  1722 0237 93        		.byte	0x93
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 33
-
-
  1723 0238 01        		.uleb128 0x1
  1724 0239 7600 0000 		.long	.LVL14-.Ltext0
  1725 023d 1E01 0000 		.long	.LVL28-.Ltext0
@@ -1976,11 +1978,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1775 02aa 7F00 0000 		.long	.LVL16-1-.Ltext0
  1776 02ae 0100      		.word	0x1
  1777 02b0 62        		.byte	0x62
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 34
+
+
  1778 02b1 7F00 0000 		.long	.LVL16-1-.Ltext0
  1779 02b5 2201 0000 		.long	.LVL29-.Ltext0
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 34
-
-
  1780 02b9 0100      		.word	0x1
  1781 02bb 5C        		.byte	0x5c
  1782 02bc 2201 0000 		.long	.LVL29-.Ltext0
@@ -2036,11 +2038,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1832 0330 3201 0000 		.long	.LCFI18-.Ltext0
  1833 0334 3401 0000 		.long	.LCFI19-.Ltext0
  1834 0338 0300      		.word	0x3
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 35
+
+
  1835 033a 92        		.byte	0x92
  1836 033b 20        		.uleb128 0x20
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 35
-
-
  1837 033c 05        		.sleb128 5
  1838 033d 3401 0000 		.long	.LCFI19-.Ltext0
  1839 0341 3601 0000 		.long	.LCFI20-.Ltext0
@@ -2096,11 +2098,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1889               	.LLST14:
  1890 03b1 5401 0000 		.long	.LVL37-.Ltext0
  1891 03b5 6401 0000 		.long	.LVL38-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 36
+
+
  1892 03b9 0200      		.word	0x2
  1893 03bb 30        		.byte	0x30
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 36
-
-
  1894 03bc 9F        		.byte	0x9f
  1895 03bd 6401 0000 		.long	.LVL38-.Ltext0
  1896 03c1 6601 0000 		.long	.LVL39-.Ltext0
@@ -2156,11 +2158,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  1946 041f 04        		.sleb128 4
  1947 0420 8401 0000 		.long	.LCFI23-.Ltext0
  1948 0424 8601 0000 		.long	.LCFI24-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 37
+
+
  1949 0428 0300      		.word	0x3
  1950 042a 92        		.byte	0x92
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 37
-
-
  1951 042b 20        		.uleb128 0x20
  1952 042c 05        		.sleb128 5
  1953 042d 8601 0000 		.long	.LCFI24-.Ltext0
@@ -2216,11 +2218,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  2003 049d 0000 0000 		.long	0
  2004               	.LLST18:
  2005 04a1 7E01 0000 		.long	.LVL44-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 38
+
+
  2006 04a5 9301 0000 		.long	.LVL45-1-.Ltext0
  2007 04a9 0100      		.word	0x1
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 38
-
-
  2008 04ab 64        		.byte	0x64
  2009 04ac 9301 0000 		.long	.LVL45-1-.Ltext0
  2010 04b0 C001 0000 		.long	.LVL52-.Ltext0
@@ -2276,11 +2278,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  2060 051d D201 0000 		.long	.LCFI29-.Ltext0
  2061 0521 0300      		.word	0x3
  2062 0523 92        		.byte	0x92
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 39
+
+
  2063 0524 20        		.uleb128 0x20
  2064 0525 05        		.sleb128 5
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 39
-
-
  2065 0526 D201 0000 		.long	.LCFI29-.Ltext0
  2066 052a EC01 0000 		.long	.LFE10-.Ltext0
  2067 052e 0200      		.word	0x2
@@ -2336,11 +2338,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  2098      5F77 7269 
  2098      7465 5F72 
  2098      6567 6973 
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 40
+
+
  2099               	.LASF20:
  2100 0058 7061 796C 		.string	"payload_size"
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 40
-
-
  2100      6F61 645F 
  2100      7369 7A65 
  2100      00
@@ -2369,78 +2371,78 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  2110      6E72 6632 
  2110      346C 3031 
  2110      2E63 00
- 2111               	.LASF27:
- 2112 00b3 633A 5C75 		.string	"c:\\users\\rando\\documents\\elektroonika\\wep-reciever"
- 2112      7365 7273 
- 2112      5C72 616E 
- 2112      646F 5C64 
- 2112      6F63 756D 
- 2113               	.LASF22:
- 2114 00e6 5350 495F 		.string	"SPI_send"
- 2114      7365 6E64 
- 2114      00
- 2115               	.LASF21:
- 2116 00ef 6E72 6632 		.string	"nrf24l01_read_register"
- 2116      346C 3031 
- 2116      5F72 6561 
- 2116      645F 7265 
- 2116      6769 7374 
- 2117               	.LASF23:
- 2118 0106 5350 495F 		.string	"SPI_unset_RF_cs"
- 2118      756E 7365 
- 2118      745F 5246 
- 2118      5F63 7300 
- 2119               	.LASF11:
- 2120 0116 6164 6472 		.string	"address_width"
- 2120      6573 735F 
- 2120      7769 6474 
- 2120      6800 
- 2121               	.LASF2:
- 2122 0124 756E 7369 		.string	"unsigned int"
- 2122      676E 6564 
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 41
+ 2111               	.LASF22:
+ 2112 00b3 5350 495F 		.string	"SPI_send"
+ 2112      7365 6E64 
+ 2112      00
+ 2113               	.LASF21:
+ 2114 00bc 6E72 6632 		.string	"nrf24l01_read_register"
+ 2114      346C 3031 
+ 2114      5F72 6561 
+ 2114      645F 7265 
+ 2114      6769 7374 
+ 2115               	.LASF23:
+ 2116 00d3 5350 495F 		.string	"SPI_unset_RF_cs"
+ 2116      756E 7365 
+ 2116      745F 5246 
+ 2116      5F63 7300 
+ 2117               	.LASF11:
+ 2118 00e3 6164 6472 		.string	"address_width"
+ 2118      6573 735F 
+ 2118      7769 6474 
+ 2118      6800 
+ 2119               	.LASF2:
+ 2120 00f1 756E 7369 		.string	"unsigned int"
+ 2120      676E 6564 
+ 2120      2069 6E74 
+ 2120      00
+ 2121               	.LASF12:
+ 2122 00fe 6164 6472 		.string	"address"
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 41
 
 
- 2122      2069 6E74 
- 2122      00
- 2123               	.LASF12:
- 2124 0131 6164 6472 		.string	"address"
- 2124      6573 7300 
- 2125               	.LASF6:
- 2126 0139 6C6F 6E67 		.string	"long long unsigned int"
- 2126      206C 6F6E 
- 2126      6720 756E 
- 2126      7369 676E 
- 2126      6564 2069 
- 2127               	.LASF28:
- 2128 0150 7569 6E74 		.string	"uint8_t"
- 2128      385F 7400 
- 2129               	.LASF15:
- 2130 0158 6D6F 6465 		.string	"mode"
- 2130      00
- 2131               	.LASF25:
- 2132 015d 474E 5520 		.string	"GNU C11 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avr5 -g -O2 -funsigned-char -funsigned-bitf
- 2132      4331 3120 
- 2132      352E 342E 
- 2132      3020 2D6D 
- 2132      6E2D 666C 
- 2133               	.LASF19:
- 2134 01d8 7061 796C 		.string	"payload"
- 2134      6F61 6400 
- 2135               	.LASF17:
- 2136 01e0 7369 7A65 		.string	"sizetype"
- 2136      7479 7065 
- 2136      00
- 2137               	.LASF5:
- 2138 01e9 6C6F 6E67 		.string	"long long int"
- 2138      206C 6F6E 
- 2138      6720 696E 
- 2138      7400 
- 2139               	.LASF14:
- 2140 01f7 7061 796C 		.string	"payload_width"
- 2140      6F61 645F 
- 2140      7769 6474 
- 2140      6800 
+ 2122      6573 7300 
+ 2123               	.LASF6:
+ 2124 0106 6C6F 6E67 		.string	"long long unsigned int"
+ 2124      206C 6F6E 
+ 2124      6720 756E 
+ 2124      7369 676E 
+ 2124      6564 2069 
+ 2125               	.LASF28:
+ 2126 011d 7569 6E74 		.string	"uint8_t"
+ 2126      385F 7400 
+ 2127               	.LASF15:
+ 2128 0125 6D6F 6465 		.string	"mode"
+ 2128      00
+ 2129               	.LASF25:
+ 2130 012a 474E 5520 		.string	"GNU C11 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avr5 -g -O2 -funsigned-char -funsigned-bitf
+ 2130      4331 3120 
+ 2130      352E 342E 
+ 2130      3020 2D6D 
+ 2130      6E2D 666C 
+ 2131               	.LASF19:
+ 2132 01a5 7061 796C 		.string	"payload"
+ 2132      6F61 6400 
+ 2133               	.LASF17:
+ 2134 01ad 7369 7A65 		.string	"sizetype"
+ 2134      7479 7065 
+ 2134      00
+ 2135               	.LASF5:
+ 2136 01b6 6C6F 6E67 		.string	"long long int"
+ 2136      206C 6F6E 
+ 2136      6720 696E 
+ 2136      7400 
+ 2137               	.LASF14:
+ 2138 01c4 7061 796C 		.string	"payload_width"
+ 2138      6F61 645F 
+ 2138      7769 6474 
+ 2138      6800 
+ 2139               	.LASF27:
+ 2140 01d2 633A 5C75 		.string	"c:\\users\\rando\\documents\\rvp\\firmware\\wep-reciever"
+ 2140      7365 7273 
+ 2140      5C72 616E 
+ 2140      646F 5C64 
+ 2140      6F63 756D 
  2141               	.LASF3:
  2142 0205 6C6F 6E67 		.string	"long int"
  2142      2069 6E74 
@@ -2455,21 +2457,21 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 1
  2146      5F69 6E69 
  2146      7400 
  2147               		.ident	"GCC: (AVR_8_bit_GNU_Toolchain_3.6.2_1778) 5.4.0"
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s 			page 42
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s 			page 42
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 nrf24l01.c
-C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s:2      *ABS*:0000003e __SP_H__
-C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s:3      *ABS*:0000003d __SP_L__
-C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s:4      *ABS*:0000003f __SREG__
-C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s:5      *ABS*:00000000 __tmp_reg__
-C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s:6      *ABS*:00000001 __zero_reg__
-C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s:12     .text:00000000 nrf24l01_write_register
-C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s:97     .text:00000048 nrf24l01_init
-C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s:292    .text:0000012c nrf24l01_transmit
-C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s:381    .text:0000017e nrf24l01_read_register
-C:\Users\Rando\AppData\Local\Temp\ccnBXczT.s:465    .text:000001c8 nrf24l01_reset_interrupts
+C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s:2      *ABS*:0000003e __SP_H__
+C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s:3      *ABS*:0000003d __SP_L__
+C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s:4      *ABS*:0000003f __SREG__
+C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s:5      *ABS*:00000000 __tmp_reg__
+C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s:6      *ABS*:00000001 __zero_reg__
+C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s:12     .text:00000000 nrf24l01_write_register
+C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s:97     .text:00000048 nrf24l01_init
+C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s:292    .text:0000012c nrf24l01_transmit
+C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s:381    .text:0000017e nrf24l01_read_register
+C:\Users\Rando\AppData\Local\Temp\cc8QtXfJ.s:465    .text:000001c8 nrf24l01_reset_interrupts
 
 UNDEFINED SYMBOLS
 SPI_unset_RF_cs

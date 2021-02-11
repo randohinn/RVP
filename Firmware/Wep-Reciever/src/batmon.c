@@ -39,11 +39,11 @@ uint8_t batmon_config(uint16_t dcap) {
 	if(!status) {
         // UNSEAL IC
 		i2c_write(0x00);
-		i2c_write(BQ27441_UNSEAL_KEY& 0x00FF);
-		i2c_write(BQ27441_UNSEAL_KEY >> 0x00FF);
+		i2c_write(BQ27441_UNSEAL_KEY & 0x00FF);
+		i2c_write((BQ27441_UNSEAL_KEY & 0xFF00) >> 8);
 		i2c_write(0x00);
 		i2c_write(BQ27441_UNSEAL_KEY& 0x00FF);
-		i2c_write(BQ27441_UNSEAL_KEY >> 0x00FF);
+		i2c_write((BQ27441_UNSEAL_KEY & 0xFF00) >> 8);
 		i2c_stop();
         
 		uint8_t stat = i2c_start(0xAA);

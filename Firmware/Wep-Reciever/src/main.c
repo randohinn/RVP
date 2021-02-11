@@ -6,15 +6,17 @@
 #include <avr/interrupt.h>
 #include <include/eink.h>
 #include <include/batmon.h>
+#include <avr/sleep.h>
 
 /* Riistvaraprojekt UT 2020/21 - Rando Hinn, vastuvõtjamooduli peakood */
 
 volatile uint8_t data[10];
 volatile uint8_t data_available = 0;
+uint16_t tc = 0;
 
 ISR(INT6_vect) {
     if(data_available == 0) {
-        nrf24l01_read_register(R_RX_PAYLOAD,data,10);
+        nrf24l01_read_register(R_RX_PAYLOAD, (uint8_t*) data,10);
         data_available = 1;
     }
 }
@@ -34,6 +36,35 @@ void clean_buffer(uint8_t* buffer) {
     }
 }
 
+
+ISR(TIMER1_COMPA_vect) {
+    tc++;
+    if(tc == 3600000) { // countime tunni
+        if(batmon_soc() < 25) {
+            cli();
+            unsigned char buffer[(epdwidth / 8) * HEIGHT];
+            for(uint8_t x = 0; x < epdwidth; x++) {
+                for (uint8_t y = 0; y < HEIGHT; y++) {
+                    EINK_draw_absolute_pixel(buffer,x,y,0);
+                }
+            }
+            for(int i = 0; i < 122/epdwidth; i++) {
+                for(int j = 0; j < 250/HEIGHT; j++) {
+                    EINK_set_partial_red(buffer, i*epdwidth,j*HEIGHT, epdwidth,HEIGHT);
+                    EINK_set_partial_black(buffer, i*epdwidth,j*HEIGHT, epdwidth,HEIGHT);
+                }
+            }
+            uint8_t cv[1];
+            //Overwrite with no powerup set
+            cv[0] = (1 << CRCO) | (1 << EN_CRC) | (1 << MASK_MAX_RT);
+            nrf24l01_write_register(CONFIG, cv,1);
+            set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+            sleep_mode();
+        }
+        tc = 0;
+    }
+}
+
 int main() {
 
     //DEBUG led
@@ -42,7 +73,12 @@ int main() {
     if(batmon_init()) {
         batmon_config(700);
         if(batmon_soc() > 25) { // Akut üle 25%? Läheme käima
-            PORTF = (1 << PF0);
+        
+            // Ja tekitame timeri, millega akut kontrollida 100ms
+            TIMSK1 |= (1 << OCIE1A);
+            TCCR1B |= (1 << WGM12) | (1<<CS10) | (1 << CS12);
+            OCR1A = 1562;
+        
             //IRQ
             DDRE &= ~(1 << DDE6);
             EICRB |= (1<<ISC60)|(0<<ISC61);   //INT6 falling edge
@@ -56,8 +92,8 @@ int main() {
             EINK_init();
             EINK_wait();
             
-            unsigned char buffer[(epdwidth / 8) * HEIGHT];
-            clean_buffer(&buffer);
+            uint8_t buffer[(epdwidth / 8) * HEIGHT];
+            clean_buffer(buffer);
             EINK_wait();
             
             // Valgeks
@@ -74,7 +110,7 @@ int main() {
             }
                 
             nrf24l01_init(5, address, 110, 10 ,MODE_RECIEVE);
-            nrf24l01_read_register(R_RX_PAYLOAD,data,10); // Esimesel korral peame puhvritühjendust ise tegema..
+            nrf24l01_read_register(R_RX_PAYLOAD,(uint8_t *)data,10); // Esimesel korral peame puhvritühjendust ise tegema..
             nrf24l01_reset_interrupts();    
 
             while(1) {
@@ -106,7 +142,7 @@ int main() {
                             EINK_send_command(DISPLAY_REFRESH);
                             EINK_wait();
                         } else if(data[0] == 'W') {
-                            clean_buffer(&buffer);
+                            clean_buffer(buffer);
                             EINK_wait();
                         }
                     }

@@ -1,4 +1,4 @@
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 1
 
 
    1               		.file	"batmon.c"
@@ -20,8 +20,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
    3:src/batmon.c  **** #include <avr/io.h>
    4:src/batmon.c  **** #include <util/delay.h>
    5:src/batmon.c  **** 
-   6:src/batmon.c  **** uint8_t batmon_init() {
-  15               		.loc 1 6 0
+   6:src/batmon.c  **** /* Riistvaraprojekt UT 2020/21 - Rando Hinn, vastuvıtjamooduli akuhalduse setup & SOC lugemine */
+   7:src/batmon.c  **** 
+   8:src/batmon.c  **** 
+   9:src/batmon.c  **** uint8_t batmon_init() {
+  15               		.loc 1 9 0
   16               		.cfi_startproc
   17 0000 EF92      		push r14
   18               	.LCFI0:
@@ -54,96 +57,96 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
   45               	/* frame size = 2 */
   46               	/* stack size = 7 */
   47               	.L__stack_usage = 7
-   7:src/batmon.c  **** 	DDRD &= ~(1 << DDD0);
-  48               		.loc 1 7 0
+  10:src/batmon.c  **** 	DDRD &= ~(1 << DDD0);
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 2
+
+
+  48               		.loc 1 10 0
   49 0010 5098      		cbi 0xa,0
-   8:src/batmon.c  **** 	DDRD &= ~(1 << DDD1);
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 2
-
-
-  50               		.loc 1 8 0
+  11:src/batmon.c  **** 	DDRD &= ~(1 << DDD1);
+  50               		.loc 1 11 0
   51 0012 5198      		cbi 0xa,1
-   9:src/batmon.c  **** 
-  10:src/batmon.c  **** 	i2c_init(20000L);
-  52               		.loc 1 10 0
+  12:src/batmon.c  **** 
+  13:src/batmon.c  **** 	i2c_init(20000L);
+  52               		.loc 1 13 0
   53 0014 60E2      		ldi r22,lo8(32)
   54 0016 7EE4      		ldi r23,lo8(78)
   55 0018 80E0      		ldi r24,0
   56 001a 90E0      		ldi r25,0
   57 001c 0E94 0000 		call i2c_init
   58               	.LVL0:
-  11:src/batmon.c  **** 
-  12:src/batmon.c  **** 	uint8_t subCommandMSB = (BQ27441_CONTROL_DEVICE_TYPE >> 8);
-  13:src/batmon.c  **** 	uint8_t subCommandLSB = (BQ27441_CONTROL_DEVICE_TYPE & 0x00FF);
-  14:src/batmon.c  **** 	uint8_t command[2] = {subCommandLSB, subCommandMSB};
-  15:src/batmon.c  **** 	uint8_t data[2] = {0, 0};
-  59               		.loc 1 15 0
+  14:src/batmon.c  **** 
+  15:src/batmon.c  **** 	uint8_t subCommandMSB = (BQ27441_CONTROL_DEVICE_TYPE >> 8);
+  16:src/batmon.c  **** 	uint8_t subCommandLSB = (BQ27441_CONTROL_DEVICE_TYPE & 0x00FF);
+  17:src/batmon.c  **** 	uint8_t command[2] = {subCommandLSB, subCommandMSB};
+  18:src/batmon.c  **** 	uint8_t data[2] = {0, 0};
+  59               		.loc 1 18 0
   60 0020 1982      		std Y+1,__zero_reg__
   61 0022 1A82      		std Y+2,__zero_reg__
-  16:src/batmon.c  **** 	
-  17:src/batmon.c  **** 	uint8_t status = i2c_start(0xAA);
-  62               		.loc 1 17 0
+  19:src/batmon.c  **** 	
+  20:src/batmon.c  **** 	uint8_t status = i2c_start(0xAA);
+  62               		.loc 1 20 0
   63 0024 8AEA      		ldi r24,lo8(-86)
   64 0026 0E94 0000 		call i2c_start
   65               	.LVL1:
-  18:src/batmon.c  **** 	if(!status) {
-  66               		.loc 1 18 0
+  21:src/batmon.c  **** 	if(!status) {
+  66               		.loc 1 21 0
   67 002a 8823      		tst r24
   68 002c 01F0      		breq .L10
   69               	.LVL2:
   70               	.L4:
-  19:src/batmon.c  **** 		i2c_write(0x00);
-  20:src/batmon.c  **** 		i2c_write(command[0]);
-  21:src/batmon.c  **** 		i2c_write(command[1]);
-  22:src/batmon.c  **** 		i2c_stop();
-  23:src/batmon.c  **** 
-  24:src/batmon.c  **** 		i2c_read_multiple(0xAA,0xAB,0x00,2,0,data);
-  25:src/batmon.c  **** 
-  26:src/batmon.c  **** 		uint16_t devt = ((uint16_t)data[1] << 8) | data[0];
-  27:src/batmon.c  **** 		if(devt == 0x0421) {
-  28:src/batmon.c  **** 			return 1;
-  29:src/batmon.c  **** 		} 
-  30:src/batmon.c  **** 	} 
-  31:src/batmon.c  **** 	return 0;
-  71               		.loc 1 31 0
+  22:src/batmon.c  **** 		i2c_write(0x00);
+  23:src/batmon.c  **** 		i2c_write(command[0]);
+  24:src/batmon.c  **** 		i2c_write(command[1]);
+  25:src/batmon.c  **** 		i2c_stop();
+  26:src/batmon.c  **** 
+  27:src/batmon.c  **** 		i2c_read_multiple(0xAA,0xAB,0x00,2,0,data);
+  28:src/batmon.c  **** 
+  29:src/batmon.c  **** 		uint16_t devt = ((uint16_t)data[1] << 8) | data[0];
+  30:src/batmon.c  **** 		if(devt == 0x0421) {
+  31:src/batmon.c  **** 			return 1;
+  32:src/batmon.c  **** 		} 
+  33:src/batmon.c  **** 	} 
+  34:src/batmon.c  **** 	return 0;
+  71               		.loc 1 34 0
   72 002e 80E0      		ldi r24,0
   73               	/* epilogue start */
-  32:src/batmon.c  **** }
-  74               		.loc 1 32 0
+  35:src/batmon.c  **** }
+  74               		.loc 1 35 0
   75 0030 0F90      		pop __tmp_reg__
   76 0032 0F90      		pop __tmp_reg__
   77 0034 DF91      		pop r29
   78 0036 CF91      		pop r28
   79 0038 0F91      		pop r16
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 3
+
+
   80 003a FF90      		pop r15
   81 003c EF90      		pop r14
   82 003e 0895      		ret
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 3
-
-
   83               	.LVL3:
   84               	.L10:
   85               	.LBB8:
-  19:src/batmon.c  **** 		i2c_write(0x00);
-  86               		.loc 1 19 0
+  22:src/batmon.c  **** 		i2c_write(0x00);
+  86               		.loc 1 22 0
   87 0040 0E94 0000 		call i2c_write
   88               	.LVL4:
-  20:src/batmon.c  **** 		i2c_write(command[1]);
-  89               		.loc 1 20 0
+  23:src/batmon.c  **** 		i2c_write(command[1]);
+  89               		.loc 1 23 0
   90 0044 81E0      		ldi r24,lo8(1)
   91 0046 0E94 0000 		call i2c_write
   92               	.LVL5:
-  21:src/batmon.c  **** 		i2c_stop();
-  93               		.loc 1 21 0
+  24:src/batmon.c  **** 		i2c_stop();
+  93               		.loc 1 24 0
   94 004a 80E0      		ldi r24,0
   95 004c 0E94 0000 		call i2c_write
   96               	.LVL6:
-  22:src/batmon.c  **** 
-  97               		.loc 1 22 0
+  25:src/batmon.c  **** 
+  97               		.loc 1 25 0
   98 0050 0E94 0000 		call i2c_stop
   99               	.LVL7:
-  24:src/batmon.c  **** 
- 100               		.loc 1 24 0
+  27:src/batmon.c  **** 
+ 100               		.loc 1 27 0
  101 0054 CE01      		movw r24,r28
  102 0056 0196      		adiw r24,1
  103 0058 7C01      		movw r14,r24
@@ -154,8 +157,8 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  108 0062 8AEA      		ldi r24,lo8(-86)
  109 0064 0E94 0000 		call i2c_read_multiple
  110               	.LVL8:
-  28:src/batmon.c  **** 		} 
- 111               		.loc 1 28 0
+  31:src/batmon.c  **** 		} 
+ 111               		.loc 1 31 0
  112 0068 81E0      		ldi r24,lo8(1)
  113 006a 2981      		ldd r18,Y+1
  114 006c 3A81      		ldd r19,Y+2
@@ -164,7 +167,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  117 0072 01F4      		brne .L4
  118               	/* epilogue start */
  119               	.LBE8:
- 120               		.loc 1 32 0
+ 120               		.loc 1 35 0
  121 0074 0F90      		pop __tmp_reg__
  122 0076 0F90      		pop __tmp_reg__
  123 0078 DF91      		pop r29
@@ -175,21 +178,21 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  128 007e FF90      		pop r15
  129               	.LVL11:
  130 0080 EF90      		pop r14
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 4
+
+
  131               	.LVL12:
  132 0082 0895      		ret
  133               		.cfi_endproc
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 4
-
-
  134               	.LFE6:
  135               		.size	batmon_init, .-batmon_init
  136               	.global	batmon_config
  137               		.type	batmon_config, @function
  138               	batmon_config:
  139               	.LFB7:
-  33:src/batmon.c  **** 
-  34:src/batmon.c  **** uint8_t batmon_config(uint16_t dcap) {
- 140               		.loc 1 34 0
+  36:src/batmon.c  **** 
+  37:src/batmon.c  **** uint8_t batmon_config(uint16_t dcap) {
+ 140               		.loc 1 37 0
  141               		.cfi_startproc
  142               	.LVL13:
  143 0084 DF92      		push r13
@@ -233,98 +236,107 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  181               	.L__stack_usage = 9
  182 0098 182F      		mov r17,r24
  183 009a D92E      		mov r13,r25
-  35:src/batmon.c  **** 	uint8_t status = i2c_start(0xAA);
- 184               		.loc 1 35 0
+  38:src/batmon.c  **** 	uint8_t status = i2c_start(0xAA);
+ 184               		.loc 1 38 0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 5
+
+
  185 009c 8AEA      		ldi r24,lo8(-86)
  186               	.LVL14:
  187 009e 0E94 0000 		call i2c_start
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 5
-
-
  188               	.LVL15:
-  36:src/batmon.c  **** 	if(!status) {
- 189               		.loc 1 36 0
+  39:src/batmon.c  **** 	if(!status) {
+ 189               		.loc 1 39 0
  190 00a2 8823      		tst r24
  191 00a4 01F0      		breq .L19
  192               	.LVL16:
  193               	.L13:
-  37:src/batmon.c  **** 		i2c_write(0x00);
-  38:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY& 0x00FF);
-  39:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY >> 0x00FF);
-  40:src/batmon.c  **** 		i2c_write(0x00);
-  41:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY& 0x00FF);
-  42:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY >> 0x00FF);
-  43:src/batmon.c  **** 		i2c_stop();
-  44:src/batmon.c  **** 		uint8_t stat = i2c_start(0xAA);
-  45:src/batmon.c  **** 		if(!stat) {
-  46:src/batmon.c  **** 			i2c_write(0x00);
-  47:src/batmon.c  **** 			i2c_write(0x13);
-  48:src/batmon.c  **** 			i2c_write(0x00);
-  49:src/batmon.c  ****             i2c_stop();
-  50:src/batmon.c  **** 
-  51:src/batmon.c  ****             uint8_t data[2] = {0, 0};
-  52:src/batmon.c  ****             _delay_ms(1000);
-  53:src/batmon.c  **** 
-  54:src/batmon.c  ****             i2c_read_multiple(0xAA,0xAB,0x06,2,0,data);
-  55:src/batmon.c  ****             if(data[0] & (1 << 4)) {
-  56:src/batmon.c  ****                 i2c_start(0xAA);
-  57:src/batmon.c  ****                 i2c_write(0x61);
-  58:src/batmon.c  ****                 i2c_write(0x00);
-  59:src/batmon.c  ****                 i2c_stop();
+  40:src/batmon.c  ****         // UNSEAL IC
+  41:src/batmon.c  **** 		i2c_write(0x00);
+  42:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY & 0x00FF);
+  43:src/batmon.c  **** 		i2c_write((BQ27441_UNSEAL_KEY & 0xFF00) >> 8);
+  44:src/batmon.c  **** 		i2c_write(0x00);
+  45:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY& 0x00FF);
+  46:src/batmon.c  **** 		i2c_write((BQ27441_UNSEAL_KEY & 0xFF00) >> 8);
+  47:src/batmon.c  **** 		i2c_stop();
+  48:src/batmon.c  ****         
+  49:src/batmon.c  **** 		uint8_t stat = i2c_start(0xAA);
+  50:src/batmon.c  **** 		if(!stat) {
+  51:src/batmon.c  ****         
+  52:src/batmon.c  ****             // L‰heme CFGUPDATE OLEKUSSE
+  53:src/batmon.c  **** 			i2c_write(0x00);
+  54:src/batmon.c  **** 			i2c_write(0x13);
+  55:src/batmon.c  **** 			i2c_write(0x00);
+  56:src/batmon.c  ****             i2c_stop();
+  57:src/batmon.c  **** 
+  58:src/batmon.c  ****             uint8_t data[2] = {0, 0};
+  59:src/batmon.c  ****             _delay_ms(1000);
   60:src/batmon.c  **** 
-  61:src/batmon.c  ****                 i2c_start(0xAA);
-  62:src/batmon.c  **** 
-  63:src/batmon.c  ****                 i2c_write(0x3E);
-  64:src/batmon.c  ****                 i2c_write(0x52);
-  65:src/batmon.c  ****                                 i2c_stop();
-  66:src/batmon.c  **** 
-  67:src/batmon.c  ****                 i2c_start(0xAA);
-  68:src/batmon.c  ****                 i2c_write(0x3F);
-  69:src/batmon.c  ****                 i2c_write(0x00);
-  70:src/batmon.c  ****                                 i2c_stop();
-  71:src/batmon.c  **** 
-  72:src/batmon.c  ****                 uint8_t cs = i2c_read_single(0xAA,0xAB,0x60,0);
-  73:src/batmon.c  **** 
-  74:src/batmon.c  ****                 if(data[1] == 0xAC) {
-  75:src/batmon.c  ****                     data[0] = i2c_read_single(0xAA,0xAB,0x4A,0);
-  76:src/batmon.c  ****                     data[1] = i2c_read_single(0xAA,0xAB,0x4B,0);  
-  77:src/batmon.c  ****                     i2c_start(0xAA);
-  78:src/batmon.c  ****                     i2c_write(0x4a);
-  79:src/batmon.c  ****                     i2c_write((dcap & 0xFF00)>>8);
-  80:src/batmon.c  ****                     i2c_stop();
-  81:src/batmon.c  ****                     i2c_start(0xAA);
-  82:src/batmon.c  ****                     i2c_write(0x4b);
-  83:src/batmon.c  ****                     i2c_write(dcap & 0x00FF);
-  84:src/batmon.c  ****                     i2c_stop();
-  85:src/batmon.c  **** 
-  86:src/batmon.c  ****                     uint8_t temp = (255 - cs - data[0] - data[1]) % 256;
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 6
+  61:src/batmon.c  ****             i2c_read_multiple(0xAA,0xAB,0x06,2,0,data);
+  62:src/batmon.c  ****             if(data[0] & (1 << 4)) {
+  63:src/batmon.c  ****                 // Enable block data memory control
+  64:src/batmon.c  ****                 i2c_start(0xAA);
+  65:src/batmon.c  ****                 i2c_write(0x61);
+  66:src/batmon.c  ****                 i2c_write(0x00);
+  67:src/batmon.c  ****                 i2c_stop();
+  68:src/batmon.c  ****                 
+  69:src/batmon.c  ****                 // Ligip‰‰s Design Capacity'le
+  70:src/batmon.c  ****                 i2c_start(0xAA);
+  71:src/batmon.c  ****                 i2c_write(0x3E);
+  72:src/batmon.c  ****                 i2c_write(0x52);
+  73:src/batmon.c  ****                 i2c_stop();
+  74:src/batmon.c  ****                 
+  75:src/batmon.c  ****                 // Kirjutame offseti
+  76:src/batmon.c  ****                 i2c_start(0xAA);
+  77:src/batmon.c  ****                 i2c_write(0x3F);
+  78:src/batmon.c  ****                 i2c_write(0x00);
+  79:src/batmon.c  ****                 i2c_stop();
+  80:src/batmon.c  ****                 
+  81:src/batmon.c  ****                 // Loeme algse checksum'i (TI dokumentatsioon natuke niru siin)
+  82:src/batmon.c  ****                 uint8_t cs = i2c_read_single(0xAA,0xAB,0x60,0);
+  83:src/batmon.c  **** 
+  84:src/batmon.c  ****                 if(data[1] == 0xAC) {
+  85:src/batmon.c  ****                     // Loeme design capacity, kirjutame ¸le
+  86:src/batmon.c  ****                     data[0] = i2c_read_single(0xAA,0xAB,0x4A,0);
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 6
 
 
-  87:src/batmon.c  ****                     uint8_t newcs = 255- ((temp+((dcap & 0xFF00)>>8)+(dcap & 0x00FF)) % 256);
+  87:src/batmon.c  ****                     data[1] = i2c_read_single(0xAA,0xAB,0x4B,0);  
   88:src/batmon.c  ****                     i2c_start(0xAA);
-  89:src/batmon.c  ****                     i2c_write(0x60);
-  90:src/batmon.c  ****                     i2c_write(newcs);
+  89:src/batmon.c  ****                     i2c_write(0x4a);
+  90:src/batmon.c  ****                     i2c_write((dcap & 0xFF00)>>8);
   91:src/batmon.c  ****                     i2c_stop();
   92:src/batmon.c  ****                     i2c_start(0xAA);
-  93:src/batmon.c  ****                     i2c_write(0x00);
-  94:src/batmon.c  ****                     i2c_write(0x42);
-  95:src/batmon.c  ****                     i2c_write(0x00);
-  96:src/batmon.c  ****                     i2c_stop();
-  97:src/batmon.c  ****                     i2c_start(0xAA);
-  98:src/batmon.c  ****                     i2c_write(0x00);
-  99:src/batmon.c  ****                     i2c_write(0x20);
- 100:src/batmon.c  ****                     i2c_write(0x00);
- 101:src/batmon.c  ****                     i2c_stop();
- 102:src/batmon.c  **** 
- 103:src/batmon.c  ****                 }
- 104:src/batmon.c  **** 
- 105:src/batmon.c  ****             }
- 106:src/batmon.c  **** 		}
- 107:src/batmon.c  **** 	}
- 108:src/batmon.c  **** 	return 1;
- 109:src/batmon.c  **** }
- 194               		.loc 1 109 0
+  93:src/batmon.c  ****                     i2c_write(0x4b);
+  94:src/batmon.c  ****                     i2c_write(dcap & 0x00FF);
+  95:src/batmon.c  ****                     i2c_stop();
+  96:src/batmon.c  ****                     // Arvutame uue checksum'i ja kirjutame selle. valem ptk 3.1 https://www.ti.com
+  97:src/batmon.c  ****                     uint8_t temp = (255 - cs - data[0] - data[1]) % 256;
+  98:src/batmon.c  ****                     uint8_t newcs = 255- ((temp+((dcap & 0xFF00)>>8)+(dcap & 0x00FF)) % 256);
+  99:src/batmon.c  ****                     i2c_start(0xAA);
+ 100:src/batmon.c  ****                     i2c_write(0x60);
+ 101:src/batmon.c  ****                     i2c_write(newcs);
+ 102:src/batmon.c  ****                     i2c_stop();
+ 103:src/batmon.c  ****                     // Soft reset & seal
+ 104:src/batmon.c  ****                     i2c_start(0xAA);
+ 105:src/batmon.c  ****                     i2c_write(0x00);
+ 106:src/batmon.c  ****                     i2c_write(0x42);
+ 107:src/batmon.c  ****                     i2c_write(0x00);
+ 108:src/batmon.c  ****                     i2c_stop();
+ 109:src/batmon.c  ****                     i2c_start(0xAA);
+ 110:src/batmon.c  ****                     i2c_write(0x00);
+ 111:src/batmon.c  ****                     i2c_write(0x20);
+ 112:src/batmon.c  ****                     i2c_write(0x00);
+ 113:src/batmon.c  ****                     i2c_stop();
+ 114:src/batmon.c  **** 
+ 115:src/batmon.c  ****                 }
+ 116:src/batmon.c  **** 
+ 117:src/batmon.c  ****             }
+ 118:src/batmon.c  **** 		}
+ 119:src/batmon.c  **** 	}
+ 120:src/batmon.c  **** 	return 1;
+ 121:src/batmon.c  **** }
+ 194               		.loc 1 121 0
  195 00a6 81E0      		ldi r24,lo8(1)
  196               	/* epilogue start */
  197 00a8 0F90      		pop __tmp_reg__
@@ -340,72 +352,75 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  207               	.LVL17:
  208               	.L19:
  209               	.LBB9:
-  37:src/batmon.c  **** 		i2c_write(0x00);
- 210               		.loc 1 37 0
+  41:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY & 0x00FF);
+ 210               		.loc 1 41 0
  211 00bc 0E94 0000 		call i2c_write
  212               	.LVL18:
-  38:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY >> 0x00FF);
- 213               		.loc 1 38 0
+  42:src/batmon.c  **** 		i2c_write((BQ27441_UNSEAL_KEY & 0xFF00) >> 8);
+ 213               		.loc 1 42 0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 7
+
+
  214 00c0 80E0      		ldi r24,0
  215 00c2 0E94 0000 		call i2c_write
  216               	.LVL19:
-  39:src/batmon.c  **** 		i2c_write(0x00);
- 217               		.loc 1 39 0
- 218 00c6 80E0      		ldi r24,0
+  43:src/batmon.c  **** 		i2c_write(0x00);
+ 217               		.loc 1 43 0
+ 218 00c6 80E8      		ldi r24,lo8(-128)
  219 00c8 0E94 0000 		call i2c_write
  220               	.LVL20:
-  40:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY& 0x00FF);
- 221               		.loc 1 40 0
+  44:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY& 0x00FF);
+ 221               		.loc 1 44 0
  222 00cc 80E0      		ldi r24,0
  223 00ce 0E94 0000 		call i2c_write
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 7
-
-
  224               	.LVL21:
-  41:src/batmon.c  **** 		i2c_write(BQ27441_UNSEAL_KEY >> 0x00FF);
- 225               		.loc 1 41 0
+  45:src/batmon.c  **** 		i2c_write((BQ27441_UNSEAL_KEY & 0xFF00) >> 8);
+ 225               		.loc 1 45 0
  226 00d2 80E0      		ldi r24,0
  227 00d4 0E94 0000 		call i2c_write
  228               	.LVL22:
-  42:src/batmon.c  **** 		i2c_stop();
- 229               		.loc 1 42 0
- 230 00d8 80E0      		ldi r24,0
+  46:src/batmon.c  **** 		i2c_stop();
+ 229               		.loc 1 46 0
+ 230 00d8 80E8      		ldi r24,lo8(-128)
  231 00da 0E94 0000 		call i2c_write
  232               	.LVL23:
-  43:src/batmon.c  **** 		uint8_t stat = i2c_start(0xAA);
- 233               		.loc 1 43 0
+  47:src/batmon.c  ****         
+ 233               		.loc 1 47 0
  234 00de 0E94 0000 		call i2c_stop
  235               	.LVL24:
-  44:src/batmon.c  **** 		if(!stat) {
- 236               		.loc 1 44 0
+  49:src/batmon.c  **** 		if(!stat) {
+ 236               		.loc 1 49 0
  237 00e2 8AEA      		ldi r24,lo8(-86)
  238 00e4 0E94 0000 		call i2c_start
  239               	.LVL25:
-  45:src/batmon.c  **** 			i2c_write(0x00);
- 240               		.loc 1 45 0
+  50:src/batmon.c  ****         
+ 240               		.loc 1 50 0
  241 00e8 8111      		cpse r24,__zero_reg__
  242 00ea 00C0      		rjmp .L13
  243               	.LBB10:
-  46:src/batmon.c  **** 			i2c_write(0x13);
- 244               		.loc 1 46 0
+  53:src/batmon.c  **** 			i2c_write(0x13);
+ 244               		.loc 1 53 0
  245 00ec 0E94 0000 		call i2c_write
  246               	.LVL26:
-  47:src/batmon.c  **** 			i2c_write(0x00);
- 247               		.loc 1 47 0
+  54:src/batmon.c  **** 			i2c_write(0x00);
+ 247               		.loc 1 54 0
  248 00f0 83E1      		ldi r24,lo8(19)
  249 00f2 0E94 0000 		call i2c_write
  250               	.LVL27:
-  48:src/batmon.c  ****             i2c_stop();
- 251               		.loc 1 48 0
+  55:src/batmon.c  ****             i2c_stop();
+ 251               		.loc 1 55 0
  252 00f6 80E0      		ldi r24,0
  253 00f8 0E94 0000 		call i2c_write
  254               	.LVL28:
-  49:src/batmon.c  **** 
- 255               		.loc 1 49 0
+  56:src/batmon.c  **** 
+ 255               		.loc 1 56 0
  256 00fc 0E94 0000 		call i2c_stop
  257               	.LVL29:
-  51:src/batmon.c  ****             _delay_ms(1000);
- 258               		.loc 1 51 0
+  58:src/batmon.c  ****             _delay_ms(1000);
+ 258               		.loc 1 58 0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 8
+
+
  259 0100 1982      		std Y+1,__zero_reg__
  260 0102 1A82      		std Y+2,__zero_reg__
  261               	.LVL30:
@@ -418,9 +433,6 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
    4:c:\avr toolchain\avr\include\util\delay.h ****    All rights reserved.
    5:c:\avr toolchain\avr\include\util\delay.h **** 
    6:c:\avr toolchain\avr\include\util\delay.h ****    Redistribution and use in source and binary forms, with or without
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 8
-
-
    7:c:\avr toolchain\avr\include\util\delay.h ****    modification, are permitted provided that the following conditions are met:
    8:c:\avr toolchain\avr\include\util\delay.h **** 
    9:c:\avr toolchain\avr\include\util\delay.h ****    * Redistributions of source code must retain the above copyright
@@ -466,6 +478,9 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
   49:c:\avr toolchain\avr\include\util\delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
   50:c:\avr toolchain\avr\include\util\delay.h ****     \code
   51:c:\avr toolchain\avr\include\util\delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 9
+
+
   52:c:\avr toolchain\avr\include\util\delay.h ****     //#define F_CPU 14.7456E6
   53:c:\avr toolchain\avr\include\util\delay.h ****     #include <util/delay.h>
   54:c:\avr toolchain\avr\include\util\delay.h ****     \endcode
@@ -478,9 +493,6 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
   61:c:\avr toolchain\avr\include\util\delay.h ****     The functions in this header file are wrappers around the basic
   62:c:\avr toolchain\avr\include\util\delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
   63:c:\avr toolchain\avr\include\util\delay.h ****     convenience functions where actual time values can be specified
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 9
-
-
   64:c:\avr toolchain\avr\include\util\delay.h ****     rather than a number of cycles to wait for.  The idea behind is
   65:c:\avr toolchain\avr\include\util\delay.h ****     that compile-time constant expressions will be eliminated by
   66:c:\avr toolchain\avr\include\util\delay.h ****     compiler optimization so floating-point expressions can be used
@@ -526,6 +538,9 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  106:c:\avr toolchain\avr\include\util\delay.h ****     integer value.
  107:c:\avr toolchain\avr\include\util\delay.h ****  */
  108:c:\avr toolchain\avr\include\util\delay.h **** # define F_CPU 1000000UL
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 10
+
+
  109:c:\avr toolchain\avr\include\util\delay.h **** #endif
  110:c:\avr toolchain\avr\include\util\delay.h **** 
  111:c:\avr toolchain\avr\include\util\delay.h **** #ifndef __OPTIMIZE__
@@ -538,9 +553,6 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  118:c:\avr toolchain\avr\include\util\delay.h **** #  include <math.h>
  119:c:\avr toolchain\avr\include\util\delay.h **** #endif
  120:c:\avr toolchain\avr\include\util\delay.h **** 
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 10
-
-
  121:c:\avr toolchain\avr\include\util\delay.h **** /**
  122:c:\avr toolchain\avr\include\util\delay.h ****    \ingroup util_delay
  123:c:\avr toolchain\avr\include\util\delay.h **** 
@@ -586,6 +598,9 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  163:c:\avr toolchain\avr\include\util\delay.h **** 
  164:c:\avr toolchain\avr\include\util\delay.h ****  */
  165:c:\avr toolchain\avr\include\util\delay.h **** void
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 11
+
+
  166:c:\avr toolchain\avr\include\util\delay.h **** _delay_ms(double __ms)
  167:c:\avr toolchain\avr\include\util\delay.h **** {
  168:c:\avr toolchain\avr\include\util\delay.h **** 	double __tmp ;
@@ -598,9 +613,6 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  175:c:\avr toolchain\avr\include\util\delay.h **** 
  176:c:\avr toolchain\avr\include\util\delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
  177:c:\avr toolchain\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 11
-
-
  178:c:\avr toolchain\avr\include\util\delay.h **** 
  179:c:\avr toolchain\avr\include\util\delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
  180:c:\avr toolchain\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
@@ -624,8 +636,8 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  275               	.LVL31:
  276               	.LBE12:
  277               	.LBE11:
-  54:src/batmon.c  ****             if(data[0] & (1 << 4)) {
- 278               		.loc 1 54 0
+  61:src/batmon.c  ****             if(data[0] & (1 << 4)) {
+ 278               		.loc 1 61 0
  279 0116 CE01      		movw r24,r28
  280 0118 0196      		adiw r24,1
  281 011a 7C01      		movw r14,r24
@@ -636,94 +648,94 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  286 0124 8AEA      		ldi r24,lo8(-86)
  287 0126 0E94 0000 		call i2c_read_multiple
  288               	.LVL32:
-  55:src/batmon.c  ****                 i2c_start(0xAA);
- 289               		.loc 1 55 0
+  62:src/batmon.c  ****                 // Enable block data memory control
+ 289               		.loc 1 62 0
  290 012a 8981      		ldd r24,Y+1
  291 012c 84FF      		sbrs r24,4
  292 012e 00C0      		rjmp .L13
  293               	.LBB13:
-  56:src/batmon.c  ****                 i2c_write(0x61);
- 294               		.loc 1 56 0
+  64:src/batmon.c  ****                 i2c_write(0x61);
+ 294               		.loc 1 64 0
  295 0130 8AEA      		ldi r24,lo8(-86)
  296 0132 0E94 0000 		call i2c_start
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 12
+
+
  297               	.LVL33:
-  57:src/batmon.c  ****                 i2c_write(0x00);
- 298               		.loc 1 57 0
+  65:src/batmon.c  ****                 i2c_write(0x00);
+ 298               		.loc 1 65 0
  299 0136 81E6      		ldi r24,lo8(97)
  300 0138 0E94 0000 		call i2c_write
  301               	.LVL34:
-  58:src/batmon.c  ****                 i2c_stop();
- 302               		.loc 1 58 0
+  66:src/batmon.c  ****                 i2c_stop();
+ 302               		.loc 1 66 0
  303 013c 80E0      		ldi r24,0
  304 013e 0E94 0000 		call i2c_write
  305               	.LVL35:
-  59:src/batmon.c  **** 
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 12
-
-
- 306               		.loc 1 59 0
+  67:src/batmon.c  ****                 
+ 306               		.loc 1 67 0
  307 0142 0E94 0000 		call i2c_stop
  308               	.LVL36:
-  61:src/batmon.c  **** 
- 309               		.loc 1 61 0
+  70:src/batmon.c  ****                 i2c_write(0x3E);
+ 309               		.loc 1 70 0
  310 0146 8AEA      		ldi r24,lo8(-86)
  311 0148 0E94 0000 		call i2c_start
  312               	.LVL37:
-  63:src/batmon.c  ****                 i2c_write(0x52);
- 313               		.loc 1 63 0
+  71:src/batmon.c  ****                 i2c_write(0x52);
+ 313               		.loc 1 71 0
  314 014c 8EE3      		ldi r24,lo8(62)
  315 014e 0E94 0000 		call i2c_write
  316               	.LVL38:
-  64:src/batmon.c  ****                                 i2c_stop();
- 317               		.loc 1 64 0
+  72:src/batmon.c  ****                 i2c_stop();
+ 317               		.loc 1 72 0
  318 0152 82E5      		ldi r24,lo8(82)
  319 0154 0E94 0000 		call i2c_write
  320               	.LVL39:
-  65:src/batmon.c  **** 
- 321               		.loc 1 65 0
+  73:src/batmon.c  ****                 
+ 321               		.loc 1 73 0
  322 0158 0E94 0000 		call i2c_stop
  323               	.LVL40:
-  67:src/batmon.c  ****                 i2c_write(0x3F);
- 324               		.loc 1 67 0
+  76:src/batmon.c  ****                 i2c_write(0x3F);
+ 324               		.loc 1 76 0
  325 015c 8AEA      		ldi r24,lo8(-86)
  326 015e 0E94 0000 		call i2c_start
  327               	.LVL41:
-  68:src/batmon.c  ****                 i2c_write(0x00);
- 328               		.loc 1 68 0
+  77:src/batmon.c  ****                 i2c_write(0x00);
+ 328               		.loc 1 77 0
  329 0162 8FE3      		ldi r24,lo8(63)
  330 0164 0E94 0000 		call i2c_write
  331               	.LVL42:
-  69:src/batmon.c  ****                                 i2c_stop();
- 332               		.loc 1 69 0
+  78:src/batmon.c  ****                 i2c_stop();
+ 332               		.loc 1 78 0
  333 0168 80E0      		ldi r24,0
  334 016a 0E94 0000 		call i2c_write
  335               	.LVL43:
-  70:src/batmon.c  **** 
- 336               		.loc 1 70 0
+  79:src/batmon.c  ****                 
+ 336               		.loc 1 79 0
  337 016e 0E94 0000 		call i2c_stop
  338               	.LVL44:
-  72:src/batmon.c  **** 
- 339               		.loc 1 72 0
+  82:src/batmon.c  **** 
+ 339               		.loc 1 82 0
  340 0172 20E0      		ldi r18,0
  341 0174 40E6      		ldi r20,lo8(96)
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 13
+
+
  342 0176 6BEA      		ldi r22,lo8(-85)
  343 0178 8AEA      		ldi r24,lo8(-86)
  344 017a 0E94 0000 		call i2c_read_single
  345               	.LVL45:
  346 017e 082F      		mov r16,r24
  347               	.LVL46:
-  74:src/batmon.c  ****                     data[0] = i2c_read_single(0xAA,0xAB,0x4A,0);
- 348               		.loc 1 74 0
+  84:src/batmon.c  ****                     // Loeme design capacity, kirjutame ¸le
+ 348               		.loc 1 84 0
  349 0180 8A81      		ldd r24,Y+2
  350 0182 8C3A      		cpi r24,lo8(-84)
  351 0184 01F0      		breq .+2
  352 0186 00C0      		rjmp .L13
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 13
-
-
  353               	.LBB14:
-  75:src/batmon.c  ****                     data[1] = i2c_read_single(0xAA,0xAB,0x4B,0);  
- 354               		.loc 1 75 0
+  86:src/batmon.c  ****                     data[1] = i2c_read_single(0xAA,0xAB,0x4B,0);  
+ 354               		.loc 1 86 0
  355 0188 20E0      		ldi r18,0
  356 018a 4AE4      		ldi r20,lo8(74)
  357 018c 6BEA      		ldi r22,lo8(-85)
@@ -731,8 +743,8 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  359 0190 0E94 0000 		call i2c_read_single
  360               	.LVL47:
  361 0194 8983      		std Y+1,r24
-  76:src/batmon.c  ****                     i2c_start(0xAA);
- 362               		.loc 1 76 0
+  87:src/batmon.c  ****                     i2c_start(0xAA);
+ 362               		.loc 1 87 0
  363 0196 20E0      		ldi r18,0
  364 0198 4BE4      		ldi r20,lo8(75)
  365 019a 6BEA      		ldi r22,lo8(-85)
@@ -740,49 +752,49 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  367 019e 0E94 0000 		call i2c_read_single
  368               	.LVL48:
  369 01a2 8A83      		std Y+2,r24
-  77:src/batmon.c  ****                     i2c_write(0x4a);
- 370               		.loc 1 77 0
+  88:src/batmon.c  ****                     i2c_write(0x4a);
+ 370               		.loc 1 88 0
  371 01a4 8AEA      		ldi r24,lo8(-86)
  372 01a6 0E94 0000 		call i2c_start
  373               	.LVL49:
-  78:src/batmon.c  ****                     i2c_write((dcap & 0xFF00)>>8);
- 374               		.loc 1 78 0
+  89:src/batmon.c  ****                     i2c_write((dcap & 0xFF00)>>8);
+ 374               		.loc 1 89 0
  375 01aa 8AE4      		ldi r24,lo8(74)
  376 01ac 0E94 0000 		call i2c_write
  377               	.LVL50:
-  79:src/batmon.c  ****                     i2c_stop();
- 378               		.loc 1 79 0
+  90:src/batmon.c  ****                     i2c_stop();
+ 378               		.loc 1 90 0
  379 01b0 8D2D      		mov r24,r13
  380 01b2 0E94 0000 		call i2c_write
  381               	.LVL51:
-  80:src/batmon.c  ****                     i2c_start(0xAA);
- 382               		.loc 1 80 0
+  91:src/batmon.c  ****                     i2c_start(0xAA);
+ 382               		.loc 1 91 0
  383 01b6 0E94 0000 		call i2c_stop
  384               	.LVL52:
-  81:src/batmon.c  ****                     i2c_write(0x4b);
- 385               		.loc 1 81 0
+  92:src/batmon.c  ****                     i2c_write(0x4b);
+ 385               		.loc 1 92 0
  386 01ba 8AEA      		ldi r24,lo8(-86)
  387 01bc 0E94 0000 		call i2c_start
  388               	.LVL53:
-  82:src/batmon.c  ****                     i2c_write(dcap & 0x00FF);
- 389               		.loc 1 82 0
+  93:src/batmon.c  ****                     i2c_write(dcap & 0x00FF);
+ 389               		.loc 1 93 0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 14
+
+
  390 01c0 8BE4      		ldi r24,lo8(75)
  391 01c2 0E94 0000 		call i2c_write
  392               	.LVL54:
-  83:src/batmon.c  ****                     i2c_stop();
- 393               		.loc 1 83 0
+  94:src/batmon.c  ****                     i2c_stop();
+ 393               		.loc 1 94 0
  394 01c6 812F      		mov r24,r17
  395 01c8 0E94 0000 		call i2c_write
  396               	.LVL55:
-  84:src/batmon.c  **** 
- 397               		.loc 1 84 0
+  95:src/batmon.c  ****                     // Arvutame uue checksum'i ja kirjutame selle. valem ptk 3.1 https://www.ti.com
+ 397               		.loc 1 95 0
  398 01cc 0E94 0000 		call i2c_stop
  399               	.LVL56:
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 14
-
-
-  87:src/batmon.c  ****                     i2c_start(0xAA);
- 400               		.loc 1 87 0
+  98:src/batmon.c  ****                     i2c_start(0xAA);
+ 400               		.loc 1 98 0
  401 01d0 8FEF      		ldi r24,lo8(-1)
  402 01d2 90E0      		ldi r25,0
  403 01d4 801B      		sub r24,r16
@@ -801,81 +813,81 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  416 01ec 180F      		add r17,r24
  417 01ee 1095      		com r17
  418               	.LVL57:
-  88:src/batmon.c  ****                     i2c_write(0x60);
- 419               		.loc 1 88 0
+  99:src/batmon.c  ****                     i2c_write(0x60);
+ 419               		.loc 1 99 0
  420 01f0 8AEA      		ldi r24,lo8(-86)
  421 01f2 0E94 0000 		call i2c_start
  422               	.LVL58:
-  89:src/batmon.c  ****                     i2c_write(newcs);
- 423               		.loc 1 89 0
+ 100:src/batmon.c  ****                     i2c_write(newcs);
+ 423               		.loc 1 100 0
  424 01f6 80E6      		ldi r24,lo8(96)
  425 01f8 0E94 0000 		call i2c_write
  426               	.LVL59:
-  90:src/batmon.c  ****                     i2c_stop();
- 427               		.loc 1 90 0
+ 101:src/batmon.c  ****                     i2c_stop();
+ 427               		.loc 1 101 0
  428 01fc 812F      		mov r24,r17
  429 01fe 0E94 0000 		call i2c_write
  430               	.LVL60:
-  91:src/batmon.c  ****                     i2c_start(0xAA);
- 431               		.loc 1 91 0
+ 102:src/batmon.c  ****                     // Soft reset & seal
+ 431               		.loc 1 102 0
  432 0202 0E94 0000 		call i2c_stop
  433               	.LVL61:
-  92:src/batmon.c  ****                     i2c_write(0x00);
- 434               		.loc 1 92 0
+ 104:src/batmon.c  ****                     i2c_write(0x00);
+ 434               		.loc 1 104 0
  435 0206 8AEA      		ldi r24,lo8(-86)
  436 0208 0E94 0000 		call i2c_start
  437               	.LVL62:
-  93:src/batmon.c  ****                     i2c_write(0x42);
- 438               		.loc 1 93 0
+ 105:src/batmon.c  ****                     i2c_write(0x42);
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 15
+
+
+ 438               		.loc 1 105 0
  439 020c 80E0      		ldi r24,0
  440 020e 0E94 0000 		call i2c_write
  441               	.LVL63:
-  94:src/batmon.c  ****                     i2c_write(0x00);
- 442               		.loc 1 94 0
+ 106:src/batmon.c  ****                     i2c_write(0x00);
+ 442               		.loc 1 106 0
  443 0212 82E4      		ldi r24,lo8(66)
  444 0214 0E94 0000 		call i2c_write
  445               	.LVL64:
-  95:src/batmon.c  ****                     i2c_stop();
- 446               		.loc 1 95 0
+ 107:src/batmon.c  ****                     i2c_stop();
+ 446               		.loc 1 107 0
  447 0218 80E0      		ldi r24,0
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 15
-
-
  448 021a 0E94 0000 		call i2c_write
  449               	.LVL65:
-  96:src/batmon.c  ****                     i2c_start(0xAA);
- 450               		.loc 1 96 0
+ 108:src/batmon.c  ****                     i2c_start(0xAA);
+ 450               		.loc 1 108 0
  451 021e 0E94 0000 		call i2c_stop
  452               	.LVL66:
-  97:src/batmon.c  ****                     i2c_write(0x00);
- 453               		.loc 1 97 0
+ 109:src/batmon.c  ****                     i2c_write(0x00);
+ 453               		.loc 1 109 0
  454 0222 8AEA      		ldi r24,lo8(-86)
  455 0224 0E94 0000 		call i2c_start
  456               	.LVL67:
-  98:src/batmon.c  ****                     i2c_write(0x20);
- 457               		.loc 1 98 0
+ 110:src/batmon.c  ****                     i2c_write(0x20);
+ 457               		.loc 1 110 0
  458 0228 80E0      		ldi r24,0
  459 022a 0E94 0000 		call i2c_write
  460               	.LVL68:
-  99:src/batmon.c  ****                     i2c_write(0x00);
- 461               		.loc 1 99 0
+ 111:src/batmon.c  ****                     i2c_write(0x00);
+ 461               		.loc 1 111 0
  462 022e 80E2      		ldi r24,lo8(32)
  463 0230 0E94 0000 		call i2c_write
  464               	.LVL69:
- 100:src/batmon.c  ****                     i2c_stop();
- 465               		.loc 1 100 0
+ 112:src/batmon.c  ****                     i2c_stop();
+ 465               		.loc 1 112 0
  466 0234 80E0      		ldi r24,0
  467 0236 0E94 0000 		call i2c_write
  468               	.LVL70:
- 101:src/batmon.c  **** 
- 469               		.loc 1 101 0
+ 113:src/batmon.c  **** 
+ 469               		.loc 1 113 0
  470 023a 0E94 0000 		call i2c_stop
  471               	.LVL71:
  472 023e 00C0      		rjmp .L13
  473               	.LVL72:
  474               	.L20:
-  87:src/batmon.c  ****                     i2c_start(0xAA);
- 475               		.loc 1 87 0
+  98:src/batmon.c  ****                     i2c_start(0xAA);
+ 475               		.loc 1 98 0
  476 0240 0197      		sbiw r24,1
  477 0242 9F6F      		ori r25,255
  478 0244 0196      		adiw r24,1
@@ -886,24 +898,25 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  483               	.LBE9:
  484               		.cfi_endproc
  485               	.LFE7:
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 16
+
+
  486               		.size	batmon_config, .-batmon_config
  487               	.global	batmon_soc
  488               		.type	batmon_soc, @function
  489               	batmon_soc:
  490               	.LFB8:
- 110:src/batmon.c  **** 
- 111:src/batmon.c  **** uint8_t batmon_soc() {
- 491               		.loc 1 111 0
+ 122:src/batmon.c  **** 
+ 123:src/batmon.c  **** uint8_t batmon_soc() {
+ 491               		.loc 1 123 0
  492               		.cfi_startproc
  493               	/* prologue: function */
  494               	/* frame size = 0 */
  495               	/* stack size = 0 */
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 16
-
-
  496               	.L__stack_usage = 0
- 112:src/batmon.c  ****     return i2c_read_single(0xAA,0xAB,0x1C,0);
- 497               		.loc 1 112 0
+ 124:src/batmon.c  ****     // Loeme state of charge v‰‰rtuse
+ 125:src/batmon.c  ****     return i2c_read_single(0xAA,0xAB,0x1C,0);
+ 497               		.loc 1 125 0
  498 0248 20E0      		ldi r18,0
  499 024a 4CE1      		ldi r20,lo8(28)
  500 024c 6BEA      		ldi r22,lo8(-85)
@@ -918,7 +931,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  509               		.file 4 "./include/i2c.h"
  510               		.section	.debug_info,"",@progbits
  511               	.Ldebug_info0:
- 512 0000 2407 0000 		.long	0x724
+ 512 0000 2607 0000 		.long	0x726
  513 0004 0200      		.word	0x2
  514 0006 0000 0000 		.long	.Ldebug_abbrev0
  515 000a 04        		.byte	0x4
@@ -945,6 +958,9 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  536 003a 0000 0000 		.long	.LASF1
  537 003e 04        		.uleb128 0x4
  538 003f 02        		.byte	0x2
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 17
+
+
  539 0040 05        		.byte	0x5
  540 0041 696E 7400 		.string	"int"
  541 0045 03        		.uleb128 0x3
@@ -958,9 +974,6 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  549 0053 0000 0000 		.long	.LASF4
  550 0057 02        		.uleb128 0x2
  551 0058 04        		.byte	0x4
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 17
-
-
  552 0059 05        		.byte	0x5
  553 005a 0000 0000 		.long	.LASF5
  554 005e 03        		.uleb128 0x3
@@ -1005,6 +1018,9 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  593 00ac 08        		.uleb128 0x8
  594 00ad 01        		.byte	0x1
  595 00ae 0000 0000 		.long	.LASF36
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 18
+
+
  596 00b2 02        		.byte	0x2
  597 00b3 AD        		.byte	0xad
  598 00b4 01        		.byte	0x1
@@ -1018,10 +1034,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  606 00bf 01        		.byte	0x1
  607 00c0 0000 0000 		.long	.LASF23
  608 00c4 01        		.byte	0x1
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 18
-
-
- 609 00c5 06        		.byte	0x6
+ 609 00c5 09        		.byte	0x9
  610 00c6 2C00 0000 		.long	0x2c
  611 00ca 0000 0000 		.long	.LFB6
  612 00ce 0000 0000 		.long	.LFE6
@@ -1031,19 +1044,19 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  616 00db 0A        		.uleb128 0xa
  617 00dc 0000 0000 		.long	.LASF13
  618 00e0 01        		.byte	0x1
- 619 00e1 0C        		.byte	0xc
+ 619 00e1 0F        		.byte	0xf
  620 00e2 2C00 0000 		.long	0x2c
  621 00e6 00        		.byte	0
  622 00e7 0A        		.uleb128 0xa
  623 00e8 0000 0000 		.long	.LASF14
  624 00ec 01        		.byte	0x1
- 625 00ed 0D        		.byte	0xd
+ 625 00ed 10        		.byte	0x10
  626 00ee 2C00 0000 		.long	0x2c
  627 00f2 01        		.byte	0x1
  628 00f3 0B        		.uleb128 0xb
  629 00f4 0000 0000 		.long	.LASF15
  630 00f8 01        		.byte	0x1
- 631 00f9 0E        		.byte	0xe
+ 631 00f9 11        		.byte	0x11
  632 00fa DC01 0000 		.long	0x1dc
  633 00fe 08        		.byte	0x8
  634 00ff 31        		.byte	0x31
@@ -1057,7 +1070,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  642 0107 0B        		.uleb128 0xb
  643 0108 0000 0000 		.long	.LASF16
  644 010c 01        		.byte	0x1
- 645 010d 0F        		.byte	0xf
+ 645 010d 12        		.byte	0x12
  646 010e DC01 0000 		.long	0x1dc
  647 0112 02        		.byte	0x2
  648 0113 8C        		.byte	0x8c
@@ -1065,7 +1078,10 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  650 0115 0C        		.uleb128 0xc
  651 0116 0000 0000 		.long	.LASF17
  652 011a 01        		.byte	0x1
- 653 011b 11        		.byte	0x11
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 19
+
+
+ 653 011b 14        		.byte	0x14
  654 011c 2C00 0000 		.long	0x2c
  655 0120 0000 0000 		.long	.LLST1
  656 0124 0D        		.uleb128 0xd
@@ -1075,18 +1091,15 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  660 0131 0C        		.uleb128 0xc
  661 0132 0000 0000 		.long	.LASF18
  662 0136 01        		.byte	0x1
- 663 0137 1A        		.byte	0x1a
+ 663 0137 1D        		.byte	0x1d
  664 0138 4500 0000 		.long	0x45
  665 013c 0000 0000 		.long	.LLST2
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 19
-
-
  666 0140 0E        		.uleb128 0xe
  667 0141 0000 0000 		.long	.LVL4
- 668 0145 D906 0000 		.long	0x6d9
+ 668 0145 DB06 0000 		.long	0x6db
  669 0149 0F        		.uleb128 0xf
  670 014a 0000 0000 		.long	.LVL5
- 671 014e D906 0000 		.long	0x6d9
+ 671 014e DB06 0000 		.long	0x6db
  672 0152 5C01 0000 		.long	0x15c
  673 0156 10        		.uleb128 0x10
  674 0157 01        		.byte	0x1
@@ -1096,7 +1109,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  678 015b 00        		.byte	0
  679 015c 0F        		.uleb128 0xf
  680 015d 0000 0000 		.long	.LVL6
- 681 0161 D906 0000 		.long	0x6d9
+ 681 0161 DB06 0000 		.long	0x6db
  682 0165 6F01 0000 		.long	0x16f
  683 0169 10        		.uleb128 0x10
  684 016a 01        		.byte	0x1
@@ -1106,10 +1119,10 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  688 016e 00        		.byte	0
  689 016f 0E        		.uleb128 0xe
  690 0170 0000 0000 		.long	.LVL7
- 691 0174 E606 0000 		.long	0x6e6
+ 691 0174 E806 0000 		.long	0x6e8
  692 0178 11        		.uleb128 0x11
  693 0179 0000 0000 		.long	.LVL8
- 694 017d F306 0000 		.long	0x6f3
+ 694 017d F506 0000 		.long	0x6f5
  695 0181 10        		.uleb128 0x10
  696 0182 01        		.byte	0x1
  697 0183 68        		.byte	0x68
@@ -1125,6 +1138,9 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  707 018d 10        		.uleb128 0x10
  708 018e 01        		.byte	0x1
  709 018f 64        		.byte	0x64
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 20
+
+
  710 0190 02        		.byte	0x2
  711 0191 80        		.byte	0x80
  712 0192 00        		.sleb128 0
@@ -1138,9 +1154,6 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  720 019a 60        		.byte	0x60
  721 019b 02        		.byte	0x2
  722 019c 80        		.byte	0x80
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 20
-
-
  723 019d 00        		.sleb128 0
  724 019e 10        		.uleb128 0x10
  725 019f 06        		.byte	0x6
@@ -1157,7 +1170,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  736 01aa 00        		.byte	0
  737 01ab 0F        		.uleb128 0xf
  738 01ac 0000 0000 		.long	.LVL0
- 739 01b0 0007 0000 		.long	0x700
+ 739 01b0 0207 0000 		.long	0x702
  740 01b4 CB01 0000 		.long	0x1cb
  741 01b8 10        		.uleb128 0x10
  742 01b9 0C        		.byte	0xc
@@ -1179,12 +1192,15 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  758 01ca 00        		.byte	0
  759 01cb 11        		.uleb128 0x11
  760 01cc 0000 0000 		.long	.LVL1
- 761 01d0 0D07 0000 		.long	0x70d
+ 761 01d0 0F07 0000 		.long	0x70f
  762 01d4 10        		.uleb128 0x10
  763 01d5 01        		.byte	0x1
  764 01d6 68        		.byte	0x68
  765 01d7 02        		.byte	0x2
  766 01d8 09        		.byte	0x9
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 21
+
+
  767 01d9 AA        		.byte	0xaa
  768 01da 00        		.byte	0
  769 01db 00        		.byte	0
@@ -1198,42 +1214,39 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  777 01ec 02        		.uleb128 0x2
  778 01ed 02        		.byte	0x2
  779 01ee 07        		.byte	0x7
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 21
-
-
  780 01ef 0000 0000 		.long	.LASF19
  781 01f3 14        		.uleb128 0x14
  782 01f4 01        		.byte	0x1
  783 01f5 0000 0000 		.long	.LASF37
  784 01f9 01        		.byte	0x1
- 785 01fa 22        		.byte	0x22
+ 785 01fa 25        		.byte	0x25
  786 01fb 01        		.byte	0x1
  787 01fc 2C00 0000 		.long	0x2c
  788 0200 0000 0000 		.long	.LFB7
  789 0204 0000 0000 		.long	.LFE7
  790 0208 0000 0000 		.long	.LLST3
  791 020c 01        		.byte	0x1
- 792 020d 9A06 0000 		.long	0x69a
+ 792 020d 9C06 0000 		.long	0x69c
  793 0211 15        		.uleb128 0x15
  794 0212 0000 0000 		.long	.LASF38
  795 0216 01        		.byte	0x1
- 796 0217 22        		.byte	0x22
+ 796 0217 25        		.byte	0x25
  797 0218 4500 0000 		.long	0x45
  798 021c 0000 0000 		.long	.LLST4
  799 0220 0C        		.uleb128 0xc
  800 0221 0000 0000 		.long	.LASF17
  801 0225 01        		.byte	0x1
- 802 0226 23        		.byte	0x23
+ 802 0226 26        		.byte	0x26
  803 0227 2C00 0000 		.long	0x2c
  804 022b 0000 0000 		.long	.LLST5
  805 022f 0D        		.uleb128 0xd
  806 0230 0000 0000 		.long	.LBB9
  807 0234 0000 0000 		.long	.LBE9
- 808 0238 8906 0000 		.long	0x689
+ 808 0238 8B06 0000 		.long	0x68b
  809 023c 0C        		.uleb128 0xc
  810 023d 0000 0000 		.long	.LASF20
  811 0241 01        		.byte	0x1
- 812 0242 2C        		.byte	0x2c
+ 812 0242 31        		.byte	0x31
  813 0243 2C00 0000 		.long	0x2c
  814 0247 0000 0000 		.long	.LLST6
  815 024b 0D        		.uleb128 0xd
@@ -1243,8 +1256,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  819 0258 0B        		.uleb128 0xb
  820 0259 0000 0000 		.long	.LASF16
  821 025d 01        		.byte	0x1
- 822 025e 33        		.byte	0x33
+ 822 025e 3A        		.byte	0x3a
  823 025f DC01 0000 		.long	0x1dc
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 22
+
+
  824 0263 02        		.byte	0x2
  825 0264 8C        		.byte	0x8c
  826 0265 01        		.sleb128 1
@@ -1253,14 +1269,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  829 026b 0000 0000 		.long	.LBB11
  830 026f 0000 0000 		.long	.LBE11
  831 0273 01        		.byte	0x1
- 832 0274 34        		.byte	0x34
+ 832 0274 3B        		.byte	0x3b
  833 0275 9F02 0000 		.long	0x29f
  834 0279 17        		.uleb128 0x17
  835 027a 8B00 0000 		.long	0x8b
  836 027e 0000 0000 		.long	.LLST7
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 22
-
-
  837 0282 18        		.uleb128 0x18
  838 0283 0000 0000 		.long	.LBB12
  839 0287 0000 0000 		.long	.LBE12
@@ -1279,7 +1292,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  852 02ac 1A        		.uleb128 0x1a
  853 02ad 6373 00   		.string	"cs"
  854 02b0 01        		.byte	0x1
- 855 02b1 48        		.byte	0x48
+ 855 02b1 52        		.byte	0x52
  856 02b2 2C00 0000 		.long	0x2c
  857 02b6 01        		.byte	0x1
  858 02b7 60        		.byte	0x60
@@ -1290,21 +1303,24 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  863 02c5 0C        		.uleb128 0xc
  864 02c6 0000 0000 		.long	.LASF21
  865 02ca 01        		.byte	0x1
- 866 02cb 56        		.byte	0x56
+ 866 02cb 61        		.byte	0x61
  867 02cc 2C00 0000 		.long	0x2c
  868 02d0 0000 0000 		.long	.LLST10
  869 02d4 0C        		.uleb128 0xc
  870 02d5 0000 0000 		.long	.LASF22
  871 02d9 01        		.byte	0x1
- 872 02da 57        		.byte	0x57
+ 872 02da 62        		.byte	0x62
  873 02db 2C00 0000 		.long	0x2c
  874 02df 0000 0000 		.long	.LLST11
  875 02e3 0F        		.uleb128 0xf
  876 02e4 0000 0000 		.long	.LVL47
- 877 02e8 1A07 0000 		.long	0x71a
+ 877 02e8 1C07 0000 		.long	0x71c
  878 02ec 0803 0000 		.long	0x308
  879 02f0 10        		.uleb128 0x10
  880 02f1 01        		.byte	0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 23
+
+
  881 02f2 68        		.byte	0x68
  882 02f3 02        		.byte	0x2
  883 02f4 09        		.byte	0x9
@@ -1318,9 +1334,6 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  891 02fc 10        		.uleb128 0x10
  892 02fd 01        		.byte	0x1
  893 02fe 64        		.byte	0x64
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 23
-
-
  894 02ff 02        		.byte	0x2
  895 0300 08        		.byte	0x8
  896 0301 4A        		.byte	0x4a
@@ -1332,7 +1345,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  902 0307 00        		.byte	0
  903 0308 0F        		.uleb128 0xf
  904 0309 0000 0000 		.long	.LVL48
- 905 030d 1A07 0000 		.long	0x71a
+ 905 030d 1C07 0000 		.long	0x71c
  906 0311 2D03 0000 		.long	0x32d
  907 0315 10        		.uleb128 0x10
  908 0316 01        		.byte	0x1
@@ -1360,32 +1373,32 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  930 032c 00        		.byte	0
  931 032d 0F        		.uleb128 0xf
  932 032e 0000 0000 		.long	.LVL49
- 933 0332 0D07 0000 		.long	0x70d
+ 933 0332 0F07 0000 		.long	0x70f
  934 0336 4103 0000 		.long	0x341
  935 033a 10        		.uleb128 0x10
  936 033b 01        		.byte	0x1
  937 033c 68        		.byte	0x68
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 24
+
+
  938 033d 02        		.byte	0x2
  939 033e 09        		.byte	0x9
  940 033f AA        		.byte	0xaa
  941 0340 00        		.byte	0
  942 0341 0F        		.uleb128 0xf
  943 0342 0000 0000 		.long	.LVL50
- 944 0346 D906 0000 		.long	0x6d9
+ 944 0346 DB06 0000 		.long	0x6db
  945 034a 5503 0000 		.long	0x355
  946 034e 10        		.uleb128 0x10
  947 034f 01        		.byte	0x1
  948 0350 68        		.byte	0x68
  949 0351 02        		.byte	0x2
  950 0352 08        		.byte	0x8
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 24
-
-
  951 0353 4A        		.byte	0x4a
  952 0354 00        		.byte	0
  953 0355 0F        		.uleb128 0xf
  954 0356 0000 0000 		.long	.LVL51
- 955 035a D906 0000 		.long	0x6d9
+ 955 035a DB06 0000 		.long	0x6db
  956 035e 6903 0000 		.long	0x369
  957 0362 10        		.uleb128 0x10
  958 0363 01        		.byte	0x1
@@ -1396,10 +1409,10 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  963 0368 00        		.byte	0
  964 0369 0E        		.uleb128 0xe
  965 036a 0000 0000 		.long	.LVL52
- 966 036e E606 0000 		.long	0x6e6
+ 966 036e E806 0000 		.long	0x6e8
  967 0372 0F        		.uleb128 0xf
  968 0373 0000 0000 		.long	.LVL53
- 969 0377 0D07 0000 		.long	0x70d
+ 969 0377 0F07 0000 		.long	0x70f
  970 037b 8603 0000 		.long	0x386
  971 037f 10        		.uleb128 0x10
  972 0380 01        		.byte	0x1
@@ -1410,7 +1423,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  977 0385 00        		.byte	0
  978 0386 0F        		.uleb128 0xf
  979 0387 0000 0000 		.long	.LVL54
- 980 038b D906 0000 		.long	0x6d9
+ 980 038b DB06 0000 		.long	0x6db
  981 038f 9A03 0000 		.long	0x39a
  982 0393 10        		.uleb128 0x10
  983 0394 01        		.byte	0x1
@@ -1421,10 +1434,13 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  988 0399 00        		.byte	0
  989 039a 0F        		.uleb128 0xf
  990 039b 0000 0000 		.long	.LVL55
- 991 039f D906 0000 		.long	0x6d9
+ 991 039f DB06 0000 		.long	0x6db
  992 03a3 AE03 0000 		.long	0x3ae
  993 03a7 10        		.uleb128 0x10
  994 03a8 01        		.byte	0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 25
+
+
  995 03a9 68        		.byte	0x68
  996 03aa 02        		.byte	0x2
  997 03ab 81        		.byte	0x81
@@ -1432,15 +1448,12 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  999 03ad 00        		.byte	0
  1000 03ae 0E        		.uleb128 0xe
  1001 03af 0000 0000 		.long	.LVL56
- 1002 03b3 E606 0000 		.long	0x6e6
+ 1002 03b3 E806 0000 		.long	0x6e8
  1003 03b7 0F        		.uleb128 0xf
  1004 03b8 0000 0000 		.long	.LVL58
- 1005 03bc 0D07 0000 		.long	0x70d
+ 1005 03bc 0F07 0000 		.long	0x70f
  1006 03c0 CB03 0000 		.long	0x3cb
  1007 03c4 10        		.uleb128 0x10
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 25
-
-
  1008 03c5 01        		.byte	0x1
  1009 03c6 68        		.byte	0x68
  1010 03c7 02        		.byte	0x2
@@ -1449,7 +1462,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1013 03ca 00        		.byte	0
  1014 03cb 0F        		.uleb128 0xf
  1015 03cc 0000 0000 		.long	.LVL59
- 1016 03d0 D906 0000 		.long	0x6d9
+ 1016 03d0 DB06 0000 		.long	0x6db
  1017 03d4 DF03 0000 		.long	0x3df
  1018 03d8 10        		.uleb128 0x10
  1019 03d9 01        		.byte	0x1
@@ -1460,7 +1473,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1024 03de 00        		.byte	0
  1025 03df 0F        		.uleb128 0xf
  1026 03e0 0000 0000 		.long	.LVL60
- 1027 03e4 D906 0000 		.long	0x6d9
+ 1027 03e4 DB06 0000 		.long	0x6db
  1028 03e8 F303 0000 		.long	0x3f3
  1029 03ec 10        		.uleb128 0x10
  1030 03ed 01        		.byte	0x1
@@ -1471,10 +1484,10 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1035 03f2 00        		.byte	0
  1036 03f3 0E        		.uleb128 0xe
  1037 03f4 0000 0000 		.long	.LVL61
- 1038 03f8 E606 0000 		.long	0x6e6
+ 1038 03f8 E806 0000 		.long	0x6e8
  1039 03fc 0F        		.uleb128 0xf
  1040 03fd 0000 0000 		.long	.LVL62
- 1041 0401 0D07 0000 		.long	0x70d
+ 1041 0401 0F07 0000 		.long	0x70f
  1042 0405 1004 0000 		.long	0x410
  1043 0409 10        		.uleb128 0x10
  1044 040a 01        		.byte	0x1
@@ -1485,7 +1498,10 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1049 040f 00        		.byte	0
  1050 0410 0F        		.uleb128 0xf
  1051 0411 0000 0000 		.long	.LVL63
- 1052 0415 D906 0000 		.long	0x6d9
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 26
+
+
+ 1052 0415 DB06 0000 		.long	0x6db
  1053 0419 2304 0000 		.long	0x423
  1054 041d 10        		.uleb128 0x10
  1055 041e 01        		.byte	0x1
@@ -1495,12 +1511,9 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1059 0422 00        		.byte	0
  1060 0423 0F        		.uleb128 0xf
  1061 0424 0000 0000 		.long	.LVL64
- 1062 0428 D906 0000 		.long	0x6d9
+ 1062 0428 DB06 0000 		.long	0x6db
  1063 042c 3704 0000 		.long	0x437
  1064 0430 10        		.uleb128 0x10
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 26
-
-
  1065 0431 01        		.byte	0x1
  1066 0432 68        		.byte	0x68
  1067 0433 02        		.byte	0x2
@@ -1509,7 +1522,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1070 0436 00        		.byte	0
  1071 0437 0F        		.uleb128 0xf
  1072 0438 0000 0000 		.long	.LVL65
- 1073 043c D906 0000 		.long	0x6d9
+ 1073 043c DB06 0000 		.long	0x6db
  1074 0440 4A04 0000 		.long	0x44a
  1075 0444 10        		.uleb128 0x10
  1076 0445 01        		.byte	0x1
@@ -1519,10 +1532,10 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1080 0449 00        		.byte	0
  1081 044a 0E        		.uleb128 0xe
  1082 044b 0000 0000 		.long	.LVL66
- 1083 044f E606 0000 		.long	0x6e6
+ 1083 044f E806 0000 		.long	0x6e8
  1084 0453 0F        		.uleb128 0xf
  1085 0454 0000 0000 		.long	.LVL67
- 1086 0458 0D07 0000 		.long	0x70d
+ 1086 0458 0F07 0000 		.long	0x70f
  1087 045c 6704 0000 		.long	0x467
  1088 0460 10        		.uleb128 0x10
  1089 0461 01        		.byte	0x1
@@ -1533,7 +1546,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1094 0466 00        		.byte	0
  1095 0467 0F        		.uleb128 0xf
  1096 0468 0000 0000 		.long	.LVL68
- 1097 046c D906 0000 		.long	0x6d9
+ 1097 046c DB06 0000 		.long	0x6db
  1098 0470 7A04 0000 		.long	0x47a
  1099 0474 10        		.uleb128 0x10
  1100 0475 01        		.byte	0x1
@@ -1543,8 +1556,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1104 0479 00        		.byte	0
  1105 047a 0F        		.uleb128 0xf
  1106 047b 0000 0000 		.long	.LVL69
- 1107 047f D906 0000 		.long	0x6d9
+ 1107 047f DB06 0000 		.long	0x6db
  1108 0483 8E04 0000 		.long	0x48e
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 27
+
+
  1109 0487 10        		.uleb128 0x10
  1110 0488 01        		.byte	0x1
  1111 0489 68        		.byte	0x68
@@ -1554,24 +1570,21 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1115 048d 00        		.byte	0
  1116 048e 0F        		.uleb128 0xf
  1117 048f 0000 0000 		.long	.LVL70
- 1118 0493 D906 0000 		.long	0x6d9
+ 1118 0493 DB06 0000 		.long	0x6db
  1119 0497 A104 0000 		.long	0x4a1
  1120 049b 10        		.uleb128 0x10
  1121 049c 01        		.byte	0x1
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 27
-
-
  1122 049d 68        		.byte	0x68
  1123 049e 01        		.byte	0x1
  1124 049f 30        		.byte	0x30
  1125 04a0 00        		.byte	0
  1126 04a1 0E        		.uleb128 0xe
  1127 04a2 0000 0000 		.long	.LVL71
- 1128 04a6 E606 0000 		.long	0x6e6
+ 1128 04a6 E806 0000 		.long	0x6e8
  1129 04aa 00        		.byte	0
  1130 04ab 0F        		.uleb128 0xf
  1131 04ac 0000 0000 		.long	.LVL33
- 1132 04b0 0D07 0000 		.long	0x70d
+ 1132 04b0 0F07 0000 		.long	0x70f
  1133 04b4 BF04 0000 		.long	0x4bf
  1134 04b8 10        		.uleb128 0x10
  1135 04b9 01        		.byte	0x1
@@ -1582,7 +1595,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1140 04be 00        		.byte	0
  1141 04bf 0F        		.uleb128 0xf
  1142 04c0 0000 0000 		.long	.LVL34
- 1143 04c4 D906 0000 		.long	0x6d9
+ 1143 04c4 DB06 0000 		.long	0x6db
  1144 04c8 D304 0000 		.long	0x4d3
  1145 04cc 10        		.uleb128 0x10
  1146 04cd 01        		.byte	0x1
@@ -1593,7 +1606,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1151 04d2 00        		.byte	0
  1152 04d3 0F        		.uleb128 0xf
  1153 04d4 0000 0000 		.long	.LVL35
- 1154 04d8 D906 0000 		.long	0x6d9
+ 1154 04d8 DB06 0000 		.long	0x6db
  1155 04dc E704 0000 		.long	0x4e7
  1156 04e0 10        		.uleb128 0x10
  1157 04e1 01        		.byte	0x1
@@ -1604,10 +1617,13 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1162 04e6 00        		.byte	0
  1163 04e7 0E        		.uleb128 0xe
  1164 04e8 0000 0000 		.long	.LVL36
- 1165 04ec E606 0000 		.long	0x6e6
+ 1165 04ec E806 0000 		.long	0x6e8
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 28
+
+
  1166 04f0 0F        		.uleb128 0xf
  1167 04f1 0000 0000 		.long	.LVL37
- 1168 04f5 0D07 0000 		.long	0x70d
+ 1168 04f5 0F07 0000 		.long	0x70f
  1169 04f9 0405 0000 		.long	0x504
  1170 04fd 10        		.uleb128 0x10
  1171 04fe 01        		.byte	0x1
@@ -1618,10 +1634,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1176 0503 00        		.byte	0
  1177 0504 0F        		.uleb128 0xf
  1178 0505 0000 0000 		.long	.LVL38
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 28
-
-
- 1179 0509 D906 0000 		.long	0x6d9
+ 1179 0509 DB06 0000 		.long	0x6db
  1180 050d 1805 0000 		.long	0x518
  1181 0511 10        		.uleb128 0x10
  1182 0512 01        		.byte	0x1
@@ -1632,7 +1645,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1187 0517 00        		.byte	0
  1188 0518 0F        		.uleb128 0xf
  1189 0519 0000 0000 		.long	.LVL39
- 1190 051d D906 0000 		.long	0x6d9
+ 1190 051d DB06 0000 		.long	0x6db
  1191 0521 2C05 0000 		.long	0x52c
  1192 0525 10        		.uleb128 0x10
  1193 0526 01        		.byte	0x1
@@ -1643,10 +1656,10 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1198 052b 00        		.byte	0
  1199 052c 0E        		.uleb128 0xe
  1200 052d 0000 0000 		.long	.LVL40
- 1201 0531 E606 0000 		.long	0x6e6
+ 1201 0531 E806 0000 		.long	0x6e8
  1202 0535 0F        		.uleb128 0xf
  1203 0536 0000 0000 		.long	.LVL41
- 1204 053a 0D07 0000 		.long	0x70d
+ 1204 053a 0F07 0000 		.long	0x70f
  1205 053e 4905 0000 		.long	0x549
  1206 0542 10        		.uleb128 0x10
  1207 0543 01        		.byte	0x1
@@ -1657,7 +1670,7 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1212 0548 00        		.byte	0
  1213 0549 0F        		.uleb128 0xf
  1214 054a 0000 0000 		.long	.LVL42
- 1215 054e D906 0000 		.long	0x6d9
+ 1215 054e DB06 0000 		.long	0x6db
  1216 0552 5D05 0000 		.long	0x55d
  1217 0556 10        		.uleb128 0x10
  1218 0557 01        		.byte	0x1
@@ -1665,10 +1678,13 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1220 0559 02        		.byte	0x2
  1221 055a 08        		.byte	0x8
  1222 055b 3F        		.byte	0x3f
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 29
+
+
  1223 055c 00        		.byte	0
  1224 055d 0F        		.uleb128 0xf
  1225 055e 0000 0000 		.long	.LVL43
- 1226 0562 D906 0000 		.long	0x6d9
+ 1226 0562 DB06 0000 		.long	0x6db
  1227 0566 7105 0000 		.long	0x571
  1228 056a 10        		.uleb128 0x10
  1229 056b 01        		.byte	0x1
@@ -1678,14 +1694,11 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1233 056f 00        		.sleb128 0
  1234 0570 00        		.byte	0
  1235 0571 0E        		.uleb128 0xe
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 29
-
-
  1236 0572 0000 0000 		.long	.LVL44
- 1237 0576 E606 0000 		.long	0x6e6
+ 1237 0576 E806 0000 		.long	0x6e8
  1238 057a 11        		.uleb128 0x11
  1239 057b 0000 0000 		.long	.LVL45
- 1240 057f 1A07 0000 		.long	0x71a
+ 1240 057f 1C07 0000 		.long	0x71c
  1241 0583 10        		.uleb128 0x10
  1242 0584 01        		.byte	0x1
  1243 0585 68        		.byte	0x68
@@ -1714,10 +1727,10 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1266 059c 00        		.byte	0
  1267 059d 0E        		.uleb128 0xe
  1268 059e 0000 0000 		.long	.LVL26
- 1269 05a2 D906 0000 		.long	0x6d9
+ 1269 05a2 DB06 0000 		.long	0x6db
  1270 05a6 0F        		.uleb128 0xf
  1271 05a7 0000 0000 		.long	.LVL27
- 1272 05ab D906 0000 		.long	0x6d9
+ 1272 05ab DB06 0000 		.long	0x6db
  1273 05af B905 0000 		.long	0x5b9
  1274 05b3 10        		.uleb128 0x10
  1275 05b4 01        		.byte	0x1
@@ -1725,9 +1738,12 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1277 05b6 01        		.byte	0x1
  1278 05b7 43        		.byte	0x43
  1279 05b8 00        		.byte	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 30
+
+
  1280 05b9 0F        		.uleb128 0xf
  1281 05ba 0000 0000 		.long	.LVL28
- 1282 05be D906 0000 		.long	0x6d9
+ 1282 05be DB06 0000 		.long	0x6db
  1283 05c2 CC05 0000 		.long	0x5cc
  1284 05c6 10        		.uleb128 0x10
  1285 05c7 01        		.byte	0x1
@@ -1737,13 +1753,10 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1289 05cb 00        		.byte	0
  1290 05cc 0E        		.uleb128 0xe
  1291 05cd 0000 0000 		.long	.LVL29
- 1292 05d1 E606 0000 		.long	0x6e6
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 30
-
-
+ 1292 05d1 E806 0000 		.long	0x6e8
  1293 05d5 11        		.uleb128 0x11
  1294 05d6 0000 0000 		.long	.LVL32
- 1295 05da F306 0000 		.long	0x6f3
+ 1295 05da F506 0000 		.long	0x6f5
  1296 05de 10        		.uleb128 0x10
  1297 05df 01        		.byte	0x1
  1298 05e0 68        		.byte	0x68
@@ -1785,12 +1798,15 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1334 0604 00        		.sleb128 0
  1335 0605 00        		.byte	0
  1336 0606 00        		.byte	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 31
+
+
  1337 0607 0E        		.uleb128 0xe
  1338 0608 0000 0000 		.long	.LVL18
- 1339 060c D906 0000 		.long	0x6d9
+ 1339 060c DB06 0000 		.long	0x6db
  1340 0610 0F        		.uleb128 0xf
  1341 0611 0000 0000 		.long	.LVL19
- 1342 0615 D906 0000 		.long	0x6d9
+ 1342 0615 DB06 0000 		.long	0x6db
  1343 0619 2306 0000 		.long	0x623
  1344 061d 10        		.uleb128 0x10
  1345 061e 01        		.byte	0x1
@@ -1798,1204 +1814,1206 @@ GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 1
  1347 0620 01        		.byte	0x1
  1348 0621 30        		.byte	0x30
  1349 0622 00        		.byte	0
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 31
-
-
  1350 0623 0F        		.uleb128 0xf
  1351 0624 0000 0000 		.long	.LVL20
- 1352 0628 D906 0000 		.long	0x6d9
- 1353 062c 3606 0000 		.long	0x636
+ 1352 0628 DB06 0000 		.long	0x6db
+ 1353 062c 3706 0000 		.long	0x637
  1354 0630 10        		.uleb128 0x10
  1355 0631 01        		.byte	0x1
  1356 0632 68        		.byte	0x68
- 1357 0633 01        		.byte	0x1
- 1358 0634 30        		.byte	0x30
- 1359 0635 00        		.byte	0
- 1360 0636 0F        		.uleb128 0xf
- 1361 0637 0000 0000 		.long	.LVL21
- 1362 063b D906 0000 		.long	0x6d9
- 1363 063f 4906 0000 		.long	0x649
- 1364 0643 10        		.uleb128 0x10
- 1365 0644 01        		.byte	0x1
- 1366 0645 68        		.byte	0x68
- 1367 0646 01        		.byte	0x1
- 1368 0647 30        		.byte	0x30
- 1369 0648 00        		.byte	0
- 1370 0649 0F        		.uleb128 0xf
- 1371 064a 0000 0000 		.long	.LVL22
- 1372 064e D906 0000 		.long	0x6d9
- 1373 0652 5C06 0000 		.long	0x65c
- 1374 0656 10        		.uleb128 0x10
- 1375 0657 01        		.byte	0x1
- 1376 0658 68        		.byte	0x68
- 1377 0659 01        		.byte	0x1
- 1378 065a 30        		.byte	0x30
- 1379 065b 00        		.byte	0
- 1380 065c 0F        		.uleb128 0xf
- 1381 065d 0000 0000 		.long	.LVL23
- 1382 0661 D906 0000 		.long	0x6d9
- 1383 0665 6F06 0000 		.long	0x66f
- 1384 0669 10        		.uleb128 0x10
- 1385 066a 01        		.byte	0x1
- 1386 066b 68        		.byte	0x68
- 1387 066c 01        		.byte	0x1
- 1388 066d 30        		.byte	0x30
- 1389 066e 00        		.byte	0
- 1390 066f 0E        		.uleb128 0xe
- 1391 0670 0000 0000 		.long	.LVL24
- 1392 0674 E606 0000 		.long	0x6e6
- 1393 0678 11        		.uleb128 0x11
- 1394 0679 0000 0000 		.long	.LVL25
- 1395 067d 0D07 0000 		.long	0x70d
- 1396 0681 10        		.uleb128 0x10
- 1397 0682 01        		.byte	0x1
- 1398 0683 68        		.byte	0x68
- 1399 0684 02        		.byte	0x2
- 1400 0685 09        		.byte	0x9
- 1401 0686 AA        		.byte	0xaa
- 1402 0687 00        		.byte	0
- 1403 0688 00        		.byte	0
- 1404 0689 11        		.uleb128 0x11
- 1405 068a 0000 0000 		.long	.LVL15
- 1406 068e 0D07 0000 		.long	0x70d
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 32
+ 1357 0633 02        		.byte	0x2
+ 1358 0634 09        		.byte	0x9
+ 1359 0635 80        		.byte	0x80
+ 1360 0636 00        		.byte	0
+ 1361 0637 0F        		.uleb128 0xf
+ 1362 0638 0000 0000 		.long	.LVL21
+ 1363 063c DB06 0000 		.long	0x6db
+ 1364 0640 4A06 0000 		.long	0x64a
+ 1365 0644 10        		.uleb128 0x10
+ 1366 0645 01        		.byte	0x1
+ 1367 0646 68        		.byte	0x68
+ 1368 0647 01        		.byte	0x1
+ 1369 0648 30        		.byte	0x30
+ 1370 0649 00        		.byte	0
+ 1371 064a 0F        		.uleb128 0xf
+ 1372 064b 0000 0000 		.long	.LVL22
+ 1373 064f DB06 0000 		.long	0x6db
+ 1374 0653 5D06 0000 		.long	0x65d
+ 1375 0657 10        		.uleb128 0x10
+ 1376 0658 01        		.byte	0x1
+ 1377 0659 68        		.byte	0x68
+ 1378 065a 01        		.byte	0x1
+ 1379 065b 30        		.byte	0x30
+ 1380 065c 00        		.byte	0
+ 1381 065d 0F        		.uleb128 0xf
+ 1382 065e 0000 0000 		.long	.LVL23
+ 1383 0662 DB06 0000 		.long	0x6db
+ 1384 0666 7106 0000 		.long	0x671
+ 1385 066a 10        		.uleb128 0x10
+ 1386 066b 01        		.byte	0x1
+ 1387 066c 68        		.byte	0x68
+ 1388 066d 02        		.byte	0x2
+ 1389 066e 09        		.byte	0x9
+ 1390 066f 80        		.byte	0x80
+ 1391 0670 00        		.byte	0
+ 1392 0671 0E        		.uleb128 0xe
+ 1393 0672 0000 0000 		.long	.LVL24
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 32
 
 
- 1407 0692 10        		.uleb128 0x10
- 1408 0693 01        		.byte	0x1
- 1409 0694 68        		.byte	0x68
- 1410 0695 02        		.byte	0x2
- 1411 0696 09        		.byte	0x9
- 1412 0697 AA        		.byte	0xaa
- 1413 0698 00        		.byte	0
- 1414 0699 00        		.byte	0
- 1415 069a 1B        		.uleb128 0x1b
- 1416 069b 01        		.byte	0x1
- 1417 069c 0000 0000 		.long	.LASF24
- 1418 06a0 01        		.byte	0x1
- 1419 06a1 6F        		.byte	0x6f
- 1420 06a2 2C00 0000 		.long	0x2c
- 1421 06a6 0000 0000 		.long	.LFB8
- 1422 06aa 0000 0000 		.long	.LFE8
- 1423 06ae 03        		.byte	0x3
- 1424 06af 92        		.byte	0x92
- 1425 06b0 20        		.uleb128 0x20
- 1426 06b1 02        		.sleb128 2
- 1427 06b2 01        		.byte	0x1
- 1428 06b3 D906 0000 		.long	0x6d9
- 1429 06b7 1C        		.uleb128 0x1c
- 1430 06b8 0000 0000 		.long	.LVL73
- 1431 06bc 01        		.byte	0x1
- 1432 06bd 1A07 0000 		.long	0x71a
- 1433 06c1 10        		.uleb128 0x10
- 1434 06c2 01        		.byte	0x1
- 1435 06c3 68        		.byte	0x68
- 1436 06c4 02        		.byte	0x2
- 1437 06c5 09        		.byte	0x9
- 1438 06c6 AA        		.byte	0xaa
- 1439 06c7 10        		.uleb128 0x10
- 1440 06c8 01        		.byte	0x1
- 1441 06c9 66        		.byte	0x66
- 1442 06ca 02        		.byte	0x2
- 1443 06cb 09        		.byte	0x9
- 1444 06cc AB        		.byte	0xab
- 1445 06cd 10        		.uleb128 0x10
- 1446 06ce 01        		.byte	0x1
- 1447 06cf 64        		.byte	0x64
+ 1394 0676 E806 0000 		.long	0x6e8
+ 1395 067a 11        		.uleb128 0x11
+ 1396 067b 0000 0000 		.long	.LVL25
+ 1397 067f 0F07 0000 		.long	0x70f
+ 1398 0683 10        		.uleb128 0x10
+ 1399 0684 01        		.byte	0x1
+ 1400 0685 68        		.byte	0x68
+ 1401 0686 02        		.byte	0x2
+ 1402 0687 09        		.byte	0x9
+ 1403 0688 AA        		.byte	0xaa
+ 1404 0689 00        		.byte	0
+ 1405 068a 00        		.byte	0
+ 1406 068b 11        		.uleb128 0x11
+ 1407 068c 0000 0000 		.long	.LVL15
+ 1408 0690 0F07 0000 		.long	0x70f
+ 1409 0694 10        		.uleb128 0x10
+ 1410 0695 01        		.byte	0x1
+ 1411 0696 68        		.byte	0x68
+ 1412 0697 02        		.byte	0x2
+ 1413 0698 09        		.byte	0x9
+ 1414 0699 AA        		.byte	0xaa
+ 1415 069a 00        		.byte	0
+ 1416 069b 00        		.byte	0
+ 1417 069c 1B        		.uleb128 0x1b
+ 1418 069d 01        		.byte	0x1
+ 1419 069e 0000 0000 		.long	.LASF24
+ 1420 06a2 01        		.byte	0x1
+ 1421 06a3 7B        		.byte	0x7b
+ 1422 06a4 2C00 0000 		.long	0x2c
+ 1423 06a8 0000 0000 		.long	.LFB8
+ 1424 06ac 0000 0000 		.long	.LFE8
+ 1425 06b0 03        		.byte	0x3
+ 1426 06b1 92        		.byte	0x92
+ 1427 06b2 20        		.uleb128 0x20
+ 1428 06b3 02        		.sleb128 2
+ 1429 06b4 01        		.byte	0x1
+ 1430 06b5 DB06 0000 		.long	0x6db
+ 1431 06b9 1C        		.uleb128 0x1c
+ 1432 06ba 0000 0000 		.long	.LVL73
+ 1433 06be 01        		.byte	0x1
+ 1434 06bf 1C07 0000 		.long	0x71c
+ 1435 06c3 10        		.uleb128 0x10
+ 1436 06c4 01        		.byte	0x1
+ 1437 06c5 68        		.byte	0x68
+ 1438 06c6 02        		.byte	0x2
+ 1439 06c7 09        		.byte	0x9
+ 1440 06c8 AA        		.byte	0xaa
+ 1441 06c9 10        		.uleb128 0x10
+ 1442 06ca 01        		.byte	0x1
+ 1443 06cb 66        		.byte	0x66
+ 1444 06cc 02        		.byte	0x2
+ 1445 06cd 09        		.byte	0x9
+ 1446 06ce AB        		.byte	0xab
+ 1447 06cf 10        		.uleb128 0x10
  1448 06d0 01        		.byte	0x1
- 1449 06d1 4C        		.byte	0x4c
- 1450 06d2 10        		.uleb128 0x10
- 1451 06d3 01        		.byte	0x1
- 1452 06d4 62        		.byte	0x62
+ 1449 06d1 64        		.byte	0x64
+ 1450 06d2 01        		.byte	0x1
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 33
+
+
+ 1451 06d3 4C        		.byte	0x4c
+ 1452 06d4 10        		.uleb128 0x10
  1453 06d5 01        		.byte	0x1
- 1454 06d6 30        		.byte	0x30
- 1455 06d7 00        		.byte	0
- 1456 06d8 00        		.byte	0
- 1457 06d9 1D        		.uleb128 0x1d
- 1458 06da 01        		.byte	0x1
- 1459 06db 01        		.byte	0x1
- 1460 06dc 0000 0000 		.long	.LASF25
- 1461 06e0 0000 0000 		.long	.LASF25
- 1462 06e4 04        		.byte	0x4
- 1463 06e5 0B        		.byte	0xb
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 33
+ 1454 06d6 62        		.byte	0x62
+ 1455 06d7 01        		.byte	0x1
+ 1456 06d8 30        		.byte	0x30
+ 1457 06d9 00        		.byte	0
+ 1458 06da 00        		.byte	0
+ 1459 06db 1D        		.uleb128 0x1d
+ 1460 06dc 01        		.byte	0x1
+ 1461 06dd 01        		.byte	0x1
+ 1462 06de 0000 0000 		.long	.LASF25
+ 1463 06e2 0000 0000 		.long	.LASF25
+ 1464 06e6 04        		.byte	0x4
+ 1465 06e7 0E        		.byte	0xe
+ 1466 06e8 1D        		.uleb128 0x1d
+ 1467 06e9 01        		.byte	0x1
+ 1468 06ea 01        		.byte	0x1
+ 1469 06eb 0000 0000 		.long	.LASF26
+ 1470 06ef 0000 0000 		.long	.LASF26
+ 1471 06f3 04        		.byte	0x4
+ 1472 06f4 0C        		.byte	0xc
+ 1473 06f5 1D        		.uleb128 0x1d
+ 1474 06f6 01        		.byte	0x1
+ 1475 06f7 01        		.byte	0x1
+ 1476 06f8 0000 0000 		.long	.LASF27
+ 1477 06fc 0000 0000 		.long	.LASF27
+ 1478 0700 04        		.byte	0x4
+ 1479 0701 11        		.byte	0x11
+ 1480 0702 1D        		.uleb128 0x1d
+ 1481 0703 01        		.byte	0x1
+ 1482 0704 01        		.byte	0x1
+ 1483 0705 0000 0000 		.long	.LASF28
+ 1484 0709 0000 0000 		.long	.LASF28
+ 1485 070d 04        		.byte	0x4
+ 1486 070e 0B        		.byte	0xb
+ 1487 070f 1D        		.uleb128 0x1d
+ 1488 0710 01        		.byte	0x1
+ 1489 0711 01        		.byte	0x1
+ 1490 0712 0000 0000 		.long	.LASF29
+ 1491 0716 0000 0000 		.long	.LASF29
+ 1492 071a 04        		.byte	0x4
+ 1493 071b 0D        		.byte	0xd
+ 1494 071c 1D        		.uleb128 0x1d
+ 1495 071d 01        		.byte	0x1
+ 1496 071e 01        		.byte	0x1
+ 1497 071f 0000 0000 		.long	.LASF30
+ 1498 0723 0000 0000 		.long	.LASF30
+ 1499 0727 04        		.byte	0x4
+ 1500 0728 12        		.byte	0x12
+ 1501 0729 00        		.byte	0
+ 1502               		.section	.debug_abbrev,"",@progbits
+ 1503               	.Ldebug_abbrev0:
+ 1504 0000 01        		.uleb128 0x1
+ 1505 0001 11        		.uleb128 0x11
+ 1506 0002 01        		.byte	0x1
+ 1507 0003 25        		.uleb128 0x25
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 34
 
 
- 1464 06e6 1D        		.uleb128 0x1d
- 1465 06e7 01        		.byte	0x1
- 1466 06e8 01        		.byte	0x1
- 1467 06e9 0000 0000 		.long	.LASF26
- 1468 06ed 0000 0000 		.long	.LASF26
- 1469 06f1 04        		.byte	0x4
- 1470 06f2 09        		.byte	0x9
- 1471 06f3 1D        		.uleb128 0x1d
- 1472 06f4 01        		.byte	0x1
- 1473 06f5 01        		.byte	0x1
- 1474 06f6 0000 0000 		.long	.LASF27
- 1475 06fa 0000 0000 		.long	.LASF27
- 1476 06fe 04        		.byte	0x4
- 1477 06ff 0E        		.byte	0xe
- 1478 0700 1D        		.uleb128 0x1d
- 1479 0701 01        		.byte	0x1
- 1480 0702 01        		.byte	0x1
- 1481 0703 0000 0000 		.long	.LASF28
- 1482 0707 0000 0000 		.long	.LASF28
- 1483 070b 04        		.byte	0x4
- 1484 070c 08        		.byte	0x8
- 1485 070d 1D        		.uleb128 0x1d
- 1486 070e 01        		.byte	0x1
- 1487 070f 01        		.byte	0x1
- 1488 0710 0000 0000 		.long	.LASF29
- 1489 0714 0000 0000 		.long	.LASF29
- 1490 0718 04        		.byte	0x4
- 1491 0719 0A        		.byte	0xa
- 1492 071a 1D        		.uleb128 0x1d
- 1493 071b 01        		.byte	0x1
- 1494 071c 01        		.byte	0x1
- 1495 071d 0000 0000 		.long	.LASF30
- 1496 0721 0000 0000 		.long	.LASF30
- 1497 0725 04        		.byte	0x4
- 1498 0726 0F        		.byte	0xf
- 1499 0727 00        		.byte	0
- 1500               		.section	.debug_abbrev,"",@progbits
- 1501               	.Ldebug_abbrev0:
- 1502 0000 01        		.uleb128 0x1
- 1503 0001 11        		.uleb128 0x11
- 1504 0002 01        		.byte	0x1
- 1505 0003 25        		.uleb128 0x25
- 1506 0004 0E        		.uleb128 0xe
- 1507 0005 13        		.uleb128 0x13
- 1508 0006 0B        		.uleb128 0xb
- 1509 0007 03        		.uleb128 0x3
- 1510 0008 0E        		.uleb128 0xe
- 1511 0009 1B        		.uleb128 0x1b
- 1512 000a 0E        		.uleb128 0xe
- 1513 000b 11        		.uleb128 0x11
- 1514 000c 01        		.uleb128 0x1
- 1515 000d 12        		.uleb128 0x12
- 1516 000e 01        		.uleb128 0x1
- 1517 000f 10        		.uleb128 0x10
- 1518 0010 06        		.uleb128 0x6
- 1519 0011 00        		.byte	0
- 1520 0012 00        		.byte	0
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 34
+ 1508 0004 0E        		.uleb128 0xe
+ 1509 0005 13        		.uleb128 0x13
+ 1510 0006 0B        		.uleb128 0xb
+ 1511 0007 03        		.uleb128 0x3
+ 1512 0008 0E        		.uleb128 0xe
+ 1513 0009 1B        		.uleb128 0x1b
+ 1514 000a 0E        		.uleb128 0xe
+ 1515 000b 11        		.uleb128 0x11
+ 1516 000c 01        		.uleb128 0x1
+ 1517 000d 12        		.uleb128 0x12
+ 1518 000e 01        		.uleb128 0x1
+ 1519 000f 10        		.uleb128 0x10
+ 1520 0010 06        		.uleb128 0x6
+ 1521 0011 00        		.byte	0
+ 1522 0012 00        		.byte	0
+ 1523 0013 02        		.uleb128 0x2
+ 1524 0014 24        		.uleb128 0x24
+ 1525 0015 00        		.byte	0
+ 1526 0016 0B        		.uleb128 0xb
+ 1527 0017 0B        		.uleb128 0xb
+ 1528 0018 3E        		.uleb128 0x3e
+ 1529 0019 0B        		.uleb128 0xb
+ 1530 001a 03        		.uleb128 0x3
+ 1531 001b 0E        		.uleb128 0xe
+ 1532 001c 00        		.byte	0
+ 1533 001d 00        		.byte	0
+ 1534 001e 03        		.uleb128 0x3
+ 1535 001f 16        		.uleb128 0x16
+ 1536 0020 00        		.byte	0
+ 1537 0021 03        		.uleb128 0x3
+ 1538 0022 0E        		.uleb128 0xe
+ 1539 0023 3A        		.uleb128 0x3a
+ 1540 0024 0B        		.uleb128 0xb
+ 1541 0025 3B        		.uleb128 0x3b
+ 1542 0026 0B        		.uleb128 0xb
+ 1543 0027 49        		.uleb128 0x49
+ 1544 0028 13        		.uleb128 0x13
+ 1545 0029 00        		.byte	0
+ 1546 002a 00        		.byte	0
+ 1547 002b 04        		.uleb128 0x4
+ 1548 002c 24        		.uleb128 0x24
+ 1549 002d 00        		.byte	0
+ 1550 002e 0B        		.uleb128 0xb
+ 1551 002f 0B        		.uleb128 0xb
+ 1552 0030 3E        		.uleb128 0x3e
+ 1553 0031 0B        		.uleb128 0xb
+ 1554 0032 03        		.uleb128 0x3
+ 1555 0033 08        		.uleb128 0x8
+ 1556 0034 00        		.byte	0
+ 1557 0035 00        		.byte	0
+ 1558 0036 05        		.uleb128 0x5
+ 1559 0037 2E        		.uleb128 0x2e
+ 1560 0038 01        		.byte	0x1
+ 1561 0039 03        		.uleb128 0x3
+ 1562 003a 0E        		.uleb128 0xe
+ 1563 003b 3A        		.uleb128 0x3a
+ 1564 003c 0B        		.uleb128 0xb
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 35
 
 
- 1521 0013 02        		.uleb128 0x2
- 1522 0014 24        		.uleb128 0x24
- 1523 0015 00        		.byte	0
- 1524 0016 0B        		.uleb128 0xb
- 1525 0017 0B        		.uleb128 0xb
- 1526 0018 3E        		.uleb128 0x3e
- 1527 0019 0B        		.uleb128 0xb
- 1528 001a 03        		.uleb128 0x3
- 1529 001b 0E        		.uleb128 0xe
- 1530 001c 00        		.byte	0
- 1531 001d 00        		.byte	0
- 1532 001e 03        		.uleb128 0x3
- 1533 001f 16        		.uleb128 0x16
- 1534 0020 00        		.byte	0
- 1535 0021 03        		.uleb128 0x3
- 1536 0022 0E        		.uleb128 0xe
- 1537 0023 3A        		.uleb128 0x3a
- 1538 0024 0B        		.uleb128 0xb
- 1539 0025 3B        		.uleb128 0x3b
- 1540 0026 0B        		.uleb128 0xb
- 1541 0027 49        		.uleb128 0x49
- 1542 0028 13        		.uleb128 0x13
- 1543 0029 00        		.byte	0
- 1544 002a 00        		.byte	0
- 1545 002b 04        		.uleb128 0x4
- 1546 002c 24        		.uleb128 0x24
- 1547 002d 00        		.byte	0
- 1548 002e 0B        		.uleb128 0xb
- 1549 002f 0B        		.uleb128 0xb
- 1550 0030 3E        		.uleb128 0x3e
- 1551 0031 0B        		.uleb128 0xb
- 1552 0032 03        		.uleb128 0x3
- 1553 0033 08        		.uleb128 0x8
- 1554 0034 00        		.byte	0
- 1555 0035 00        		.byte	0
- 1556 0036 05        		.uleb128 0x5
- 1557 0037 2E        		.uleb128 0x2e
- 1558 0038 01        		.byte	0x1
- 1559 0039 03        		.uleb128 0x3
- 1560 003a 0E        		.uleb128 0xe
- 1561 003b 3A        		.uleb128 0x3a
- 1562 003c 0B        		.uleb128 0xb
- 1563 003d 3B        		.uleb128 0x3b
- 1564 003e 0B        		.uleb128 0xb
- 1565 003f 27        		.uleb128 0x27
- 1566 0040 0C        		.uleb128 0xc
- 1567 0041 20        		.uleb128 0x20
- 1568 0042 0B        		.uleb128 0xb
- 1569 0043 01        		.uleb128 0x1
- 1570 0044 13        		.uleb128 0x13
- 1571 0045 00        		.byte	0
- 1572 0046 00        		.byte	0
- 1573 0047 06        		.uleb128 0x6
- 1574 0048 05        		.uleb128 0x5
- 1575 0049 00        		.byte	0
- 1576 004a 03        		.uleb128 0x3
- 1577 004b 0E        		.uleb128 0xe
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 35
+ 1565 003d 3B        		.uleb128 0x3b
+ 1566 003e 0B        		.uleb128 0xb
+ 1567 003f 27        		.uleb128 0x27
+ 1568 0040 0C        		.uleb128 0xc
+ 1569 0041 20        		.uleb128 0x20
+ 1570 0042 0B        		.uleb128 0xb
+ 1571 0043 01        		.uleb128 0x1
+ 1572 0044 13        		.uleb128 0x13
+ 1573 0045 00        		.byte	0
+ 1574 0046 00        		.byte	0
+ 1575 0047 06        		.uleb128 0x6
+ 1576 0048 05        		.uleb128 0x5
+ 1577 0049 00        		.byte	0
+ 1578 004a 03        		.uleb128 0x3
+ 1579 004b 0E        		.uleb128 0xe
+ 1580 004c 3A        		.uleb128 0x3a
+ 1581 004d 0B        		.uleb128 0xb
+ 1582 004e 3B        		.uleb128 0x3b
+ 1583 004f 0B        		.uleb128 0xb
+ 1584 0050 49        		.uleb128 0x49
+ 1585 0051 13        		.uleb128 0x13
+ 1586 0052 00        		.byte	0
+ 1587 0053 00        		.byte	0
+ 1588 0054 07        		.uleb128 0x7
+ 1589 0055 34        		.uleb128 0x34
+ 1590 0056 00        		.byte	0
+ 1591 0057 03        		.uleb128 0x3
+ 1592 0058 0E        		.uleb128 0xe
+ 1593 0059 3A        		.uleb128 0x3a
+ 1594 005a 0B        		.uleb128 0xb
+ 1595 005b 3B        		.uleb128 0x3b
+ 1596 005c 0B        		.uleb128 0xb
+ 1597 005d 49        		.uleb128 0x49
+ 1598 005e 13        		.uleb128 0x13
+ 1599 005f 00        		.byte	0
+ 1600 0060 00        		.byte	0
+ 1601 0061 08        		.uleb128 0x8
+ 1602 0062 2E        		.uleb128 0x2e
+ 1603 0063 00        		.byte	0
+ 1604 0064 3F        		.uleb128 0x3f
+ 1605 0065 0C        		.uleb128 0xc
+ 1606 0066 03        		.uleb128 0x3
+ 1607 0067 0E        		.uleb128 0xe
+ 1608 0068 3A        		.uleb128 0x3a
+ 1609 0069 0B        		.uleb128 0xb
+ 1610 006a 3B        		.uleb128 0x3b
+ 1611 006b 0B        		.uleb128 0xb
+ 1612 006c 27        		.uleb128 0x27
+ 1613 006d 0C        		.uleb128 0xc
+ 1614 006e 20        		.uleb128 0x20
+ 1615 006f 0B        		.uleb128 0xb
+ 1616 0070 00        		.byte	0
+ 1617 0071 00        		.byte	0
+ 1618 0072 09        		.uleb128 0x9
+ 1619 0073 2E        		.uleb128 0x2e
+ 1620 0074 01        		.byte	0x1
+ 1621 0075 3F        		.uleb128 0x3f
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 36
 
 
- 1578 004c 3A        		.uleb128 0x3a
- 1579 004d 0B        		.uleb128 0xb
- 1580 004e 3B        		.uleb128 0x3b
- 1581 004f 0B        		.uleb128 0xb
- 1582 0050 49        		.uleb128 0x49
- 1583 0051 13        		.uleb128 0x13
- 1584 0052 00        		.byte	0
- 1585 0053 00        		.byte	0
- 1586 0054 07        		.uleb128 0x7
- 1587 0055 34        		.uleb128 0x34
- 1588 0056 00        		.byte	0
- 1589 0057 03        		.uleb128 0x3
- 1590 0058 0E        		.uleb128 0xe
- 1591 0059 3A        		.uleb128 0x3a
- 1592 005a 0B        		.uleb128 0xb
- 1593 005b 3B        		.uleb128 0x3b
- 1594 005c 0B        		.uleb128 0xb
- 1595 005d 49        		.uleb128 0x49
- 1596 005e 13        		.uleb128 0x13
- 1597 005f 00        		.byte	0
- 1598 0060 00        		.byte	0
- 1599 0061 08        		.uleb128 0x8
- 1600 0062 2E        		.uleb128 0x2e
- 1601 0063 00        		.byte	0
- 1602 0064 3F        		.uleb128 0x3f
- 1603 0065 0C        		.uleb128 0xc
- 1604 0066 03        		.uleb128 0x3
- 1605 0067 0E        		.uleb128 0xe
- 1606 0068 3A        		.uleb128 0x3a
- 1607 0069 0B        		.uleb128 0xb
- 1608 006a 3B        		.uleb128 0x3b
- 1609 006b 0B        		.uleb128 0xb
- 1610 006c 27        		.uleb128 0x27
- 1611 006d 0C        		.uleb128 0xc
- 1612 006e 20        		.uleb128 0x20
- 1613 006f 0B        		.uleb128 0xb
- 1614 0070 00        		.byte	0
- 1615 0071 00        		.byte	0
- 1616 0072 09        		.uleb128 0x9
- 1617 0073 2E        		.uleb128 0x2e
- 1618 0074 01        		.byte	0x1
- 1619 0075 3F        		.uleb128 0x3f
- 1620 0076 0C        		.uleb128 0xc
- 1621 0077 03        		.uleb128 0x3
- 1622 0078 0E        		.uleb128 0xe
- 1623 0079 3A        		.uleb128 0x3a
- 1624 007a 0B        		.uleb128 0xb
- 1625 007b 3B        		.uleb128 0x3b
- 1626 007c 0B        		.uleb128 0xb
- 1627 007d 49        		.uleb128 0x49
- 1628 007e 13        		.uleb128 0x13
- 1629 007f 11        		.uleb128 0x11
- 1630 0080 01        		.uleb128 0x1
- 1631 0081 12        		.uleb128 0x12
- 1632 0082 01        		.uleb128 0x1
- 1633 0083 40        		.uleb128 0x40
- 1634 0084 06        		.uleb128 0x6
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 36
+ 1622 0076 0C        		.uleb128 0xc
+ 1623 0077 03        		.uleb128 0x3
+ 1624 0078 0E        		.uleb128 0xe
+ 1625 0079 3A        		.uleb128 0x3a
+ 1626 007a 0B        		.uleb128 0xb
+ 1627 007b 3B        		.uleb128 0x3b
+ 1628 007c 0B        		.uleb128 0xb
+ 1629 007d 49        		.uleb128 0x49
+ 1630 007e 13        		.uleb128 0x13
+ 1631 007f 11        		.uleb128 0x11
+ 1632 0080 01        		.uleb128 0x1
+ 1633 0081 12        		.uleb128 0x12
+ 1634 0082 01        		.uleb128 0x1
+ 1635 0083 40        		.uleb128 0x40
+ 1636 0084 06        		.uleb128 0x6
+ 1637 0085 9742      		.uleb128 0x2117
+ 1638 0087 0C        		.uleb128 0xc
+ 1639 0088 01        		.uleb128 0x1
+ 1640 0089 13        		.uleb128 0x13
+ 1641 008a 00        		.byte	0
+ 1642 008b 00        		.byte	0
+ 1643 008c 0A        		.uleb128 0xa
+ 1644 008d 34        		.uleb128 0x34
+ 1645 008e 00        		.byte	0
+ 1646 008f 03        		.uleb128 0x3
+ 1647 0090 0E        		.uleb128 0xe
+ 1648 0091 3A        		.uleb128 0x3a
+ 1649 0092 0B        		.uleb128 0xb
+ 1650 0093 3B        		.uleb128 0x3b
+ 1651 0094 0B        		.uleb128 0xb
+ 1652 0095 49        		.uleb128 0x49
+ 1653 0096 13        		.uleb128 0x13
+ 1654 0097 1C        		.uleb128 0x1c
+ 1655 0098 0B        		.uleb128 0xb
+ 1656 0099 00        		.byte	0
+ 1657 009a 00        		.byte	0
+ 1658 009b 0B        		.uleb128 0xb
+ 1659 009c 34        		.uleb128 0x34
+ 1660 009d 00        		.byte	0
+ 1661 009e 03        		.uleb128 0x3
+ 1662 009f 0E        		.uleb128 0xe
+ 1663 00a0 3A        		.uleb128 0x3a
+ 1664 00a1 0B        		.uleb128 0xb
+ 1665 00a2 3B        		.uleb128 0x3b
+ 1666 00a3 0B        		.uleb128 0xb
+ 1667 00a4 49        		.uleb128 0x49
+ 1668 00a5 13        		.uleb128 0x13
+ 1669 00a6 02        		.uleb128 0x2
+ 1670 00a7 0A        		.uleb128 0xa
+ 1671 00a8 00        		.byte	0
+ 1672 00a9 00        		.byte	0
+ 1673 00aa 0C        		.uleb128 0xc
+ 1674 00ab 34        		.uleb128 0x34
+ 1675 00ac 00        		.byte	0
+ 1676 00ad 03        		.uleb128 0x3
+ 1677 00ae 0E        		.uleb128 0xe
+ 1678 00af 3A        		.uleb128 0x3a
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 37
 
 
- 1635 0085 9742      		.uleb128 0x2117
- 1636 0087 0C        		.uleb128 0xc
- 1637 0088 01        		.uleb128 0x1
- 1638 0089 13        		.uleb128 0x13
- 1639 008a 00        		.byte	0
- 1640 008b 00        		.byte	0
- 1641 008c 0A        		.uleb128 0xa
- 1642 008d 34        		.uleb128 0x34
- 1643 008e 00        		.byte	0
- 1644 008f 03        		.uleb128 0x3
- 1645 0090 0E        		.uleb128 0xe
- 1646 0091 3A        		.uleb128 0x3a
- 1647 0092 0B        		.uleb128 0xb
- 1648 0093 3B        		.uleb128 0x3b
- 1649 0094 0B        		.uleb128 0xb
- 1650 0095 49        		.uleb128 0x49
- 1651 0096 13        		.uleb128 0x13
- 1652 0097 1C        		.uleb128 0x1c
- 1653 0098 0B        		.uleb128 0xb
- 1654 0099 00        		.byte	0
- 1655 009a 00        		.byte	0
- 1656 009b 0B        		.uleb128 0xb
- 1657 009c 34        		.uleb128 0x34
- 1658 009d 00        		.byte	0
- 1659 009e 03        		.uleb128 0x3
- 1660 009f 0E        		.uleb128 0xe
- 1661 00a0 3A        		.uleb128 0x3a
- 1662 00a1 0B        		.uleb128 0xb
- 1663 00a2 3B        		.uleb128 0x3b
- 1664 00a3 0B        		.uleb128 0xb
- 1665 00a4 49        		.uleb128 0x49
- 1666 00a5 13        		.uleb128 0x13
- 1667 00a6 02        		.uleb128 0x2
- 1668 00a7 0A        		.uleb128 0xa
- 1669 00a8 00        		.byte	0
- 1670 00a9 00        		.byte	0
- 1671 00aa 0C        		.uleb128 0xc
- 1672 00ab 34        		.uleb128 0x34
- 1673 00ac 00        		.byte	0
- 1674 00ad 03        		.uleb128 0x3
- 1675 00ae 0E        		.uleb128 0xe
- 1676 00af 3A        		.uleb128 0x3a
- 1677 00b0 0B        		.uleb128 0xb
- 1678 00b1 3B        		.uleb128 0x3b
- 1679 00b2 0B        		.uleb128 0xb
- 1680 00b3 49        		.uleb128 0x49
- 1681 00b4 13        		.uleb128 0x13
- 1682 00b5 02        		.uleb128 0x2
- 1683 00b6 06        		.uleb128 0x6
- 1684 00b7 00        		.byte	0
- 1685 00b8 00        		.byte	0
- 1686 00b9 0D        		.uleb128 0xd
- 1687 00ba 0B        		.uleb128 0xb
- 1688 00bb 01        		.byte	0x1
- 1689 00bc 11        		.uleb128 0x11
- 1690 00bd 01        		.uleb128 0x1
- 1691 00be 12        		.uleb128 0x12
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 37
+ 1679 00b0 0B        		.uleb128 0xb
+ 1680 00b1 3B        		.uleb128 0x3b
+ 1681 00b2 0B        		.uleb128 0xb
+ 1682 00b3 49        		.uleb128 0x49
+ 1683 00b4 13        		.uleb128 0x13
+ 1684 00b5 02        		.uleb128 0x2
+ 1685 00b6 06        		.uleb128 0x6
+ 1686 00b7 00        		.byte	0
+ 1687 00b8 00        		.byte	0
+ 1688 00b9 0D        		.uleb128 0xd
+ 1689 00ba 0B        		.uleb128 0xb
+ 1690 00bb 01        		.byte	0x1
+ 1691 00bc 11        		.uleb128 0x11
+ 1692 00bd 01        		.uleb128 0x1
+ 1693 00be 12        		.uleb128 0x12
+ 1694 00bf 01        		.uleb128 0x1
+ 1695 00c0 01        		.uleb128 0x1
+ 1696 00c1 13        		.uleb128 0x13
+ 1697 00c2 00        		.byte	0
+ 1698 00c3 00        		.byte	0
+ 1699 00c4 0E        		.uleb128 0xe
+ 1700 00c5 8982 01   		.uleb128 0x4109
+ 1701 00c8 00        		.byte	0
+ 1702 00c9 11        		.uleb128 0x11
+ 1703 00ca 01        		.uleb128 0x1
+ 1704 00cb 31        		.uleb128 0x31
+ 1705 00cc 13        		.uleb128 0x13
+ 1706 00cd 00        		.byte	0
+ 1707 00ce 00        		.byte	0
+ 1708 00cf 0F        		.uleb128 0xf
+ 1709 00d0 8982 01   		.uleb128 0x4109
+ 1710 00d3 01        		.byte	0x1
+ 1711 00d4 11        		.uleb128 0x11
+ 1712 00d5 01        		.uleb128 0x1
+ 1713 00d6 31        		.uleb128 0x31
+ 1714 00d7 13        		.uleb128 0x13
+ 1715 00d8 01        		.uleb128 0x1
+ 1716 00d9 13        		.uleb128 0x13
+ 1717 00da 00        		.byte	0
+ 1718 00db 00        		.byte	0
+ 1719 00dc 10        		.uleb128 0x10
+ 1720 00dd 8A82 01   		.uleb128 0x410a
+ 1721 00e0 00        		.byte	0
+ 1722 00e1 02        		.uleb128 0x2
+ 1723 00e2 0A        		.uleb128 0xa
+ 1724 00e3 9142      		.uleb128 0x2111
+ 1725 00e5 0A        		.uleb128 0xa
+ 1726 00e6 00        		.byte	0
+ 1727 00e7 00        		.byte	0
+ 1728 00e8 11        		.uleb128 0x11
+ 1729 00e9 8982 01   		.uleb128 0x4109
+ 1730 00ec 01        		.byte	0x1
+ 1731 00ed 11        		.uleb128 0x11
+ 1732 00ee 01        		.uleb128 0x1
+ 1733 00ef 31        		.uleb128 0x31
+ 1734 00f0 13        		.uleb128 0x13
+ 1735 00f1 00        		.byte	0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 38
 
 
- 1692 00bf 01        		.uleb128 0x1
- 1693 00c0 01        		.uleb128 0x1
- 1694 00c1 13        		.uleb128 0x13
- 1695 00c2 00        		.byte	0
- 1696 00c3 00        		.byte	0
- 1697 00c4 0E        		.uleb128 0xe
- 1698 00c5 8982 01   		.uleb128 0x4109
- 1699 00c8 00        		.byte	0
- 1700 00c9 11        		.uleb128 0x11
- 1701 00ca 01        		.uleb128 0x1
- 1702 00cb 31        		.uleb128 0x31
- 1703 00cc 13        		.uleb128 0x13
- 1704 00cd 00        		.byte	0
- 1705 00ce 00        		.byte	0
- 1706 00cf 0F        		.uleb128 0xf
- 1707 00d0 8982 01   		.uleb128 0x4109
- 1708 00d3 01        		.byte	0x1
- 1709 00d4 11        		.uleb128 0x11
- 1710 00d5 01        		.uleb128 0x1
- 1711 00d6 31        		.uleb128 0x31
- 1712 00d7 13        		.uleb128 0x13
- 1713 00d8 01        		.uleb128 0x1
- 1714 00d9 13        		.uleb128 0x13
- 1715 00da 00        		.byte	0
- 1716 00db 00        		.byte	0
- 1717 00dc 10        		.uleb128 0x10
- 1718 00dd 8A82 01   		.uleb128 0x410a
- 1719 00e0 00        		.byte	0
- 1720 00e1 02        		.uleb128 0x2
- 1721 00e2 0A        		.uleb128 0xa
- 1722 00e3 9142      		.uleb128 0x2111
- 1723 00e5 0A        		.uleb128 0xa
- 1724 00e6 00        		.byte	0
- 1725 00e7 00        		.byte	0
- 1726 00e8 11        		.uleb128 0x11
- 1727 00e9 8982 01   		.uleb128 0x4109
- 1728 00ec 01        		.byte	0x1
- 1729 00ed 11        		.uleb128 0x11
- 1730 00ee 01        		.uleb128 0x1
- 1731 00ef 31        		.uleb128 0x31
- 1732 00f0 13        		.uleb128 0x13
- 1733 00f1 00        		.byte	0
- 1734 00f2 00        		.byte	0
- 1735 00f3 12        		.uleb128 0x12
- 1736 00f4 01        		.uleb128 0x1
- 1737 00f5 01        		.byte	0x1
- 1738 00f6 49        		.uleb128 0x49
- 1739 00f7 13        		.uleb128 0x13
- 1740 00f8 01        		.uleb128 0x1
- 1741 00f9 13        		.uleb128 0x13
- 1742 00fa 00        		.byte	0
- 1743 00fb 00        		.byte	0
- 1744 00fc 13        		.uleb128 0x13
- 1745 00fd 21        		.uleb128 0x21
- 1746 00fe 00        		.byte	0
- 1747 00ff 49        		.uleb128 0x49
- 1748 0100 13        		.uleb128 0x13
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 38
+ 1736 00f2 00        		.byte	0
+ 1737 00f3 12        		.uleb128 0x12
+ 1738 00f4 01        		.uleb128 0x1
+ 1739 00f5 01        		.byte	0x1
+ 1740 00f6 49        		.uleb128 0x49
+ 1741 00f7 13        		.uleb128 0x13
+ 1742 00f8 01        		.uleb128 0x1
+ 1743 00f9 13        		.uleb128 0x13
+ 1744 00fa 00        		.byte	0
+ 1745 00fb 00        		.byte	0
+ 1746 00fc 13        		.uleb128 0x13
+ 1747 00fd 21        		.uleb128 0x21
+ 1748 00fe 00        		.byte	0
+ 1749 00ff 49        		.uleb128 0x49
+ 1750 0100 13        		.uleb128 0x13
+ 1751 0101 2F        		.uleb128 0x2f
+ 1752 0102 0B        		.uleb128 0xb
+ 1753 0103 00        		.byte	0
+ 1754 0104 00        		.byte	0
+ 1755 0105 14        		.uleb128 0x14
+ 1756 0106 2E        		.uleb128 0x2e
+ 1757 0107 01        		.byte	0x1
+ 1758 0108 3F        		.uleb128 0x3f
+ 1759 0109 0C        		.uleb128 0xc
+ 1760 010a 03        		.uleb128 0x3
+ 1761 010b 0E        		.uleb128 0xe
+ 1762 010c 3A        		.uleb128 0x3a
+ 1763 010d 0B        		.uleb128 0xb
+ 1764 010e 3B        		.uleb128 0x3b
+ 1765 010f 0B        		.uleb128 0xb
+ 1766 0110 27        		.uleb128 0x27
+ 1767 0111 0C        		.uleb128 0xc
+ 1768 0112 49        		.uleb128 0x49
+ 1769 0113 13        		.uleb128 0x13
+ 1770 0114 11        		.uleb128 0x11
+ 1771 0115 01        		.uleb128 0x1
+ 1772 0116 12        		.uleb128 0x12
+ 1773 0117 01        		.uleb128 0x1
+ 1774 0118 40        		.uleb128 0x40
+ 1775 0119 06        		.uleb128 0x6
+ 1776 011a 9742      		.uleb128 0x2117
+ 1777 011c 0C        		.uleb128 0xc
+ 1778 011d 01        		.uleb128 0x1
+ 1779 011e 13        		.uleb128 0x13
+ 1780 011f 00        		.byte	0
+ 1781 0120 00        		.byte	0
+ 1782 0121 15        		.uleb128 0x15
+ 1783 0122 05        		.uleb128 0x5
+ 1784 0123 00        		.byte	0
+ 1785 0124 03        		.uleb128 0x3
+ 1786 0125 0E        		.uleb128 0xe
+ 1787 0126 3A        		.uleb128 0x3a
+ 1788 0127 0B        		.uleb128 0xb
+ 1789 0128 3B        		.uleb128 0x3b
+ 1790 0129 0B        		.uleb128 0xb
+ 1791 012a 49        		.uleb128 0x49
+ 1792 012b 13        		.uleb128 0x13
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 39
 
 
- 1749 0101 2F        		.uleb128 0x2f
- 1750 0102 0B        		.uleb128 0xb
- 1751 0103 00        		.byte	0
- 1752 0104 00        		.byte	0
- 1753 0105 14        		.uleb128 0x14
- 1754 0106 2E        		.uleb128 0x2e
- 1755 0107 01        		.byte	0x1
- 1756 0108 3F        		.uleb128 0x3f
- 1757 0109 0C        		.uleb128 0xc
- 1758 010a 03        		.uleb128 0x3
- 1759 010b 0E        		.uleb128 0xe
- 1760 010c 3A        		.uleb128 0x3a
- 1761 010d 0B        		.uleb128 0xb
- 1762 010e 3B        		.uleb128 0x3b
- 1763 010f 0B        		.uleb128 0xb
- 1764 0110 27        		.uleb128 0x27
- 1765 0111 0C        		.uleb128 0xc
- 1766 0112 49        		.uleb128 0x49
- 1767 0113 13        		.uleb128 0x13
- 1768 0114 11        		.uleb128 0x11
- 1769 0115 01        		.uleb128 0x1
- 1770 0116 12        		.uleb128 0x12
- 1771 0117 01        		.uleb128 0x1
- 1772 0118 40        		.uleb128 0x40
- 1773 0119 06        		.uleb128 0x6
- 1774 011a 9742      		.uleb128 0x2117
- 1775 011c 0C        		.uleb128 0xc
- 1776 011d 01        		.uleb128 0x1
- 1777 011e 13        		.uleb128 0x13
- 1778 011f 00        		.byte	0
- 1779 0120 00        		.byte	0
- 1780 0121 15        		.uleb128 0x15
- 1781 0122 05        		.uleb128 0x5
- 1782 0123 00        		.byte	0
- 1783 0124 03        		.uleb128 0x3
- 1784 0125 0E        		.uleb128 0xe
- 1785 0126 3A        		.uleb128 0x3a
- 1786 0127 0B        		.uleb128 0xb
- 1787 0128 3B        		.uleb128 0x3b
- 1788 0129 0B        		.uleb128 0xb
- 1789 012a 49        		.uleb128 0x49
- 1790 012b 13        		.uleb128 0x13
- 1791 012c 02        		.uleb128 0x2
- 1792 012d 06        		.uleb128 0x6
- 1793 012e 00        		.byte	0
- 1794 012f 00        		.byte	0
- 1795 0130 16        		.uleb128 0x16
- 1796 0131 1D        		.uleb128 0x1d
- 1797 0132 01        		.byte	0x1
- 1798 0133 31        		.uleb128 0x31
- 1799 0134 13        		.uleb128 0x13
- 1800 0135 11        		.uleb128 0x11
- 1801 0136 01        		.uleb128 0x1
- 1802 0137 12        		.uleb128 0x12
- 1803 0138 01        		.uleb128 0x1
- 1804 0139 58        		.uleb128 0x58
- 1805 013a 0B        		.uleb128 0xb
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 39
+ 1793 012c 02        		.uleb128 0x2
+ 1794 012d 06        		.uleb128 0x6
+ 1795 012e 00        		.byte	0
+ 1796 012f 00        		.byte	0
+ 1797 0130 16        		.uleb128 0x16
+ 1798 0131 1D        		.uleb128 0x1d
+ 1799 0132 01        		.byte	0x1
+ 1800 0133 31        		.uleb128 0x31
+ 1801 0134 13        		.uleb128 0x13
+ 1802 0135 11        		.uleb128 0x11
+ 1803 0136 01        		.uleb128 0x1
+ 1804 0137 12        		.uleb128 0x12
+ 1805 0138 01        		.uleb128 0x1
+ 1806 0139 58        		.uleb128 0x58
+ 1807 013a 0B        		.uleb128 0xb
+ 1808 013b 59        		.uleb128 0x59
+ 1809 013c 0B        		.uleb128 0xb
+ 1810 013d 01        		.uleb128 0x1
+ 1811 013e 13        		.uleb128 0x13
+ 1812 013f 00        		.byte	0
+ 1813 0140 00        		.byte	0
+ 1814 0141 17        		.uleb128 0x17
+ 1815 0142 05        		.uleb128 0x5
+ 1816 0143 00        		.byte	0
+ 1817 0144 31        		.uleb128 0x31
+ 1818 0145 13        		.uleb128 0x13
+ 1819 0146 02        		.uleb128 0x2
+ 1820 0147 06        		.uleb128 0x6
+ 1821 0148 00        		.byte	0
+ 1822 0149 00        		.byte	0
+ 1823 014a 18        		.uleb128 0x18
+ 1824 014b 0B        		.uleb128 0xb
+ 1825 014c 01        		.byte	0x1
+ 1826 014d 11        		.uleb128 0x11
+ 1827 014e 01        		.uleb128 0x1
+ 1828 014f 12        		.uleb128 0x12
+ 1829 0150 01        		.uleb128 0x1
+ 1830 0151 00        		.byte	0
+ 1831 0152 00        		.byte	0
+ 1832 0153 19        		.uleb128 0x19
+ 1833 0154 34        		.uleb128 0x34
+ 1834 0155 00        		.byte	0
+ 1835 0156 31        		.uleb128 0x31
+ 1836 0157 13        		.uleb128 0x13
+ 1837 0158 02        		.uleb128 0x2
+ 1838 0159 06        		.uleb128 0x6
+ 1839 015a 00        		.byte	0
+ 1840 015b 00        		.byte	0
+ 1841 015c 1A        		.uleb128 0x1a
+ 1842 015d 34        		.uleb128 0x34
+ 1843 015e 00        		.byte	0
+ 1844 015f 03        		.uleb128 0x3
+ 1845 0160 08        		.uleb128 0x8
+ 1846 0161 3A        		.uleb128 0x3a
+ 1847 0162 0B        		.uleb128 0xb
+ 1848 0163 3B        		.uleb128 0x3b
+ 1849 0164 0B        		.uleb128 0xb
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 40
 
 
- 1806 013b 59        		.uleb128 0x59
- 1807 013c 0B        		.uleb128 0xb
- 1808 013d 01        		.uleb128 0x1
- 1809 013e 13        		.uleb128 0x13
- 1810 013f 00        		.byte	0
- 1811 0140 00        		.byte	0
- 1812 0141 17        		.uleb128 0x17
- 1813 0142 05        		.uleb128 0x5
- 1814 0143 00        		.byte	0
- 1815 0144 31        		.uleb128 0x31
- 1816 0145 13        		.uleb128 0x13
- 1817 0146 02        		.uleb128 0x2
- 1818 0147 06        		.uleb128 0x6
- 1819 0148 00        		.byte	0
- 1820 0149 00        		.byte	0
- 1821 014a 18        		.uleb128 0x18
- 1822 014b 0B        		.uleb128 0xb
- 1823 014c 01        		.byte	0x1
- 1824 014d 11        		.uleb128 0x11
- 1825 014e 01        		.uleb128 0x1
- 1826 014f 12        		.uleb128 0x12
- 1827 0150 01        		.uleb128 0x1
- 1828 0151 00        		.byte	0
- 1829 0152 00        		.byte	0
- 1830 0153 19        		.uleb128 0x19
- 1831 0154 34        		.uleb128 0x34
- 1832 0155 00        		.byte	0
- 1833 0156 31        		.uleb128 0x31
- 1834 0157 13        		.uleb128 0x13
- 1835 0158 02        		.uleb128 0x2
- 1836 0159 06        		.uleb128 0x6
- 1837 015a 00        		.byte	0
- 1838 015b 00        		.byte	0
- 1839 015c 1A        		.uleb128 0x1a
- 1840 015d 34        		.uleb128 0x34
- 1841 015e 00        		.byte	0
- 1842 015f 03        		.uleb128 0x3
- 1843 0160 08        		.uleb128 0x8
- 1844 0161 3A        		.uleb128 0x3a
- 1845 0162 0B        		.uleb128 0xb
- 1846 0163 3B        		.uleb128 0x3b
- 1847 0164 0B        		.uleb128 0xb
- 1848 0165 49        		.uleb128 0x49
- 1849 0166 13        		.uleb128 0x13
- 1850 0167 02        		.uleb128 0x2
- 1851 0168 0A        		.uleb128 0xa
- 1852 0169 00        		.byte	0
- 1853 016a 00        		.byte	0
- 1854 016b 1B        		.uleb128 0x1b
- 1855 016c 2E        		.uleb128 0x2e
- 1856 016d 01        		.byte	0x1
- 1857 016e 3F        		.uleb128 0x3f
- 1858 016f 0C        		.uleb128 0xc
- 1859 0170 03        		.uleb128 0x3
- 1860 0171 0E        		.uleb128 0xe
- 1861 0172 3A        		.uleb128 0x3a
- 1862 0173 0B        		.uleb128 0xb
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 40
+ 1850 0165 49        		.uleb128 0x49
+ 1851 0166 13        		.uleb128 0x13
+ 1852 0167 02        		.uleb128 0x2
+ 1853 0168 0A        		.uleb128 0xa
+ 1854 0169 00        		.byte	0
+ 1855 016a 00        		.byte	0
+ 1856 016b 1B        		.uleb128 0x1b
+ 1857 016c 2E        		.uleb128 0x2e
+ 1858 016d 01        		.byte	0x1
+ 1859 016e 3F        		.uleb128 0x3f
+ 1860 016f 0C        		.uleb128 0xc
+ 1861 0170 03        		.uleb128 0x3
+ 1862 0171 0E        		.uleb128 0xe
+ 1863 0172 3A        		.uleb128 0x3a
+ 1864 0173 0B        		.uleb128 0xb
+ 1865 0174 3B        		.uleb128 0x3b
+ 1866 0175 0B        		.uleb128 0xb
+ 1867 0176 49        		.uleb128 0x49
+ 1868 0177 13        		.uleb128 0x13
+ 1869 0178 11        		.uleb128 0x11
+ 1870 0179 01        		.uleb128 0x1
+ 1871 017a 12        		.uleb128 0x12
+ 1872 017b 01        		.uleb128 0x1
+ 1873 017c 40        		.uleb128 0x40
+ 1874 017d 0A        		.uleb128 0xa
+ 1875 017e 9742      		.uleb128 0x2117
+ 1876 0180 0C        		.uleb128 0xc
+ 1877 0181 01        		.uleb128 0x1
+ 1878 0182 13        		.uleb128 0x13
+ 1879 0183 00        		.byte	0
+ 1880 0184 00        		.byte	0
+ 1881 0185 1C        		.uleb128 0x1c
+ 1882 0186 8982 01   		.uleb128 0x4109
+ 1883 0189 01        		.byte	0x1
+ 1884 018a 11        		.uleb128 0x11
+ 1885 018b 01        		.uleb128 0x1
+ 1886 018c 9542      		.uleb128 0x2115
+ 1887 018e 0C        		.uleb128 0xc
+ 1888 018f 31        		.uleb128 0x31
+ 1889 0190 13        		.uleb128 0x13
+ 1890 0191 00        		.byte	0
+ 1891 0192 00        		.byte	0
+ 1892 0193 1D        		.uleb128 0x1d
+ 1893 0194 2E        		.uleb128 0x2e
+ 1894 0195 00        		.byte	0
+ 1895 0196 3F        		.uleb128 0x3f
+ 1896 0197 0C        		.uleb128 0xc
+ 1897 0198 3C        		.uleb128 0x3c
+ 1898 0199 0C        		.uleb128 0xc
+ 1899 019a 8740      		.uleb128 0x2007
+ 1900 019c 0E        		.uleb128 0xe
+ 1901 019d 03        		.uleb128 0x3
+ 1902 019e 0E        		.uleb128 0xe
+ 1903 019f 3A        		.uleb128 0x3a
+ 1904 01a0 0B        		.uleb128 0xb
+ 1905 01a1 3B        		.uleb128 0x3b
+ 1906 01a2 0B        		.uleb128 0xb
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 41
 
 
- 1863 0174 3B        		.uleb128 0x3b
- 1864 0175 0B        		.uleb128 0xb
- 1865 0176 49        		.uleb128 0x49
- 1866 0177 13        		.uleb128 0x13
- 1867 0178 11        		.uleb128 0x11
- 1868 0179 01        		.uleb128 0x1
- 1869 017a 12        		.uleb128 0x12
- 1870 017b 01        		.uleb128 0x1
- 1871 017c 40        		.uleb128 0x40
- 1872 017d 0A        		.uleb128 0xa
- 1873 017e 9742      		.uleb128 0x2117
- 1874 0180 0C        		.uleb128 0xc
- 1875 0181 01        		.uleb128 0x1
- 1876 0182 13        		.uleb128 0x13
- 1877 0183 00        		.byte	0
- 1878 0184 00        		.byte	0
- 1879 0185 1C        		.uleb128 0x1c
- 1880 0186 8982 01   		.uleb128 0x4109
- 1881 0189 01        		.byte	0x1
- 1882 018a 11        		.uleb128 0x11
- 1883 018b 01        		.uleb128 0x1
- 1884 018c 9542      		.uleb128 0x2115
- 1885 018e 0C        		.uleb128 0xc
- 1886 018f 31        		.uleb128 0x31
- 1887 0190 13        		.uleb128 0x13
- 1888 0191 00        		.byte	0
- 1889 0192 00        		.byte	0
- 1890 0193 1D        		.uleb128 0x1d
- 1891 0194 2E        		.uleb128 0x2e
- 1892 0195 00        		.byte	0
- 1893 0196 3F        		.uleb128 0x3f
- 1894 0197 0C        		.uleb128 0xc
- 1895 0198 3C        		.uleb128 0x3c
- 1896 0199 0C        		.uleb128 0xc
- 1897 019a 8740      		.uleb128 0x2007
- 1898 019c 0E        		.uleb128 0xe
- 1899 019d 03        		.uleb128 0x3
- 1900 019e 0E        		.uleb128 0xe
- 1901 019f 3A        		.uleb128 0x3a
- 1902 01a0 0B        		.uleb128 0xb
- 1903 01a1 3B        		.uleb128 0x3b
- 1904 01a2 0B        		.uleb128 0xb
- 1905 01a3 00        		.byte	0
- 1906 01a4 00        		.byte	0
- 1907 01a5 00        		.byte	0
- 1908               		.section	.debug_loc,"",@progbits
- 1909               	.Ldebug_loc0:
- 1910               	.LLST0:
- 1911 0000 0000 0000 		.long	.LFB6-.Ltext0
- 1912 0004 0200 0000 		.long	.LCFI0-.Ltext0
- 1913 0008 0300      		.word	0x3
- 1914 000a 92        		.byte	0x92
- 1915 000b 20        		.uleb128 0x20
- 1916 000c 02        		.sleb128 2
- 1917 000d 0200 0000 		.long	.LCFI0-.Ltext0
- 1918 0011 0400 0000 		.long	.LCFI1-.Ltext0
- 1919 0015 0300      		.word	0x3
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 41
+ 1907 01a3 00        		.byte	0
+ 1908 01a4 00        		.byte	0
+ 1909 01a5 00        		.byte	0
+ 1910               		.section	.debug_loc,"",@progbits
+ 1911               	.Ldebug_loc0:
+ 1912               	.LLST0:
+ 1913 0000 0000 0000 		.long	.LFB6-.Ltext0
+ 1914 0004 0200 0000 		.long	.LCFI0-.Ltext0
+ 1915 0008 0300      		.word	0x3
+ 1916 000a 92        		.byte	0x92
+ 1917 000b 20        		.uleb128 0x20
+ 1918 000c 02        		.sleb128 2
+ 1919 000d 0200 0000 		.long	.LCFI0-.Ltext0
+ 1920 0011 0400 0000 		.long	.LCFI1-.Ltext0
+ 1921 0015 0300      		.word	0x3
+ 1922 0017 92        		.byte	0x92
+ 1923 0018 20        		.uleb128 0x20
+ 1924 0019 03        		.sleb128 3
+ 1925 001a 0400 0000 		.long	.LCFI1-.Ltext0
+ 1926 001e 0600 0000 		.long	.LCFI2-.Ltext0
+ 1927 0022 0300      		.word	0x3
+ 1928 0024 92        		.byte	0x92
+ 1929 0025 20        		.uleb128 0x20
+ 1930 0026 04        		.sleb128 4
+ 1931 0027 0600 0000 		.long	.LCFI2-.Ltext0
+ 1932 002b 0800 0000 		.long	.LCFI3-.Ltext0
+ 1933 002f 0300      		.word	0x3
+ 1934 0031 92        		.byte	0x92
+ 1935 0032 20        		.uleb128 0x20
+ 1936 0033 05        		.sleb128 5
+ 1937 0034 0800 0000 		.long	.LCFI3-.Ltext0
+ 1938 0038 0A00 0000 		.long	.LCFI4-.Ltext0
+ 1939 003c 0300      		.word	0x3
+ 1940 003e 92        		.byte	0x92
+ 1941 003f 20        		.uleb128 0x20
+ 1942 0040 06        		.sleb128 6
+ 1943 0041 0A00 0000 		.long	.LCFI4-.Ltext0
+ 1944 0045 0C00 0000 		.long	.LCFI5-.Ltext0
+ 1945 0049 0300      		.word	0x3
+ 1946 004b 92        		.byte	0x92
+ 1947 004c 20        		.uleb128 0x20
+ 1948 004d 07        		.sleb128 7
+ 1949 004e 0C00 0000 		.long	.LCFI5-.Ltext0
+ 1950 0052 1000 0000 		.long	.LCFI6-.Ltext0
+ 1951 0056 0300      		.word	0x3
+ 1952 0058 92        		.byte	0x92
+ 1953 0059 20        		.uleb128 0x20
+ 1954 005a 09        		.sleb128 9
+ 1955 005b 1000 0000 		.long	.LCFI6-.Ltext0
+ 1956 005f 8400 0000 		.long	.LFE6-.Ltext0
+ 1957 0063 0200      		.word	0x2
+ 1958 0065 8C        		.byte	0x8c
+ 1959 0066 09        		.sleb128 9
+ 1960 0067 0000 0000 		.long	0
+ 1961 006b 0000 0000 		.long	0
+ 1962               	.LLST1:
+ 1963 006f 2A00 0000 		.long	.LVL1-.Ltext0
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 42
 
 
- 1920 0017 92        		.byte	0x92
- 1921 0018 20        		.uleb128 0x20
- 1922 0019 03        		.sleb128 3
- 1923 001a 0400 0000 		.long	.LCFI1-.Ltext0
- 1924 001e 0600 0000 		.long	.LCFI2-.Ltext0
- 1925 0022 0300      		.word	0x3
- 1926 0024 92        		.byte	0x92
- 1927 0025 20        		.uleb128 0x20
- 1928 0026 04        		.sleb128 4
- 1929 0027 0600 0000 		.long	.LCFI2-.Ltext0
- 1930 002b 0800 0000 		.long	.LCFI3-.Ltext0
- 1931 002f 0300      		.word	0x3
- 1932 0031 92        		.byte	0x92
- 1933 0032 20        		.uleb128 0x20
- 1934 0033 05        		.sleb128 5
- 1935 0034 0800 0000 		.long	.LCFI3-.Ltext0
- 1936 0038 0A00 0000 		.long	.LCFI4-.Ltext0
- 1937 003c 0300      		.word	0x3
- 1938 003e 92        		.byte	0x92
- 1939 003f 20        		.uleb128 0x20
- 1940 0040 06        		.sleb128 6
- 1941 0041 0A00 0000 		.long	.LCFI4-.Ltext0
- 1942 0045 0C00 0000 		.long	.LCFI5-.Ltext0
- 1943 0049 0300      		.word	0x3
- 1944 004b 92        		.byte	0x92
- 1945 004c 20        		.uleb128 0x20
- 1946 004d 07        		.sleb128 7
- 1947 004e 0C00 0000 		.long	.LCFI5-.Ltext0
- 1948 0052 1000 0000 		.long	.LCFI6-.Ltext0
- 1949 0056 0300      		.word	0x3
- 1950 0058 92        		.byte	0x92
- 1951 0059 20        		.uleb128 0x20
- 1952 005a 09        		.sleb128 9
- 1953 005b 1000 0000 		.long	.LCFI6-.Ltext0
- 1954 005f 8400 0000 		.long	.LFE6-.Ltext0
- 1955 0063 0200      		.word	0x2
- 1956 0065 8C        		.byte	0x8c
- 1957 0066 09        		.sleb128 9
- 1958 0067 0000 0000 		.long	0
- 1959 006b 0000 0000 		.long	0
- 1960               	.LLST1:
- 1961 006f 2A00 0000 		.long	.LVL1-.Ltext0
- 1962 0073 2E00 0000 		.long	.LVL2-.Ltext0
- 1963 0077 0100      		.word	0x1
- 1964 0079 68        		.byte	0x68
- 1965 007a 4000 0000 		.long	.LVL3-.Ltext0
- 1966 007e 4300 0000 		.long	.LVL4-1-.Ltext0
- 1967 0082 0100      		.word	0x1
- 1968 0084 68        		.byte	0x68
- 1969 0085 0000 0000 		.long	0
- 1970 0089 0000 0000 		.long	0
- 1971               	.LLST2:
- 1972 008d 6800 0000 		.long	.LVL8-.Ltext0
- 1973 0091 7C00 0000 		.long	.LVL9-.Ltext0
- 1974 0095 1200      		.word	0x12
- 1975 0097 8C        		.byte	0x8c
- 1976 0098 02        		.sleb128 2
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 42
+ 1964 0073 2E00 0000 		.long	.LVL2-.Ltext0
+ 1965 0077 0100      		.word	0x1
+ 1966 0079 68        		.byte	0x68
+ 1967 007a 4000 0000 		.long	.LVL3-.Ltext0
+ 1968 007e 4300 0000 		.long	.LVL4-1-.Ltext0
+ 1969 0082 0100      		.word	0x1
+ 1970 0084 68        		.byte	0x68
+ 1971 0085 0000 0000 		.long	0
+ 1972 0089 0000 0000 		.long	0
+ 1973               	.LLST2:
+ 1974 008d 6800 0000 		.long	.LVL8-.Ltext0
+ 1975 0091 7C00 0000 		.long	.LVL9-.Ltext0
+ 1976 0095 1200      		.word	0x12
+ 1977 0097 8C        		.byte	0x8c
+ 1978 0098 02        		.sleb128 2
+ 1979 0099 94        		.byte	0x94
+ 1980 009a 01        		.byte	0x1
+ 1981 009b 08        		.byte	0x8
+ 1982 009c FF        		.byte	0xff
+ 1983 009d 1A        		.byte	0x1a
+ 1984 009e 38        		.byte	0x38
+ 1985 009f 24        		.byte	0x24
+ 1986 00a0 8C        		.byte	0x8c
+ 1987 00a1 01        		.sleb128 1
+ 1988 00a2 94        		.byte	0x94
+ 1989 00a3 01        		.byte	0x1
+ 1990 00a4 08        		.byte	0x8
+ 1991 00a5 FF        		.byte	0xff
+ 1992 00a6 1A        		.byte	0x1a
+ 1993 00a7 21        		.byte	0x21
+ 1994 00a8 9F        		.byte	0x9f
+ 1995 00a9 7C00 0000 		.long	.LVL9-.Ltext0
+ 1996 00ad 7E00 0000 		.long	.LVL10-.Ltext0
+ 1997 00b1 1400      		.word	0x14
+ 1998 00b3 92        		.byte	0x92
+ 1999 00b4 20        		.uleb128 0x20
+ 2000 00b5 7E        		.sleb128 -2
+ 2001 00b6 94        		.byte	0x94
+ 2002 00b7 01        		.byte	0x1
+ 2003 00b8 08        		.byte	0x8
+ 2004 00b9 FF        		.byte	0xff
+ 2005 00ba 1A        		.byte	0x1a
+ 2006 00bb 38        		.byte	0x38
+ 2007 00bc 24        		.byte	0x24
+ 2008 00bd 92        		.byte	0x92
+ 2009 00be 20        		.uleb128 0x20
+ 2010 00bf 7D        		.sleb128 -3
+ 2011 00c0 94        		.byte	0x94
+ 2012 00c1 01        		.byte	0x1
+ 2013 00c2 08        		.byte	0x8
+ 2014 00c3 FF        		.byte	0xff
+ 2015 00c4 1A        		.byte	0x1a
+ 2016 00c5 21        		.byte	0x21
+ 2017 00c6 9F        		.byte	0x9f
+ 2018 00c7 7E00 0000 		.long	.LVL10-.Ltext0
+ 2019 00cb 8000 0000 		.long	.LVL11-.Ltext0
+ 2020 00cf 1400      		.word	0x14
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 43
 
 
- 1977 0099 94        		.byte	0x94
- 1978 009a 01        		.byte	0x1
- 1979 009b 08        		.byte	0x8
- 1980 009c FF        		.byte	0xff
- 1981 009d 1A        		.byte	0x1a
- 1982 009e 38        		.byte	0x38
- 1983 009f 24        		.byte	0x24
- 1984 00a0 8C        		.byte	0x8c
- 1985 00a1 01        		.sleb128 1
- 1986 00a2 94        		.byte	0x94
- 1987 00a3 01        		.byte	0x1
- 1988 00a4 08        		.byte	0x8
- 1989 00a5 FF        		.byte	0xff
- 1990 00a6 1A        		.byte	0x1a
- 1991 00a7 21        		.byte	0x21
- 1992 00a8 9F        		.byte	0x9f
- 1993 00a9 7C00 0000 		.long	.LVL9-.Ltext0
- 1994 00ad 7E00 0000 		.long	.LVL10-.Ltext0
- 1995 00b1 1400      		.word	0x14
- 1996 00b3 92        		.byte	0x92
- 1997 00b4 20        		.uleb128 0x20
- 1998 00b5 7E        		.sleb128 -2
- 1999 00b6 94        		.byte	0x94
- 2000 00b7 01        		.byte	0x1
- 2001 00b8 08        		.byte	0x8
- 2002 00b9 FF        		.byte	0xff
- 2003 00ba 1A        		.byte	0x1a
- 2004 00bb 38        		.byte	0x38
- 2005 00bc 24        		.byte	0x24
- 2006 00bd 92        		.byte	0x92
- 2007 00be 20        		.uleb128 0x20
- 2008 00bf 7D        		.sleb128 -3
- 2009 00c0 94        		.byte	0x94
- 2010 00c1 01        		.byte	0x1
- 2011 00c2 08        		.byte	0x8
- 2012 00c3 FF        		.byte	0xff
- 2013 00c4 1A        		.byte	0x1a
- 2014 00c5 21        		.byte	0x21
- 2015 00c6 9F        		.byte	0x9f
- 2016 00c7 7E00 0000 		.long	.LVL10-.Ltext0
- 2017 00cb 8000 0000 		.long	.LVL11-.Ltext0
- 2018 00cf 1400      		.word	0x14
- 2019 00d1 92        		.byte	0x92
- 2020 00d2 20        		.uleb128 0x20
- 2021 00d3 7D        		.sleb128 -3
- 2022 00d4 94        		.byte	0x94
- 2023 00d5 01        		.byte	0x1
- 2024 00d6 08        		.byte	0x8
- 2025 00d7 FF        		.byte	0xff
- 2026 00d8 1A        		.byte	0x1a
- 2027 00d9 38        		.byte	0x38
- 2028 00da 24        		.byte	0x24
- 2029 00db 92        		.byte	0x92
- 2030 00dc 20        		.uleb128 0x20
- 2031 00dd 7C        		.sleb128 -4
- 2032 00de 94        		.byte	0x94
- 2033 00df 01        		.byte	0x1
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 43
+ 2021 00d1 92        		.byte	0x92
+ 2022 00d2 20        		.uleb128 0x20
+ 2023 00d3 7D        		.sleb128 -3
+ 2024 00d4 94        		.byte	0x94
+ 2025 00d5 01        		.byte	0x1
+ 2026 00d6 08        		.byte	0x8
+ 2027 00d7 FF        		.byte	0xff
+ 2028 00d8 1A        		.byte	0x1a
+ 2029 00d9 38        		.byte	0x38
+ 2030 00da 24        		.byte	0x24
+ 2031 00db 92        		.byte	0x92
+ 2032 00dc 20        		.uleb128 0x20
+ 2033 00dd 7C        		.sleb128 -4
+ 2034 00de 94        		.byte	0x94
+ 2035 00df 01        		.byte	0x1
+ 2036 00e0 08        		.byte	0x8
+ 2037 00e1 FF        		.byte	0xff
+ 2038 00e2 1A        		.byte	0x1a
+ 2039 00e3 21        		.byte	0x21
+ 2040 00e4 9F        		.byte	0x9f
+ 2041 00e5 8000 0000 		.long	.LVL11-.Ltext0
+ 2042 00e9 8200 0000 		.long	.LVL12-.Ltext0
+ 2043 00ed 1400      		.word	0x14
+ 2044 00ef 92        		.byte	0x92
+ 2045 00f0 20        		.uleb128 0x20
+ 2046 00f1 7C        		.sleb128 -4
+ 2047 00f2 94        		.byte	0x94
+ 2048 00f3 01        		.byte	0x1
+ 2049 00f4 08        		.byte	0x8
+ 2050 00f5 FF        		.byte	0xff
+ 2051 00f6 1A        		.byte	0x1a
+ 2052 00f7 38        		.byte	0x38
+ 2053 00f8 24        		.byte	0x24
+ 2054 00f9 92        		.byte	0x92
+ 2055 00fa 20        		.uleb128 0x20
+ 2056 00fb 7B        		.sleb128 -5
+ 2057 00fc 94        		.byte	0x94
+ 2058 00fd 01        		.byte	0x1
+ 2059 00fe 08        		.byte	0x8
+ 2060 00ff FF        		.byte	0xff
+ 2061 0100 1A        		.byte	0x1a
+ 2062 0101 21        		.byte	0x21
+ 2063 0102 9F        		.byte	0x9f
+ 2064 0103 8200 0000 		.long	.LVL12-.Ltext0
+ 2065 0107 8400 0000 		.long	.LFE6-.Ltext0
+ 2066 010b 1400      		.word	0x14
+ 2067 010d 92        		.byte	0x92
+ 2068 010e 20        		.uleb128 0x20
+ 2069 010f 7B        		.sleb128 -5
+ 2070 0110 94        		.byte	0x94
+ 2071 0111 01        		.byte	0x1
+ 2072 0112 08        		.byte	0x8
+ 2073 0113 FF        		.byte	0xff
+ 2074 0114 1A        		.byte	0x1a
+ 2075 0115 38        		.byte	0x38
+ 2076 0116 24        		.byte	0x24
+ 2077 0117 92        		.byte	0x92
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 44
 
 
- 2034 00e0 08        		.byte	0x8
- 2035 00e1 FF        		.byte	0xff
- 2036 00e2 1A        		.byte	0x1a
- 2037 00e3 21        		.byte	0x21
- 2038 00e4 9F        		.byte	0x9f
- 2039 00e5 8000 0000 		.long	.LVL11-.Ltext0
- 2040 00e9 8200 0000 		.long	.LVL12-.Ltext0
- 2041 00ed 1400      		.word	0x14
- 2042 00ef 92        		.byte	0x92
- 2043 00f0 20        		.uleb128 0x20
- 2044 00f1 7C        		.sleb128 -4
- 2045 00f2 94        		.byte	0x94
- 2046 00f3 01        		.byte	0x1
- 2047 00f4 08        		.byte	0x8
- 2048 00f5 FF        		.byte	0xff
- 2049 00f6 1A        		.byte	0x1a
- 2050 00f7 38        		.byte	0x38
- 2051 00f8 24        		.byte	0x24
- 2052 00f9 92        		.byte	0x92
- 2053 00fa 20        		.uleb128 0x20
- 2054 00fb 7B        		.sleb128 -5
- 2055 00fc 94        		.byte	0x94
- 2056 00fd 01        		.byte	0x1
- 2057 00fe 08        		.byte	0x8
- 2058 00ff FF        		.byte	0xff
- 2059 0100 1A        		.byte	0x1a
- 2060 0101 21        		.byte	0x21
- 2061 0102 9F        		.byte	0x9f
- 2062 0103 8200 0000 		.long	.LVL12-.Ltext0
- 2063 0107 8400 0000 		.long	.LFE6-.Ltext0
- 2064 010b 1400      		.word	0x14
- 2065 010d 92        		.byte	0x92
- 2066 010e 20        		.uleb128 0x20
- 2067 010f 7B        		.sleb128 -5
- 2068 0110 94        		.byte	0x94
- 2069 0111 01        		.byte	0x1
- 2070 0112 08        		.byte	0x8
- 2071 0113 FF        		.byte	0xff
- 2072 0114 1A        		.byte	0x1a
- 2073 0115 38        		.byte	0x38
- 2074 0116 24        		.byte	0x24
- 2075 0117 92        		.byte	0x92
- 2076 0118 20        		.uleb128 0x20
- 2077 0119 7A        		.sleb128 -6
- 2078 011a 94        		.byte	0x94
- 2079 011b 01        		.byte	0x1
- 2080 011c 08        		.byte	0x8
- 2081 011d FF        		.byte	0xff
- 2082 011e 1A        		.byte	0x1a
- 2083 011f 21        		.byte	0x21
- 2084 0120 9F        		.byte	0x9f
- 2085 0121 0000 0000 		.long	0
- 2086 0125 0000 0000 		.long	0
- 2087               	.LLST3:
- 2088 0129 8400 0000 		.long	.LFB7-.Ltext0
- 2089 012d 8600 0000 		.long	.LCFI7-.Ltext0
- 2090 0131 0300      		.word	0x3
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 44
+ 2078 0118 20        		.uleb128 0x20
+ 2079 0119 7A        		.sleb128 -6
+ 2080 011a 94        		.byte	0x94
+ 2081 011b 01        		.byte	0x1
+ 2082 011c 08        		.byte	0x8
+ 2083 011d FF        		.byte	0xff
+ 2084 011e 1A        		.byte	0x1a
+ 2085 011f 21        		.byte	0x21
+ 2086 0120 9F        		.byte	0x9f
+ 2087 0121 0000 0000 		.long	0
+ 2088 0125 0000 0000 		.long	0
+ 2089               	.LLST3:
+ 2090 0129 8400 0000 		.long	.LFB7-.Ltext0
+ 2091 012d 8600 0000 		.long	.LCFI7-.Ltext0
+ 2092 0131 0300      		.word	0x3
+ 2093 0133 92        		.byte	0x92
+ 2094 0134 20        		.uleb128 0x20
+ 2095 0135 02        		.sleb128 2
+ 2096 0136 8600 0000 		.long	.LCFI7-.Ltext0
+ 2097 013a 8800 0000 		.long	.LCFI8-.Ltext0
+ 2098 013e 0300      		.word	0x3
+ 2099 0140 92        		.byte	0x92
+ 2100 0141 20        		.uleb128 0x20
+ 2101 0142 03        		.sleb128 3
+ 2102 0143 8800 0000 		.long	.LCFI8-.Ltext0
+ 2103 0147 8A00 0000 		.long	.LCFI9-.Ltext0
+ 2104 014b 0300      		.word	0x3
+ 2105 014d 92        		.byte	0x92
+ 2106 014e 20        		.uleb128 0x20
+ 2107 014f 04        		.sleb128 4
+ 2108 0150 8A00 0000 		.long	.LCFI9-.Ltext0
+ 2109 0154 8C00 0000 		.long	.LCFI10-.Ltext0
+ 2110 0158 0300      		.word	0x3
+ 2111 015a 92        		.byte	0x92
+ 2112 015b 20        		.uleb128 0x20
+ 2113 015c 05        		.sleb128 5
+ 2114 015d 8C00 0000 		.long	.LCFI10-.Ltext0
+ 2115 0161 8E00 0000 		.long	.LCFI11-.Ltext0
+ 2116 0165 0300      		.word	0x3
+ 2117 0167 92        		.byte	0x92
+ 2118 0168 20        		.uleb128 0x20
+ 2119 0169 06        		.sleb128 6
+ 2120 016a 8E00 0000 		.long	.LCFI11-.Ltext0
+ 2121 016e 9000 0000 		.long	.LCFI12-.Ltext0
+ 2122 0172 0300      		.word	0x3
+ 2123 0174 92        		.byte	0x92
+ 2124 0175 20        		.uleb128 0x20
+ 2125 0176 07        		.sleb128 7
+ 2126 0177 9000 0000 		.long	.LCFI12-.Ltext0
+ 2127 017b 9200 0000 		.long	.LCFI13-.Ltext0
+ 2128 017f 0300      		.word	0x3
+ 2129 0181 92        		.byte	0x92
+ 2130 0182 20        		.uleb128 0x20
+ 2131 0183 08        		.sleb128 8
+ 2132 0184 9200 0000 		.long	.LCFI13-.Ltext0
+ 2133 0188 9400 0000 		.long	.LCFI14-.Ltext0
+ 2134 018c 0300      		.word	0x3
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 45
 
 
- 2091 0133 92        		.byte	0x92
- 2092 0134 20        		.uleb128 0x20
- 2093 0135 02        		.sleb128 2
- 2094 0136 8600 0000 		.long	.LCFI7-.Ltext0
- 2095 013a 8800 0000 		.long	.LCFI8-.Ltext0
- 2096 013e 0300      		.word	0x3
- 2097 0140 92        		.byte	0x92
- 2098 0141 20        		.uleb128 0x20
- 2099 0142 03        		.sleb128 3
- 2100 0143 8800 0000 		.long	.LCFI8-.Ltext0
- 2101 0147 8A00 0000 		.long	.LCFI9-.Ltext0
- 2102 014b 0300      		.word	0x3
- 2103 014d 92        		.byte	0x92
- 2104 014e 20        		.uleb128 0x20
- 2105 014f 04        		.sleb128 4
- 2106 0150 8A00 0000 		.long	.LCFI9-.Ltext0
- 2107 0154 8C00 0000 		.long	.LCFI10-.Ltext0
- 2108 0158 0300      		.word	0x3
- 2109 015a 92        		.byte	0x92
- 2110 015b 20        		.uleb128 0x20
- 2111 015c 05        		.sleb128 5
- 2112 015d 8C00 0000 		.long	.LCFI10-.Ltext0
- 2113 0161 8E00 0000 		.long	.LCFI11-.Ltext0
- 2114 0165 0300      		.word	0x3
- 2115 0167 92        		.byte	0x92
- 2116 0168 20        		.uleb128 0x20
- 2117 0169 06        		.sleb128 6
- 2118 016a 8E00 0000 		.long	.LCFI11-.Ltext0
- 2119 016e 9000 0000 		.long	.LCFI12-.Ltext0
- 2120 0172 0300      		.word	0x3
- 2121 0174 92        		.byte	0x92
- 2122 0175 20        		.uleb128 0x20
- 2123 0176 07        		.sleb128 7
- 2124 0177 9000 0000 		.long	.LCFI12-.Ltext0
- 2125 017b 9200 0000 		.long	.LCFI13-.Ltext0
- 2126 017f 0300      		.word	0x3
- 2127 0181 92        		.byte	0x92
- 2128 0182 20        		.uleb128 0x20
- 2129 0183 08        		.sleb128 8
- 2130 0184 9200 0000 		.long	.LCFI13-.Ltext0
- 2131 0188 9400 0000 		.long	.LCFI14-.Ltext0
- 2132 018c 0300      		.word	0x3
- 2133 018e 92        		.byte	0x92
- 2134 018f 20        		.uleb128 0x20
- 2135 0190 09        		.sleb128 9
- 2136 0191 9400 0000 		.long	.LCFI14-.Ltext0
- 2137 0195 9800 0000 		.long	.LCFI15-.Ltext0
- 2138 0199 0300      		.word	0x3
- 2139 019b 92        		.byte	0x92
- 2140 019c 20        		.uleb128 0x20
- 2141 019d 0B        		.sleb128 11
- 2142 019e 9800 0000 		.long	.LCFI15-.Ltext0
- 2143 01a2 4802 0000 		.long	.LFE7-.Ltext0
- 2144 01a6 0200      		.word	0x2
- 2145 01a8 8C        		.byte	0x8c
- 2146 01a9 0B        		.sleb128 11
- 2147 01aa 0000 0000 		.long	0
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 45
+ 2135 018e 92        		.byte	0x92
+ 2136 018f 20        		.uleb128 0x20
+ 2137 0190 09        		.sleb128 9
+ 2138 0191 9400 0000 		.long	.LCFI14-.Ltext0
+ 2139 0195 9800 0000 		.long	.LCFI15-.Ltext0
+ 2140 0199 0300      		.word	0x3
+ 2141 019b 92        		.byte	0x92
+ 2142 019c 20        		.uleb128 0x20
+ 2143 019d 0B        		.sleb128 11
+ 2144 019e 9800 0000 		.long	.LCFI15-.Ltext0
+ 2145 01a2 4802 0000 		.long	.LFE7-.Ltext0
+ 2146 01a6 0200      		.word	0x2
+ 2147 01a8 8C        		.byte	0x8c
+ 2148 01a9 0B        		.sleb128 11
+ 2149 01aa 0000 0000 		.long	0
+ 2150 01ae 0000 0000 		.long	0
+ 2151               	.LLST4:
+ 2152 01b2 8400 0000 		.long	.LVL13-.Ltext0
+ 2153 01b6 9E00 0000 		.long	.LVL14-.Ltext0
+ 2154 01ba 0600      		.word	0x6
+ 2155 01bc 68        		.byte	0x68
+ 2156 01bd 93        		.byte	0x93
+ 2157 01be 01        		.uleb128 0x1
+ 2158 01bf 69        		.byte	0x69
+ 2159 01c0 93        		.byte	0x93
+ 2160 01c1 01        		.uleb128 0x1
+ 2161 01c2 9E00 0000 		.long	.LVL14-.Ltext0
+ 2162 01c6 4802 0000 		.long	.LFE7-.Ltext0
+ 2163 01ca 0400      		.word	0x4
+ 2164 01cc F3        		.byte	0xf3
+ 2165 01cd 01        		.uleb128 0x1
+ 2166 01ce 68        		.byte	0x68
+ 2167 01cf 9F        		.byte	0x9f
+ 2168 01d0 0000 0000 		.long	0
+ 2169 01d4 0000 0000 		.long	0
+ 2170               	.LLST5:
+ 2171 01d8 A200 0000 		.long	.LVL15-.Ltext0
+ 2172 01dc A600 0000 		.long	.LVL16-.Ltext0
+ 2173 01e0 0100      		.word	0x1
+ 2174 01e2 68        		.byte	0x68
+ 2175 01e3 BC00 0000 		.long	.LVL17-.Ltext0
+ 2176 01e7 BF00 0000 		.long	.LVL18-1-.Ltext0
+ 2177 01eb 0100      		.word	0x1
+ 2178 01ed 68        		.byte	0x68
+ 2179 01ee 0000 0000 		.long	0
+ 2180 01f2 0000 0000 		.long	0
+ 2181               	.LLST6:
+ 2182 01f6 E800 0000 		.long	.LVL25-.Ltext0
+ 2183 01fa EF00 0000 		.long	.LVL26-1-.Ltext0
+ 2184 01fe 0100      		.word	0x1
+ 2185 0200 68        		.byte	0x68
+ 2186 0201 0000 0000 		.long	0
+ 2187 0205 0000 0000 		.long	0
+ 2188               	.LLST7:
+ 2189 0209 0401 0000 		.long	.LVL30-.Ltext0
+ 2190 020d 1601 0000 		.long	.LVL31-.Ltext0
+ 2191 0211 0600      		.word	0x6
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 46
 
 
- 2148 01ae 0000 0000 		.long	0
- 2149               	.LLST4:
- 2150 01b2 8400 0000 		.long	.LVL13-.Ltext0
- 2151 01b6 9E00 0000 		.long	.LVL14-.Ltext0
- 2152 01ba 0600      		.word	0x6
- 2153 01bc 68        		.byte	0x68
- 2154 01bd 93        		.byte	0x93
- 2155 01be 01        		.uleb128 0x1
- 2156 01bf 69        		.byte	0x69
- 2157 01c0 93        		.byte	0x93
- 2158 01c1 01        		.uleb128 0x1
- 2159 01c2 9E00 0000 		.long	.LVL14-.Ltext0
- 2160 01c6 4802 0000 		.long	.LFE7-.Ltext0
- 2161 01ca 0400      		.word	0x4
- 2162 01cc F3        		.byte	0xf3
- 2163 01cd 01        		.uleb128 0x1
- 2164 01ce 68        		.byte	0x68
- 2165 01cf 9F        		.byte	0x9f
- 2166 01d0 0000 0000 		.long	0
- 2167 01d4 0000 0000 		.long	0
- 2168               	.LLST5:
- 2169 01d8 A200 0000 		.long	.LVL15-.Ltext0
- 2170 01dc A600 0000 		.long	.LVL16-.Ltext0
- 2171 01e0 0100      		.word	0x1
- 2172 01e2 68        		.byte	0x68
- 2173 01e3 BC00 0000 		.long	.LVL17-.Ltext0
- 2174 01e7 BF00 0000 		.long	.LVL18-1-.Ltext0
- 2175 01eb 0100      		.word	0x1
- 2176 01ed 68        		.byte	0x68
- 2177 01ee 0000 0000 		.long	0
- 2178 01f2 0000 0000 		.long	0
- 2179               	.LLST6:
- 2180 01f6 E800 0000 		.long	.LVL25-.Ltext0
- 2181 01fa EF00 0000 		.long	.LVL26-1-.Ltext0
- 2182 01fe 0100      		.word	0x1
- 2183 0200 68        		.byte	0x68
- 2184 0201 0000 0000 		.long	0
- 2185 0205 0000 0000 		.long	0
- 2186               	.LLST7:
- 2187 0209 0401 0000 		.long	.LVL30-.Ltext0
- 2188 020d 1601 0000 		.long	.LVL31-.Ltext0
- 2189 0211 0600      		.word	0x6
- 2190 0213 9E        		.byte	0x9e
- 2191 0214 04        		.uleb128 0x4
- 2192 0215 0000 7A44 		.long	0x447a0000
- 2193 0219 0000 0000 		.long	0
- 2194 021d 0000 0000 		.long	0
- 2195               	.LLST8:
- 2196 0221 0401 0000 		.long	.LVL30-.Ltext0
- 2197 0225 1601 0000 		.long	.LVL31-.Ltext0
- 2198 0229 0600      		.word	0x6
- 2199 022b 9E        		.byte	0x9e
- 2200 022c 04        		.uleb128 0x4
- 2201 022d 0024 744B 		.long	0x4b742400
- 2202 0231 0000 0000 		.long	0
- 2203 0235 0000 0000 		.long	0
- 2204               	.LLST9:
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 46
+ 2192 0213 9E        		.byte	0x9e
+ 2193 0214 04        		.uleb128 0x4
+ 2194 0215 0000 7A44 		.long	0x447a0000
+ 2195 0219 0000 0000 		.long	0
+ 2196 021d 0000 0000 		.long	0
+ 2197               	.LLST8:
+ 2198 0221 0401 0000 		.long	.LVL30-.Ltext0
+ 2199 0225 1601 0000 		.long	.LVL31-.Ltext0
+ 2200 0229 0600      		.word	0x6
+ 2201 022b 9E        		.byte	0x9e
+ 2202 022c 04        		.uleb128 0x4
+ 2203 022d 0024 744B 		.long	0x4b742400
+ 2204 0231 0000 0000 		.long	0
+ 2205 0235 0000 0000 		.long	0
+ 2206               	.LLST9:
+ 2207 0239 0401 0000 		.long	.LVL30-.Ltext0
+ 2208 023d 1601 0000 		.long	.LVL31-.Ltext0
+ 2209 0241 0600      		.word	0x6
+ 2210 0243 0C        		.byte	0xc
+ 2211 0244 0024 F400 		.long	0xf42400
+ 2212 0248 9F        		.byte	0x9f
+ 2213 0249 0000 0000 		.long	0
+ 2214 024d 0000 0000 		.long	0
+ 2215               	.LLST10:
+ 2216 0251 D001 0000 		.long	.LVL56-.Ltext0
+ 2217 0255 F501 0000 		.long	.LVL58-1-.Ltext0
+ 2218 0259 2100      		.word	0x21
+ 2219 025b 08        		.byte	0x8
+ 2220 025c FF        		.byte	0xff
+ 2221 025d 80        		.byte	0x80
+ 2222 025e 00        		.sleb128 0
+ 2223 025f 08        		.byte	0x8
+ 2224 0260 FF        		.byte	0xff
+ 2225 0261 1A        		.byte	0x1a
+ 2226 0262 1C        		.byte	0x1c
+ 2227 0263 8C        		.byte	0x8c
+ 2228 0264 01        		.sleb128 1
+ 2229 0265 94        		.byte	0x94
+ 2230 0266 01        		.byte	0x1
+ 2231 0267 08        		.byte	0x8
+ 2232 0268 FF        		.byte	0xff
+ 2233 0269 1A        		.byte	0x1a
+ 2234 026a 1C        		.byte	0x1c
+ 2235 026b 8C        		.byte	0x8c
+ 2236 026c 02        		.sleb128 2
+ 2237 026d 94        		.byte	0x94
+ 2238 026e 01        		.byte	0x1
+ 2239 026f 08        		.byte	0x8
+ 2240 0270 FF        		.byte	0xff
+ 2241 0271 1A        		.byte	0x1a
+ 2242 0272 1C        		.byte	0x1c
+ 2243 0273 0A        		.byte	0xa
+ 2244 0274 0001      		.word	0x100
+ 2245 0276 14        		.byte	0x14
+ 2246 0277 14        		.byte	0x14
+ 2247 0278 1B        		.byte	0x1b
+ 2248 0279 1E        		.byte	0x1e
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 47
 
 
- 2205 0239 0401 0000 		.long	.LVL30-.Ltext0
- 2206 023d 1601 0000 		.long	.LVL31-.Ltext0
- 2207 0241 0600      		.word	0x6
- 2208 0243 0C        		.byte	0xc
- 2209 0244 0024 F400 		.long	0xf42400
- 2210 0248 9F        		.byte	0x9f
- 2211 0249 0000 0000 		.long	0
- 2212 024d 0000 0000 		.long	0
- 2213               	.LLST10:
- 2214 0251 D001 0000 		.long	.LVL56-.Ltext0
- 2215 0255 F501 0000 		.long	.LVL58-1-.Ltext0
- 2216 0259 2100      		.word	0x21
- 2217 025b 08        		.byte	0x8
- 2218 025c FF        		.byte	0xff
- 2219 025d 80        		.byte	0x80
- 2220 025e 00        		.sleb128 0
- 2221 025f 08        		.byte	0x8
- 2222 0260 FF        		.byte	0xff
- 2223 0261 1A        		.byte	0x1a
- 2224 0262 1C        		.byte	0x1c
- 2225 0263 8C        		.byte	0x8c
- 2226 0264 01        		.sleb128 1
- 2227 0265 94        		.byte	0x94
- 2228 0266 01        		.byte	0x1
- 2229 0267 08        		.byte	0x8
- 2230 0268 FF        		.byte	0xff
- 2231 0269 1A        		.byte	0x1a
- 2232 026a 1C        		.byte	0x1c
- 2233 026b 8C        		.byte	0x8c
- 2234 026c 02        		.sleb128 2
- 2235 026d 94        		.byte	0x94
- 2236 026e 01        		.byte	0x1
- 2237 026f 08        		.byte	0x8
- 2238 0270 FF        		.byte	0xff
- 2239 0271 1A        		.byte	0x1a
- 2240 0272 1C        		.byte	0x1c
- 2241 0273 0A        		.byte	0xa
- 2242 0274 0001      		.word	0x100
- 2243 0276 14        		.byte	0x14
- 2244 0277 14        		.byte	0x14
- 2245 0278 1B        		.byte	0x1b
- 2246 0279 1E        		.byte	0x1e
- 2247 027a 1C        		.byte	0x1c
- 2248 027b 9F        		.byte	0x9f
- 2249 027c 4002 0000 		.long	.LVL72-.Ltext0
- 2250 0280 4802 0000 		.long	.LFE7-.Ltext0
- 2251 0284 1F00      		.word	0x1f
- 2252 0286 08        		.byte	0x8
- 2253 0287 FF        		.byte	0xff
- 2254 0288 80        		.byte	0x80
- 2255 0289 00        		.sleb128 0
- 2256 028a 08        		.byte	0x8
- 2257 028b FF        		.byte	0xff
- 2258 028c 1A        		.byte	0x1a
- 2259 028d 1C        		.byte	0x1c
- 2260 028e 8C        		.byte	0x8c
- 2261 028f 01        		.sleb128 1
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 47
+ 2249 027a 1C        		.byte	0x1c
+ 2250 027b 9F        		.byte	0x9f
+ 2251 027c 4002 0000 		.long	.LVL72-.Ltext0
+ 2252 0280 4802 0000 		.long	.LFE7-.Ltext0
+ 2253 0284 1F00      		.word	0x1f
+ 2254 0286 08        		.byte	0x8
+ 2255 0287 FF        		.byte	0xff
+ 2256 0288 80        		.byte	0x80
+ 2257 0289 00        		.sleb128 0
+ 2258 028a 08        		.byte	0x8
+ 2259 028b FF        		.byte	0xff
+ 2260 028c 1A        		.byte	0x1a
+ 2261 028d 1C        		.byte	0x1c
+ 2262 028e 8C        		.byte	0x8c
+ 2263 028f 01        		.sleb128 1
+ 2264 0290 94        		.byte	0x94
+ 2265 0291 01        		.byte	0x1
+ 2266 0292 08        		.byte	0x8
+ 2267 0293 FF        		.byte	0xff
+ 2268 0294 1A        		.byte	0x1a
+ 2269 0295 1C        		.byte	0x1c
+ 2270 0296 82        		.byte	0x82
+ 2271 0297 00        		.sleb128 0
+ 2272 0298 08        		.byte	0x8
+ 2273 0299 FF        		.byte	0xff
+ 2274 029a 1A        		.byte	0x1a
+ 2275 029b 1C        		.byte	0x1c
+ 2276 029c 0A        		.byte	0xa
+ 2277 029d 0001      		.word	0x100
+ 2278 029f 14        		.byte	0x14
+ 2279 02a0 14        		.byte	0x14
+ 2280 02a1 1B        		.byte	0x1b
+ 2281 02a2 1E        		.byte	0x1e
+ 2282 02a3 1C        		.byte	0x1c
+ 2283 02a4 9F        		.byte	0x9f
+ 2284 02a5 0000 0000 		.long	0
+ 2285 02a9 0000 0000 		.long	0
+ 2286               	.LLST11:
+ 2287 02ad F001 0000 		.long	.LVL57-.Ltext0
+ 2288 02b1 4002 0000 		.long	.LVL72-.Ltext0
+ 2289 02b5 0100      		.word	0x1
+ 2290 02b7 61        		.byte	0x61
+ 2291 02b8 0000 0000 		.long	0
+ 2292 02bc 0000 0000 		.long	0
+ 2293               		.section	.debug_aranges,"",@progbits
+ 2294 0000 1C00 0000 		.long	0x1c
+ 2295 0004 0200      		.word	0x2
+ 2296 0006 0000 0000 		.long	.Ldebug_info0
+ 2297 000a 04        		.byte	0x4
+ 2298 000b 00        		.byte	0
+ 2299 000c 0000      		.word	0
+ 2300 000e 0000      		.word	0
+ 2301 0010 0000 0000 		.long	.Ltext0
+ 2302 0014 5402 0000 		.long	.Letext0-.Ltext0
+ 2303 0018 0000 0000 		.long	0
+ 2304 001c 0000 0000 		.long	0
+ 2305               		.section	.debug_line,"",@progbits
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 48
 
 
- 2262 0290 94        		.byte	0x94
- 2263 0291 01        		.byte	0x1
- 2264 0292 08        		.byte	0x8
- 2265 0293 FF        		.byte	0xff
- 2266 0294 1A        		.byte	0x1a
- 2267 0295 1C        		.byte	0x1c
- 2268 0296 82        		.byte	0x82
- 2269 0297 00        		.sleb128 0
- 2270 0298 08        		.byte	0x8
- 2271 0299 FF        		.byte	0xff
- 2272 029a 1A        		.byte	0x1a
- 2273 029b 1C        		.byte	0x1c
- 2274 029c 0A        		.byte	0xa
- 2275 029d 0001      		.word	0x100
- 2276 029f 14        		.byte	0x14
- 2277 02a0 14        		.byte	0x14
- 2278 02a1 1B        		.byte	0x1b
- 2279 02a2 1E        		.byte	0x1e
- 2280 02a3 1C        		.byte	0x1c
- 2281 02a4 9F        		.byte	0x9f
- 2282 02a5 0000 0000 		.long	0
- 2283 02a9 0000 0000 		.long	0
- 2284               	.LLST11:
- 2285 02ad F001 0000 		.long	.LVL57-.Ltext0
- 2286 02b1 4002 0000 		.long	.LVL72-.Ltext0
- 2287 02b5 0100      		.word	0x1
- 2288 02b7 61        		.byte	0x61
- 2289 02b8 0000 0000 		.long	0
- 2290 02bc 0000 0000 		.long	0
- 2291               		.section	.debug_aranges,"",@progbits
- 2292 0000 1C00 0000 		.long	0x1c
- 2293 0004 0200      		.word	0x2
- 2294 0006 0000 0000 		.long	.Ldebug_info0
- 2295 000a 04        		.byte	0x4
- 2296 000b 00        		.byte	0
- 2297 000c 0000      		.word	0
- 2298 000e 0000      		.word	0
- 2299 0010 0000 0000 		.long	.Ltext0
- 2300 0014 5402 0000 		.long	.Letext0-.Ltext0
- 2301 0018 0000 0000 		.long	0
- 2302 001c 0000 0000 		.long	0
- 2303               		.section	.debug_line,"",@progbits
- 2304               	.Ldebug_line0:
- 2305 0000 7902 0000 		.section	.debug_str,"MS",@progbits,1
- 2305      0200 8900 
- 2305      0000 0201 
- 2305      FB0E 0A00 
- 2305      0101 0101 
- 2306               	.LASF20:
- 2307 0000 7374 6174 		.string	"stat"
- 2307      00
- 2308               	.LASF38:
- 2309 0005 6463 6170 		.string	"dcap"
+ 2306               	.Ldebug_line0:
+ 2307 0000 7902 0000 		.section	.debug_str,"MS",@progbits,1
+ 2307      0200 8900 
+ 2307      0000 0201 
+ 2307      FB0E 0A00 
+ 2307      0101 0101 
+ 2308               	.LASF20:
+ 2309 0000 7374 6174 		.string	"stat"
  2309      00
- 2310               	.LASF23:
- 2311 000a 6261 746D 		.string	"batmon_init"
- 2311      6F6E 5F69 
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 48
+ 2310               	.LASF38:
+ 2311 0005 6463 6170 		.string	"dcap"
+ 2311      00
+ 2312               	.LASF23:
+ 2313 000a 6261 746D 		.string	"batmon_init"
+ 2313      6F6E 5F69 
+ 2313      6E69 7400 
+ 2314               	.LASF29:
+ 2315 0016 6932 635F 		.string	"i2c_start"
+ 2315      7374 6172 
+ 2315      7400 
+ 2316               	.LASF15:
+ 2317 0020 636F 6D6D 		.string	"command"
+ 2317      616E 6400 
+ 2318               	.LASF25:
+ 2319 0028 6932 635F 		.string	"i2c_write"
+ 2319      7772 6974 
+ 2319      6500 
+ 2320               	.LASF17:
+ 2321 0032 7374 6174 		.string	"status"
+ 2321      7573 00
+ 2322               	.LASF36:
+ 2323 0039 5F5F 6275 		.string	"__builtin_avr_delay_cycles"
+ 2323      696C 7469 
+ 2323      6E5F 6176 
+ 2323      725F 6465 
+ 2323      6C61 795F 
+ 2324               	.LASF14:
+ 2325 0054 7375 6243 		.string	"subCommandLSB"
+ 2325      6F6D 6D61 
+ 2325      6E64 4C53 
+ 2325      4200 
+ 2326               	.LASF16:
+ 2327 0062 6461 7461 		.string	"data"
+ 2327      00
+ 2328               	.LASF1:
+ 2329 0067 756E 7369 		.string	"unsigned char"
+ 2329      676E 6564 
+ 2329      2063 6861 
+ 2329      7200 
+ 2330               	.LASF7:
+ 2331 0075 6C6F 6E67 		.string	"long unsigned int"
+ 2331      2075 6E73 
+ 2331      6967 6E65 
+ 2331      6420 696E 
+ 2331      7400 
+ 2332               	.LASF21:
+ 2333 0087 7465 6D70 		.string	"temp"
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 49
 
 
- 2311      6E69 7400 
- 2312               	.LASF29:
- 2313 0016 6932 635F 		.string	"i2c_start"
- 2313      7374 6172 
- 2313      7400 
- 2314               	.LASF15:
- 2315 0020 636F 6D6D 		.string	"command"
- 2315      616E 6400 
- 2316               	.LASF25:
- 2317 0028 6932 635F 		.string	"i2c_write"
- 2317      7772 6974 
- 2317      6500 
- 2318               	.LASF17:
- 2319 0032 7374 6174 		.string	"status"
- 2319      7573 00
- 2320               	.LASF36:
- 2321 0039 5F5F 6275 		.string	"__builtin_avr_delay_cycles"
- 2321      696C 7469 
- 2321      6E5F 6176 
- 2321      725F 6465 
- 2321      6C61 795F 
- 2322               	.LASF14:
- 2323 0054 7375 6243 		.string	"subCommandLSB"
- 2323      6F6D 6D61 
- 2323      6E64 4C53 
- 2323      4200 
- 2324               	.LASF16:
- 2325 0062 6461 7461 		.string	"data"
- 2325      00
- 2326               	.LASF1:
- 2327 0067 756E 7369 		.string	"unsigned char"
- 2327      676E 6564 
- 2327      2063 6861 
- 2327      7200 
- 2328               	.LASF7:
- 2329 0075 6C6F 6E67 		.string	"long unsigned int"
- 2329      2075 6E73 
- 2329      6967 6E65 
- 2329      6420 696E 
- 2329      7400 
- 2330               	.LASF21:
- 2331 0087 7465 6D70 		.string	"temp"
- 2331      00
- 2332               	.LASF34:
- 2333 008c 5F64 656C 		.string	"_delay_ms"
- 2333      6179 5F6D 
- 2333      7300 
- 2334               	.LASF28:
- 2335 0096 6932 635F 		.string	"i2c_init"
- 2335      696E 6974 
- 2335      00
- 2336               	.LASF18:
- 2337 009f 6465 7674 		.string	"devt"
+ 2333      00
+ 2334               	.LASF34:
+ 2335 008c 5F64 656C 		.string	"_delay_ms"
+ 2335      6179 5F6D 
+ 2335      7300 
+ 2336               	.LASF6:
+ 2337 0096 7569 6E74 		.string	"uint32_t"
+ 2337      3332 5F74 
  2337      00
- 2338               	.LASF24:
- 2339 00a4 6261 746D 		.string	"batmon_soc"
- 2339      6F6E 5F73 
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 49
-
-
- 2339      6F63 00
- 2340               	.LASF33:
- 2341 00af 633A 5C75 		.string	"c:\\users\\rando\\documents\\elektroonika\\wep-reciever"
- 2341      7365 7273 
- 2341      5C72 616E 
- 2341      646F 5C64 
- 2341      6F63 756D 
- 2342               	.LASF12:
- 2343 00e2 646F 7562 		.string	"double"
- 2343      6C65 00
- 2344               	.LASF10:
- 2345 00e9 5F5F 746D 		.string	"__tmp"
- 2345      7000 
- 2346               	.LASF22:
- 2347 00ef 6E65 7763 		.string	"newcs"
- 2347      7300 
- 2348               	.LASF4:
- 2349 00f5 756E 7369 		.string	"unsigned int"
- 2349      676E 6564 
- 2349      2069 6E74 
- 2349      00
- 2350               	.LASF32:
- 2351 0102 7372 632F 		.string	"src/batmon.c"
- 2351      6261 746D 
- 2351      6F6E 2E63 
+ 2338               	.LASF28:
+ 2339 009f 6932 635F 		.string	"i2c_init"
+ 2339      696E 6974 
+ 2339      00
+ 2340               	.LASF18:
+ 2341 00a8 6465 7674 		.string	"devt"
+ 2341      00
+ 2342               	.LASF24:
+ 2343 00ad 6261 746D 		.string	"batmon_soc"
+ 2343      6F6E 5F73 
+ 2343      6F63 00
+ 2344               	.LASF12:
+ 2345 00b8 646F 7562 		.string	"double"
+ 2345      6C65 00
+ 2346               	.LASF10:
+ 2347 00bf 5F5F 746D 		.string	"__tmp"
+ 2347      7000 
+ 2348               	.LASF22:
+ 2349 00c5 6E65 7763 		.string	"newcs"
+ 2349      7300 
+ 2350               	.LASF4:
+ 2351 00cb 756E 7369 		.string	"unsigned int"
+ 2351      676E 6564 
+ 2351      2069 6E74 
  2351      00
- 2352               	.LASF9:
- 2353 010f 6C6F 6E67 		.string	"long long unsigned int"
- 2353      206C 6F6E 
- 2353      6720 756E 
- 2353      7369 676E 
- 2353      6564 2069 
- 2354               	.LASF2:
- 2355 0126 7569 6E74 		.string	"uint8_t"
- 2355      385F 7400 
- 2356               	.LASF31:
- 2357 012e 474E 5520 		.string	"GNU C11 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avr5 -g -O2 -funsigned-char -funsigned-bitf
- 2357      4331 3120 
- 2357      352E 342E 
- 2357      3020 2D6D 
- 2357      6E2D 666C 
- 2358               	.LASF19:
- 2359 01a9 7369 7A65 		.string	"sizetype"
- 2359      7479 7065 
- 2359      00
- 2360               	.LASF8:
- 2361 01b2 6C6F 6E67 		.string	"long long int"
- 2361      206C 6F6E 
- 2361      6720 696E 
- 2361      7400 
- 2362               	.LASF26:
- 2363 01c0 6932 635F 		.string	"i2c_stop"
- 2363      7374 6F70 
- 2363      00
- 2364               	.LASF11:
- 2365 01c9 5F5F 7469 		.string	"__ticks_dc"
- 2365      636B 735F 
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 50
+ 2352               	.LASF32:
+ 2353 00d8 7372 632F 		.string	"src/batmon.c"
+ 2353      6261 746D 
+ 2353      6F6E 2E63 
+ 2353      00
+ 2354               	.LASF9:
+ 2355 00e5 6C6F 6E67 		.string	"long long unsigned int"
+ 2355      206C 6F6E 
+ 2355      6720 756E 
+ 2355      7369 676E 
+ 2355      6564 2069 
+ 2356               	.LASF2:
+ 2357 00fc 7569 6E74 		.string	"uint8_t"
+ 2357      385F 7400 
+ 2358               	.LASF31:
+ 2359 0104 474E 5520 		.string	"GNU C11 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avr5 -g -O2 -funsigned-char -funsigned-bitf
+ 2359      4331 3120 
+ 2359      352E 342E 
+ 2359      3020 2D6D 
+ 2359      6E2D 666C 
+ 2360               	.LASF19:
+ 2361 017f 7369 7A65 		.string	"sizetype"
+ 2361      7479 7065 
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 50
 
 
- 2365      6463 00
- 2366               	.LASF3:
- 2367 01d4 7569 6E74 		.string	"uint16_t"
- 2367      3136 5F74 
- 2367      00
- 2368               	.LASF6:
- 2369 01dd 7569 6E74 		.string	"uint32_t"
- 2369      3332 5F74 
+ 2361      00
+ 2362               	.LASF8:
+ 2363 0188 6C6F 6E67 		.string	"long long int"
+ 2363      206C 6F6E 
+ 2363      6720 696E 
+ 2363      7400 
+ 2364               	.LASF26:
+ 2365 0196 6932 635F 		.string	"i2c_stop"
+ 2365      7374 6F70 
+ 2365      00
+ 2366               	.LASF11:
+ 2367 019f 5F5F 7469 		.string	"__ticks_dc"
+ 2367      636B 735F 
+ 2367      6463 00
+ 2368               	.LASF3:
+ 2369 01aa 7569 6E74 		.string	"uint16_t"
+ 2369      3136 5F74 
  2369      00
- 2370               	.LASF5:
- 2371 01e6 6C6F 6E67 		.string	"long int"
- 2371      2069 6E74 
- 2371      00
- 2372               	.LASF27:
- 2373 01ef 6932 635F 		.string	"i2c_read_multiple"
- 2373      7265 6164 
- 2373      5F6D 756C 
- 2373      7469 706C 
- 2373      6500 
- 2374               	.LASF0:
- 2375 0201 7369 676E 		.string	"signed char"
- 2375      6564 2063 
- 2375      6861 7200 
- 2376               	.LASF30:
- 2377 020d 6932 635F 		.string	"i2c_read_single"
- 2377      7265 6164 
- 2377      5F73 696E 
- 2377      676C 6500 
- 2378               	.LASF35:
- 2379 021d 5F5F 6D73 		.string	"__ms"
- 2379      00
- 2380               	.LASF37:
- 2381 0222 6261 746D 		.string	"batmon_config"
- 2381      6F6E 5F63 
- 2381      6F6E 6669 
- 2381      6700 
- 2382               	.LASF13:
- 2383 0230 7375 6243 		.string	"subCommandMSB"
- 2383      6F6D 6D61 
- 2383      6E64 4D53 
- 2383      4200 
- 2384               		.ident	"GCC: (AVR_8_bit_GNU_Toolchain_3.6.2_1778) 5.4.0"
-GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s 			page 51
+ 2370               	.LASF33:
+ 2371 01b3 633A 5C75 		.string	"c:\\users\\rando\\documents\\rvp\\firmware\\wep-reciever"
+ 2371      7365 7273 
+ 2371      5C72 616E 
+ 2371      646F 5C64 
+ 2371      6F63 756D 
+ 2372               	.LASF5:
+ 2373 01e6 6C6F 6E67 		.string	"long int"
+ 2373      2069 6E74 
+ 2373      00
+ 2374               	.LASF27:
+ 2375 01ef 6932 635F 		.string	"i2c_read_multiple"
+ 2375      7265 6164 
+ 2375      5F6D 756C 
+ 2375      7469 706C 
+ 2375      6500 
+ 2376               	.LASF0:
+ 2377 0201 7369 676E 		.string	"signed char"
+ 2377      6564 2063 
+ 2377      6861 7200 
+ 2378               	.LASF30:
+ 2379 020d 6932 635F 		.string	"i2c_read_single"
+ 2379      7265 6164 
+ 2379      5F73 696E 
+ 2379      676C 6500 
+ 2380               	.LASF35:
+ 2381 021d 5F5F 6D73 		.string	"__ms"
+ 2381      00
+ 2382               	.LASF37:
+ 2383 0222 6261 746D 		.string	"batmon_config"
+ 2383      6F6E 5F63 
+ 2383      6F6E 6669 
+ 2383      6700 
+ 2384               	.LASF13:
+ 2385 0230 7375 6243 		.string	"subCommandMSB"
+ 2385      6F6D 6D61 
+ 2385      6E64 4D53 
+ 2385      4200 
+ 2386               		.ident	"GCC: (AVR_8_bit_GNU_Toolchain_3.6.2_1778) 5.4.0"
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 51
+
+
+GAS LISTING C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s 			page 52
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 batmon.c
-C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s:2      *ABS*:0000003e __SP_H__
-C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s:3      *ABS*:0000003d __SP_L__
-C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s:4      *ABS*:0000003f __SREG__
-C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s:5      *ABS*:00000000 __tmp_reg__
-C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s:6      *ABS*:00000001 __zero_reg__
-C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s:12     .text:00000000 batmon_init
-C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s:138    .text:00000084 batmon_config
-C:\Users\Rando\AppData\Local\Temp\ccChmKx0.s:489    .text:00000248 batmon_soc
+C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s:2      *ABS*:0000003e __SP_H__
+C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s:3      *ABS*:0000003d __SP_L__
+C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s:4      *ABS*:0000003f __SREG__
+C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s:5      *ABS*:00000000 __tmp_reg__
+C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s:6      *ABS*:00000001 __zero_reg__
+C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s:12     .text:00000000 batmon_init
+C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s:138    .text:00000084 batmon_config
+C:\Users\Rando\AppData\Local\Temp\ccdQm2td.s:489    .text:00000248 batmon_soc
 
 UNDEFINED SYMBOLS
 i2c_init
